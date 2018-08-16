@@ -1,0 +1,37 @@
+!!! s
+%html
+  %head
+    %title LastOrder#Aデータ小屋
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+    .navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          = link_to "LastOrder#Aデータ小屋", root_path, :class => "navbar-brand"
+        .navbar-collapse.collapse#navbar-main
+          %ul.nav.navbar-nav
+            %li.dropdown
+              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+                個人データ
+                %span.caret
+              %ul.dropdown-menu{:aria-labelledby => "themes"}
+                %li.divider
+
+    .container
+      .row
+        .col-md-12
+          = yield
+      
+      %footer
+        %p
+          制作#{link_to "@white_mns", "http://twitter.com/white_mns"}
+          %br
+          = link_to "プライバシーポリシー", top_page_privacy_path
+          %br
+          ソースコード [#{link_to "解析部分", "https://github.com/white-mns/lo_parse"}] [#{link_to "表示部分", "https://github.com/white-mns/lo_rails"}]
+      = render 'layouts/analytics'
