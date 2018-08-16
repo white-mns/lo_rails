@@ -15,8 +15,8 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery
-//= require "jquery.cleanQuery"
 //= require bootstrap-sprockets
+//= require "jquery.cleanQuery"
 
 // 説明文の開閉処理
 function example_open(flg) {
