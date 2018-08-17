@@ -1,4 +1,4 @@
-%h1 Listing names
+%h1 名前一覧
 
 .bs-docs-section
   .row
@@ -68,22 +68,10 @@
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
             %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :name_form, 'Name'
+              %td= f.label :name_form, 'キャラクター名'
               %td.formNum= text_field_tag :name_form, @name_form
             %tr
-              %td= f.label :player_form, 'Player'
+              %td= f.label :player_form, 'プレイヤー名'
               %td.formNum= text_field_tag :player_form, @player_form
             %tr
               %td
@@ -101,10 +89,6 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :name, 'Name', default_order: :desc)
             %th= sort_link(@search, :player, 'Player', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
@@ -112,11 +96,7 @@
           - @names.each do |name|
             %tr
               %td= name.result_no
-              %td= name.p_name.name.html_safe + "(" + name.e_no + ")"
-              %td= name.result_no
-              %td= name.generate_no
-              %td= name.e_no
-              %td= name.name
+              %td= name.p_name.name.html_safe + "(" + sprintf("%d", name.e_no) + ")"
               %td= name.player
               %td
                 - file_name = sprintf("%d",name.e_no)

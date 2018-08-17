@@ -5,14 +5,15 @@ class NamesController < ApplicationController
   # GET /names
   def index
     param_set
-    @count	= Name.includes([:p_name]).search(params[:q]).result.count()
-    @search	= Name.includes([:p_name]).page(params[:page]).search(params[:q])
+    @count	= Name.search(params[:q]).result.count()
+    @search	= Name.page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @names	= @search.result.per(50)
   end
 
   def param_set
     @last_result = Name.maximum('result_no')
+    @last_result = @last_result ? @last_reslt : 1;
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
     
