@@ -100,7 +100,7 @@
           - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
             %tr
               %td= <%= singular_table_name %>.result_no
-              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + <%= singular_table_name %>.e_no + ")"
+              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + sprintf("%d", <%= singular_table_name %>.e_no) + ")"
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
               %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
