@@ -12,6 +12,23 @@
  *
  */
 
+
+$table-bg-accent: #fffaf0;
+$table-bg-hover: #fff0d0;
+$navbar-default-bg: #fff0d0;
+$navbar-default-link-color: #222;
+$navbar-default-link-hover-color: #222;
+$navbar-default-link-hover-bg: #ffcc88;
+$navbar-default-brand-hover-color: #222;
+$navbar-default-toggle-icon-bar-bg: #222;
+$table-bg-accent: #fffaf0;
+$table-bg-hover: #fff0d0;
+$pagination-hover-bg: #fff0d0;
+$pagination-active-bg: #fff6d8;
+$pagination-active-color: #222;
+$well-bg: #fffaf0;
+$breadcrumb-bg: #fffaf0;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -22,24 +39,17 @@ body { padding-top: 60px; }
 @import "bootswatch/flatly/bootswatch";
 
 $nav-color: #222;
-$nav-hover-back-color: #ccc;
+$nav-back-color: #fff0d0;
+$nav-hover-back-color: #ffcc88;
+$table-well-back-color: #fffaf0;
+$nav-well-border-color: #ffcc88;
 
 .navbar-default {
-    border-color: #888;
-    border-style: none none solid none;
+    border-color: $nav-well-border-color;
+    border-style: none none dashed none;
     border-width: 0.3em;
-    .navbar-brand {
-        color: $nav-color;
-    }
-    .navbar-nav {
-        > li > a {
-            color: $nav-color;
-        }
-        > li:hover {
-            background-color: $nav-hover-back-color;
-        }
-    }
 }
+
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     color: #fff;
     background-color: #007fff;
@@ -56,8 +66,9 @@ h2 {
 }
 
 .well-sm {
-    background-color: #fcfcfc;
-    border-color: #aaa;
+    border-color: $nav-well-border-color;
+    border-style: dashed;
+    border-width: 0.2em;
 }
 
 .formText {
