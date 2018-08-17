@@ -28,21 +28,23 @@
             %br
             「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
           %p.formText
-            現在地に「テネルメント」と入力　→　テネルメント、テネルメント城が検索結果にヒット
+            「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
             %br
-            現在地に「"テネルメント"」　→　完全一致で「テネルメント」のみ検索結果にヒット
+            「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
             %br
-            現在地に「-テネルメント」　→　「テネルメント」の単語を含まない目的が検索結果にヒット
+            「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
             %br
-            現在地に「-"テネルメント"」　→　完全一致で「テネルメント」以外が検索結果にヒット
+            「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
             %br
-            現在地に「テネルメント -"テネルメント"」　→　「テネルメント」が含まれる単語で完全一致の「テネルメント」以外がヒット。つまり、テネルメント城がヒットします。
+            「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
             %br
-            現在地に「プラインカルド城 中庭」　→　「プラインカルド城」と「中庭」の2つの単語が含まれる現在地が検索結果にヒット
+            「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
             %br
-            現在地に「プラインカルド城 北側/中庭」　→　「プラインカルド城」が含まれ、さらに「北側」か「中庭」の現在地が検索結果にヒット
+            「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
             %br
-            現在地に「-テネルメント -プラインカルド城」　→　「テネルメント」もしくは「プラインカルド」という単語が入った現在地を検索結果から除外
+            「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+            %br
+            「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
       = search_form_for @search do |f|
         %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
           %tbody
@@ -92,7 +94,7 @@
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
             %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
 <% end -%>
-            %th{:colspan =>"1"}
+            %th{:colspan =>"2"}
               結果リンク
         %tbody
           - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
@@ -103,6 +105,10 @@
               %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
               %td
-                - file_name = sprintf("%04d",<%= singular_table_name %>.e_no)
-                = link_to " 結果", "http://blacktea.sakura.ne.jp/mistofwar/RESULT/c"+file_name+".html", :target => "_blank"
+                - file_name = sprintf("%d",<%= singular_table_name %>.e_no)
+                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+              %td
+                - if <%= singular_table_name %>.result_no < @last_result
+                  - result_no_text = sprintf("%d",<%= singular_table_name %>.result_no)
+                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
       = paginate(@<%= plural_table_name %>)
