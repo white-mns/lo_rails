@@ -13,7 +13,6 @@ class NamesController < ApplicationController
 
   def param_set
     @last_result = Name.maximum('result_no')
-    @last_result = @last_result ? @last_reslt : 1;
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
     

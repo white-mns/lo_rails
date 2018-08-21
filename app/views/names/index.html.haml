@@ -89,14 +89,14 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :player, 'Player', default_order: :desc)
+            %th= sort_link(@search, :player, 'プレイヤー', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
           - @names.each do |name|
             %tr
               %td= name.result_no
-              %td= name.p_name.name.html_safe + "(" + sprintf("%d", name.e_no) + ")"
+              %td= name.name.html_safe + "(" + sprintf("%d", name.e_no) + ")"
               %td= name.player
               %td
                 - file_name = sprintf("%d",name.e_no)
