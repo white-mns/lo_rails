@@ -21,8 +21,6 @@ $navbar-default-link-hover-color: #222;
 $navbar-default-link-hover-bg: #ffcc88;
 $navbar-default-brand-hover-color: #222;
 $navbar-default-toggle-icon-bar-bg: #222;
-$table-bg-accent: #fffaf0;
-$table-bg-hover: #fff0d0;
 $pagination-hover-bg: #fff0d0;
 $pagination-active-bg: #fff6d8;
 $pagination-active-color: #222;
@@ -89,8 +87,8 @@ p.formNum {
 
 .example_select{
     padding-left: 0.5em;
-    border-left: solid #808080;
-    background-color: #f0f0f0;
+    border-left: solid $nav-well-border-color;
+    background-color: $nav-back-color;
 }
 .pointer{
     cursor:pointer;
