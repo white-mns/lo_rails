@@ -1,4 +1,4 @@
-%h1 Listing pgws
+%h1 潜在・属性・専門一覧元データ
 
 .bs-docs-section
   .row
@@ -71,15 +71,6 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :pgws_type_form, 'Pgws type'
               %td.formNum= text_field_tag :pgws_type_form, @pgws_type_form
             %tr
@@ -93,6 +84,7 @@
       = paginate(@pgws)
       %br
       ヒット数：#{ @count }件
+      これは#{ @a} です
       %br
       %br
       
@@ -101,9 +93,6 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
             %th= sort_link(@search, :pgws_type, 'Pgws type', default_order: :desc)
             %th= sort_link(@search, :pgws_name_id, 'Pgws name', default_order: :desc)
             %th{:colspan =>"2"}
@@ -113,11 +102,8 @@
             %tr
               %td= pgw.result_no
               %td= pgw.p_name.name.html_safe + "(" + sprintf("%d", pgw.e_no) + ")"
-              %td= pgw.result_no
-              %td= pgw.generate_no
-              %td= pgw.e_no
-              %td= pgw.pgws_type
-              %td= pgw.pgws_name_id
+              %td= @pgws_types[pgw.pgws_type]
+              %td= pgw.pgws_name.name if pgw.pgws_name
               %td
                 - file_name = sprintf("%d",pgw.e_no)
                 = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"

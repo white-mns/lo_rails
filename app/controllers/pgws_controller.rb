@@ -29,6 +29,8 @@ class PgwsController < ApplicationController
     @e_no_form = params["e_no_form"]
     @pgws_type_form = params["pgws_type_form"]
     @pgws_name_id_form = params["pgws_name_id_form"]
+    
+    @pgws_types = ["", "潜在1", "潜在2", "Good1", "Good2", "Weak1", "weak2", "専門1", "専門2"]
   end
   # GET /pgws/1
   #def show
