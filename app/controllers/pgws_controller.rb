@@ -10,6 +10,11 @@ class PgwsController < ApplicationController
     @search.sorts = 'id asc' if @search.sorts.empty?
     @pgws	= @search.result.per(50)
   end
+  
+  def graph
+    param_set
+    @search	= Pgw.includes([:p_name, :pgws_name]).search(params[:q])
+  end
 
   def param_set
     @last_result = Name.maximum('result_no')
