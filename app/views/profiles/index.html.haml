@@ -72,16 +72,16 @@
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
               %td= f.label :nickname_form, '愛称'
-              %td.formNum= text_field_tag :nickname_form, @nickname_form
+              %td.formText= text_field_tag :nickname_form, @nickname_form
             %tr
               %td= f.label :tone_form, '口調'
-              %td.formNum= text_field_tag :tone_form, @tone_form
+              %td.formText= text_field_tag :tone_form, @tone_form
             %tr
               %td= f.label :first_form, '一人称'
-              %td.formNum= text_field_tag :first_form, @first_form
+              %td.formText= text_field_tag :first_form, @first_form
             %tr
               %td= f.label :second_form, '二人称'
-              %td.formNum= text_field_tag :second_form, @second_form
+              %td.formText= text_field_tag :second_form, @second_form
             %tr
               %td
               %td= f.submit '検索する'
@@ -110,7 +110,7 @@
               %td= profile.result_no
               %td= profile.p_name.name.html_safe + "(" + sprintf("%d", profile.e_no) + ")"
               %td= profile.nickname
-              %td= profile.tone
+              %td= profile.tone_name.name if profile.tone_name
               %td= profile.first
               %td= profile.second
               %td

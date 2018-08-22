@@ -20,10 +20,10 @@ class ProfilesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "nickname", "nickname_form")
-    reference_number_assign(params, "tone", "tone_form")
-    reference_number_assign(params, "first", "first_form")
-    reference_number_assign(params, "second", "second_form")
+    reference_text_assign(params, "nickname", "nickname_form")
+    reference_text_assign(params, "tone_name_name", "tone_form")
+    reference_text_assign(params, "first", "first_form")
+    reference_text_assign(params, "second", "second_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
