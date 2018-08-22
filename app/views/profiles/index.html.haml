@@ -1,4 +1,4 @@
-%h1 Listing profiles
+%h1 キャラ設定プロフィール一覧
 
 .bs-docs-section
   .row
@@ -71,25 +71,16 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :nickname_form, 'Nickname'
+              %td= f.label :nickname_form, '愛称'
               %td.formNum= text_field_tag :nickname_form, @nickname_form
             %tr
-              %td= f.label :tone_form, 'Tone'
+              %td= f.label :tone_form, '口調'
               %td.formNum= text_field_tag :tone_form, @tone_form
             %tr
-              %td= f.label :first_form, 'First'
+              %td= f.label :first_form, '一人称'
               %td.formNum= text_field_tag :first_form, @first_form
             %tr
-              %td= f.label :second_form, 'Second'
+              %td= f.label :second_form, '二人称'
               %td.formNum= text_field_tag :second_form, @second_form
             %tr
               %td
@@ -107,13 +98,10 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :nickname, 'Nickname', default_order: :desc)
-            %th= sort_link(@search, :tone, 'Tone', default_order: :desc)
-            %th= sort_link(@search, :first, 'First', default_order: :desc)
-            %th= sort_link(@search, :second, 'Second', default_order: :desc)
+            %th= sort_link(@search, :nickname, '愛称', default_order: :desc)
+            %th= sort_link(@search, :tone, '口調', default_order: :desc)
+            %th= sort_link(@search, :first, '一人称', default_order: :desc)
+            %th= sort_link(@search, :second, '二人称', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -121,9 +109,6 @@
             %tr
               %td= profile.result_no
               %td= profile.p_name.name.html_safe + "(" + sprintf("%d", profile.e_no) + ")"
-              %td= profile.result_no
-              %td= profile.generate_no
-              %td= profile.e_no
               %td= profile.nickname
               %td= profile.tone
               %td= profile.first
