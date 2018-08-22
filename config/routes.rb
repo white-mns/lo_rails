@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :profiles
   resources :proper_names
   resources :names
+  get "profile/pgws", 	    :to => "profiles#pgws",	    :as => 'profile_pgws' 
   get 'top_page/privacy'
   root 'top_page#index'
 

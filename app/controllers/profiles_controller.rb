@@ -5,8 +5,16 @@ class ProfilesController < ApplicationController
   # GET /profiles
   def index
     param_set
-    @count	= Profile.includes([:p_name]).search(params[:q]).result.count()
-    @search	= Profile.includes([:p_name]).page(params[:page]).search(params[:q])
+    @count	= Profile.includes(:p_name, :tone_name).search(params[:q]).result.count()
+    @search	= Profile.includes(:p_name, :tone_name).page(params[:page]).search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @profiles	= @search.result.per(50)
+  end
+  
+  def pgws
+    param_set
+    @count	= Profile.includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).search(params[:q]).result.count()
+    @search	= Profile.includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @profiles	= @search.result.per(50)
   end
@@ -24,6 +32,14 @@ class ProfilesController < ApplicationController
     reference_text_assign(params, "tone_name_name", "tone_form")
     reference_text_assign(params, "first", "first_form")
     reference_text_assign(params, "second", "second_form")
+    reference_text_assign(params, "potential1_pgws_name_name", "potential1_form")
+    reference_text_assign(params, "potential2_pgws_name_name", "potential2_form")
+    reference_text_assign(params, "good1_pgws_name_name", "good1_form")
+    reference_text_assign(params, "good2_pgws_name_name", "good2_form")
+    reference_text_assign(params, "weak1_pgws_name_name", "weak1_form")
+    reference_text_assign(params, "weak2_pgws_name_name", "weak2_form")
+    reference_text_assign(params, "speciality1_pgws_name_name", "speciality1_form")
+    reference_text_assign(params, "speciality2_pgws_name_name", "speciality2_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
@@ -33,6 +49,14 @@ class ProfilesController < ApplicationController
     @tone_form = params["tone_form"]
     @first_form = params["first_form"]
     @second_form = params["second_form"]
+    @potential1_form = params["potential1_form"]
+    @potential2_form = params["potential2_form"]
+    @good1_form = params["good1_form"]
+    @good2_form = params["good2_form"]
+    @weak1_form = params["weak1_form"]
+    @weak2_form = params["weak2_form"]
+    @speciality1_form = params["speciality1_form"]
+    @speciality2_form = params["speciality2_form"]
   end
   # GET /profiles/1
   #def show
