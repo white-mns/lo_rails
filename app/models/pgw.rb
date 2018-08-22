@@ -3,7 +3,7 @@ class Pgw < ApplicationRecord
 	belongs_to :pgws_name,  :foreign_key => :pgws_name_id,    :primary_key => :proper_id, :class_name => 'ProperName'
     
   def self.pgws_type(type, params)
-    Pgw.includes(:p_name, :pgws_name).where(pgws_type: type).search(params[:q]).result
+    self.includes(:p_name, :pgws_name).where(pgws_type: type).search(params[:q]).result
   end
 
   def self.to_pgws_graph(column)
