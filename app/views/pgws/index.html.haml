@@ -71,11 +71,11 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :pgws_type_form, 'Pgws type'
-              %td.formNum= text_field_tag :pgws_type_form, @pgws_type_form
+              %td= f.label :pgws_type_form, '種別'
+              %td.formText= text_field_tag :pgws_type_form, @pgws_type_form
             %tr
-              %td= f.label :pgws_name_id_form, 'Pgws name'
-              %td.formNum= text_field_tag :pgws_name_id_form, @pgws_name_id_form
+              %td= f.label :pgws_name_id_form, '名前'
+              %td.formText= text_field_tag :pgws_name_id_form, @pgws_name_id_form
             %tr
               %td
               %td= f.submit '検索する'
@@ -84,7 +84,6 @@
       = paginate(@pgws)
       %br
       ヒット数：#{ @count }件
-      これは#{ @a} です
       %br
       %br
       
@@ -93,8 +92,8 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :pgws_type, 'Pgws type', default_order: :desc)
-            %th= sort_link(@search, :pgws_name_id, 'Pgws name', default_order: :desc)
+            %th= sort_link(@search, :pgws_type, '種別', default_order: :desc)
+            %th= sort_link(@search, :pgws_name_name, '名前', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
