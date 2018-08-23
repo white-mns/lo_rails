@@ -1,0 +1,238 @@
+%h1 Listing subjects
+
+.bs-docs-section
+  .row
+    .col-md-12
+      %p.formNum 
+        テキストフォームの隣に赤い破線がある項目は数値検索です。
+        %br
+        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+        %br
+        OR指定と範囲指定を同時に行うことはできません。
+      %p.formText
+        テキストフォームの隣に青い太線がある項目は文字検索です。
+        %br
+        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+        %br
+        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
+          入力例（クリックで開きます）
+          %br
+        %span#example_close.example_select.pointer{:style => "display:none;", :onclick => "example_open(false)"}
+          入力例（クリックで閉じます）
+          %br
+        #example{:style => "display:none;"}
+          %p.formNum
+            数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+            %br
+            「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+          %p.formText
+            「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+            %br
+            「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+            %br
+            「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+            %br
+            「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+            %br
+            「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+            %br
+            「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+            %br
+            「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+            %br
+            「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+            %br
+            「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+      = search_form_for @search do |f|
+        %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
+          %tbody
+          %tr
+            %td{:colspan => "2", :style => "cursor:pointer;"}
+              絞り込み検索
+              %span{:style => "font-size:80%"}
+                (クリックで開きます)
+
+        %table#search_table.table.table-striped.table-bordered.table-hover
+          %tbody
+            %tr
+              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+                絞り込み検索
+                %span{:style => "font-size:80%"}
+                  (クリックで閉じます)
+            %tr
+              %td= f.label :result_no_form, '更新回'
+              %td.formNum= text_field_tag :result_no_form, @result_no_form
+            %tr
+              %td= f.label :e_no_form, 'Eno'
+              %td.formNum= text_field_tag :e_no_form, @e_no_form
+            %tr
+              %td= f.label :p_name_form, 'キャラクター名'
+              %td.formText= text_field_tag :p_name_form, @p_name_form
+            %tr
+              %td= f.label :result_no_form, 'Result no'
+              %td.formNum= text_field_tag :result_no_form, @result_no_form
+            %tr
+              %td= f.label :generate_no_form, 'Generate no'
+              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+            %tr
+              %td= f.label :e_no_form, 'E no'
+              %td.formNum= text_field_tag :e_no_form, @e_no_form
+            %tr
+              %td= f.label :slash_form, 'Slash'
+              %td.formNum= text_field_tag :slash_form, @slash_form
+            %tr
+              %td= f.label :thrust_form, 'Thrust'
+              %td.formNum= text_field_tag :thrust_form, @thrust_form
+            %tr
+              %td= f.label :stroke_form, 'Stroke'
+              %td.formNum= text_field_tag :stroke_form, @stroke_form
+            %tr
+              %td= f.label :shot_form, 'Shot'
+              %td.formNum= text_field_tag :shot_form, @shot_form
+            %tr
+              %td= f.label :guard_form, 'Guard'
+              %td.formNum= text_field_tag :guard_form, @guard_form
+            %tr
+              %td= f.label :dance_form, 'Dance'
+              %td.formNum= text_field_tag :dance_form, @dance_form
+            %tr
+              %td= f.label :theft_form, 'Theft'
+              %td.formNum= text_field_tag :theft_form, @theft_form
+            %tr
+              %td= f.label :cooking_form, 'Cooking'
+              %td.formNum= text_field_tag :cooking_form, @cooking_form
+            %tr
+              %td= f.label :technology_form, 'Technology'
+              %td.formNum= text_field_tag :technology_form, @technology_form
+            %tr
+              %td= f.label :movement_form, 'Movement'
+              %td.formNum= text_field_tag :movement_form, @movement_form
+            %tr
+              %td= f.label :chemistry_form, 'Chemistry'
+              %td.formNum= text_field_tag :chemistry_form, @chemistry_form
+            %tr
+              %td= f.label :arithmetic_form, 'Arithmetic'
+              %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
+            %tr
+              %td= f.label :firee_form, 'Firee'
+              %td.formNum= text_field_tag :firee_form, @firee_form
+            %tr
+              %td= f.label :theology_form, 'Theology'
+              %td.formNum= text_field_tag :theology_form, @theology_form
+            %tr
+              %td= f.label :life_form, 'Life'
+              %td.formNum= text_field_tag :life_form, @life_form
+            %tr
+              %td= f.label :demonology_form, 'Demonology'
+              %td.formNum= text_field_tag :demonology_form, @demonology_form
+            %tr
+              %td= f.label :geography_form, 'Geography'
+              %td.formNum= text_field_tag :geography_form, @geography_form
+            %tr
+              %td= f.label :astronomy_form, 'Astronomy'
+              %td.formNum= text_field_tag :astronomy_form, @astronomy_form
+            %tr
+              %td= f.label :fengshui_form, 'Fengshui'
+              %td.formNum= text_field_tag :fengshui_form, @fengshui_form
+            %tr
+              %td= f.label :psychology_form, 'Psychology'
+              %td.formNum= text_field_tag :psychology_form, @psychology_form
+            %tr
+              %td= f.label :music_form, 'Music'
+              %td.formNum= text_field_tag :music_form, @music_form
+            %tr
+              %td= f.label :curse_form, 'Curse'
+              %td.formNum= text_field_tag :curse_form, @curse_form
+            %tr
+              %td= f.label :illusion_form, 'Illusion'
+              %td.formNum= text_field_tag :illusion_form, @illusion_form
+            %tr
+              %td= f.label :trick_form, 'Trick'
+              %td.formNum= text_field_tag :trick_form, @trick_form
+            %tr
+              %td
+              %td= f.submit '検索する'
+
+
+      = paginate(@subjects)
+      %br
+      ヒット数：#{ @count }件
+      %br
+      %br
+      
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+            %th= sort_link(@search, :slash, 'Slash', default_order: :desc)
+            %th= sort_link(@search, :thrust, 'Thrust', default_order: :desc)
+            %th= sort_link(@search, :stroke, 'Stroke', default_order: :desc)
+            %th= sort_link(@search, :shot, 'Shot', default_order: :desc)
+            %th= sort_link(@search, :guard, 'Guard', default_order: :desc)
+            %th= sort_link(@search, :dance, 'Dance', default_order: :desc)
+            %th= sort_link(@search, :theft, 'Theft', default_order: :desc)
+            %th= sort_link(@search, :cooking, 'Cooking', default_order: :desc)
+            %th= sort_link(@search, :technology, 'Technology', default_order: :desc)
+            %th= sort_link(@search, :movement, 'Movement', default_order: :desc)
+            %th= sort_link(@search, :chemistry, 'Chemistry', default_order: :desc)
+            %th= sort_link(@search, :arithmetic, 'Arithmetic', default_order: :desc)
+            %th= sort_link(@search, :firee, 'Firee', default_order: :desc)
+            %th= sort_link(@search, :theology, 'Theology', default_order: :desc)
+            %th= sort_link(@search, :life, 'Life', default_order: :desc)
+            %th= sort_link(@search, :demonology, 'Demonology', default_order: :desc)
+            %th= sort_link(@search, :geography, 'Geography', default_order: :desc)
+            %th= sort_link(@search, :astronomy, 'Astronomy', default_order: :desc)
+            %th= sort_link(@search, :fengshui, 'Fengshui', default_order: :desc)
+            %th= sort_link(@search, :psychology, 'Psychology', default_order: :desc)
+            %th= sort_link(@search, :music, 'Music', default_order: :desc)
+            %th= sort_link(@search, :curse, 'Curse', default_order: :desc)
+            %th= sort_link(@search, :illusion, 'Illusion', default_order: :desc)
+            %th= sort_link(@search, :trick, 'Trick', default_order: :desc)
+            %th{:colspan =>"2"}
+              結果リンク
+        %tbody
+          - @subjects.each do |subject|
+            %tr
+              %td= subject.result_no
+              %td= subject.p_name.name.html_safe + "(" + sprintf("%d", subject.e_no) + ")"
+              %td= subject.result_no
+              %td= subject.generate_no
+              %td= subject.e_no
+              %td= subject.slash
+              %td= subject.thrust
+              %td= subject.stroke
+              %td= subject.shot
+              %td= subject.guard
+              %td= subject.dance
+              %td= subject.theft
+              %td= subject.cooking
+              %td= subject.technology
+              %td= subject.movement
+              %td= subject.chemistry
+              %td= subject.arithmetic
+              %td= subject.firee
+              %td= subject.theology
+              %td= subject.life
+              %td= subject.demonology
+              %td= subject.geography
+              %td= subject.astronomy
+              %td= subject.fengshui
+              %td= subject.psychology
+              %td= subject.music
+              %td= subject.curse
+              %td= subject.illusion
+              %td= subject.trick
+              %td
+                - file_name = sprintf("%d",subject.e_no)
+                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+              %td
+                - if subject.result_no < @last_result
+                  - result_no_text = sprintf("%d",subject.result_no)
+                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+      = paginate(@subjects)
