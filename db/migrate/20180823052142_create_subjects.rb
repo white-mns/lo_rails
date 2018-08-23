@@ -16,7 +16,7 @@ class CreateSubjects < ActiveRecord::Migration[5.2]
       t.integer :movement
       t.integer :chemistry
       t.integer :arithmetic
-      t.integer :firee
+      t.integer :fire
       t.integer :theology
       t.integer :life
       t.integer :demonology

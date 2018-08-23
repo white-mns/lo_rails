@@ -116,8 +116,8 @@
               %td= f.label :arithmetic_form, 'Arithmetic'
               %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
             %tr
-              %td= f.label :firee_form, 'Firee'
-              %td.formNum= text_field_tag :firee_form, @firee_form
+              %td= f.label :fire_form, 'Fire'
+              %td.formNum= text_field_tag :fire_form, @fire_form
             %tr
               %td= f.label :theology_form, 'Theology'
               %td.formNum= text_field_tag :theology_form, @theology_form
@@ -182,7 +182,7 @@
             %th= sort_link(@search, :movement, 'Movement', default_order: :desc)
             %th= sort_link(@search, :chemistry, 'Chemistry', default_order: :desc)
             %th= sort_link(@search, :arithmetic, 'Arithmetic', default_order: :desc)
-            %th= sort_link(@search, :firee, 'Firee', default_order: :desc)
+            %th= sort_link(@search, :fire, 'Fire', default_order: :desc)
             %th= sort_link(@search, :theology, 'Theology', default_order: :desc)
             %th= sort_link(@search, :life, 'Life', default_order: :desc)
             %th= sort_link(@search, :demonology, 'Demonology', default_order: :desc)
@@ -216,7 +216,7 @@
               %td= subject.movement
               %td= subject.chemistry
               %td= subject.arithmetic
-              %td= subject.firee
+              %td= subject.fire
               %td= subject.theology
               %td= subject.life
               %td= subject.demonology

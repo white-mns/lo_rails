@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_051036) do
+ActiveRecord::Schema.define(version: 2018_08_23_052153) do
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_051036) do
     t.integer "movement"
     t.integer "chemistry"
     t.integer "arithmetic"
-    t.integer "firee"
+    t.integer "fire"
     t.integer "theology"
     t.integer "life"
     t.integer "demonology"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_051036) do
     t.index ["demonology"], name: "index_subjects_on_demonology"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["fengshui"], name: "index_subjects_on_fengshui"
-    t.index ["firee"], name: "index_subjects_on_firee"
+    t.index ["fire"], name: "index_subjects_on_fire"
     t.index ["geography"], name: "index_subjects_on_geography"
     t.index ["guard"], name: "index_subjects_on_guard"
     t.index ["illusion"], name: "index_subjects_on_illusion"

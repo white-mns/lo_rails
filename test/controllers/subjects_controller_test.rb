@@ -17,7 +17,7 @@ class SubjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create subject" do
     assert_difference('Subject.count') do
-      post subjects_url, params: { subject: { arithmetic: @subject.arithmetic, astronomy: @subject.astronomy, chemistry: @subject.chemistry, cooking: @subject.cooking, curse: @subject.curse, dance: @subject.dance, demonology: @subject.demonology, e_no: @subject.e_no, fengshui: @subject.fengshui, firee: @subject.firee, generate_no: @subject.generate_no, geography: @subject.geography, guard: @subject.guard, illusion: @subject.illusion, life: @subject.life, movement: @subject.movement, music: @subject.music, psychology: @subject.psychology, result_no: @subject.result_no, shot: @subject.shot, slash: @subject.slash, stroke: @subject.stroke, technology: @subject.technology, theft: @subject.theft, theology: @subject.theology, thrust: @subject.thrust, trick: @subject.trick } }
+      post subjects_url, params: { subject: { arithmetic: @subject.arithmetic, astronomy: @subject.astronomy, chemistry: @subject.chemistry, cooking: @subject.cooking, curse: @subject.curse, dance: @subject.dance, demonology: @subject.demonology, e_no: @subject.e_no, fengshui: @subject.fengshui, fire: @subject.fire, generate_no: @subject.generate_no, geography: @subject.geography, guard: @subject.guard, illusion: @subject.illusion, life: @subject.life, movement: @subject.movement, music: @subject.music, psychology: @subject.psychology, result_no: @subject.result_no, shot: @subject.shot, slash: @subject.slash, stroke: @subject.stroke, technology: @subject.technology, theft: @subject.theft, theology: @subject.theology, thrust: @subject.thrust, trick: @subject.trick } }
     end
 
     assert_redirected_to subject_url(Subject.last)
@@ -34,7 +34,7 @@ class SubjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update subject" do
-    patch subject_url(@subject), params: { subject: { arithmetic: @subject.arithmetic, astronomy: @subject.astronomy, chemistry: @subject.chemistry, cooking: @subject.cooking, curse: @subject.curse, dance: @subject.dance, demonology: @subject.demonology, e_no: @subject.e_no, fengshui: @subject.fengshui, firee: @subject.firee, generate_no: @subject.generate_no, geography: @subject.geography, guard: @subject.guard, illusion: @subject.illusion, life: @subject.life, movement: @subject.movement, music: @subject.music, psychology: @subject.psychology, result_no: @subject.result_no, shot: @subject.shot, slash: @subject.slash, stroke: @subject.stroke, technology: @subject.technology, theft: @subject.theft, theology: @subject.theology, thrust: @subject.thrust, trick: @subject.trick } }
+    patch subject_url(@subject), params: { subject: { arithmetic: @subject.arithmetic, astronomy: @subject.astronomy, chemistry: @subject.chemistry, cooking: @subject.cooking, curse: @subject.curse, dance: @subject.dance, demonology: @subject.demonology, e_no: @subject.e_no, fengshui: @subject.fengshui, fire: @subject.fire, generate_no: @subject.generate_no, geography: @subject.geography, guard: @subject.guard, illusion: @subject.illusion, life: @subject.life, movement: @subject.movement, music: @subject.music, psychology: @subject.psychology, result_no: @subject.result_no, shot: @subject.shot, slash: @subject.slash, stroke: @subject.stroke, technology: @subject.technology, theft: @subject.theft, theology: @subject.theology, thrust: @subject.thrust, trick: @subject.trick } }
     assert_redirected_to subject_url(@subject)
   end
 

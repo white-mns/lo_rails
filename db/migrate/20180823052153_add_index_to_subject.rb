@@ -13,7 +13,7 @@ class AddIndexToSubject < ActiveRecord::Migration[5.2]
     add_index :subjects, :movement
     add_index :subjects, :chemistry
     add_index :subjects, :arithmetic
-    add_index :subjects, :firee
+    add_index :subjects, :fire
     add_index :subjects, :theology
     add_index :subjects, :life
     add_index :subjects, :demonology

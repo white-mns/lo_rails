@@ -23,7 +23,7 @@ class SubjectsTest < ApplicationSystemTestCase
     fill_in "Demonology", with: @subject.demonology
     fill_in "E No", with: @subject.e_no
     fill_in "Fengshui", with: @subject.fengshui
-    fill_in "Firee", with: @subject.firee
+    fill_in "Fire", with: @subject.fire
     fill_in "Generate No", with: @subject.generate_no
     fill_in "Geography", with: @subject.geography
     fill_in "Guard", with: @subject.guard
@@ -60,7 +60,7 @@ class SubjectsTest < ApplicationSystemTestCase
     fill_in "Demonology", with: @subject.demonology
     fill_in "E No", with: @subject.e_no
     fill_in "Fengshui", with: @subject.fengshui
-    fill_in "Firee", with: @subject.firee
+    fill_in "Fire", with: @subject.fire
     fill_in "Generate No", with: @subject.generate_no
     fill_in "Geography", with: @subject.geography
     fill_in "Guard", with: @subject.guard

@@ -32,7 +32,7 @@ class SubjectsController < ApplicationController
     reference_number_assign(params, "movement", "movement_form")
     reference_number_assign(params, "chemistry", "chemistry_form")
     reference_number_assign(params, "arithmetic", "arithmetic_form")
-    reference_number_assign(params, "firee", "firee_form")
+    reference_number_assign(params, "fire", "fire_form")
     reference_number_assign(params, "theology", "theology_form")
     reference_number_assign(params, "life", "life_form")
     reference_number_assign(params, "demonology", "demonology_form")
@@ -61,7 +61,7 @@ class SubjectsController < ApplicationController
     @movement_form = params["movement_form"]
     @chemistry_form = params["chemistry_form"]
     @arithmetic_form = params["arithmetic_form"]
-    @firee_form = params["firee_form"]
+    @fire_form = params["fire_form"]
     @theology_form = params["theology_form"]
     @life_form = params["life_form"]
     @demonology_form = params["demonology_form"]
@@ -121,6 +121,6 @@ class SubjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def subject_params
-      params.require(:subject).permit(:result_no, :generate_no, :e_no, :slash, :thrust, :stroke, :shot, :guard, :dance, :theft, :cooking, :technology, :movement, :chemistry, :arithmetic, :firee, :theology, :life, :demonology, :geography, :astronomy, :fengshui, :psychology, :music, :curse, :illusion, :trick)
+      params.require(:subject).permit(:result_no, :generate_no, :e_no, :slash, :thrust, :stroke, :shot, :guard, :dance, :theft, :cooking, :technology, :movement, :chemistry, :arithmetic, :fire, :theology, :life, :demonology, :geography, :astronomy, :fengshui, :psychology, :music, :curse, :illusion, :trick)
     end
 end
