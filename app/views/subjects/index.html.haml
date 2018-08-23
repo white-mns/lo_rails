@@ -1,4 +1,4 @@
-%h1 Listing subjects
+%h1 学科一覧
 
 .bs-docs-section
   .row
@@ -57,103 +57,81 @@
         %table#search_table.table.table-striped.table-bordered.table-hover
           %tbody
             %tr
-              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+              %td{:colspan => "4", :style => "cursor:pointer;", :onclick => "search_open(false);"}
                 絞り込み検索
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
               %td= f.label :result_no_form, '更新回'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :slash_form, 'Slash'
+              %td= f.label :slash_form, '斬術'
               %td.formNum= text_field_tag :slash_form, @slash_form
-            %tr
-              %td= f.label :thrust_form, 'Thrust'
-              %td.formNum= text_field_tag :thrust_form, @thrust_form
-            %tr
-              %td= f.label :stroke_form, 'Stroke'
-              %td.formNum= text_field_tag :stroke_form, @stroke_form
-            %tr
-              %td= f.label :shot_form, 'Shot'
-              %td.formNum= text_field_tag :shot_form, @shot_form
-            %tr
-              %td= f.label :guard_form, 'Guard'
-              %td.formNum= text_field_tag :guard_form, @guard_form
-            %tr
-              %td= f.label :dance_form, 'Dance'
-              %td.formNum= text_field_tag :dance_form, @dance_form
-            %tr
-              %td= f.label :theft_form, 'Theft'
-              %td.formNum= text_field_tag :theft_form, @theft_form
-            %tr
-              %td= f.label :cooking_form, 'Cooking'
-              %td.formNum= text_field_tag :cooking_form, @cooking_form
-            %tr
-              %td= f.label :technology_form, 'Technology'
-              %td.formNum= text_field_tag :technology_form, @technology_form
-            %tr
-              %td= f.label :movement_form, 'Movement'
-              %td.formNum= text_field_tag :movement_form, @movement_form
-            %tr
-              %td= f.label :chemistry_form, 'Chemistry'
-              %td.formNum= text_field_tag :chemistry_form, @chemistry_form
-            %tr
-              %td= f.label :arithmetic_form, 'Arithmetic'
-              %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
-            %tr
-              %td= f.label :fire_form, 'Fire'
+              %td= f.label :fire_form, '火術'
               %td.formNum= text_field_tag :fire_form, @fire_form
             %tr
-              %td= f.label :theology_form, 'Theology'
+              %td= f.label :thrust_form, '突術'
+              %td.formNum= text_field_tag :thrust_form, @thrust_form
+              %td= f.label :theology_form, '神術'
               %td.formNum= text_field_tag :theology_form, @theology_form
             %tr
-              %td= f.label :life_form, 'Life'
+              %td= f.label :stroke_form, '打術'
+              %td.formNum= text_field_tag :stroke_form, @stroke_form
+              %td= f.label :life_form, '命術'
               %td.formNum= text_field_tag :life_form, @life_form
             %tr
-              %td= f.label :demonology_form, 'Demonology'
+              %td= f.label :shot_form, '射撃'
+              %td.formNum= text_field_tag :shot_form, @shot_form
+              %td= f.label :demonology_form, '冥術'
               %td.formNum= text_field_tag :demonology_form, @demonology_form
             %tr
-              %td= f.label :geography_form, 'Geography'
+              %td= f.label :guard_form, '護衛'
+              %td.formNum= text_field_tag :guard_form, @guard_form
+              %td= f.label :geography_form, '地学'
               %td.formNum= text_field_tag :geography_form, @geography_form
             %tr
-              %td= f.label :astronomy_form, 'Astronomy'
+              %td= f.label :dance_form, '舞踊'
+              %td.formNum= text_field_tag :dance_form, @dance_form
+              %td= f.label :astronomy_form, '天文学'
               %td.formNum= text_field_tag :astronomy_form, @astronomy_form
             %tr
-              %td= f.label :fengshui_form, 'Fengshui'
+              %td= f.label :theft_form, '盗術'
+              %td.formNum= text_field_tag :theft_form, @theft_form
+              %td= f.label :fengshui_form, '風水学'
               %td.formNum= text_field_tag :fengshui_form, @fengshui_form
             %tr
-              %td= f.label :psychology_form, 'Psychology'
+              %td= f.label :cooking_form, '料理'
+              %td.formNum= text_field_tag :cooking_form, @cooking_form
+              %td= f.label :psychology_form, '心理学'
               %td.formNum= text_field_tag :psychology_form, @psychology_form
             %tr
-              %td= f.label :music_form, 'Music'
+              %td= f.label :technology_form, '工芸学'
+              %td.formNum= text_field_tag :technology_form, @technology_form
+              %td= f.label :music_form, '音楽'
               %td.formNum= text_field_tag :music_form, @music_form
             %tr
-              %td= f.label :curse_form, 'Curse'
+              %td= f.label :movement_form, '機動学'
+              %td.formNum= text_field_tag :movement_form, @movement_form
+              %td= f.label :curse_form, '呪術'
               %td.formNum= text_field_tag :curse_form, @curse_form
             %tr
-              %td= f.label :illusion_form, 'Illusion'
+              %td= f.label :chemistry_form, '化学'
+              %td.formNum= text_field_tag :chemistry_form, @chemistry_form
+              %td= f.label :illusion_form, '幻術'
               %td.formNum= text_field_tag :illusion_form, @illusion_form
             %tr
-              %td= f.label :trick_form, 'Trick'
+              %td= f.label :arithmetic_form, '算術'
+              %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
+              %td= f.label :trick_form, '奇術'
               %td.formNum= text_field_tag :trick_form, @trick_form
             %tr
               %td
-              %td= f.submit '検索する'
+              %td{:colspan => "3"}= f.submit '検索する'
 
 
       = paginate(@subjects)
@@ -167,33 +145,30 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :slash, 'Slash', default_order: :desc)
-            %th= sort_link(@search, :thrust, 'Thrust', default_order: :desc)
-            %th= sort_link(@search, :stroke, 'Stroke', default_order: :desc)
-            %th= sort_link(@search, :shot, 'Shot', default_order: :desc)
-            %th= sort_link(@search, :guard, 'Guard', default_order: :desc)
-            %th= sort_link(@search, :dance, 'Dance', default_order: :desc)
-            %th= sort_link(@search, :theft, 'Theft', default_order: :desc)
-            %th= sort_link(@search, :cooking, 'Cooking', default_order: :desc)
-            %th= sort_link(@search, :technology, 'Technology', default_order: :desc)
-            %th= sort_link(@search, :movement, 'Movement', default_order: :desc)
-            %th= sort_link(@search, :chemistry, 'Chemistry', default_order: :desc)
-            %th= sort_link(@search, :arithmetic, 'Arithmetic', default_order: :desc)
-            %th= sort_link(@search, :fire, 'Fire', default_order: :desc)
-            %th= sort_link(@search, :theology, 'Theology', default_order: :desc)
-            %th= sort_link(@search, :life, 'Life', default_order: :desc)
-            %th= sort_link(@search, :demonology, 'Demonology', default_order: :desc)
-            %th= sort_link(@search, :geography, 'Geography', default_order: :desc)
-            %th= sort_link(@search, :astronomy, 'Astronomy', default_order: :desc)
-            %th= sort_link(@search, :fengshui, 'Fengshui', default_order: :desc)
-            %th= sort_link(@search, :psychology, 'Psychology', default_order: :desc)
-            %th= sort_link(@search, :music, 'Music', default_order: :desc)
-            %th= sort_link(@search, :curse, 'Curse', default_order: :desc)
-            %th= sort_link(@search, :illusion, 'Illusion', default_order: :desc)
-            %th= sort_link(@search, :trick, 'Trick', default_order: :desc)
+            %th= sort_link(@search, :slash,      '斬術', default_order: :desc)
+            %th= sort_link(@search, :thrust,     '突術', default_order: :desc)
+            %th= sort_link(@search, :stroke,     '打術', default_order: :desc)
+            %th= sort_link(@search, :shot,       '射撃', default_order: :desc)
+            %th= sort_link(@search, :guard,      '護衛', default_order: :desc)
+            %th= sort_link(@search, :dance,      '舞踊', default_order: :desc)
+            %th= sort_link(@search, :theft,      '盗術', default_order: :desc)
+            %th= sort_link(@search, :cooking,    '料理', default_order: :desc)
+            %th= sort_link(@search, :technology, '工芸', default_order: :desc)
+            %th= sort_link(@search, :movement,   '機動', default_order: :desc)
+            %th= sort_link(@search, :chemistry,  '化学', default_order: :desc)
+            %th= sort_link(@search, :arithmetic, '算術', default_order: :desc)
+            %th= sort_link(@search, :fire,       '火術', default_order: :desc)
+            %th= sort_link(@search, :theology,   '神術', default_order: :desc)
+            %th= sort_link(@search, :life,       '命術', default_order: :desc)
+            %th= sort_link(@search, :demonology, '冥術', default_order: :desc)
+            %th= sort_link(@search, :geography,  '地学', default_order: :desc)
+            %th= sort_link(@search, :astronomy,  '天文', default_order: :desc)
+            %th= sort_link(@search, :fengshui,   '風水', default_order: :desc)
+            %th= sort_link(@search, :psychology, '心理', default_order: :desc)
+            %th= sort_link(@search, :music,      '音楽', default_order: :desc)
+            %th= sort_link(@search, :curse,      '呪術', default_order: :desc)
+            %th= sort_link(@search, :illusion,   '幻術', default_order: :desc)
+            %th= sort_link(@search, :trick,      '奇術', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -201,9 +176,6 @@
             %tr
               %td= subject.result_no
               %td= subject.p_name.name.html_safe + "(" + sprintf("%d", subject.e_no) + ")"
-              %td= subject.result_no
-              %td= subject.generate_no
-              %td= subject.e_no
               %td= subject.slash
               %td= subject.thrust
               %td= subject.stroke
