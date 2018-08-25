@@ -5,8 +5,8 @@ class SubjectsController < ApplicationController
   # GET /subjects
   def index
     param_set
-    @count	= Subject.includes([:p_name]).search(params[:q]).result.count()
-    @search	= Subject.includes([:p_name]).page(params[:page]).search(params[:q])
+    @count	= Subject.includes(:p_name).search(params[:q]).result.count()
+    @search	= Subject.includes(:p_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @subjects	= @search.result.per(50)
   end

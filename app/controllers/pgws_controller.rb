@@ -5,8 +5,8 @@ class PgwsController < ApplicationController
   # GET /pgws
   def index
     param_set
-    @count	= Pgw.includes([:p_name, :pgws_name]).search(params[:q]).result.count()
-    @search	= Pgw.includes([:p_name, :pgws_name]).page(params[:page]).search(params[:q])
+    @count	= Pgw.includes(:p_name, :pgws_name).search(params[:q]).result.count()
+    @search	= Pgw.includes(:p_name, :pgws_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @pgws	= @search.result.per(50)
   end
