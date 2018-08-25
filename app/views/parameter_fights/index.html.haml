@@ -1,4 +1,4 @@
-%h1 Listing parameter_fights
+%h1 対戦パラメータ一覧
 
 .bs-docs-section
   .row
@@ -71,31 +71,22 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
               %td= f.label :rank_form, 'Rank'
               %td.formNum= text_field_tag :rank_form, @rank_form
             %tr
-              %td= f.label :exp_form, 'Exp'
+              %td= f.label :exp_form, 'EXP'
               %td.formNum= text_field_tag :exp_form, @exp_form
             %tr
-              %td= f.label :next_form, 'Next'
+              %td= f.label :next_form, 'NEXT'
               %td.formNum= text_field_tag :next_form, @next_form
             %tr
-              %td= f.label :mlp_form, 'Mlp'
+              %td= f.label :mlp_form, 'MLP'
               %td.formNum= text_field_tag :mlp_form, @mlp_form
             %tr
-              %td= f.label :mfp_form, 'Mfp'
+              %td= f.label :mfp_form, 'MFP'
               %td.formNum= text_field_tag :mfp_form, @mfp_form
             %tr
               %td
@@ -113,15 +104,12 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
             %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
             %th= sort_link(@search, :rank, 'Rank', default_order: :desc)
-            %th= sort_link(@search, :exp, 'Exp', default_order: :desc)
-            %th= sort_link(@search, :next, 'Next', default_order: :desc)
-            %th= sort_link(@search, :mlp, 'Mlp', default_order: :desc)
-            %th= sort_link(@search, :mfp, 'Mfp', default_order: :desc)
+            %th= sort_link(@search, :exp, 'EXP', default_order: :desc)
+            %th= sort_link(@search, :next, 'NEXT', default_order: :desc)
+            %th= sort_link(@search, :mlp, 'MLP', default_order: :desc)
+            %th= sort_link(@search, :mfp, 'MFP', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -129,9 +117,6 @@
             %tr
               %td= parameter_fight.result_no
               %td= parameter_fight.p_name.name.html_safe + "(" + sprintf("%d", parameter_fight.e_no) + ")"
-              %td= parameter_fight.result_no
-              %td= parameter_fight.generate_no
-              %td= parameter_fight.e_no
               %td= parameter_fight.lv
               %td= parameter_fight.rank
               %td= parameter_fight.exp
