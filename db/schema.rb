@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_25_035709) do
+ActiveRecord::Schema.define(version: 2018_08_25_041825) do
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 2018_08_25_035709) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+  end
+
+  create_table "parameter_controls", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "cond"
+    t.integer "day"
+    t.integer "mod"
+    t.integer "cvp"
+    t.integer "pvp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cond"], name: "index_parameter_controls_on_cond"
+    t.index ["cvp"], name: "index_parameter_controls_on_cvp"
+    t.index ["day"], name: "index_parameter_controls_on_day"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["mod"], name: "index_parameter_controls_on_mod"
+    t.index ["pvp"], name: "index_parameter_controls_on_pvp"
   end
 
   create_table "parameter_fights", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
