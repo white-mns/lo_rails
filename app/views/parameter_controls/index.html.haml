@@ -80,10 +80,10 @@
               %td= f.label :mod_form, 'Mod'
               %td.formText= text_field_tag :mod_form, @mod_form
             %tr
-              %td= f.label :cvp_form, 'Cvp'
+              %td= f.label :cvp_form, 'CVP'
               %td.formNum= text_field_tag :cvp_form, @cvp_form
             %tr
-              %td= f.label :pvp_form, 'Pvp'
+              %td= f.label :pvp_form, 'PVP'
               %td.formNum= text_field_tag :pvp_form, @pvp_form
             %tr
               %td
@@ -104,8 +104,8 @@
             %th= sort_link(@search, :cond, 'Cond', default_order: :desc)
             %th= sort_link(@search, :day, 'Day', default_order: :desc)
             %th= sort_link(@search, :mod, 'Mod', default_order: :desc)
-            %th= sort_link(@search, :cvp, 'Cvp', default_order: :desc)
-            %th= sort_link(@search, :pvp, 'Pvp', default_order: :desc)
+            %th= sort_link(@search, :cvp, 'CVP', default_order: :desc)
+            %th= sort_link(@search, :pvp, 'PVP', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
