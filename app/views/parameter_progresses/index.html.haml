@@ -1,0 +1,138 @@
+%h1 Listing parameter_progresses
+
+.bs-docs-section
+  .row
+    .col-md-12
+      %p.formNum 
+        テキストフォームの隣に赤い破線がある項目は数値検索です。
+        %br
+        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+        %br
+        OR指定と範囲指定を同時に行うことはできません。
+      %p.formText
+        テキストフォームの隣に青い太線がある項目は文字検索です。
+        %br
+        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+        %br
+        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
+          入力例（クリックで開きます）
+          %br
+        %span#example_close.example_select.pointer{:style => "display:none;", :onclick => "example_open(false)"}
+          入力例（クリックで閉じます）
+          %br
+        #example{:style => "display:none;"}
+          %p.formNum
+            数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+            %br
+            「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+          %p.formText
+            「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+            %br
+            「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+            %br
+            「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+            %br
+            「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+            %br
+            「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+            %br
+            「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+            %br
+            「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+            %br
+            「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+            %br
+            「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+      = search_form_for @search do |f|
+        %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
+          %tbody
+          %tr
+            %td{:colspan => "2", :style => "cursor:pointer;"}
+              絞り込み検索
+              %span{:style => "font-size:80%"}
+                (クリックで開きます)
+
+        %table#search_table.table.table-striped.table-bordered.table-hover
+          %tbody
+            %tr
+              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+                絞り込み検索
+                %span{:style => "font-size:80%"}
+                  (クリックで閉じます)
+            %tr
+              %td= f.label :result_no_form, '更新回'
+              %td.formNum= text_field_tag :result_no_form, @result_no_form
+            %tr
+              %td= f.label :e_no_form, 'Eno'
+              %td.formNum= text_field_tag :e_no_form, @e_no_form
+            %tr
+              %td= f.label :p_name_form, 'キャラクター名'
+              %td.formText= text_field_tag :p_name_form, @p_name_form
+            %tr
+              %td= f.label :result_no_form, 'Result no'
+              %td.formNum= text_field_tag :result_no_form, @result_no_form
+            %tr
+              %td= f.label :generate_no_form, 'Generate no'
+              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+            %tr
+              %td= f.label :e_no_form, 'E no'
+              %td.formNum= text_field_tag :e_no_form, @e_no_form
+            %tr
+              %td= f.label :tip_form, 'Tip'
+              %td.formNum= text_field_tag :tip_form, @tip_form
+            %tr
+              %td= f.label :tip_t_form, 'Tip t'
+              %td.formNum= text_field_tag :tip_t_form, @tip_t_form
+            %tr
+              %td= f.label :build_t_form, 'Build t'
+              %td.formNum= text_field_tag :build_t_form, @build_t_form
+            %tr
+              %td= f.label :mark_t_form, 'Mark t'
+              %td.formNum= text_field_tag :mark_t_form, @mark_t_form
+            %tr
+              %td
+              %td= f.submit '検索する'
+
+
+      = paginate(@parameter_progresses)
+      %br
+      ヒット数：#{ @count }件
+      %br
+      %br
+      
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+            %th= sort_link(@search, :tip, 'Tip', default_order: :desc)
+            %th= sort_link(@search, :tip_t, 'Tip t', default_order: :desc)
+            %th= sort_link(@search, :build_t, 'Build t', default_order: :desc)
+            %th= sort_link(@search, :mark_t, 'Mark t', default_order: :desc)
+            %th{:colspan =>"2"}
+              結果リンク
+        %tbody
+          - @parameter_progresses.each do |parameter_progress|
+            %tr
+              %td= parameter_progress.result_no
+              %td= parameter_progress.p_name.name.html_safe + "(" + sprintf("%d", parameter_progress.e_no) + ")"
+              %td= parameter_progress.result_no
+              %td= parameter_progress.generate_no
+              %td= parameter_progress.e_no
+              %td= parameter_progress.tip
+              %td= parameter_progress.tip_t
+              %td= parameter_progress.build_t
+              %td= parameter_progress.mark_t
+              %td
+                - file_name = sprintf("%d",parameter_progress.e_no)
+                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+              %td
+                - if parameter_progress.result_no < @last_result
+                  - result_no_text = sprintf("%d",parameter_progress.result_no)
+                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+      = paginate(@parameter_progresses)

@@ -1,0 +1,2 @@
+class ParameterProgress < ApplicationRecord
+end

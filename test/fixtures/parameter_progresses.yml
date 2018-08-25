@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  tip: 1
+  tip_t: 1
+  build_t: 1
+  mark_t: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  tip: 1
+  tip_t: 1
+  build_t: 1
+  mark_t: 1

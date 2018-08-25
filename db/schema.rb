@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_25_041825) do
+ActiveRecord::Schema.define(version: 2018_08_25_043550) do
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -64,6 +64,23 @@ ActiveRecord::Schema.define(version: 2018_08_25_041825) do
     t.index ["next"], name: "index_parameter_fights_on_next"
     t.index ["rank"], name: "index_parameter_fights_on_rank"
     t.index ["result_no"], name: "index_parameter_fights_on_result_no"
+  end
+
+  create_table "parameter_progresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "tip"
+    t.integer "tip_t"
+    t.integer "build_t"
+    t.integer "mark_t"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["build_t"], name: "index_parameter_progresses_on_build_t"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["mark_t"], name: "index_parameter_progresses_on_mark_t"
+    t.index ["tip"], name: "index_parameter_progresses_on_tip"
+    t.index ["tip_t"], name: "index_parameter_progresses_on_tip_t"
   end
 
   create_table "pgws", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

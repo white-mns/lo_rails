@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :parameter_progresses
   resources :parameter_controls
   resources :parameter_fights
   resources :subjects
