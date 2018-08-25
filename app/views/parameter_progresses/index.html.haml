@@ -1,4 +1,4 @@
-%h1 Listing parameter_progresses
+%h1 経過パラメータ一覧
 
 .bs-docs-section
   .row
@@ -71,25 +71,16 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :tip_form, 'Tip'
               %td.formNum= text_field_tag :tip_form, @tip_form
             %tr
-              %td= f.label :tip_t_form, 'Tip t'
+              %td= f.label :tip_t_form, 'Tip.T'
               %td.formNum= text_field_tag :tip_t_form, @tip_t_form
             %tr
-              %td= f.label :build_t_form, 'Build t'
+              %td= f.label :build_t_form, 'Build.T'
               %td.formNum= text_field_tag :build_t_form, @build_t_form
             %tr
-              %td= f.label :mark_t_form, 'Mark t'
+              %td= f.label :mark_t_form, 'Mark.T'
               %td.formNum= text_field_tag :mark_t_form, @mark_t_form
             %tr
               %td
@@ -107,13 +98,10 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
             %th= sort_link(@search, :tip, 'Tip', default_order: :desc)
-            %th= sort_link(@search, :tip_t, 'Tip t', default_order: :desc)
-            %th= sort_link(@search, :build_t, 'Build t', default_order: :desc)
-            %th= sort_link(@search, :mark_t, 'Mark t', default_order: :desc)
+            %th= sort_link(@search, :tip_t, 'Tip.T', default_order: :desc)
+            %th= sort_link(@search, :build_t, 'Build.T', default_order: :desc)
+            %th= sort_link(@search, :mark_t, 'Mark.T', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -121,9 +109,6 @@
             %tr
               %td= parameter_progress.result_no
               %td= parameter_progress.p_name.name.html_safe + "(" + sprintf("%d", parameter_progress.e_no) + ")"
-              %td= parameter_progress.result_no
-              %td= parameter_progress.generate_no
-              %td= parameter_progress.e_no
               %td= parameter_progress.tip
               %td= parameter_progress.tip_t
               %td= parameter_progress.build_t
