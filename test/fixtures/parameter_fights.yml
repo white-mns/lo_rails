@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  lv: 1
+  rank: 1
+  exp: 1
+  next: 1
+  mlp: 1
+  mfp: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  lv: 1
+  rank: 1
+  exp: 1
+  next: 1
+  mlp: 1
+  mfp: 1

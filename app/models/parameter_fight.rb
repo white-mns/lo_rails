@@ -1,0 +1,2 @@
+class ParameterFight < ApplicationRecord
+end

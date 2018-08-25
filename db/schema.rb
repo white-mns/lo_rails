@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_052153) do
+ActiveRecord::Schema.define(version: 2018_08_25_035709) do
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -21,6 +21,30 @@ ActiveRecord::Schema.define(version: 2018_08_23_052153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["e_no", "result_no", "generate_no"], name: "unique_eno"
+  end
+
+  create_table "parameter_fights", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "lv"
+    t.integer "rank"
+    t.integer "exp"
+    t.integer "next"
+    t.integer "mlp"
+    t.integer "mfp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["e_no"], name: "index_parameter_fights_on_e_no"
+    t.index ["exp"], name: "index_parameter_fights_on_exp"
+    t.index ["generate_no"], name: "index_parameter_fights_on_generate_no"
+    t.index ["lv"], name: "index_parameter_fights_on_lv"
+    t.index ["mfp"], name: "index_parameter_fights_on_mfp"
+    t.index ["mlp"], name: "index_parameter_fights_on_mlp"
+    t.index ["next"], name: "index_parameter_fights_on_next"
+    t.index ["rank"], name: "index_parameter_fights_on_rank"
+    t.index ["result_no"], name: "index_parameter_fights_on_result_no"
   end
 
   create_table "pgws", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

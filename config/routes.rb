@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :parameter_fights
   resources :subjects
   get "pgws/graph", 	    :to => "pgws#graph",	    :as => 'pgws_graph' 
   resources :pgws
