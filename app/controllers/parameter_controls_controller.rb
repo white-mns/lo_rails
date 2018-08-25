@@ -5,8 +5,8 @@ class ParameterControlsController < ApplicationController
   # GET /parameter_controls
   def index
     param_set
-    @count	= ParameterControl.includes([:p_name]).search(params[:q]).result.count()
-    @search	= ParameterControl.includes([:p_name]).page(params[:page]).search(params[:q])
+    @count	= ParameterControl.includes(:p_name, :cond_name).search(params[:q]).result.count()
+    @search	= ParameterControl.includes(:p_name, :cond_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @parameter_controls	= @search.result.per(50)
   end
@@ -22,7 +22,7 @@ class ParameterControlsController < ApplicationController
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "cond", "cond_form")
     reference_number_assign(params, "day", "day_form")
-    reference_number_assign(params, "mod", "mod_form")
+    reference_text_assign(params, "mod_name", "mod_form")
     reference_number_assign(params, "cvp", "cvp_form")
     reference_number_assign(params, "pvp", "pvp_form")
     

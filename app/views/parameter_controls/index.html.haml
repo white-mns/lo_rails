@@ -1,4 +1,4 @@
-%h1 Listing parameter_controls
+%h1 調整パラメータ一覧
 
 .bs-docs-section
   .row
@@ -71,15 +71,6 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :cond_form, 'Cond'
               %td.formNum= text_field_tag :cond_form, @cond_form
             %tr
@@ -87,7 +78,7 @@
               %td.formNum= text_field_tag :day_form, @day_form
             %tr
               %td= f.label :mod_form, 'Mod'
-              %td.formNum= text_field_tag :mod_form, @mod_form
+              %td.formText= text_field_tag :mod_form, @mod_form
             %tr
               %td= f.label :cvp_form, 'Cvp'
               %td.formNum= text_field_tag :cvp_form, @cvp_form
@@ -110,9 +101,6 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
             %th= sort_link(@search, :cond, 'Cond', default_order: :desc)
             %th= sort_link(@search, :day, 'Day', default_order: :desc)
             %th= sort_link(@search, :mod, 'Mod', default_order: :desc)
@@ -125,10 +113,7 @@
             %tr
               %td= parameter_control.result_no
               %td= parameter_control.p_name.name.html_safe + "(" + sprintf("%d", parameter_control.e_no) + ")"
-              %td= parameter_control.result_no
-              %td= parameter_control.generate_no
-              %td= parameter_control.e_no
-              %td= parameter_control.cond
+              %td= parameter_control.cond_name.name if parameter_control.cond
               %td= parameter_control.day
               %td= parameter_control.mod
               %td= parameter_control.cvp
