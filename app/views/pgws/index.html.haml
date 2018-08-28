@@ -104,10 +104,7 @@
               %td= @pgws_types[pgw.pgws_type]
               %td= pgw.pgws_name.name if pgw.pgws_name
               %td
-                - file_name = sprintf("%d",pgw.e_no)
-                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_link(pgw.e_no)
               %td
-                - if pgw.result_no < @last_result
-                  - result_no_text = sprintf("%d",pgw.result_no)
-                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_old_link(@last_result, pgw.e_no, pgw.result_no)
       = paginate(@pgws)

@@ -119,10 +119,7 @@
               %td= parameter_control.cvp
               %td= parameter_control.pvp
               %td
-                - file_name = sprintf("%d",parameter_control.e_no)
-                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_link(parameter_control.e_no)
               %td
-                - if parameter_control.result_no < @last_result
-                  - result_no_text = sprintf("%d",parameter_control.result_no)
-                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_old_link(@last_result, parameter_control.e_no, parameter_control.result_no)
       = paginate(@parameter_controls)

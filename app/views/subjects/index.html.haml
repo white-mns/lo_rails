@@ -201,10 +201,7 @@
               %td= subject.illusion
               %td= subject.trick
               %td
-                - file_name = sprintf("%d",subject.e_no)
-                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_link(subject.e_no)
               %td
-                - if subject.result_no < @last_result
-                  - result_no_text = sprintf("%d",subject.result_no)
-                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_old_link(@last_result, subject.e_no, subject.result_no)
       = paginate(@subjects)
