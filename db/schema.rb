@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_25_043550) do
+ActiveRecord::Schema.define(version: 2018_08_28_162339) do
+
+  create_table "characteristics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "str"
+    t.integer "vit"
+    t.integer "int"
+    t.integer "mnd"
+    t.integer "tec"
+    t.integer "eva"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["eva"], name: "index_characteristics_on_eva"
+    t.index ["int"], name: "index_characteristics_on_int"
+    t.index ["mnd"], name: "index_characteristics_on_mnd"
+    t.index ["str"], name: "index_characteristics_on_str"
+    t.index ["tec"], name: "index_characteristics_on_tec"
+    t.index ["vit"], name: "index_characteristics_on_vit"
+  end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
