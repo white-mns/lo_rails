@@ -1,4 +1,4 @@
-%h1 Listing characteristics
+%h1 特性一覧
 
 .bs-docs-section
   .row
@@ -71,31 +71,22 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :str_form, 'Str'
+              %td= f.label :str_form, '腕力'
               %td.formNum= text_field_tag :str_form, @str_form
             %tr
-              %td= f.label :vit_form, 'Vit'
+              %td= f.label :vit_form, '体力'
               %td.formNum= text_field_tag :vit_form, @vit_form
             %tr
-              %td= f.label :int_form, 'Int'
+              %td= f.label :int_form, '理力'
               %td.formNum= text_field_tag :int_form, @int_form
             %tr
-              %td= f.label :mnd_form, 'Mnd'
+              %td= f.label :mnd_form, '精神'
               %td.formNum= text_field_tag :mnd_form, @mnd_form
             %tr
-              %td= f.label :tec_form, 'Tec'
+              %td= f.label :tec_form, '器用'
               %td.formNum= text_field_tag :tec_form, @tec_form
             %tr
-              %td= f.label :eva_form, 'Eva'
+              %td= f.label :eva_form, '敏捷'
               %td.formNum= text_field_tag :eva_form, @eva_form
             %tr
               %td
@@ -113,15 +104,12 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :str, 'Str', default_order: :desc)
-            %th= sort_link(@search, :vit, 'Vit', default_order: :desc)
-            %th= sort_link(@search, :int, 'Int', default_order: :desc)
-            %th= sort_link(@search, :mnd, 'Mnd', default_order: :desc)
-            %th= sort_link(@search, :tec, 'Tec', default_order: :desc)
-            %th= sort_link(@search, :eva, 'Eva', default_order: :desc)
+            %th= sort_link(@search, :str, '腕力', default_order: :desc)
+            %th= sort_link(@search, :vit, '体力', default_order: :desc)
+            %th= sort_link(@search, :int, '理力', default_order: :desc)
+            %th= sort_link(@search, :mnd, '精神', default_order: :desc)
+            %th= sort_link(@search, :tec, '器用', default_order: :desc)
+            %th= sort_link(@search, :eva, '敏捷', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -129,9 +117,6 @@
             %tr
               %td= characteristic.result_no
               %td= characteristic.p_name.name.html_safe + "(" + sprintf("%d", characteristic.e_no) + ")"
-              %td= characteristic.result_no
-              %td= characteristic.generate_no
-              %td= characteristic.e_no
               %td= characteristic.str
               %td= characteristic.vit
               %td= characteristic.int
