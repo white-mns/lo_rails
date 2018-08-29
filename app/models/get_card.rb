@@ -1,0 +1,2 @@
+class GetCard < ApplicationRecord
+end

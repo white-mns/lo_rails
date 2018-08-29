@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_050918) do
+ActiveRecord::Schema.define(version: 2018_08_29_104038) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -64,6 +64,21 @@ ActiveRecord::Schema.define(version: 2018_08_29_050918) do
     t.index ["str"], name: "index_characteristics_on_str"
     t.index ["tec"], name: "index_characteristics_on_tec"
     t.index ["vit"], name: "index_characteristics_on_vit"
+  end
+
+  create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.string "name"
+    t.integer "card_id"
+    t.integer "get_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_get_cards_on_card_id"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["get_type"], name: "index_get_cards_on_get_type"
+    t.index ["name"], name: "index_get_cards_on_name"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

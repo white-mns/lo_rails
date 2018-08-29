@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :get_cards
   resources :cards
   resources :card_data
   resources :items
