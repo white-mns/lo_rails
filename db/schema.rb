@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_015937) do
+ActiveRecord::Schema.define(version: 2018_08_29_043115) do
+
+  create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "card_id"
+    t.string "name"
+    t.integer "lv"
+    t.integer "lp"
+    t.integer "fp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_data_on_card_id"
+    t.index ["fp"], name: "index_card_data_on_fp"
+    t.index ["lp"], name: "index_card_data_on_lp"
+    t.index ["lv"], name: "index_card_data_on_lv"
+    t.index ["name"], name: "index_card_data_on_name"
+  end
 
   create_table "characteristics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"

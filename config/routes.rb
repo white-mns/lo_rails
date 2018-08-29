@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :card_data
   resources :items
   resources :characteristics
   resources :parameter_progresses
