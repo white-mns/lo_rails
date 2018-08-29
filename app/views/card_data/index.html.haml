@@ -68,6 +68,9 @@
               %td= f.label :name_form, 'カード効果名'
               %td.formText= text_field_tag :name_form, @name_form
             %tr
+              %td= f.label :kind_form, '種類'
+              %td.formText= text_field_tag :kind_form, @kind_form
+            %tr
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
@@ -92,6 +95,7 @@
           %tr
             %th= sort_link(@search, :card_id, 'ID', default_order: :desc)
             %th= sort_link(@search, :name, '効果', default_order: :desc)
+            %th= sort_link(@search, :kind, '種類', default_order: :desc)
             %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
             %th= sort_link(@search, :lp, 'LP', default_order: :desc)
             %th= sort_link(@search, :fp, 'FP', default_order: :desc)
@@ -100,6 +104,7 @@
             %tr
               %td= card_datum.card_id
               %td= card_datum.name
+              %td= card_datum.kind_name.name if card_datum.kind_name
               %td= card_datum.lv
               %td= card_datum.lp
               %td= card_datum.fp
