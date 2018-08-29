@@ -1,4 +1,4 @@
-%h1 Listing items
+%h1 アイテム一覧
 
 .bs-docs-section
   .row
@@ -71,40 +71,31 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :i_no_form, 'I no'
+              %td= f.label :i_no_form, 'Ino'
               %td.formNum= text_field_tag :i_no_form, @i_no_form
             %tr
-              %td= f.label :name_form, 'Name'
-              %td.formNum= text_field_tag :name_form, @name_form
+              %td= f.label :name_form, 'アイテム名'
+              %td.formText= text_field_tag :name_form, @name_form
             %tr
-              %td= f.label :equip_form, 'Equip'
-              %td.formNum= text_field_tag :equip_form, @equip_form
+              %td= f.label :equip_form, '装備'
+              %td.formText= text_field_tag :equip_form, @equip_form
             %tr
-              %td= f.label :kind_form, 'Kind'
-              %td.formNum= text_field_tag :kind_form, @kind_form
+              %td= f.label :kind_form, '種類'
+              %td.formText= text_field_tag :kind_form, @kind_form
             %tr
-              %td= f.label :effect_form, 'Effect'
-              %td.formNum= text_field_tag :effect_form, @effect_form
+              %td= f.label :effect_form, '効果'
+              %td.formText= text_field_tag :effect_form, @effect_form
             %tr
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
-              %td= f.label :potency_form, 'Potency'
+              %td= f.label :potency_form, '効力(数字)'
               %td.formNum= text_field_tag :potency_form, @potency_form
             %tr
-              %td= f.label :potency_str_form, 'Potency str'
-              %td.formNum= text_field_tag :potency_str_form, @potency_str_form
+              %td= f.label :potency_str_form, '効力(文字)'
+              %td.formText= text_field_tag :potency_str_form, @potency_str_form
             %tr
-              %td= f.label :precision_form, 'Precision'
+              %td= f.label :precision_form, '精度'
               %td.formNum= text_field_tag :precision_form, @precision_form
             %tr
               %td
@@ -122,18 +113,14 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :i_no, 'I no', default_order: :desc)
-            %th= sort_link(@search, :name, 'Name', default_order: :desc)
-            %th= sort_link(@search, :equip, 'Equip', default_order: :desc)
-            %th= sort_link(@search, :kind, 'Kind', default_order: :desc)
-            %th= sort_link(@search, :effect, 'Effect', default_order: :desc)
+            %th= sort_link(@search, :i_no, 'Ino', default_order: :desc)
+            %th= sort_link(@search, :name, 'アイテム名', default_order: :desc)
+            %th= sort_link(@search, :equip, '装備', default_order: :desc)
+            %th= sort_link(@search, :kind, '種類', default_order: :desc)
+            %th= sort_link(@search, :effect, '効果', default_order: :desc)
             %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
-            %th= sort_link(@search, :potency, 'Potency', default_order: :desc)
-            %th= sort_link(@search, :potency_str, 'Potency str', default_order: :desc)
-            %th= sort_link(@search, :precision, 'Precision', default_order: :desc)
+            %th= sort_link(@search, :potency, '効力', default_order: :desc)
+            %th= sort_link(@search, :precision, '精度', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -141,18 +128,14 @@
             %tr
               %td= item.result_no
               %td= item.p_name.name.html_safe + "(" + sprintf("%d", item.e_no) + ")"
-              %td= item.result_no
-              %td= item.generate_no
-              %td= item.e_no
               %td= item.i_no
               %td= item.name
-              %td= item.equip
-              %td= item.kind
-              %td= item.effect
-              %td= item.lv
-              %td= item.potency
-              %td= item.potency_str
-              %td= item.precision
+              %td= item.equip_name.name if item.equip_name
+              %td= item.kind_name.name if item.kind_name
+              %td= item.effect_name.name if item.effect_name
+              %td= item.lv > 0 ? item.lv : "-"
+              %td= item.potency > -1 ? item.potency : "-"
+              %td= item.precision > -1 ? item.precision : "-"
               %td
                 = character_link(item.e_no)
               %td

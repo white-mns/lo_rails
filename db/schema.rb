@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_28_162339) do
+ActiveRecord::Schema.define(version: 2018_08_29_015937) do
 
   create_table "characteristics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -31,6 +31,32 @@ ActiveRecord::Schema.define(version: 2018_08_28_162339) do
     t.index ["str"], name: "index_characteristics_on_str"
     t.index ["tec"], name: "index_characteristics_on_tec"
     t.index ["vit"], name: "index_characteristics_on_vit"
+  end
+
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "i_no"
+    t.string "name"
+    t.integer "equip"
+    t.integer "kind"
+    t.integer "effect"
+    t.integer "lv"
+    t.integer "potency"
+    t.string "potency_str"
+    t.integer "precision"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "i_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["effect"], name: "index_items_on_effect"
+    t.index ["equip"], name: "index_items_on_equip"
+    t.index ["kind"], name: "index_items_on_kind"
+    t.index ["lv"], name: "index_items_on_lv"
+    t.index ["name"], name: "index_items_on_name"
+    t.index ["potency"], name: "index_items_on_potency"
+    t.index ["potency_str"], name: "index_items_on_potency_str"
+    t.index ["precision"], name: "index_items_on_precision"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

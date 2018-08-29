@@ -5,8 +5,8 @@ class ItemsController < ApplicationController
   # GET /items
   def index
     param_set
-    @count	= Item.includes(:p_name).search(params[:q]).result.count()
-    @search	= Item.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name).search(params[:q]).result.count()
+    @search	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @items	= @search.result.per(50)
   end
@@ -21,13 +21,13 @@ class ItemsController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "i_no", "i_no_form")
-    reference_number_assign(params, "name", "name_form")
-    reference_number_assign(params, "equip", "equip_form")
-    reference_number_assign(params, "kind", "kind_form")
-    reference_number_assign(params, "effect", "effect_form")
+    reference_text_assign(params, "name", "name_form")
+    reference_text_assign(params, "equip_name_name", "equip_form")
+    reference_text_assign(params, "kind_name_name", "kind_form")
+    reference_text_assign(params, "effect_name_name", "effect_form")
     reference_number_assign(params, "lv", "lv_form")
     reference_number_assign(params, "potency", "potency_form")
-    reference_number_assign(params, "potency_str", "potency_str_form")
+    reference_text_assign(params, "potency_str", "potency_str_form")
     reference_number_assign(params, "precision", "precision_form")
     
     @p_name_form = params["p_name_form"]
