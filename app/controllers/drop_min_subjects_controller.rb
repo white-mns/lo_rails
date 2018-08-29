@@ -5,8 +5,8 @@ class DropMinSubjectsController < ApplicationController
   # GET /drop_min_subjects
   def index
     param_set
-    @count	= DropMinSubject.includes(:p_name).search(params[:q]).result.count()
-    @search	= DropMinSubject.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= DropMinSubject.includes(card_data: :kind_name).search(params[:q]).result.count()
+    @search	= DropMinSubject.includes(card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @drop_min_subjects	= @search.result.per(50)
   end
@@ -16,7 +16,6 @@ class DropMinSubjectsController < ApplicationController
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
     
-    reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "card_id", "card_id_form")
@@ -44,8 +43,9 @@ class DropMinSubjectsController < ApplicationController
     reference_number_assign(params, "curse", "curse_form")
     reference_number_assign(params, "illusion", "illusion_form")
     reference_number_assign(params, "trick", "trick_form")
+    reference_text_assign(params, "card_data_name", "effect_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
     
-    @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @card_id_form = params["card_id_form"]
@@ -73,6 +73,8 @@ class DropMinSubjectsController < ApplicationController
     @curse_form = params["curse_form"]
     @illusion_form = params["illusion_form"]
     @trick_form = params["trick_form"]
+    @effect_form = params["effect_form"]
+    @lv_form = params["lv_form"]
   end
   # GET /drop_min_subjects/1
   #def show
