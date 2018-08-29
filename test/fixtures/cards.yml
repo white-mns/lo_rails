@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  s_no: 1
+  name: MyString
+  possession: 1
+  kind: 1
+  card_id: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  s_no: 1
+  name: MyString
+  possession: 1
+  kind: 1
+  card_id: 1

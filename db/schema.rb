@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_043115) do
+ActiveRecord::Schema.define(version: 2018_08_29_044159) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -25,6 +25,24 @@ ActiveRecord::Schema.define(version: 2018_08_29_043115) do
     t.index ["lp"], name: "index_card_data_on_lp"
     t.index ["lv"], name: "index_card_data_on_lv"
     t.index ["name"], name: "index_card_data_on_name"
+  end
+
+  create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "s_no"
+    t.string "name"
+    t.integer "possession"
+    t.integer "kind"
+    t.integer "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_cards_on_card_id"
+    t.index ["e_no", "s_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["kind"], name: "index_cards_on_kind"
+    t.index ["name"], name: "index_cards_on_name"
+    t.index ["possession"], name: "index_cards_on_possession"
   end
 
   create_table "characteristics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
