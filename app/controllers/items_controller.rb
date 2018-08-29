@@ -16,6 +16,14 @@ class ItemsController < ApplicationController
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
     
+    if params["kind_equip"] == "on" then
+        if params["kind_form"] then
+            params["kind_form"] = params["kind_form"].match(/器\/防具\/衣服\/装飾\/護符/) ? params["kind_form"] : params["kind_form"] + "器/防具/衣服/装飾/護符"
+        else
+            params["kind_form"] = "器/防具/衣服/装飾/護符"
+        end
+    end
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -30,6 +38,16 @@ class ItemsController < ApplicationController
     reference_text_assign(params, "potency_str", "potency_str_form")
     reference_number_assign(params, "precision", "precision_form")
     
+    if params["exist_effect"] == "on" then
+       if params[:q]["effect_name_name_not_cont"] then
+           params[:q]["effect_name_name_not_cont"] = (params[:q]["effect_name_name_not_cont"].match(/-/)) ? params[:q]["effect_name_name_not_cont"] : params[:q]["effect_name_name_not_cont"] + " -"
+       else
+           params[:q]["effect_name_name_not_cont"] = "-"
+       end
+    end
+    
+    
+    
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -43,6 +61,8 @@ class ItemsController < ApplicationController
     @potency_form = params["potency_form"]
     @potency_str_form = params["potency_str_form"]
     @precision_form = params["precision_form"]
+    @exist_effect = params["exist_effect"]
+    @kind_equip = params["kind_equip"]
   end
   # GET /items/1
   #def show
