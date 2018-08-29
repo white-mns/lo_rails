@@ -11,10 +11,22 @@ class DropMinSubjectsController < ApplicationController
     @drop_min_subjects	= @search.result.per(50)
   end
 
+  def select
+    @subjects = ["slash","thrust","stroke","shot","theft","dance","guard","cooking","technology","movement",
+		 "magic","theology","life","demonology","psychology","arithmetic","music","chemistry","geography","astronomy"]
+    @search	= DropMinSubject.page(params[:page]).search(params[:q])
+  end
+
   def param_set
+    @subjects = ["slash","thrust","stroke","shot","guard","dance","theft","cooking","technology","movement","chemistry","arithmetic",
+		 "fire","theology","life","demonology","geography","astronomy","fengshui","psychology","music","curse","illusion","trick"]
+
     @last_result = Name.maximum('result_no')
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
+    
+    set_min_1
+    set_marked
     
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -76,6 +88,32 @@ class DropMinSubjectsController < ApplicationController
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]
   end
+
+  def set_min_1
+    # 学科から獲得カードを探すページからの遷移処理
+
+    for subject in @subjects do
+        params[subject + "_form"] = params[subject + "_min_1"] ? "1~" : ""                                            # 選択した学科に最低値を入力
+        params[:q][:s] = (!params[:q][:s] && params[subject + "_min_1"]) == 'on' ? subject + '+asc' : params[:q][:s ] # 選択した学科でソート
+        params["marked_" + subject] = params[subject + "_min_1"] ? 'on' : params["marked_" + subject]                 # 選択した学科を色付けするよう指定
+
+    end
+
+    # 選択した学科以外は必要値を0にして除外
+    if params["other_0"] == 'on'then
+        for subject in @subjects do
+            params[subject + "_form"] = params[subject + "_min_1"] ? params[subject + "_form"] : "0"
+        end
+    end
+  end
+
+  def set_marked
+    @marked = {}
+    for subject in @subjects do
+        @marked[subject] = params["marked_" + subject] == 'on' ? 'on' : ""
+    end
+  end
+
   # GET /drop_min_subjects/1
   #def show
   #end

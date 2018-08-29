@@ -1,0 +1,100 @@
+%h1 学科から獲得カードを探す
+
+.bs-docs-section
+  .row
+    .col-md-12
+      %p チェックを入れた学科の鍛錬で獲得できるカードを検索します。
+      = search_form_for @search do |f|
+        %table#search_table.table.table-striped.table-bordered.table-hover
+          %tbody
+            %tr
+              %td
+                = check_box_tag :slash_min_1, @slash_min_1, @slash_min_1
+                = label_tag :slash_min_1, '斬術'
+              %td
+                = check_box_tag :fire_min_1, @fire_min_1, @fire_min_1
+                = label_tag :fire_min_1, '火術'
+            %tr
+              %td
+                = check_box_tag :thrust_min_1, @thrust_min_1, @thrust_min_1
+                = label_tag :thrust_min_1, '突術'
+              %td
+                = check_box_tag :theology_min_1, @theology_min_1, @theology_min_1
+                = label_tag :theology_min_1, '神術'
+            %tr
+              %td
+                = check_box_tag :stroke_min_1, @stroke_min_1, @stroke_min_1
+                = label_tag :stroke_min_1, '打術'
+              %td
+                = check_box_tag :life_min_1, @life_min_1, @life_min_1
+                = label_tag :life_min_1, '命術'
+            %tr
+              %td
+                = check_box_tag :shot_min_1, @shot_min_1, @shot_min_1
+                = label_tag :shot_min_1, '射撃'
+              %td
+                = check_box_tag :demonology_min_1, @demonology_min_1, @demonology_min_1
+                = label_tag :demonology_min_1, '冥術'
+            %tr
+              %td
+                = check_box_tag :guard_min_1, @guard_min_1, @guard_min_1
+                = label_tag :guard_min_1, '護衛'
+              %td
+                = check_box_tag :geography_min_1, @geography_min_1, @geography_min_1
+                = label_tag :geography_min_1, '地学'
+            %tr
+              %td
+                = check_box_tag :dance_min_1, @dance_min_1, @dance_min_1
+                = label_tag :dance_min_1, '舞踊'
+              %td
+                = check_box_tag :astronomy_min_1, @astronomy_min_1, @astronomy_min_1
+                = label_tag :astronomy_min_1, '天文学'
+            %tr
+              %td
+                = check_box_tag :theft_min_1, @theft_min_1, @theft_min_1
+                = label_tag :theft_min_1, '盗術'
+              %td
+                = check_box_tag :fengshui_min_1, @fengshui_min_1, @fengshui_min_1
+                = label_tag :fengshui_min_1, '風水学'
+            %tr
+              %td
+                = check_box_tag :cooking_min_1, @cooking_min_1, @cooking_min_1
+                = label_tag :cooking_min_1, '料理'
+              %td
+                = check_box_tag :psychology_min_1, @psychology_min_1, @psychology_min_1
+                = label_tag :psychology_min_1, '心理学'
+            %tr
+              %td
+                = check_box_tag :technology_min_1, @technology_min_1, @technology_min_1
+                = label_tag :technology_min_1, '工芸学'
+              %td
+                = check_box_tag :music_min_1, @music_min_1, @music_min_1
+                = label_tag :music_min_1, '音楽'
+            %tr
+              %td
+                = check_box_tag :movement_min_1, @movement_min_1, @movement_min_1
+                = label_tag :movement_min_1, '機動学'
+              %td
+                = check_box_tag :curse_min_1, @curse_min_1, @curse_min_1
+                = label_tag :curse_min_1, '呪術'
+            %tr
+              %td
+                = check_box_tag :chemistry_min_1, @chemistry_min_1, @chemistry_min_1
+                = label_tag :chemistry_min_1, '化学'
+              %td
+                = check_box_tag :illusion_min_1, @illusion_min_1, @illusion_min_1
+                = label_tag :illusion_min_1, '幻術'
+            %tr
+              %td
+                = check_box_tag :arithmetic_min_1, @arithmetic_min_1, @arithmetic_min_1
+                = label_tag :arithmetic_min_1, '算術'
+              %td
+                = check_box_tag :trick_min_1, @trick_min_1, @trick_min_1
+                = label_tag :trick_min_1, '奇術'
+            %tr
+              %td{:colspan=>"2"}
+                = check_box_tag :other_0, @other_0, @other_0
+                = label_tag :other_0, 'チェックした学科以外が必要なカードは除外'
+            %tr
+              %td
+              %td= f.submit '検索する'

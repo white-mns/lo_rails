@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  get "drop_min_subject/select", :to => "drop_min_subjects#select", :as => 'drop_min_subject_select' 
   resources :drop_min_subjects
-  get "get_card/drop_subjects", :to => "get_cards#drop_subjects", :as => 'drop_subjects' 
+  get "get_card/drop_subjects",  :to => "get_cards#drop_subjects", :as => 'drop_subjects' 
   resources :get_cards
   resources :cards
   resources :card_data
