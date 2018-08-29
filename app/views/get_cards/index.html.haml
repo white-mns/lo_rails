@@ -1,4 +1,4 @@
-%h1 Listing get_cards
+%h1 全取得カード一覧
 
 .bs-docs-section
   .row
@@ -57,40 +57,32 @@
         %table#search_table.table.table-striped.table-bordered.table-hover
           %tbody
             %tr
-              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+              %td{:colspan => "4", :style => "cursor:pointer;", :onclick => "search_open(false);"}
                 絞り込み検索
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
               %td= f.label :result_no_form, '更新回'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td= f.label :name_form, 'カード名'
+              %td.formText{:colspan => "3"}= text_field_tag :name_form, @name_form
             %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+              %td= f.label :effect_form, '効果'
+              %td.formText= text_field_tag :effect_form, @effect_form
+              %td= f.label :lv_form, 'Lv'
+              %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :name_form, 'Name'
-              %td.formNum= text_field_tag :name_form, @name_form
-            %tr
-              %td= f.label :card_id_form, 'Card'
-              %td.formNum= text_field_tag :card_id_form, @card_id_form
-            %tr
-              %td= f.label :get_type_form, 'Get type'
-              %td.formNum= text_field_tag :get_type_form, @get_type_form
+              %td= f.label :get_type_form, '取得方法'
+              %td.formNum{:colspan => "3"}= text_field_tag :get_type_form, @get_type_form
             %tr
               %td
-              %td= f.submit '検索する'
+              %td{:colspan => "3"}= f.submit '検索する'
 
 
       = paginate(@get_cards)
@@ -104,12 +96,10 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :name, 'Name', default_order: :desc)
-            %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
-            %th= sort_link(@search, :get_type, 'Get type', default_order: :desc)
+            %th= sort_link(@search, :name, 'カード名', default_order: :desc)
+            %th= sort_link(@search, :card_id, '効果', default_order: :desc)
+            %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+            %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -117,11 +107,9 @@
             %tr
               %td= get_card.result_no
               %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
-              %td= get_card.result_no
-              %td= get_card.generate_no
-              %td= get_card.e_no
               %td= get_card.name
-              %td= get_card.card_id
+              %td= card.card_data.name if card.card_data
+              %td= card.card_data.lv if card.card_data
               %td= get_card.get_type
               %td
                 = character_link(get_card.e_no)

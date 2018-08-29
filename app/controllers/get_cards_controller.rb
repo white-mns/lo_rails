@@ -5,8 +5,8 @@ class GetCardsController < ApplicationController
   # GET /get_cards
   def index
     param_set
-    @count	= GetCard.includes(:p_name).search(params[:q]).result.count()
-    @search	= GetCard.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= GetCard.includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
+    @search	= GetCard.includes(:p_name, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
   end
@@ -20,17 +20,19 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "name", "name_form")
-    reference_number_assign(params, "card_id", "card_id_form")
+    reference_text_assign(params, "name", "name_form")
+    reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "get_type", "get_type_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
     @name_form = params["name_form"]
-    @card_id_form = params["card_id_form"]
+    @effect_form = params["effect_form"]
     @get_type_form = params["get_type_form"]
+    @lv_form = params["lv_form"]
   end
   # GET /get_cards/1
   #def show
