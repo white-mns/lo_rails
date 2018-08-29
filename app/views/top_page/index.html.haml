@@ -27,7 +27,10 @@
         %li 取得カード
         %ul  
           %li= link_to "全取得カード一覧", get_cards_path
+          %br
+          %li= link_to "獲得カード＋学科一覧", drop_subjects_path
           %li= link_to "推定カード獲得条件一覧", drop_min_subjects_path
+          %li= link_to "学科から獲得カードを探す", drop_min_subject_select_path
 
     .well.well-sm
       %h2 更新履歴
