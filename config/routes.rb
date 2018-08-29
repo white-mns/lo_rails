@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :items
   resources :characteristics
   resources :parameter_progresses
   resources :parameter_controls

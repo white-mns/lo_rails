@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  i_no: 1
+  name: MyString
+  equip: 1
+  kind: 1
+  effect: 1
+  lv: 1
+  potency: 1
+  potency_str: MyString
+  precision: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  i_no: 1
+  name: MyString
+  equip: 1
+  kind: 1
+  effect: 1
+  lv: 1
+  potency: 1
+  potency_str: MyString
+  precision: 1
