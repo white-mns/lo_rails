@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :drop_min_subjects
+  get "get_card/drop_subjects", :to => "get_cards#drop_subjects", :as => 'drop_subjects' 
   resources :get_cards
   resources :cards
   resources :card_data
@@ -9,9 +10,9 @@ Rails.application.routes.draw do
   resources :parameter_controls
   resources :parameter_fights
   resources :subjects
-  get "pgws/graph", 	    :to => "pgws#graph",	    :as => 'pgws_graph' 
+  get "pgws/graph",   :to => "pgws#graph",    :as => 'pgws_graph' 
   resources :pgws
-  get "profile/pgws", 	    :to => "profiles#pgws",	    :as => 'profile_pgws' 
+  get "profile/pgws", :to => "profiles#pgws", :as => 'profile_pgws' 
   resources :profiles
   resources :proper_names
   resources :names
