@@ -1,4 +1,4 @@
-%h1 Listing card_data
+%h1 カード情報一覧
 
 .bs-docs-section
   .row
@@ -62,28 +62,19 @@
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
-              %td= f.label :result_no_form, '更新回'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :card_id_form, 'Card'
+              %td= f.label :card_id_form, 'ID'
               %td.formNum= text_field_tag :card_id_form, @card_id_form
             %tr
-              %td= f.label :name_form, 'Name'
-              %td.formNum= text_field_tag :name_form, @name_form
+              %td= f.label :name_form, 'カード効果名'
+              %td.formText= text_field_tag :name_form, @name_form
             %tr
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
-              %td= f.label :lp_form, 'Lp'
+              %td= f.label :lp_form, 'LP'
               %td.formNum= text_field_tag :lp_form, @lp_form
             %tr
-              %td= f.label :fp_form, 'Fp'
+              %td= f.label :fp_form, 'FP'
               %td.formNum= text_field_tag :fp_form, @fp_form
             %tr
               %td
@@ -99,27 +90,17 @@
       %table.table.table-striped.table-bordered.table-hover
         %thead
           %tr
-            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
-            %th= sort_link(@search, :name, 'Name', default_order: :desc)
+            %th= sort_link(@search, :card_id, 'ID', default_order: :desc)
+            %th= sort_link(@search, :name, '効果', default_order: :desc)
             %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
-            %th= sort_link(@search, :lp, 'Lp', default_order: :desc)
-            %th= sort_link(@search, :fp, 'Fp', default_order: :desc)
-            %th{:colspan =>"2"}
-              結果リンク
+            %th= sort_link(@search, :lp, 'LP', default_order: :desc)
+            %th= sort_link(@search, :fp, 'FP', default_order: :desc)
         %tbody
           - @card_data.each do |card_datum|
             %tr
-              %td= card_datum.result_no
-              %td= card_datum.p_name.name.html_safe + "(" + sprintf("%d", card_datum.e_no) + ")"
               %td= card_datum.card_id
               %td= card_datum.name
               %td= card_datum.lv
               %td= card_datum.lp
               %td= card_datum.fp
-              %td
-                = character_link(card_datum.e_no)
-              %td
-                = character_old_link(@last_result, card_datum.e_no, card_datum.result_no)
       = paginate(@card_data)

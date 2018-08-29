@@ -5,25 +5,21 @@ class CardDataController < ApplicationController
   # GET /card_data
   def index
     param_set
-    @count	= CardDatum.includes(:p_name).search(params[:q]).result.count()
-    @search	= CardDatum.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= CardDatum.search(params[:q]).result.count()
+    @search	= CardDatum.page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @card_data	= @search.result.per(50)
   end
 
   def param_set
-    @last_result = Name.maximum('result_no')
-    params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
     
-    reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "card_id", "card_id_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     reference_number_assign(params, "lv", "lv_form")
     reference_number_assign(params, "lp", "lp_form")
     reference_number_assign(params, "fp", "fp_form")
     
-    @p_name_form = params["p_name_form"]
     @card_id_form = params["card_id_form"]
     @name_form = params["name_form"]
     @lv_form = params["lv_form"]
