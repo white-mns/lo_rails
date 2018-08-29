@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_104038) do
+ActiveRecord::Schema.define(version: 2018_08_29_105843) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -64,6 +64,64 @@ ActiveRecord::Schema.define(version: 2018_08_29_104038) do
     t.index ["str"], name: "index_characteristics_on_str"
     t.index ["tec"], name: "index_characteristics_on_tec"
     t.index ["vit"], name: "index_characteristics_on_vit"
+  end
+
+  create_table "drop_min_subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "card_id"
+    t.integer "slash"
+    t.integer "thrust"
+    t.integer "stroke"
+    t.integer "shot"
+    t.integer "guard"
+    t.integer "dance"
+    t.integer "theft"
+    t.integer "cooking"
+    t.integer "technology"
+    t.integer "movement"
+    t.integer "chemistry"
+    t.integer "arithmetic"
+    t.integer "fire"
+    t.integer "theology"
+    t.integer "life"
+    t.integer "demonology"
+    t.integer "geography"
+    t.integer "astronomy"
+    t.integer "fengshui"
+    t.integer "psychology"
+    t.integer "music"
+    t.integer "curse"
+    t.integer "illusion"
+    t.integer "trick"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["arithmetic"], name: "index_drop_min_subjects_on_arithmetic"
+    t.index ["astronomy"], name: "index_drop_min_subjects_on_astronomy"
+    t.index ["card_id"], name: "index_drop_min_subjects_on_card_id"
+    t.index ["chemistry"], name: "index_drop_min_subjects_on_chemistry"
+    t.index ["cooking"], name: "index_drop_min_subjects_on_cooking"
+    t.index ["curse"], name: "index_drop_min_subjects_on_curse"
+    t.index ["dance"], name: "index_drop_min_subjects_on_dance"
+    t.index ["demonology"], name: "index_drop_min_subjects_on_demonology"
+    t.index ["fengshui"], name: "index_drop_min_subjects_on_fengshui"
+    t.index ["fire"], name: "index_drop_min_subjects_on_fire"
+    t.index ["geography"], name: "index_drop_min_subjects_on_geography"
+    t.index ["guard"], name: "index_drop_min_subjects_on_guard"
+    t.index ["illusion"], name: "index_drop_min_subjects_on_illusion"
+    t.index ["life"], name: "index_drop_min_subjects_on_life"
+    t.index ["movement"], name: "index_drop_min_subjects_on_movement"
+    t.index ["music"], name: "index_drop_min_subjects_on_music"
+    t.index ["psychology"], name: "index_drop_min_subjects_on_psychology"
+    t.index ["result_no", "generate_no"], name: "resultno_and_generateno"
+    t.index ["shot"], name: "index_drop_min_subjects_on_shot"
+    t.index ["slash"], name: "index_drop_min_subjects_on_slash"
+    t.index ["stroke"], name: "index_drop_min_subjects_on_stroke"
+    t.index ["technology"], name: "index_drop_min_subjects_on_technology"
+    t.index ["theft"], name: "index_drop_min_subjects_on_theft"
+    t.index ["theology"], name: "index_drop_min_subjects_on_theology"
+    t.index ["thrust"], name: "index_drop_min_subjects_on_thrust"
+    t.index ["trick"], name: "index_drop_min_subjects_on_trick"
   end
 
   create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

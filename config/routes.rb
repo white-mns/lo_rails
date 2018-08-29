@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :drop_min_subjects
   resources :get_cards
   resources :cards
   resources :card_data
