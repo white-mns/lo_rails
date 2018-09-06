@@ -208,8 +208,8 @@
               %td= get_card.subject.curse if get_card.subject
               %td= get_card.subject.illusion if get_card.subject
               %td= get_card.subject.trick if get_card.subject
-              %td= card.card_data.name if card.card_data
-              %td= card.card_data.lv if card.card_data
+              %td= get_card.card_data.name if get_card.card_data
+              %td= get_card.card_data.lv if get_card.card_data
               %td= get_card.get_type
               %td
                 = character_link(get_card.e_no)
