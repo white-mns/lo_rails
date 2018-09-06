@@ -79,7 +79,15 @@
               %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
               %td= f.label :get_type_form, '取得方法'
-              %td.formNum{:colspan => "3"}= text_field_tag :get_type_form, @get_type_form
+              %td{:colspan => "3"}
+                = check_box_tag :is_get_type_create, @is_get_type_create, @is_get_type_create
+                = label_tag :is_get_type_create, '生成'
+                　　
+                = check_box_tag :is_get_type_drop, @is_get_type_drop, @is_get_type_drop
+                = label_tag :is_get_type_drop, '獲得'
+                　　
+                = check_box_tag :is_get_type_failed, @is_get_type_failed, @is_get_type_failed
+                = label_tag :is_get_type_failed, '生成失敗'
             %tr
               %td
               %td{:colspan => "3"}= f.submit '検索する'
@@ -108,8 +116,8 @@
               %td= get_card.result_no
               %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
               %td= get_card.name
-              %td= card.card_data.name if card.card_data
-              %td= card.card_data.lv if card.card_data
+              %td= get_card.card_data.name if get_card.card_data
+              %td= get_card.card_data.lv if get_card.card_data
               %td= get_card.get_type
               %td
                 = character_link(get_card.e_no)

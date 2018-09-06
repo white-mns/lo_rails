@@ -13,6 +13,7 @@ class GetCardsController < ApplicationController
 
   def drop_subjects
     param_set
+    params[:q]["get_type_eq_any"]=[2] 
     @count	= GetCard.includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result.count()
     @search	= GetCard.includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
@@ -23,7 +24,8 @@ class GetCardsController < ApplicationController
     @last_result = Name.maximum('result_no')
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
-    
+    params[:q]["get_type_eq_any"] = []
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -57,6 +59,10 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "subject_illusion", "illusion_form")
     reference_number_assign(params, "subject_trick", "trick_form")
     
+    if params["is_get_type_failed"] == "on" then params[:q]["get_type_eq_any"].push(0) end
+    if params["is_get_type_create"] == "on" then params[:q]["get_type_eq_any"].push(1) end
+    if params["is_get_type_drop"]   == "on" then params[:q]["get_type_eq_any"].push(2) end
+    
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -89,6 +95,15 @@ class GetCardsController < ApplicationController
     @curse_form = params["curse_form"]
     @illusion_form = params["illusion_form"]
     @trick_form = params["trick_form"]
+    
+    @is_get_type_failed  = params["is_get_type_failed"]
+    @is_get_type_create  = params["is_get_type_create"]
+    @is_get_type_drop    = params["is_get_type_drop"]
+    if params[:q]["get_type_eq_any"].size == 0 then 
+        @is_get_type_failed  = "on"
+        @is_get_type_create  = "on"
+        @is_get_type_drop    = "on"
+    end
   end
   # GET /get_cards/1
   #def show
