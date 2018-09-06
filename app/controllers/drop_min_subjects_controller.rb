@@ -9,6 +9,8 @@ class DropMinSubjectsController < ApplicationController
     @search	= DropMinSubject.includes(card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @drop_min_subjects	= @search.result.per(50)
+    
+    if params["min_0_hidden"] || params["min_0_gray"] then set_open_flg end
   end
 
   def select
@@ -17,9 +19,16 @@ class DropMinSubjectsController < ApplicationController
     @search	= DropMinSubject.page(params[:page]).search(params[:q])
   end
 
+  def set_open_flg
+    @open = {}
+    @subjects.each do |subject, subject_name|
+      @open[subject] = @search.result.maximum(subject.to_sym) ? @search.result.maximum(subject.to_sym) : 0
+    end
+  end
+
   def param_set
-    @subjects = ["slash","thrust","stroke","shot","guard","dance","theft","cooking","technology","movement","chemistry","arithmetic",
-		 "fire","theology","life","demonology","geography","astronomy","fengshui","psychology","music","curse","illusion","trick"]
+    @subjects = [["slash","斬術"], ["thrust","突術"], ["stroke","打術"], ["shot","射撃"], ["guard","護衛"], ["dance","舞踊"], ["theft","盗術"], ["cooking","料理"], ["technology","工芸"], ["movement","機動"], ["chemistry","化学"], ["arithmetic","算術"],
+		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
 
     @last_result = Name.maximum('result_no')
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
@@ -87,21 +96,26 @@ class DropMinSubjectsController < ApplicationController
     @trick_form = params["trick_form"]
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]
+    
+    @min_0_hidden = params["min_0_hidden"]
+    @min_0_gray = params["min_0_gray"]
   end
 
   def set_min_1
     # 学科から獲得カードを探すページからの遷移処理
 
-    for subject in @subjects do
-        params[subject + "_form"] = params[subject + "_min_1"] ? "1~" : ""                                            # 選択した学科に最低値を入力
-        params[:q][:s] = (!params[:q][:s] && params[subject + "_min_1"]) == 'on' ? subject + '+asc' : params[:q][:s ] # 選択した学科でソート
-        params["marked_" + subject] = params[subject + "_min_1"] ? 'on' : params["marked_" + subject]                 # 選択した学科を色付けするよう指定
+    @subjects.each do |subject, subject_name|
+        if params[subject + "_min_1"] then
+            params[subject + "_form"] = "1~"   # 選択した学科に最低値を入力
+            params[:q][:s] = subject + ' asc'  # 選択した学科でソート
+            params["marked_" + subject] = 'on' # 選択した学科を色付けするよう指定
+        end
 
     end
 
     # 選択した学科以外は必要値を0にして除外
     if params["other_0"] == 'on'then
-        for subject in @subjects do
+        @subjects.each do |subject, subject_name|
             params[subject + "_form"] = params[subject + "_min_1"] ? params[subject + "_form"] : "0"
         end
     end
@@ -109,7 +123,7 @@ class DropMinSubjectsController < ApplicationController
 
   def set_marked
     @marked = {}
-    for subject in @subjects do
+    @subjects.each do |subject, subject_name|
         @marked[subject] = params["marked_" + subject] == 'on' ? 'on' : ""
     end
   end

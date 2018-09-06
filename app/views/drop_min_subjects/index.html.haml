@@ -137,8 +137,19 @@
               %td.formNum= text_field_tag :trick_form, @trick_form
             %tr
               %td
+              %td{:colspan => "3"}
+                = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
+                = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
+                = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
+            -@subjects.each do |subject, subject_name|
+              = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
+            %tr
+              %td
               %td{:colspan => "3"}= f.submit '検索する'
-
 
       = paginate(@drop_min_subjects)
       %br
@@ -150,60 +161,30 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :slash,      '斬術', default_order: :desc)
-            %th= sort_link(@search, :thrust,     '突術', default_order: :desc)
-            %th= sort_link(@search, :stroke,     '打術', default_order: :desc)
-            %th= sort_link(@search, :shot,       '射撃', default_order: :desc)
-            %th= sort_link(@search, :guard,      '護衛', default_order: :desc)
-            %th= sort_link(@search, :dance,      '舞踊', default_order: :desc)
-            %th= sort_link(@search, :theft,      '盗術', default_order: :desc)
-            %th= sort_link(@search, :cooking,    '料理', default_order: :desc)
-            %th= sort_link(@search, :technology, '工芸', default_order: :desc)
-            %th= sort_link(@search, :movement,   '機動', default_order: :desc)
-            %th= sort_link(@search, :chemistry,  '化学', default_order: :desc)
-            %th= sort_link(@search, :arithmetic, '算術', default_order: :desc)
-            %th= sort_link(@search, :fire,       '火術', default_order: :desc)
-            %th= sort_link(@search, :theology,   '神術', default_order: :desc)
-            %th= sort_link(@search, :life,       '命術', default_order: :desc)
-            %th= sort_link(@search, :demonology, '冥術', default_order: :desc)
-            %th= sort_link(@search, :geography,  '地学', default_order: :desc)
-            %th= sort_link(@search, :astronomy,  '天文', default_order: :desc)
-            %th= sort_link(@search, :fengshui,   '風水', default_order: :desc)
-            %th= sort_link(@search, :psychology, '心理', default_order: :desc)
-            %th= sort_link(@search, :music,      '音楽', default_order: :desc)
-            %th= sort_link(@search, :curse,      '呪術', default_order: :desc)
-            %th= sort_link(@search, :illusion,   '幻術', default_order: :desc)
-            %th= sort_link(@search, :trick,      '奇術', default_order: :desc)
+            -@subjects.each do |subject, subject_name|
+              - if params["min_0_hidden"] && @open[subject] == 0
+              - else
+                - if params["min_0_gray"] && @open[subject] == 0
+                  %th{:style => "background-color: #aaa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
+                - elsif @marked[subject] == "on"
+                  %th{:style => "background-color: #faa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
+                - else
+                  %th= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
             %th= sort_link(@search, :card_id, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
         %tbody
           - @drop_min_subjects.each do |drop_min_subject|
             %tr
               %td= drop_min_subject.result_no
-              %td= drop_min_subject.slash
-              %td= drop_min_subject.thrust
-              %td= drop_min_subject.stroke
-              %td= drop_min_subject.shot
-              %td= drop_min_subject.guard
-              %td= drop_min_subject.dance
-              %td= drop_min_subject.theft
-              %td= drop_min_subject.cooking
-              %td= drop_min_subject.technology
-              %td= drop_min_subject.movement
-              %td= drop_min_subject.chemistry
-              %td= drop_min_subject.arithmetic
-              %td= drop_min_subject.fire
-              %td= drop_min_subject.theology
-              %td= drop_min_subject.life
-              %td= drop_min_subject.demonology
-              %td= drop_min_subject.geography
-              %td= drop_min_subject.astronomy
-              %td= drop_min_subject.fengshui
-              %td= drop_min_subject.psychology
-              %td= drop_min_subject.music
-              %td= drop_min_subject.curse
-              %td= drop_min_subject.illusion
-              %td= drop_min_subject.trick
+              -@subjects.each do |subject, subject_name|
+                - if params["min_0_hidden"] && @open[subject] == 0
+                - else
+                  - if params["min_0_gray"] && @open[subject] == 0
+                    %td{:style => "background-color: #aaa;"}= drop_min_subject[subject]
+                  - elsif @marked[subject] == "on"
+                    %td{:style => "background-color: #faa;"}= drop_min_subject[subject]
+                  - else
+                    %td= drop_min_subject[subject]
               %td= drop_min_subject.card_data.name if drop_min_subject.card_data
               %td= drop_min_subject.card_data.lv   if drop_min_subject.card_data
       = paginate(@drop_min_subjects)
