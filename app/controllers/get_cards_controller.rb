@@ -25,7 +25,7 @@ class GetCardsController < ApplicationController
   def set_open_flg
     @open = {}
     @subjects.each do |subject, subject_name|
-      @open[subject] = @search.result.maximum(subject.to_sym) ? @search.result.maximum(subject.to_sym) : 0
+      @open[subject] = @search.result.maximum("subjects."+subject) ? @search.result.maximum("subjects."+subject) : 0
     end
   end
 
