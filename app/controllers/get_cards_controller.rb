@@ -19,11 +19,11 @@ class GetCardsController < ApplicationController
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
     
-    @open = {}
     if params["min_0_hidden"] || params["min_0_gray"] then set_open_flg end
   end
 
   def set_open_flg
+    @open = {}
     @subjects.each do |subject, subject_name|
       @open[subject] = @search.result.maximum(subject.to_sym) ? @search.result.maximum(subject.to_sym) : 0
     end

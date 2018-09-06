@@ -161,10 +161,10 @@
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
             -@subjects.each do |subject, subject_name|
-              - if params["min_0_hidden"] && @open[subject] == 0 then
+              - if params["min_0_hidden"] && @open[subject] == 0
               - else
-                - if params["min_0_gray"] && @open[subject] == 0 then
-                  %th{:style => "background-color: #aaa;"}= sort_link(@search, ("subject_"+subject + "×").to_sym,      subject_name, default_order: :desc)
+                - if params["min_0_gray"] && @open[subject] == 0
+                  %th{:style => "background-color: #aaa;"}= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
                 - else
                   %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
             %th= sort_link(@search, :card_id, '効果', default_order: :desc)
@@ -178,9 +178,9 @@
               %td= get_card.result_no
               %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
               -@subjects.each do |subject, subject_name|
-                - if params["min_0_hidden"] && @open[subject] == 0 then
+                - if params["min_0_hidden"] && @open[subject] == 0
                 - else
-                  - if params["min_0_gray"] && @open[subject] == 0 then
+                  - if params["min_0_gray"] && @open[subject] == 0
                     %td{:style => "background-color: #aaa;"}= get_card.subject[subject] if get_card.subject
                   - else
                     %td= get_card.subject[subject] if get_card.subject
