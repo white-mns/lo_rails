@@ -18,9 +18,21 @@ class GetCardsController < ApplicationController
     @search	= GetCard.includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
+    
+    @open = {}
+    if params["min_0_hidden"] || params["min_0_gray"] then set_open_flg end
+  end
+
+  def set_open_flg
+    @subjects.each do |subject, subject_name|
+      @open[subject] = @search.result.maximum(subject.to_sym) ? @search.result.maximum(subject.to_sym) : 0
+    end
   end
 
   def param_set
+    @subjects = [["slash","斬術"], ["thrust","突術"], ["stroke","打術"], ["shot","射撃"], ["guard","護衛"], ["dance","舞踊"], ["theft","盗術"], ["cooking","料理"], ["technology","工芸"], ["movement","機動"], ["chemistry","化学"], ["arithmetic","算術"],
+		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
+
     @last_result = Name.maximum('result_no')
     params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
     params[:q]  = params[:q] ? params[:q] : {}
@@ -32,7 +44,6 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "e_no", "e_no_form")
     reference_text_assign(params, "name", "name_form")
     reference_text_assign(params, "card_data_name", "effect_form")
-    reference_number_assign(params, "get_type", "get_type_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
     reference_number_assign(params, "subject_slash", "slash_form")
     reference_number_assign(params, "subject_thrust", "thrust_form")
@@ -104,7 +115,11 @@ class GetCardsController < ApplicationController
         @is_get_type_create  = "on"
         @is_get_type_drop    = "on"
     end
+    
+    @min_0_hidden = params["min_0_hidden"]
+    @min_0_gray = params["min_0_gray"]
   end
+
   # GET /get_cards/1
   #def show
   #end

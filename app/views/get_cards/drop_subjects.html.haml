@@ -136,6 +136,16 @@
               %td.formNum= text_field_tag :trick_form, @trick_form
             %tr
               %td
+              %td{:colspan => "3"}
+                = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
+                = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
+                = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
+            %tr
+              %td
               %td{:colspan => "3"}= f.submit '検索する'
 
 
@@ -150,30 +160,13 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :subject_slash,      '斬術', default_order: :desc)
-            %th= sort_link(@search, :subject_thrust,     '突術', default_order: :desc)
-            %th= sort_link(@search, :subject_stroke,     '打術', default_order: :desc)
-            %th= sort_link(@search, :subject_shot,       '射撃', default_order: :desc)
-            %th= sort_link(@search, :subject_guard,      '護衛', default_order: :desc)
-            %th= sort_link(@search, :subject_dance,      '舞踊', default_order: :desc)
-            %th= sort_link(@search, :subject_theft,      '盗術', default_order: :desc)
-            %th= sort_link(@search, :subject_cooking,    '料理', default_order: :desc)
-            %th= sort_link(@search, :subject_technology, '工芸', default_order: :desc)
-            %th= sort_link(@search, :subject_movement,   '機動', default_order: :desc)
-            %th= sort_link(@search, :subject_chemistry,  '化学', default_order: :desc)
-            %th= sort_link(@search, :subject_arithmetic, '算術', default_order: :desc)
-            %th= sort_link(@search, :subject_fire,       '火術', default_order: :desc)
-            %th= sort_link(@search, :subject_theology,   '神術', default_order: :desc)
-            %th= sort_link(@search, :subject_life,       '命術', default_order: :desc)
-            %th= sort_link(@search, :subject_demonology, '冥術', default_order: :desc)
-            %th= sort_link(@search, :subject_geography,  '地学', default_order: :desc)
-            %th= sort_link(@search, :subject_astronomy,  '天文', default_order: :desc)
-            %th= sort_link(@search, :subject_fengshui,   '風水', default_order: :desc)
-            %th= sort_link(@search, :subject_psychology, '心理', default_order: :desc)
-            %th= sort_link(@search, :subject_music,      '音楽', default_order: :desc)
-            %th= sort_link(@search, :subject_curse,      '呪術', default_order: :desc)
-            %th= sort_link(@search, :subject_illusion,   '幻術', default_order: :desc)
-            %th= sort_link(@search, :subject_trick,      '奇術', default_order: :desc)
+            -@subjects.each do |subject, subject_name|
+              - if params["min_0_hidden"] && @open[subject] == 0 then
+              - else
+                - if params["min_0_gray"] && @open[subject] == 0 then
+                  %th{:style => "background-color: #aaa;"}= sort_link(@search, ("subject_"+subject + "×").to_sym,      subject_name, default_order: :desc)
+                - else
+                  %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
             %th= sort_link(@search, :card_id, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
             %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
@@ -184,30 +177,13 @@
             %tr
               %td= get_card.result_no
               %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
-              %td= get_card.subject.slash if get_card.subject
-              %td= get_card.subject.thrust if get_card.subject
-              %td= get_card.subject.stroke if get_card.subject
-              %td= get_card.subject.shot if get_card.subject
-              %td= get_card.subject.guard if get_card.subject
-              %td= get_card.subject.dance if get_card.subject
-              %td= get_card.subject.theft if get_card.subject
-              %td= get_card.subject.cooking if get_card.subject
-              %td= get_card.subject.technology if get_card.subject
-              %td= get_card.subject.movement if get_card.subject
-              %td= get_card.subject.chemistry if get_card.subject
-              %td= get_card.subject.arithmetic if get_card.subject
-              %td= get_card.subject.fire if get_card.subject
-              %td= get_card.subject.theology if get_card.subject
-              %td= get_card.subject.life if get_card.subject
-              %td= get_card.subject.demonology if get_card.subject
-              %td= get_card.subject.geography if get_card.subject
-              %td= get_card.subject.astronomy if get_card.subject
-              %td= get_card.subject.fengshui if get_card.subject
-              %td= get_card.subject.psychology if get_card.subject
-              %td= get_card.subject.music if get_card.subject
-              %td= get_card.subject.curse if get_card.subject
-              %td= get_card.subject.illusion if get_card.subject
-              %td= get_card.subject.trick if get_card.subject
+              -@subjects.each do |subject, subject_name|
+                - if params["min_0_hidden"] && @open[subject] == 0 then
+                - else
+                  - if params["min_0_gray"] && @open[subject] == 0 then
+                    %td{:style => "background-color: #aaa;"}= get_card.subject[subject] if get_card.subject
+                  - else
+                    %td= get_card.subject[subject] if get_card.subject
               %td= get_card.card_data.name if get_card.card_data
               %td= get_card.card_data.lv if get_card.card_data
               %td= get_card.get_type
