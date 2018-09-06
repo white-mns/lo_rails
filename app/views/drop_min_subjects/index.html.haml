@@ -170,7 +170,7 @@
                   %th{:style => "background-color: #faa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
                 - else
                   %th= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
-            %th= sort_link(@search, :card_id, '効果', default_order: :desc)
+            %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
         %tbody
           - @drop_min_subjects.each do |drop_min_subject|
