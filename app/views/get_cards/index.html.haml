@@ -118,7 +118,13 @@
               %td= get_card.name
               %td= get_card.card_data.name if get_card.card_data
               %td= get_card.card_data.lv if get_card.card_data
-              %td= get_card.get_type
+              %td
+                -if get_card.get_type == 0
+                  失敗
+                -elsif get_card.get_type == 1
+                  生成
+                -elsif get_card.get_type == 2
+                  獲得
               %td
                 = character_link(get_card.e_no)
               %td
