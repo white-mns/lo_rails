@@ -95,10 +95,10 @@
               %td.formNum{:colspan => "3"}= text_field_tag :precision_form, @precision_form
             %tr
               %td
-              %td
+              %td{:colspan => "3"}
                 = check_box_tag :kind_equip, @kind_equip, @kind_equip
                 = label_tag :kind_equip, '装備品のみ検索'
-              %td{:colspan => "3"}
+                　　
                 = check_box_tag :exist_effect, @exist_effect, @exist_effect
                 = label_tag :exist_effect, '効果のあるアイテムのみ検索'
             %tr
