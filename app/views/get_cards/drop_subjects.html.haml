@@ -169,7 +169,6 @@
                   %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
             %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
-            %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -186,7 +185,6 @@
                     %td= get_card.subject[subject] if get_card.subject
               %td= get_card.card_data.name if get_card.card_data
               %td= get_card.card_data.lv if get_card.card_data
-              %td= get_card.get_type
               %td
                 = character_link(get_card.e_no)
               %td
