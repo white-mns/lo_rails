@@ -176,15 +176,7 @@
           - @drop_min_subjects.each do |drop_min_subject|
             %tr
               %td= drop_min_subject.result_no
-              -@subjects.each do |subject, subject_name|
-                - if params["min_0_hidden"] && @open[subject] == 0
-                - else
-                  - if params["min_0_gray"] && @open[subject] == 0
-                    %td{:style => "background-color: #aaa;"}= drop_min_subject[subject]
-                  - elsif @marked[subject] == "on"
-                    %td{:style => "background-color: #faa;"}= drop_min_subject[subject]
-                  - else
-                    %td= drop_min_subject[subject]
+              - render_subjects(drop_min_subject, @subjects, params, @open, @marked)
               %td
                 - gray_text = @min_0_gray ? "&min_0_gray=" + @min_0_gray : ""
                 - hidden_text = @min_0_hidden ? "&min_0_hidden=" + @min_0_hidden : ""
