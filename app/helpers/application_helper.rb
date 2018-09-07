@@ -23,16 +23,28 @@ module ApplicationHelper
         else
           if params["min_0_gray"] && open[subject] == 0 then
             haml_tag :td, style: "background-color: #aaa;" do
-              render_subject(object, subject, params, open)
+              render_subject_span(object, subject, params, open)
             end
           elsif marked && marked[subject] == "on" then
             haml_tag :td, style: "background-color: #faa;" do
-              render_subject(object, subject, params, open)
+              render_subject_span(object, subject, params, open)
             end
           else
             haml_tag :td do
-              render_subject(object, subject, params, open)
+              render_subject_span(object, subject, params, open)
             end
+          end
+        end
+    end
+    
+    def render_subject_span(object, subject,  params, open)
+        if object && object[subject] == 0
+          haml_tag :span, style: "color: #ccc;" do
+            render_subject(object, subject, params, open)
+          end
+        else
+          haml_tag :span do
+            render_subject(object, subject, params, open)
           end
         end
     end
