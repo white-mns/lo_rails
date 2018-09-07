@@ -176,13 +176,7 @@
             %tr
               %td= get_card.result_no
               %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
-              -@subjects.each do |subject, subject_name|
-                - if params["min_0_hidden"] && @open[subject] == 0
-                - else
-                  - if params["min_0_gray"] && @open[subject] == 0
-                    %td{:style => "background-color: #aaa;"}= get_card.subject[subject] if get_card.subject
-                  - else
-                    %td= get_card.subject[subject] if get_card.subject
+              - render_subjects(get_card.subject, @subjects, params, @open, nil)
               %td= get_card.card_data.name if get_card.card_data
               %td= get_card.card_data.lv if get_card.card_data
               %td
