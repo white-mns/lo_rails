@@ -100,15 +100,12 @@
           - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
             %tr
               %td= <%= singular_table_name %>.result_no
-              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + <%= singular_table_name %>.e_no + ")"
+              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + sprintf("%d", <%= singular_table_name %>.e_no) + ")"
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
               %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
               %td
-                - file_name = sprintf("%d",<%= singular_table_name %>.e_no)
-                = link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_link(<%= singular_table_name %>.e_no)
               %td
-                - if <%= singular_table_name %>.result_no < @last_result
-                  - result_no_text = sprintf("%d",<%= singular_table_name %>.result_no)
-                  = link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
+                = character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
       = paginate(@<%= plural_table_name %>)

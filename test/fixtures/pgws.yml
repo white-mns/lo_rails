@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  pgws_type: 1
+  pgws_name_id: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  pgws_type: 1
+  pgws_name_id: 1

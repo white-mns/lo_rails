@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  card_id: 1
+  slash: 1
+  thrust: 1
+  stroke: 1
+  shot: 1
+  guard: 1
+  dance: 1
+  theft: 1
+  cooking: 1
+  technology: 1
+  movement: 1
+  chemistry: 1
+  arithmetic: 1
+  fire: 1
+  theology: 1
+  life: 1
+  demonology: 1
+  geography: 1
+  astronomy: 1
+  fengshui: 1
+  psychology: 1
+  music: 1
+  curse: 1
+  illusion: 1
+  trick: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  card_id: 1
+  slash: 1
+  thrust: 1
+  stroke: 1
+  shot: 1
+  guard: 1
+  dance: 1
+  theft: 1
+  cooking: 1
+  technology: 1
+  movement: 1
+  chemistry: 1
+  arithmetic: 1
+  fire: 1
+  theology: 1
+  life: 1
+  demonology: 1
+  geography: 1
+  astronomy: 1
+  fengshui: 1
+  psychology: 1
+  music: 1
+  curse: 1
+  illusion: 1
+  trick: 1

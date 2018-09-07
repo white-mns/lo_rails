@@ -1,0 +1,147 @@
+%h1 所持アイテム一覧
+
+.bs-docs-section
+  .row
+    .col-md-12
+      %p.formNum 
+        テキストフォームの隣に赤い破線がある項目は数値検索です。
+        %br
+        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+        %br
+        OR指定と範囲指定を同時に行うことはできません。
+      %p.formText
+        テキストフォームの隣に青い太線がある項目は文字検索です。
+        %br
+        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+        %br
+        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
+          入力例（クリックで開きます）
+          %br
+        %span#example_close.example_select.pointer{:style => "display:none;", :onclick => "example_open(false)"}
+          入力例（クリックで閉じます）
+          %br
+        #example{:style => "display:none;"}
+          %p.formNum
+            数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+            %br
+            「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+          %p.formText
+            「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+            %br
+            「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+            %br
+            「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+            %br
+            「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+            %br
+            「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+            %br
+            「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+            %br
+            「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+            %br
+            「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+            %br
+            「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+      = search_form_for @search do |f|
+        %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
+          %tbody
+          %tr
+            %td{:colspan => "2", :style => "cursor:pointer;"}
+              絞り込み検索
+              %span{:style => "font-size:80%"}
+                (クリックで開きます)
+
+        %table#search_table.table.table-striped.table-bordered.table-hover
+          %tbody
+            %tr
+              %td{:colspan => "4", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+                絞り込み検索
+                %span{:style => "font-size:80%"}
+                  (クリックで閉じます)
+            %tr
+              %td= f.label :result_no_form, '更新回'
+              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+            %tr
+              %td= f.label :e_no_form, 'Eno'
+              %td.formNum= text_field_tag :e_no_form, @e_no_form
+              %td= f.label :p_name_form, 'キャラクター名'
+              %td.formText= text_field_tag :p_name_form, @p_name_form
+            %tr
+              %td= f.label :i_no_form, 'Ino'
+              %td.formNum= text_field_tag :i_no_form, @i_no_form
+              %td= f.label :name_form, 'アイテム名'
+              %td.formText= text_field_tag :name_form, @name_form
+            %tr
+              %td= f.label :equip_form, '装備'
+              %td.formText{:colspan => "3"}= text_field_tag :equip_form, @equip_form
+            %tr
+              %td= f.label :kind_form, '種類'
+              %td.formText= text_field_tag :kind_form, @kind_form
+              %td= f.label :effect_form, '効果'
+              %td.formText= text_field_tag :effect_form, @effect_form
+            %tr
+              %td= f.label :lv_form, 'Lv'
+              %td.formNum{:colspan => "3"}= text_field_tag :lv_form, @lv_form
+            %tr
+              %td= f.label :potency_form, '効力(数字)'
+              %td.formNum= text_field_tag :potency_form, @potency_form
+              %td= f.label :potency_str_form, '効力(文字)'
+              %td.formText= text_field_tag :potency_str_form, @potency_str_form
+            %tr
+              %td= f.label :precision_form, '精度'
+              %td.formNum{:colspan => "3"}= text_field_tag :precision_form, @precision_form
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :kind_equip, @kind_equip, @kind_equip
+                = label_tag :kind_equip, '装備品のみ検索'
+                　　
+                = check_box_tag :exist_effect, @exist_effect, @exist_effect
+                = label_tag :exist_effect, '効果のあるアイテムのみ検索'
+            %tr
+              %td
+              %td{:colspan => "3"}= f.submit '検索する'
+
+
+      = paginate(@items)
+      %br
+      ヒット数：#{ @count }件
+      %br
+      %br
+      
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+            %th= sort_link(@search, :i_no, 'Ino', default_order: :desc)
+            %th= sort_link(@search, :name, 'アイテム名', default_order: :desc)
+            %th= sort_link(@search, :equip, '装備', default_order: :desc)
+            %th= sort_link(@search, :kind, '種類', default_order: :desc)
+            %th= sort_link(@search, :effect, '効果', default_order: :desc)
+            %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
+            %th= sort_link(@search, :potency, '効力', default_order: :desc)
+            %th= sort_link(@search, :precision, '精度', default_order: :desc)
+            %th{:colspan =>"2"}
+              結果リンク
+        %tbody
+          - @items.each do |item|
+            %tr
+              %td= item.result_no
+              %td= item.p_name.name.html_safe + "(" + sprintf("%d", item.e_no) + ")"
+              %td= item.i_no
+              %td= item.name
+              %td= item.equip_name.name if item.equip_name
+              %td= item.kind_name.name if item.kind_name
+              %td= item.effect_name.name if item.effect_name
+              %td= item.lv > 0 ? item.lv : "-"
+              %td= item.potency > -1 ? item.potency : "-"
+              %td= item.precision > -1 ? item.precision : "-"
+              %td
+                = character_link(item.e_no)
+              %td
+                = character_old_link(@last_result, item.e_no, item.result_no)
+      = paginate(@items)

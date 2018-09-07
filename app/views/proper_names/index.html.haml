@@ -1,0 +1,91 @@
+%h1 固有名詞一覧
+
+.bs-docs-section
+  .row
+    .col-md-12
+      %p.formNum 
+        テキストフォームの隣に赤い破線がある項目は数値検索です。
+        %br
+        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+        %br
+        OR指定と範囲指定を同時に行うことはできません。
+      %p.formText
+        テキストフォームの隣に青い太線がある項目は文字検索です。
+        %br
+        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+        %br
+        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
+          入力例（クリックで開きます）
+          %br
+        %span#example_close.example_select.pointer{:style => "display:none;", :onclick => "example_open(false)"}
+          入力例（クリックで閉じます）
+          %br
+        #example{:style => "display:none;"}
+          %p.formNum
+            数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+            %br
+            「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+          %p.formText
+            「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+            %br
+            「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+            %br
+            「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+            %br
+            「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+            %br
+            「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+            %br
+            「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+            %br
+            「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+            %br
+            「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+            %br
+            「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+      = search_form_for @search do |f|
+        %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
+          %tbody
+          %tr
+            %td{:colspan => "2", :style => "cursor:pointer;"}
+              絞り込み検索
+              %span{:style => "font-size:80%"}
+                (クリックで開きます)
+
+        %table#search_table.table.table-striped.table-bordered.table-hover
+          %tbody
+            %tr
+              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+                絞り込み検索
+                %span{:style => "font-size:80%"}
+                  (クリックで閉じます)
+            %tr
+              %td= f.label :proper_id_form, 'ID'
+              %td.formNum= text_field_tag :proper_id_form, @proper_id_form
+            %tr
+              %td= f.label :name_form, '固有名詞'
+              %td.formText= text_field_tag :name_form, @name_form
+            %tr
+              %td
+              %td= f.submit '検索する'
+
+
+      = paginate(@proper_names)
+      %br
+      ヒット数：#{ @count }件
+      %br
+      %br
+      
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th= sort_link(@search, :ID, 'Proper', default_order: :desc)
+            %th= sort_link(@search, :固有名詞, 'Name', default_order: :desc)
+        %tbody
+          - @proper_names.each do |proper_name|
+            %tr
+              %td= proper_name.proper_id
+              %td= proper_name.name
+      = paginate(@proper_names)

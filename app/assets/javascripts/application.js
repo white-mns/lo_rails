@@ -17,6 +17,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require "jquery.cleanQuery"
+//= require chartkick
 
 // 説明文の開閉処理
 function example_open(flg) {
