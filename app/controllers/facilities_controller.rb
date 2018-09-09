@@ -5,8 +5,8 @@ class FacilitiesController < ApplicationController
   # GET /facilities
   def index
     param_set
-    @count	= Facility.includes(:p_name).search(params[:q]).result.count()
-    @search	= Facility.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Facility.includes(:p_name, :holiday_name, :division_name, :detail_division_name).search(params[:q]).result.count()
+    @search	= Facility.includes(:p_name, :holiday_name, :division_name, :detail_division_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @facilities	= @search.result.per(50)
   end
@@ -23,12 +23,12 @@ class FacilitiesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "set_col", "set_col_form")
+    reference_text_assign(params, "set_col", "set_col_form")
     reference_number_assign(params, "set_lv", "set_lv_form")
-    reference_number_assign(params, "name", "name_form")
-    reference_number_assign(params, "holiday", "holiday_form")
-    reference_number_assign(params, "division", "division_form")
-    reference_number_assign(params, "detail_division", "detail_division_form")
+    reference_text_assign(params, "name", "name_form")
+    reference_text_assign(params, "holiday_name_name", "holiday_form")
+    reference_text_assign(params, "division_name_name", "division_form")
+    reference_text_assign(params, "detail_division_name_name", "detail_division_form")
     reference_number_assign(params, "lv", "lv_form")
     reference_number_assign(params, "value", "value_form")
     reference_number_assign(params, "period", "period_form")
