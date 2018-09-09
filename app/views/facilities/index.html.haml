@@ -1,4 +1,4 @@
-%h1 経過パラメータ一覧
+%h1 所持施設一覧
 
 .bs-docs-section
   .row
@@ -57,37 +57,48 @@
         %table#search_table.table.table-striped.table-bordered.table-hover
           %tbody
             %tr
-              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+              %td{:colspan => "4", :style => "cursor:pointer;", :onclick => "search_open(false);"}
                 絞り込み検索
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
               %td= f.label :result_no_form, '更新回'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :tip_form, 'Tip'
-              %td.formNum= text_field_tag :tip_form, @tip_form
+              %td= f.label :set_col_form, '設置マス列'
+              %td.formText= text_field_tag :set_col_form, @set_col_form
+              %td= f.label :set_lv_form, '設置マスLv'
+              %td.formNum= text_field_tag :set_lv_form, @set_lv_form
             %tr
-              %td= f.label :tip_t_form, 'Tip.T'
-              %td.formNum= text_field_tag :tip_t_form, @tip_t_form
+              %td= f.label :name_form, '施設名'
+              %td.formText{:colspan => "3"}= text_field_tag :name_form, @name_form
             %tr
-              %td= f.label :build_t_form, 'Build.T'
-              %td.formNum= text_field_tag :build_t_form, @build_t_form
+              %td= f.label :holiday_form, '休日'
+              %td.formText{:colspan => "3"}= text_field_tag :holiday_form, @holiday_form
             %tr
-              %td= f.label :mark_t_form, 'Mark.T'
-              %td.formNum= text_field_tag :mark_t_form, @mark_t_form
+              %td= f.label :division_form, '区分'
+              %td.formText{:colspan => "3"}= text_field_tag :division_form, @division_form
+            %tr
+              %td= f.label :detail_division_form, '詳細区分'
+              %td.formText= text_field_tag :detail_division_form, @detail_division_form
+              %td= f.label :lv_form, 'Lv'
+              %td.formNum= text_field_tag :lv_form, @lv_form
+            %tr
+              %td= f.label :value_form, '価値'
+              %td.formNum= text_field_tag :value_form, @value_form
+              %td= f.label :period_form, '期限'
+              %td.formNum= text_field_tag :period_form, @period_form
             %tr
               %td= hidden_field_tag :is_form, 1
-              %td= f.submit '検索する'
+              %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@parameter_progresses)
+      = paginate(@facilities)
       %br
       ヒット数：#{ @count }件
       %br
@@ -98,23 +109,33 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :tip, 'Tip', default_order: :desc)
-            %th= sort_link(@search, :tip_t, 'Tip.T', default_order: :desc)
-            %th= sort_link(@search, :build_t, 'Build.T', default_order: :desc)
-            %th= sort_link(@search, :mark_t, 'Mark.T', default_order: :desc)
+            %th= sort_link(@search, :set_col, '設置列', default_order: :desc)
+            %th= sort_link(@search, :set_lv, '設置Lv', default_order: :desc)
+            %th= sort_link(@search, :name, '施設名', default_order: :desc)
+            %th= sort_link(@search, :holiday_name_name, '休日', default_order: :desc)
+            %th= sort_link(@search, :division_name_name, '区分', default_order: :desc)
+            %th= sort_link(@search, :detail_division_name_name, '詳細区分', default_order: :desc)
+            %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
+            %th= sort_link(@search, :value, '価値', default_order: :desc)
+            %th= sort_link(@search, :period, '期限', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
-          - @parameter_progresses.each do |parameter_progress|
+          - @facilities.each do |facility|
             %tr
-              %td= parameter_progress.result_no
-              %td= parameter_progress.p_name.name.html_safe + "(" + sprintf("%d", parameter_progress.e_no) + ")"
-              %td= parameter_progress.tip
-              %td= parameter_progress.tip_t
-              %td= parameter_progress.build_t
-              %td= parameter_progress.mark_t
+              %td= facility.result_no
+              %td= facility.p_name.name.html_safe + "(" + sprintf("%d", facility.e_no) + ")"
+              %td= facility.set_col
+              %td= facility.set_lv
+              %td= facility.name
+              %td= facility.holiday_name.name if facility.holiday_name
+              %td= facility.division_name.name if facility.division_name
+              %td= facility.detail_division_name.name if facility.detail_division_name
+              %td= facility.lv
+              %td= facility.value
+              %td= facility.period
               %td
-                = character_link(parameter_progress.e_no)
+                = character_link(facility.e_no)
               %td
-                = character_old_link(@last_result, parameter_progress.e_no, parameter_progress.result_no)
-      = paginate(@parameter_progresses)
+                = character_old_link(@last_result, facility.e_no, facility.result_no)
+      = paginate(@facilities)

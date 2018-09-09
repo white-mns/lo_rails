@@ -102,7 +102,7 @@
                 = check_box_tag :exist_effect, @exist_effect, @exist_effect
                 = label_tag :exist_effect, '効果のあるアイテムのみ検索'
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 

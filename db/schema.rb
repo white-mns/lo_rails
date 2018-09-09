@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_105843) do
+ActiveRecord::Schema.define(version: 2018_09_09_041455) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -122,6 +122,31 @@ ActiveRecord::Schema.define(version: 2018_08_29_105843) do
     t.index ["theology"], name: "index_drop_min_subjects_on_theology"
     t.index ["thrust"], name: "index_drop_min_subjects_on_thrust"
     t.index ["trick"], name: "index_drop_min_subjects_on_trick"
+  end
+
+  create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.string "set_col"
+    t.integer "set_lv"
+    t.string "name"
+    t.integer "holiday"
+    t.integer "division"
+    t.integer "detail_division"
+    t.integer "lv"
+    t.integer "value"
+    t.integer "period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["detail_division"], name: "index_facilities_on_detail_division"
+    t.index ["division"], name: "index_facilities_on_division"
+    t.index ["e_no", "set_lv", "set_col", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["holiday"], name: "index_facilities_on_holiday"
+    t.index ["lv"], name: "index_facilities_on_lv"
+    t.index ["name"], name: "index_facilities_on_name"
+    t.index ["period"], name: "index_facilities_on_period"
+    t.index ["value"], name: "index_facilities_on_value"
   end
 
   create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

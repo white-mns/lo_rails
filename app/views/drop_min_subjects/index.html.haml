@@ -148,7 +148,9 @@
             -@subjects.each do |subject, subject_name|
               = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
+              %td{:colspan => "3"}= f.submit '検索する'
+
               %td{:colspan => "3"}= f.submit '検索する'
 
       = paginate(@drop_min_subjects)

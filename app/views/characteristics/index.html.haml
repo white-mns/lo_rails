@@ -89,7 +89,7 @@
               %td= f.label :eva_form, '敏捷'
               %td.formNum= text_field_tag :eva_form, @eva_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

@@ -21,8 +21,11 @@ class ProfilesController < ApplicationController
 
   def param_set
     @last_result = Name.maximum('result_no')
-    params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
-    params[:q]  = params[:q] ? params[:q] : {}
+    
+    params[:q] ||= {}
+    if !params["is_form"] then
+        params["result_no_form"] ||= sprintf('%d',@last_result)
+    end
     
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")

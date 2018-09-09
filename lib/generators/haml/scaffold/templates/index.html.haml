@@ -76,7 +76,7 @@
               %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
 <% end -%>
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 
