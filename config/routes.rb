@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :development_results
   resources :places
   resources :facilities
   get "drop_min_subject/select", :to => "drop_min_subjects#select", :as => 'drop_min_subject_select' 

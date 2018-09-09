@@ -1,0 +1,2 @@
+class DevelopmentResult < ApplicationRecord
+end
