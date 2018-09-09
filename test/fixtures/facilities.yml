@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  set_col: MyString
+  set_lv: 1
+  name: MyString
+  holiday: 1
+  division: 1
+  detail_division: 1
+  lv: 1
+  value: 1
+  period: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  set_col: MyString
+  set_lv: 1
+  name: MyString
+  holiday: 1
+  division: 1
+  detail_division: 1
+  lv: 1
+  value: 1
+  period: 1
