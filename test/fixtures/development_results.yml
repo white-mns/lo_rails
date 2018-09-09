@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  development_result: 1
+  bellicose: 1
+  party_num: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  development_result: 1
+  bellicose: 1
+  party_num: 1

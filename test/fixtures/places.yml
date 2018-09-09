@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  invation_col: MyString
+  invation_lv: 1
+  return_col: MyString
+  return_lv: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  invation_col: MyString
+  invation_lv: 1
+  return_col: MyString
+  return_lv: 1

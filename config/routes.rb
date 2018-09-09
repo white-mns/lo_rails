@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "development_result/win_per", :to => "development_results#win_per", :as => 'development_result_win_per' 
+  resources :development_results
+  resources :places
   resources :facilities
   get "drop_min_subject/select", :to => "drop_min_subjects#select", :as => 'drop_min_subject_select' 
   resources :drop_min_subjects

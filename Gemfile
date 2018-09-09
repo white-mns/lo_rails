@@ -84,6 +84,6 @@ gem 'capistrano', group: :development
 gem 'rb-readline', '~> 0.4.2'
 gem 'hirb-unicode'
 gem 'kaminari'
-gem 'ransack'
+gem 'ransack', github: "activerecord-hackery/ransack"
 gem 'composite_primary_keys'
 gem 'chartkick'
