@@ -23,9 +23,9 @@ class PlacesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "invation_col", "invation_col_form")
+    reference_text_assign(params, "invation_col", "invation_col_form")
     reference_number_assign(params, "invation_lv", "invation_lv_form")
-    reference_number_assign(params, "return_col", "return_col_form")
+    reference_text_assign(params, "return_col", "return_col_form")
     reference_number_assign(params, "return_lv", "return_lv_form")
     
     @p_name_form = params["p_name_form"]
