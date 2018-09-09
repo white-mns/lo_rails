@@ -1,4 +1,4 @@
-%h1 開拓戦勝敗一覧
+%h1 開拓戦勝率
 
 .bs-docs-section
   .row
@@ -45,7 +45,7 @@
             「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
             %br
             「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
-      = search_form_for @search do |f|
+      = search_form_for @search, url: development_result_win_per_path do |f|
         %table#search_close.table.table-striped.table-bordered.table-hover{:style => "display:none;", :onclick=>"search_open(true);"}
           %tbody
           %tr
@@ -65,42 +65,36 @@
               %td= f.label :result_no_form, '更新回'
               %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :bellicose_form, '好戦度'
-              %td.formNum= text_field_tag :bellicose_form, @bellicose_form
+              %td= f.label :invation_lv_form, '侵攻Lv'
+              %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
               %td= f.label :party_num_form, 'パーティ人数'
               %td.formNum= text_field_tag :party_num_form, @party_num_form
             %tr
-              %td= f.label :invation_col_form, '侵攻列'
-              %td.formText= text_field_tag :invation_col_form, @invation_col_form
-              %td= f.label :invation_lv_form, '侵攻Lv'
-              %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
-            %tr
+              %td= f.label :bellicose_form, '好戦度'
+              %td.formNum= text_field_tag :bellicose_form, @bellicose_form
               %td= f.label :day_form, 'Day'
-              %td.formNum{:colspan => "3"}= text_field_tag :day_form, @day_form
+              %td.formNum= text_field_tag :day_form, @day_form
             %tr
-              %td= f.label :development_result_form, '勝敗'
+              %td
               %td{:colspan => "3"}
-                = check_box_tag :result_win, @result_win, @result_win
-                = label_tag :result_win, '勝利'
+                = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
+                = label_tag :split_bellicose, '好戦度で分けて集計する'
                 　　
-                = check_box_tag :result_draw, @result_draw, @result_draw
-                = label_tag :result_draw, '引分'
+                = check_box_tag :split_party_num, @split_party_num, @split_party_num
+                = label_tag :split_party_num, 'PT人数で分けて集計する'
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
+                = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
                 　　
-                = check_box_tag :result_lose, @result_lose, @result_lose
-                = label_tag :result_lose, '敗北'
-                　　
+                = check_box_tag :split_day, @split_day, @split_day
+                = label_tag :split_day, 'Dayで分けて集計する'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@development_results)
-      %br
       ヒット数：#{ @count }件
       %br
       %br
@@ -109,34 +103,53 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :place_invation_col, '侵攻列', default_order: :desc)
-            %th= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
-            %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
-            %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
-            %th= sort_link(@search, :development_result, '勝敗', default_order: :desc)
-            %th= sort_link(@search, :parameter_control_day, 'Day', default_order: :desc)
-            %th{:colspan =>"2"}
-              結果リンク
+            -if params["split_invation_lv"] == "on"
+              %th= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
+            -if params["split_party_num"] == "on"
+              %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
+            -if params["split_bellicose"] == "on"
+              %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
+            -if params["split_day"] == "on"
+              %th= sort_link(@search, :parameter_control_day, 'Day', default_order: :desc)
+            %th= "侵攻数"
+            %th= "勝利"
+            %th= "引分"
+            %th= "敗北"
+            %th= "勝率"
         %tbody
+          - @all.each do |development_result|
+            %tr
+              %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
+              -if params["split_invation_lv"] == "on"
+                %td= "全体"
+              -if params["split_party_num"] == "on"
+                %td
+              -if params["split_bellicose"] == "on"
+                %td
+              -if params["split_day"] == "on"
+                %td 
+              %td= development_result.count if development_result.respond_to?(:count)
+              %td= development_result.win if development_result.respond_to?(:win)
+              %td= development_result.draw if development_result.respond_to?(:draw)
+              %td= development_result.lose if development_result.respond_to?(:lose)
+              %td
+                - if development_result.respond_to?(:win_per)
+                  = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per
           - @development_results.each do |development_result|
             %tr
-              %td= development_result.result_no
-              %td= development_result.p_name.name.html_safe + "(" + sprintf("%d", development_result.e_no) + ")"
-              %td{:colspan => "2", :style => "text-align: center;"}
-                = development_result.place.invation_col
-                = "-" if development_result.place.invation_lv > 0
-                = development_result.place.invation_lv if development_result.place.invation_lv > 0
-              %td= development_result.bellicose
-              %td= development_result.party_num
+              %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
+              -if params["split_invation_lv"] == "on"
+                %td= development_result.place.invation_lv if development_result.place
+              -if params["split_party_num"] == "on"
+                %td= development_result.party_num
+              -if params["split_bellicose"] == "on"
+                %td= development_result.bellicose
+              -if params["split_day"] == "on"
+                %td= development_result.parameter_control.day if development_result.parameter_control
+              %td= development_result.count if development_result.respond_to?(:count)
+              %td= development_result.win if development_result.respond_to?(:win)
+              %td= development_result.draw if development_result.respond_to?(:draw)
+              %td= development_result.lose if development_result.respond_to?(:lose)
               %td
-                = "勝利" if development_result.development_result == 1
-                = "引分" if development_result.development_result == 0
-                = "敗北" if development_result.development_result == -1
-                = "？" if development_result.development_result == -2
-              %td= development_result.parameter_control.day if development_result.parameter_control
-              %td
-                = character_link(development_result.e_no)
-              %td
-                = character_old_link(@last_result, development_result.e_no, development_result.result_no)
-      = paginate(@development_results)
+                - if development_result.respond_to?(:win_per)
+                  = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per

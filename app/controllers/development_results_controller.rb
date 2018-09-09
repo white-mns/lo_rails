@@ -10,6 +10,54 @@ class DevelopmentResultsController < ApplicationController
     @search.sorts = 'id asc' if @search.sorts.empty?
     @development_results	= @search.result.per(50)
   end
+  
+  def win_per
+    if !params["is_form"] then
+        params["bellicose_form"] ||= "4~"
+    end
+    param_set
+    win_per_set_group
+
+    @count	= DevelopmentResult.includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
+    @search	= DevelopmentResult.includes(:p_name).joins(:place, :parameter_control).group(@group)
+                                .select("*").select("count(*) AS count").select("count(development_result = 1 or null) AS win,
+                                    count(development_result = 0 or null) AS draw,
+                                    count(development_result = -1 or null) AS lose,
+                                    count(development_result = 1 or null) / count(*) AS win_per,
+                                    min(places.result_no) AS min_result_no, max(places.result_no) AS max_result_no")
+                                .search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @development_results	= @search.result
+    
+    @all = DevelopmentResult.includes(:p_name).joins(:place, :parameter_control)
+                                .select("*").select("count(*) AS count").select("count(development_result = 1 or null) AS win,
+                                    count(development_result = 0 or null) AS draw,
+                                    count(development_result = -1 or null) AS lose,
+                                    count(development_result = 1 or null) / count(*) AS win_per,
+                                    min(places.result_no) AS min_result_no, max(places.result_no) AS max_result_no")
+                                .search(params[:q]).result
+  end
+
+  def win_per_set_group
+    @group = ""
+    @sort  = []
+    if params["split_invation_lv"] == "on" then
+        @group = @group + "places.invation_lv"
+        @sort.push('place_invation_lv desc')
+    end
+    if params["split_party_num"] == "on" then
+        @group = @group == "" ? "party_num" : @group + ", party_num"
+        @sort.push('party_num desc')
+    end
+    if params["split_bellicose"] == "on" then
+        @group = @group == "" ? "bellicose" : @group + ", bellicose"
+        @sort.push('bellicose desc')
+    end
+    if params["split_day"] == "on" then
+        @group = @group == "" ? "parameter_controls.day" : @group + ", parameter_controls.day"
+        @sort.push('parameter_control_day desc')
+    end
+  end
 
   def param_set
     @last_result = Name.maximum('result_no')
@@ -30,14 +78,9 @@ class DevelopmentResultsController < ApplicationController
     reference_number_assign(params, "place_invation_lv", "invation_lv_form")
     reference_number_assign(params, "parameter_control_day", "day_form")
     
-    params[:q]["development_result_eq_any"] ||= []
-    if params["result_win"]  == "on" then params[:q]["development_result_eq_any"].push(1)  end
-    if params["result_draw"] == "on" then params[:q]["development_result_eq_any"].push(0)  end
-    if params["result_lose"] == "on" then params[:q]["development_result_eq_any"].push(-1) end
-    if !params["result_win"]  && !params["result_draw"] && !params["result_lose"] then
-        params["result_win"]  = "on"
-        params["result_draw"] = "on"
-        params["result_lose"] = "on"
+    
+    if params["split_invation_lv"] != "on" && params["split_bellicose"] != "on" && params["split_party_num"] != "on" && params["split_day"] != "on" then
+        params["split_invation_lv"] = "on"
     end
 
     @p_name_form = params["p_name_form"]
@@ -47,12 +90,18 @@ class DevelopmentResultsController < ApplicationController
     @development_result_form = params["development_result_form"]
     @bellicose_form = params["bellicose_form"]
     @party_num_form = params["party_num_form"]
+
     @result_win = params["result_win"]
     @result_draw = params["result_draw"]
     @result_lose = params["result_lose"]
     @invation_col_form = params["invation_col_form"]
     @invation_lv_form = params["invation_lv_form"]
     @day_form = params["day_form"]
+
+    @split_invation_lv = params["split_invation_lv"]
+    @split_bellicose = params["split_bellicose"]
+    @split_party_num = params["split_party_num"]
+    @split_day  = params["split_day"]
   end
   # GET /development_results/1
   #def show
@@ -101,6 +150,6 @@ class DevelopmentResultsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def development_result_params
-      params.require(:development_result).permit(:result_no, :generate_no, :e_no, :development_result, :bellicose, :party_num)
+      params.require(:development_result).permit(:result_no, :generate_no, :e_no, :development_result, :bellicose, :party_num, :count, :win)
     end
 end

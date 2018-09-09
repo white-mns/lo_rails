@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "development_result/win_per", :to => "development_results#win_per", :as => 'development_result_win_per' 
   resources :development_results
   resources :places
   resources :facilities
