@@ -34,6 +34,7 @@ class DropMinSubjectsController < ApplicationController
     params[:q] ||= {}
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["min_0_gray"] = "on"
     end
     
     set_min_1
@@ -68,7 +69,7 @@ class DropMinSubjectsController < ApplicationController
     reference_number_assign(params, "trick", "trick_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
-    
+
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @card_id_form = params["card_id_form"]

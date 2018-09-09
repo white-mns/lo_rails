@@ -37,6 +37,7 @@ class GetCardsController < ApplicationController
     params[:q] ||= {}
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["min_0_gray"] = "on"
     end
 
     reference_text_assign(params, "p_name_name", "p_name_form")
