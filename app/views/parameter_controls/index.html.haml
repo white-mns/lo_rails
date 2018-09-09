@@ -86,7 +86,7 @@
               %td= f.label :pvp_form, 'PVP'
               %td.formNum= text_field_tag :pvp_form, @pvp_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

@@ -89,7 +89,7 @@
               %td= f.label :mfp_form, 'MFP'
               %td.formNum= text_field_tag :mfp_form, @mfp_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

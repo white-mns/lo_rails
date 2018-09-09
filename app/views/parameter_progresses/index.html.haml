@@ -83,7 +83,7 @@
               %td= f.label :mark_t_form, 'Mark.T'
               %td.formNum= text_field_tag :mark_t_form, @mark_t_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

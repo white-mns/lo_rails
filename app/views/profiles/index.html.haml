@@ -83,7 +83,7 @@
               %td= f.label :second_form, '二人称'
               %td.formText= text_field_tag :second_form, @second_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

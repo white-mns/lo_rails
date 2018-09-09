@@ -74,7 +74,7 @@
               %td= f.label :pgws_name_id_form, '潜在・属性・専門名'
               %td.formText= text_field_tag :pgws_name_id_form, @pgws_name_id_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
       %br

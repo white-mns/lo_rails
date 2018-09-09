@@ -32,11 +32,12 @@ class GetCardsController < ApplicationController
   def param_set
     @subjects = [["slash","斬術"], ["thrust","突術"], ["stroke","打術"], ["shot","射撃"], ["guard","護衛"], ["dance","舞踊"], ["theft","盗術"], ["cooking","料理"], ["technology","工芸"], ["movement","機動"], ["chemistry","化学"], ["arithmetic","算術"],
 		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
-
     @last_result = Name.maximum('result_no')
-    params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
-    params[:q]  = params[:q] ? params[:q] : {}
-    params[:q]["get_type_eq_any"] = []
+
+    params[:q] ||= {}
+    if !params["is_form"] then
+        params["result_no_form"] ||= sprintf('%d',@last_result)
+    end
 
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
@@ -70,6 +71,7 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "subject_illusion", "illusion_form")
     reference_number_assign(params, "subject_trick", "trick_form")
     
+    params[:q]["get_type_eq_any"] ||= []
     if params["is_get_type_failed"] == "on" then params[:q]["get_type_eq_any"].push(0) end
     if params["is_get_type_create"] == "on" then params[:q]["get_type_eq_any"].push(1) end
     if params["is_get_type_drop"]   == "on" then params[:q]["get_type_eq_any"].push(2) end

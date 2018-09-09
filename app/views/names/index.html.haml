@@ -74,7 +74,7 @@
               %td= f.label :player_form, 'プレイヤー名'
               %td.formNum= text_field_tag :player_form, @player_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td= f.submit '検索する'
 
 

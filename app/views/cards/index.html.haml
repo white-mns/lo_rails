@@ -90,7 +90,7 @@
               %td= f.label :fp_form, 'FP'
               %td.formNum= text_field_tag :fp_form, @fp_form
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 

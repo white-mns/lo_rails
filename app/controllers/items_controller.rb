@@ -13,8 +13,11 @@ class ItemsController < ApplicationController
 
   def param_set
     @last_result = Name.maximum('result_no')
-    params["result_no_form"] = params["result_no_form"] ? params["result_no_form"] : sprintf('%d',@last_result)
-    params[:q]  = params[:q] ? params[:q] : {}
+    
+    params[:q] ||= {}
+    if !params["is_form"] then
+        params["result_no_form"] ||= sprintf('%d',@last_result)
+    end
     
     if params["kind_equip"] == "on" then
         if params["kind_form"] then
@@ -45,8 +48,6 @@ class ItemsController < ApplicationController
            params[:q]["effect_name_name_not_cont"] = "-"
        end
     end
-    
-    
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]

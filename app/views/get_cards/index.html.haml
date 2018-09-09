@@ -89,7 +89,7 @@
                 = check_box_tag :is_get_type_failed, @is_get_type_failed, @is_get_type_failed
                 = label_tag :is_get_type_failed, '生成失敗'
             %tr
-              %td
+              %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
