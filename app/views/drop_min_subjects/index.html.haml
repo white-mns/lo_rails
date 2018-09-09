@@ -143,12 +143,12 @@
               %td
               %td{:colspan => "3"}
                 = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
-                = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
+                = label_tag :min_0_hidden, '影響しない学科は表示しない'
             %tr
               %td
               %td{:colspan => "3"}
                 = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
-                = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
+                = label_tag :min_0_gray, '影響しない学科は灰色にする'
             -@subjects.each do |subject, subject_name|
               = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
             %tr
