@@ -1,4 +1,4 @@
-%h1 Listing development_results
+%h1 開拓戦勝敗一覧
 
 .bs-docs-section
   .row
@@ -57,40 +57,38 @@
         %table#search_table.table.table-striped.table-bordered.table-hover
           %tbody
             %tr
-              %td{:colspan => "2", :style => "cursor:pointer;", :onclick => "search_open(false);"}
+              %td{:colspan => "4", :style => "cursor:pointer;", :onclick => "search_open(false);"}
                 絞り込み検索
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
               %td= f.label :result_no_form, '更新回'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :development_result_form, 'Development result'
-              %td.formNum= text_field_tag :development_result_form, @development_result_form
-            %tr
-              %td= f.label :bellicose_form, 'Bellicose'
+              %td= f.label :bellicose_form, '好戦度'
               %td.formNum= text_field_tag :bellicose_form, @bellicose_form
-            %tr
-              %td= f.label :party_num_form, 'Party num'
+              %td= f.label :party_num_form, 'パーティ人数'
               %td.formNum= text_field_tag :party_num_form, @party_num_form
             %tr
+              %td= f.label :development_result_form, '勝敗'
+              %td.formNum{:colspan => "3"}
+                = check_box_tag :result_win, @result_win, @result_win
+                = label_tag :result_win, '勝利'
+                　　
+                = check_box_tag :result_draw, @result_draw, @result_draw
+                = label_tag :result_draw, '引分'
+                　　
+                = check_box_tag :result_lose, @result_lose, @result_lose
+                = label_tag :result_lose, '敗北'
+                　　
+            %tr
               %td= hidden_field_tag :is_form, 1
-              %td= f.submit '検索する'
+              %td{:colspan => "3"}= f.submit '検索する'
 
 
       = paginate(@development_results)
@@ -104,12 +102,9 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :development_result, 'Development result', default_order: :desc)
-            %th= sort_link(@search, :bellicose, 'Bellicose', default_order: :desc)
-            %th= sort_link(@search, :party_num, 'Party num', default_order: :desc)
+            %th= sort_link(@search, :development_result, '勝敗', default_order: :desc)
+            %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
+            %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -117,10 +112,11 @@
             %tr
               %td= development_result.result_no
               %td= development_result.p_name.name.html_safe + "(" + sprintf("%d", development_result.e_no) + ")"
-              %td= development_result.result_no
-              %td= development_result.generate_no
-              %td= development_result.e_no
-              %td= development_result.development_result
+              %td
+                = "勝利" if development_result.development_result == 1
+                = "引分" if development_result.development_result == 0
+                = "敗北" if development_result.development_result == -1
+                = "？" if development_result.development_result == -2
               %td= development_result.bellicose
               %td= development_result.party_num
               %td

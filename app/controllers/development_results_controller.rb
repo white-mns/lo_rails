@@ -27,6 +27,16 @@ class DevelopmentResultsController < ApplicationController
     reference_number_assign(params, "bellicose", "bellicose_form")
     reference_number_assign(params, "party_num", "party_num_form")
     
+    params[:q]["development_result_eq_any"] ||= []
+    if params["result_win"]  == "on" then params[:q]["development_result_eq_any"].push(1)  end
+    if params["result_draw"] == "on" then params[:q]["development_result_eq_any"].push(0)  end
+    if params["result_lose"] == "on" then params[:q]["development_result_eq_any"].push(-1) end
+    if !params["result_win"]  && !params["result_draw"] && !params["result_lose"] then
+        params["result_win"]  = "on"
+        params["result_draw"] = "on"
+        params["result_lose"] = "on"
+    end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -34,6 +44,9 @@ class DevelopmentResultsController < ApplicationController
     @development_result_form = params["development_result_form"]
     @bellicose_form = params["bellicose_form"]
     @party_num_form = params["party_num_form"]
+    @result_win = params["result_win"]
+    @result_draw = params["result_draw"]
+    @result_lose = params["result_lose"]
   end
   # GET /development_results/1
   #def show
