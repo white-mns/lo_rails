@@ -5,8 +5,8 @@ class DevelopmentResultsController < ApplicationController
   # GET /development_results
   def index
     param_set
-    @count	= DevelopmentResult.includes(:p_name).search(params[:q]).result.count()
-    @search	= DevelopmentResult.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= DevelopmentResult.includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
+    @search	= DevelopmentResult.includes(:p_name, :place, :parameter_control).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @development_results	= @search.result.per(50)
   end
@@ -26,6 +26,9 @@ class DevelopmentResultsController < ApplicationController
     reference_number_assign(params, "development_result", "development_result_form")
     reference_number_assign(params, "bellicose", "bellicose_form")
     reference_number_assign(params, "party_num", "party_num_form")
+    reference_text_assign(params, "place_invation_col", "invation_col_form")
+    reference_number_assign(params, "place_invation_lv", "invation_lv_form")
+    reference_number_assign(params, "parameter_control_day", "day_form")
     
     params[:q]["development_result_eq_any"] ||= []
     if params["result_win"]  == "on" then params[:q]["development_result_eq_any"].push(1)  end
@@ -47,6 +50,9 @@ class DevelopmentResultsController < ApplicationController
     @result_win = params["result_win"]
     @result_draw = params["result_draw"]
     @result_lose = params["result_lose"]
+    @invation_col_form = params["invation_col_form"]
+    @invation_lv_form = params["invation_lv_form"]
+    @day_form = params["day_form"]
   end
   # GET /development_results/1
   #def show

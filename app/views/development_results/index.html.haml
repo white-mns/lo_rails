@@ -75,6 +75,14 @@
               %td= f.label :party_num_form, 'パーティ人数'
               %td.formNum= text_field_tag :party_num_form, @party_num_form
             %tr
+              %td= f.label :invation_col_form, '侵攻列'
+              %td.formText= text_field_tag :invation_col_form, @invation_col_form
+              %td= f.label :invation_lv_form, '侵攻Lv'
+              %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
+            %tr
+              %td= f.label :day_form, 'Day'
+              %td.formNum{:colspan => "3"}= text_field_tag :day_form, @day_form
+            %tr
               %td= f.label :development_result_form, '勝敗'
               %td.formNum{:colspan => "3"}
                 = check_box_tag :result_win, @result_win, @result_win
@@ -102,9 +110,12 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :development_result, '勝敗', default_order: :desc)
+            %th= sort_link(@search, :place_invation_col, '侵攻列', default_order: :desc)
+            %th= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
             %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
             %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
+            %th= sort_link(@search, :development_result, '勝敗', default_order: :desc)
+            %th= sort_link(@search, :parameter_control_day, 'Day', default_order: :desc)
             %th{:colspan =>"2"}
               結果リンク
         %tbody
@@ -112,13 +123,18 @@
             %tr
               %td= development_result.result_no
               %td= development_result.p_name.name.html_safe + "(" + sprintf("%d", development_result.e_no) + ")"
+              %td{:colspan => "2", :style => "text-align: center;"}
+                = development_result.place.invation_col
+                = "-" if development_result.place.invation_lv > 0
+                = development_result.place.invation_lv if development_result.place.invation_lv > 0
+              %td= development_result.bellicose
+              %td= development_result.party_num
               %td
                 = "勝利" if development_result.development_result == 1
                 = "引分" if development_result.development_result == 0
                 = "敗北" if development_result.development_result == -1
                 = "？" if development_result.development_result == -2
-              %td= development_result.bellicose
-              %td= development_result.party_num
+              %td= development_result.parameter_control.day if development_result.parameter_control
               %td
                 = character_link(development_result.e_no)
               %td
