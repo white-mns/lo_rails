@@ -42,10 +42,19 @@
           %li= link_to "カード発動者一覧", card_users_path
           %li= link_to "カード発動結果一覧", card_use_pages_path
           %li= link_to "最大連鎖数ランキング", max_chains_path
+        %br
+        %li 新出データ
+        %ul  
+          %li= link_to "新出取得カード一覧", new_get_cards_path
 
 .well.well-sm
   %h2 更新履歴
   %ul
+    %li 2018/9/-
+    %ul
+      %li
+        = link_to "新出取得カード一覧", new_get_cards_path
+        を公開
     %li 2018/9/10
     %ul
       %li

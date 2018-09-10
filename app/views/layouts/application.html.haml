@@ -51,6 +51,12 @@
                 %li= link_to "カード発動者一覧", card_users_path
                 %li= link_to "カード発動結果一覧", card_use_pages_path
                 %li= link_to "最大連鎖数ランキング", max_chains_path
+            %li.dropdown
+              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+                新出データ
+                %span.caret
+              %ul.dropdown-menu{:aria-labelledby => "themes"}
+                %li= link_to "新出取得カード一覧", new_get_cards_path
     .container
       .row
         .col-md-12
