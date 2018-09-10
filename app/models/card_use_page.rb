@@ -1,0 +1,2 @@
+class CardUsePage < ApplicationRecord
+end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  battle_page: MyString
+  party: 1
+  use_cards: MyString
+
+two:
+  result_no: 1
+  generate_no: 1
+  battle_page: MyString
+  party: 1
+  use_cards: MyString
