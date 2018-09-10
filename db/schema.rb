@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_09_085534) do
+ActiveRecord::Schema.define(version: 2018_09_10_063402) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -27,6 +27,34 @@ ActiveRecord::Schema.define(version: 2018_09_09_085534) do
     t.index ["lp"], name: "index_card_data_on_lp"
     t.index ["lv"], name: "index_card_data_on_lv"
     t.index ["name"], name: "index_card_data_on_name"
+  end
+
+  create_table "card_use_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "party"
+    t.string "use_cards"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "party", "result_no", "generate_no"], name: "resultno_and_battle_page"
+  end
+
+  create_table "card_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "e_no"
+    t.integer "party"
+    t.integer "card_id"
+    t.integer "success"
+    t.integer "control"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "party", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
+    t.index ["card_id"], name: "index_card_users_on_card_id"
+    t.index ["control"], name: "index_card_users_on_control"
+    t.index ["success"], name: "index_card_users_on_success"
   end
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -203,6 +231,18 @@ ActiveRecord::Schema.define(version: 2018_09_09_085534) do
     t.index ["potency"], name: "index_items_on_potency"
     t.index ["potency_str"], name: "index_items_on_potency_str"
     t.index ["precision"], name: "index_items_on_precision"
+  end
+
+  create_table "max_chains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "party"
+    t.integer "max_chain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "party", "result_no", "generate_no"], name: "resultno_and_battle_page"
+    t.index ["max_chain"], name: "index_max_chains_on_max_chain"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

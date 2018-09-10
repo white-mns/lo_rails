@@ -1,4 +1,4 @@
-%h1 Listing <%= plural_table_name %>
+%h1 カード発動結果一覧
 
 .bs-docs-section
   .row
@@ -65,22 +65,27 @@
               %td= f.label :result_no_form, '更新回'
               %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
+              %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+              %td.formText= text_field_tag :battle_page_form, @battle_page_form
+              %td= f.label :party_form, '発動パーティ'
+              %td.formNum= text_field_tag :party_form, @party_form
             %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
+              %td= f.label :use_cards_form, 'カード効果'
+              %td.formText{:colspan => "3"}= text_field_tag :use_cards_form, @use_cards_form
             %tr
-              %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
-              %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
-<% end -%>
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :party_all, @party_all, @party_all
+                = label_tag :party_all, '試合全体の使用カードを見る'
+                　　
+                = check_box_tag :party_one, @party_one, @party_one
+                = label_tag :party_one, 'PT別の使用カードを見る'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@<%= plural_table_name %>)
+      = paginate(@card_use_pages)
       %br
       ヒット数：#{ @count }件
       %br
@@ -90,19 +95,17 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-            %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
-<% end -%>
-            %th{:colspan =>"2"} 結果リンク
+            %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
+            %th= sort_link(@search, :party, '発動PT', default_order: :desc)
+            %th= sort_link(@search, :use_cards, 'カード効果', default_order: :desc)
+            %th{:colspan =>"2"} 模擬戦結果
         %tbody
-          - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+          - @card_use_pages.each do |card_use_page|
             %tr
-              %td= <%= singular_table_name %>.result_no
-              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + sprintf("%d", <%= singular_table_name %>.e_no) + ")"
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-              %td= <%= singular_table_name %>.<%= attribute.name %>
-<% end -%>
-              %td= character_link(<%= singular_table_name %>.e_no)
-              %td= character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
-      = paginate(@<%= plural_table_name %>)
+              %td= card_use_page.result_no
+              %td= card_use_page.battle_page
+              %td= card_use_page.party > 0 ? card_use_page.party : "全体"
+              %td= card_use_page.use_cards
+              %td= battle_link(@last_result, card_use_page.battle_page, card_use_page.result_no)
+              %td= battle_old_link(@last_result, card_use_page.battle_page, card_use_page.result_no)
+      = paginate(@card_use_pages)

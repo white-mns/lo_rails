@@ -1,4 +1,4 @@
-%h1 Listing <%= plural_table_name %>
+%h1 最大連鎖数ランキング
 
 .bs-docs-section
   .row
@@ -65,22 +65,19 @@
               %td= f.label :result_no_form, '更新回'
               %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
+              %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+              %td.formText= text_field_tag :battle_page_form, @battle_page_form
+              %td= f.label :party_form, '発動パーティ'
+              %td.formNum= text_field_tag :party_form, @party_form
             %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-            %tr
-              %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
-              %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
-<% end -%>
+              %td= f.label :max_chain_form, '最大連鎖数'
+              %td.formNum{:colspan => "3"}= text_field_tag :max_chain_form, @max_chain_form
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@<%= plural_table_name %>)
+      = paginate(@max_chains)
       %br
       ヒット数：#{ @count }件
       %br
@@ -90,19 +87,17 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-            %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
-<% end -%>
-            %th{:colspan =>"2"} 結果リンク
+            %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
+            %th= sort_link(@search, :party, 'PT', default_order: :desc)
+            %th= sort_link(@search, :max_chain, '最大連鎖数', default_order: :desc)
+            %th{:colspan =>"2"} 模擬戦リンク
         %tbody
-          - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+          - @max_chains.each do |max_chain|
             %tr
-              %td= <%= singular_table_name %>.result_no
-              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + sprintf("%d", <%= singular_table_name %>.e_no) + ")"
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-              %td= <%= singular_table_name %>.<%= attribute.name %>
-<% end -%>
-              %td= character_link(<%= singular_table_name %>.e_no)
-              %td= character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
-      = paginate(@<%= plural_table_name %>)
+              %td= max_chain.result_no
+              %td= max_chain.battle_page
+              %td= max_chain.party
+              %td= max_chain.max_chain
+              %td= battle_link(@last_result, max_chain.battle_page, max_chain.result_no)
+              %td= battle_old_link(@last_result, max_chain.battle_page, max_chain.result_no)
+      = paginate(@max_chains)

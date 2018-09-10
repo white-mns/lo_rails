@@ -1,4 +1,4 @@
-%h1 Listing <%= plural_table_name %>
+%h1 カード発動者一覧
 
 .bs-docs-section
   .row
@@ -67,20 +67,39 @@
             %tr
               %td= f.label :e_no_form, 'Eno'
               %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
             %tr
-              %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
-              %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
-<% end -%>
+              %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+              %td.formText= text_field_tag :battle_page_form, @battle_page_form
+              %td= f.label :party_form, '所属パーティ'
+              %td.formNum= text_field_tag :party_form, @party_form
+            %tr
+              %td= f.label :effect_form, '効果'
+              %td.formText= text_field_tag :effect_form, @effect_form
+              %td= f.label :lv_form, 'Lv'
+              %td.formNum= text_field_tag :lv_form, @lv_form
+            %tr
+              %td= f.label :success_form, '発動成功'
+              %td.formNum
+                = check_box_tag :is_success, @is_success, @is_success
+                = label_tag :is_success, '成功'
+                　　
+                = check_box_tag :not_success, @not_success, @not_success
+                = label_tag :not_success, '失敗'
+              %td= f.label :control_form, '制御率'
+              %td.formNum{:colspan => "3"}= text_field_tag :control_form, @control_form
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :pre_detail_open, @pre_detail_open, @pre_detail_open
+                = label_tag :pre_detail_open, '模擬戦ごとの情報・リンクも表示する'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@<%= plural_table_name %>)
+      = paginate(@card_users)
       %br
       ヒット数：#{ @count }件
       %br
@@ -91,18 +110,41 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-            %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
-<% end -%>
-            %th{:colspan =>"2"} 結果リンク
+            - if @pre_detail_open == "on"
+              %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
+            - if @pre_detail_open == "on"
+              %th= sort_link(@search, :party, '所属PT', default_order: :desc)
+            %th= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
+            %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+            - if @pre_detail_open == "on"
+              %th= sort_link(@search, :success, '成功', default_order: :desc)
+            %th= sort_link(@search, :control, '制御率', default_order: :desc)
+            %th  戦闘設定
+            %th{:colspan =>"2"}
+              個人結果
+            %th{:colspan =>"2"}
+              模擬戦結果
         %tbody
-          - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+          - @card_users.each do |card_user|
             %tr
-              %td= <%= singular_table_name %>.result_no
-              %td= <%= singular_table_name %>.p_name.name.html_safe + "(" + sprintf("%d", <%= singular_table_name %>.e_no) + ")"
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-              %td= <%= singular_table_name %>.<%= attribute.name %>
-<% end -%>
-              %td= character_link(<%= singular_table_name %>.e_no)
-              %td= character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
-      = paginate(@<%= plural_table_name %>)
+              %td= card_user.result_no
+              %td= card_user.p_name.name.html_safe + "(" + sprintf("%d", card_user.e_no) + ")"
+              - if @pre_detail_open == "on"
+                %td= card_user.battle_page
+              - if @pre_detail_open == "on"
+                %td= card_user.party
+              %td= card_user.card_data.name if card_user.card_data
+              %td= card_user.card_data.lv if card_user.card_data
+              - if @pre_detail_open == "on"
+                %td= "成功" if card_user.success == 1
+              %td= card_user.control if card_user.control > 0
+              %td= character_command_link(card_user.e_no)
+              %td= character_link(card_user.e_no)
+              %td= character_old_link(@last_result, card_user.e_no, card_user.result_no)
+              %td
+                - if @pre_detail_open == "on"
+                  = battle_link(@last_result, card_user.battle_page, card_user.result_no)
+              %td
+                - if @pre_detail_open == "on"
+                  = battle_old_link(@last_result, card_user.battle_page, card_user.result_no)
+      = paginate(@card_users)
