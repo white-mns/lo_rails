@@ -26,6 +26,7 @@
           %br
           %li= link_to "開拓戦勝率", development_result_win_per_path
           %li= link_to "開拓戦勝敗一覧", development_results_path
+        %br
         %li 取得カード
         %ul  
           %li= link_to "全取得カード一覧", get_cards_path
@@ -33,10 +34,22 @@
           %li= link_to "獲得カード＋学科一覧", drop_subjects_path
           %li= link_to "推定カード獲得条件一覧", drop_min_subjects_path
           %li= link_to "学科から獲得カードを探す", drop_min_subject_select_path
+        %br
+        %li 模擬戦データ
+        %ul  
+          %li= link_to "カード発動者一覧", card_users_path
+          %li= link_to "カード発動結果一覧", card_use_pages_path
 
     .well.well-sm
       %h2 更新履歴
       %ul
+        %li 2018/9/10
+        %ul
+          %li
+            = link_to "カード発動者一覧", card_users_path
+            、
+            = link_to "カード発動結果一覧", card_use_pages_path
+            を公開
         %li 2018/9/9
         %ul
           %li
