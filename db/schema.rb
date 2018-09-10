@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_09_085534) do
+ActiveRecord::Schema.define(version: 2018_09_10_042949) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -27,6 +27,23 @@ ActiveRecord::Schema.define(version: 2018_09_09_085534) do
     t.index ["lp"], name: "index_card_data_on_lp"
     t.index ["lv"], name: "index_card_data_on_lv"
     t.index ["name"], name: "index_card_data_on_name"
+  end
+
+  create_table "card_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "e_no"
+    t.integer "party"
+    t.integer "card_id"
+    t.integer "success"
+    t.integer "control"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "party", "e_no", "result_no", "generate_no"], name: "unique_battle_page"
+    t.index ["card_id"], name: "index_card_users_on_card_id"
+    t.index ["control"], name: "index_card_users_on_control"
+    t.index ["success"], name: "index_card_users_on_success"
   end
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
