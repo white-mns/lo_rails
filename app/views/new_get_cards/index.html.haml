@@ -1,4 +1,4 @@
-%h1 Listing new_get_cards
+%h1 新出取得カード一覧
 
 .bs-docs-section
   .row
@@ -15,6 +15,8 @@
         半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
         %br
         ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        完全に新規効果のカード効果が調べたい　→　Lvに1を代入すると既出効果の高レベルカードを除外できます
       %p
         %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
           入力例（クリックで開きます）
@@ -65,23 +67,24 @@
               %td= f.label :result_no_form, '更新回'
               %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
+              %td= f.label :effect_form, 'カード効果'
+              %td.formText= text_field_tag :effect_form, @effect_form
+              %td= f.label :lv_form, 'Lv'
+              %td.formNum= text_field_tag :lv_form, @lv_form
             %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :card_id_form, 'Card'
-              %td.formNum= text_field_tag :card_id_form, @card_id_form
-            %tr
-              %td= f.label :get_type_form, 'Get type'
-              %td.formNum= text_field_tag :get_type_form, @get_type_form
+              %td= f.label :get_type_form, '取得方法'
+              %td{:colspan => "3"}
+                = check_box_tag :is_get_type_all, @is_get_type_all, @is_get_type_all
+                = label_tag :is_get_type_all, '全て合算'
+                %br
+                = check_box_tag :is_get_type_create, @is_get_type_create, @is_get_type_create
+                = label_tag :is_get_type_create, '生成'
+                　　
+                = check_box_tag :is_get_type_drop, @is_get_type_drop, @is_get_type_drop
+                = label_tag :is_get_type_drop, '獲得'
+                　　
+                = check_box_tag :is_get_type_event, @is_get_type_event, @is_get_type_event
+                = label_tag :is_get_type_event, 'イベント獲得'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
@@ -97,21 +100,22 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
-            %th= sort_link(@search, :get_type, 'Get type', default_order: :desc)
-            %th{:colspan =>"2"} 結果リンク
+            %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
+            %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+            %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
+            %th{:colspan =>"2"} リンク
         %tbody
           - @new_get_cards.each do |new_get_card|
             %tr
               %td= new_get_card.result_no
-              %td= new_get_card.p_name.name.html_safe + "(" + sprintf("%d", new_get_card.e_no) + ")"
-              %td= new_get_card.result_no
-              %td= new_get_card.generate_no
-              %td= new_get_card.card_id
-              %td= new_get_card.get_type
-              %td= character_link(new_get_card.e_no)
-              %td= character_old_link(@last_result, new_get_card.e_no, new_get_card.result_no)
+              %td= new_get_card.card_data.name if new_get_card.card_data
+              %td= new_get_card.card_data.lv if new_get_card.card_data
+              %td
+                = "全て" if new_get_card.get_type == 0
+                = "生成" if new_get_card.get_type == 1
+                = "獲得" if new_get_card.get_type == 2
+                = "イベント" if new_get_card.get_type == 3
+              %td= new_get_card_to_get_card_link(new_get_card.result_no, new_get_card.card_data.name, new_get_card.card_data.lv, new_get_card.get_type)
+              %td
+                = link_to "所持カード一覧", cards_path + "?result_no_form=" + sprintf("%d", new_get_card.result_no) + "&effect_form=\"" + new_get_card.card_data.name + "\"&lv_form=" + sprintf("%d", new_get_card.card_data.lv)
       = paginate(@new_get_cards)
