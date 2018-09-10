@@ -7,10 +7,10 @@
 %p 
   Vol.#{@last_result}#{ "再" if @last_generate > 0}#{ num = 2; text = ""; while num <= @last_generate do num += 1; text += "々" end; text}更新結果まで反映済です。
 
-.col-lg-12
-  .bs-component
-    .well.well-sm
-      %h2 サイトマップ
+.well.well-sm
+  %h2 サイトマップ
+  .row
+    .col-md-6
       %ul
         %li 個人データ
         %ul  
@@ -27,6 +27,8 @@
           %li= link_to "開拓戦勝率", development_result_win_per_path
           %li= link_to "開拓戦勝敗一覧", development_results_path
         %br
+    .col-md-6
+      %ul
         %li 取得カード
         %ul  
           %li= link_to "全取得カード一覧", get_cards_path
@@ -41,34 +43,34 @@
           %li= link_to "カード発動結果一覧", card_use_pages_path
           %li= link_to "最大連鎖数ランキング", max_chains_path
 
-    .well.well-sm
-      %h2 更新履歴
-      %ul
-        %li 2018/9/10
-        %ul
-          %li
-            = link_to "カード発動者一覧", card_users_path
-            、
-            = link_to "カード発動結果一覧", card_use_pages_path
-            、
-            = link_to "最大連鎖数ランキング", max_chains_path
-            を公開
-        %li 2018/9/9
-        %ul
-          %li
-            = link_to "所持施設一覧", facilities_path
-            、
-            = link_to "開拓戦勝率", development_result_win_per_path
-            、
-            = link_to "開拓戦勝敗一覧", development_results_path
-            を公開
-        %li 2018/9/8
-        %ul
-          %li 
-            = link_to "獲得カード＋学科一覧", drop_subjects_path
-            、
-            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-            において、学科の値が0のときは文字色を薄く表示するように。
-        %li 2018/9/8
-        %ul
-          %li サイト公開
+.well.well-sm
+  %h2 更新履歴
+  %ul
+    %li 2018/9/10
+    %ul
+      %li
+        = link_to "カード発動者一覧", card_users_path
+        、
+        = link_to "カード発動結果一覧", card_use_pages_path
+        、
+        = link_to "最大連鎖数ランキング", max_chains_path
+        を公開
+    %li 2018/9/9
+    %ul
+      %li
+        = link_to "所持施設一覧", facilities_path
+        、
+        = link_to "開拓戦勝率", development_result_win_per_path
+        、
+        = link_to "開拓戦勝敗一覧", development_results_path
+        を公開
+    %li 2018/9/8
+    %ul
+      %li 
+        = link_to "獲得カード＋学科一覧", drop_subjects_path
+        、
+        = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+        において、学科の値が0のときは文字色を薄く表示するように。
+    %li 2018/9/8
+    %ul
+      %li サイト公開
