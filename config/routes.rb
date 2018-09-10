@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :max_chains
   resources :card_use_pages
   resources :card_users
   get "development_result/win_per", :to => "development_results#win_per", :as => 'development_result_win_per' 

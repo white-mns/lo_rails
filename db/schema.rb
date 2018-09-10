@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_054711) do
+ActiveRecord::Schema.define(version: 2018_09_10_063402) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -231,6 +231,18 @@ ActiveRecord::Schema.define(version: 2018_09_10_054711) do
     t.index ["potency"], name: "index_items_on_potency"
     t.index ["potency_str"], name: "index_items_on_potency_str"
     t.index ["precision"], name: "index_items_on_precision"
+  end
+
+  create_table "max_chains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "party"
+    t.integer "max_chain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "party", "result_no", "generate_no"], name: "resultno_and_battle_page"
+    t.index ["max_chain"], name: "index_max_chains_on_max_chain"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

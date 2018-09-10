@@ -1,0 +1,2 @@
+class MaxChain < ApplicationRecord
+end
