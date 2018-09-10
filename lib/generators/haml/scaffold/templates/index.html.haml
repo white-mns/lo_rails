@@ -94,8 +94,7 @@
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
             %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
 <% end -%>
-            %th{:colspan =>"2"}
-              結果リンク
+            %th{:colspan =>"2"} 結果リンク
         %tbody
           - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
             %tr
@@ -104,8 +103,6 @@
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
               %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
-              %td
-                = character_link(<%= singular_table_name %>.e_no)
-              %td
-                = character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
+              %td= character_link(<%= singular_table_name %>.e_no)
+              %td= character_old_link(@last_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
       = paginate(@<%= plural_table_name %>)
