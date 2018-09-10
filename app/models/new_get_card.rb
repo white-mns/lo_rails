@@ -1,0 +1,2 @@
+class NewGetCard < ApplicationRecord
+end
