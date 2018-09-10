@@ -5,8 +5,8 @@ class NewCardUsesController < ApplicationController
   # GET /new_card_uses
   def index
     param_set
-    @count	= NewCardUse.includes(:p_name).search(params[:q]).result.count()
-    @search	= NewCardUse.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= NewCardUse.includes(:card_data).search(params[:q]).result.count()
+    @search	= NewCardUse.includes(:card_data).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @new_card_uses	= @search.result.per(50)
   end
@@ -23,11 +23,16 @@ class NewCardUsesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "card_id", "card_id_form")
+    reference_text_assign(params, "card_data_name", "effect_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @card_id_form = params["card_id_form"]
+    
+    @effect_form = params["effect_form"]
+    @lv_form = params["lv_form"]
   end
   # GET /new_card_uses/1
   #def show
