@@ -12,6 +12,25 @@ module ApplicationHelper
         end
     end
     
+    def character_command_link(e_no)
+        file_name = sprintf("%d",e_no)
+        link_to " 設定", "http://ykamiya.ciao.jp/cgi-bin/command.cgi?En_input="+file_name, :target => "_blank"
+    end
+    
+    def battle_link(last_result_no, battle_page, result_no)
+        if result_no == last_result_no
+            file_name = battle_page.gsub(/ VS /, "-")
+            link_to " 結果", "http://ykamiya.ciao.jp/result/result_pre/result_Pno"+file_name+".html", :target => "_blank"
+        end
+    end
+    
+    def battle_old_link(last_result_no, battle_page, result_no)
+        if result_no < last_result_no
+            file_name = battle_page.gsub(/ VS /, "-")
+            link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
+        end
+    end
+
     def render_subjects(object, subjects, params, open, marked)
         subjects.each do |subject, subject_name|
             render_subject_td(object, subject, params, open, marked)

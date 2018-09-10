@@ -5,8 +5,8 @@ class CardUsersController < ApplicationController
   # GET /card_users
   def index
     param_set
-    @count	= CardUser.includes(:p_name).search(params[:q]).result.count()
-    @search	= CardUser.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= CardUser.includes(:p_name).detail_group_count(params)
+    @search	= CardUser.includes(:p_name).detail_group(params).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @card_users	= @search.result.per(50)
   end
@@ -22,13 +22,19 @@ class CardUsersController < ApplicationController
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
-    reference_number_assign(params, "battle_page", "battle_page_form")
+    reference_text_assign(params, "battle_page", "battle_page_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "party", "party_form")
     reference_number_assign(params, "card_id", "card_id_form")
     reference_number_assign(params, "success", "success_form")
     reference_number_assign(params, "control", "control_form")
+    reference_text_assign(params, "card_data_name", "effect_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
     
+    params[:q]["success_eq_any"] ||= []
+    if params["is_success"]  == "on" then params[:q]["success_eq_any"].push(1) end
+    if params["not_success"] == "on" then params[:q]["success_eq_any"].push(-1) end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -38,8 +44,19 @@ class CardUsersController < ApplicationController
     @card_id_form = params["card_id_form"]
     @success_form = params["success_form"]
     @control_form = params["control_form"]
+    @effect_form = params["effect_form"]
+    @lv_form = params["lv_form"]
+    
+    @is_success  = params["is_success"]
+    @not_success = params["not_success"]
+    if params[:q]["success_eq_any"].size == 0 then 
+        @is_success  = "on"
+        @not_success = "on"
+    end
+
+    @pre_detail_open = params["pre_detail_open"]
   end
-  # GET /card_users/1
+  # Get /card_users/1
   #def show
   #end
 
