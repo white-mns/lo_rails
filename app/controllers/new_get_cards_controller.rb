@@ -27,6 +27,9 @@ class NewGetCardsController < ApplicationController
     reference_number_assign(params, "get_type", "get_type_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
     
     params[:q]["get_type_eq_any"] ||= []
     if params["is_get_type_all"] == "on" then params[:q]["get_type_eq_any"].push(0) end
@@ -42,11 +45,16 @@ class NewGetCardsController < ApplicationController
 
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]
+    @kind_form = params["kind_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
     
     @is_get_type_all = params["is_get_type_all"]
     @is_get_type_create = params["is_get_type_create"]
     @is_get_type_drop = params["is_get_type_drop"]
     @is_get_type_event = params["is_get_type_event"]
+
+    @is_show_card_detail = params["is_show_card_detail"]
   end
   # GET /new_get_cards/1
   #def show

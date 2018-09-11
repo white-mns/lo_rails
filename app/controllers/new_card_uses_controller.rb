@@ -25,6 +25,9 @@ class NewCardUsesController < ApplicationController
     reference_number_assign(params, "card_id", "card_id_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
@@ -33,6 +36,11 @@ class NewCardUsesController < ApplicationController
     
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]
+    @kind_form = params["kind_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
+
+    @is_show_card_detail = params["is_show_card_detail"]
   end
   # GET /new_card_uses/1
   #def show

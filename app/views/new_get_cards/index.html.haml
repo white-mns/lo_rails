@@ -16,6 +16,10 @@
         %br
         ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
       %p
+        取得方法：全て合算 　→　過去にカード生成で新出カードとして出た効果は、学科の鍛錬で獲得しても新出データに表示しません。
+        %br
+        取得方法：獲得　→　学科鍛錬によって新しく獲得する条件が見つかったカードが表示されます。
+        %br
         完全に新規効果のカードが調べたい　→　Lvに1を代入すると既出効果の高レベルカードを除外できます
       %p
         %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
@@ -71,6 +75,15 @@
               %td.formText= text_field_tag :effect_form, @effect_form
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
+            - if @is_show_card_detail
+              %tr
+                %td= f.label :kind_form, '種類'
+                %td.formText{:colspan => "3"}= text_field_tag :kind_form, @kind_form
+              %tr
+                %td= f.label :lp_form, 'LP'
+                %td.formNum= text_field_tag :lp_form, @lp_form
+                %td= f.label :fp_form, 'FP'
+                %td.formNum= text_field_tag :fp_form, @fp_form
             %tr
               %td= f.label :get_type_form, '取得方法'
               %td{:colspan => "3"}
@@ -85,6 +98,11 @@
                 　　
                 = check_box_tag :is_get_type_event, @is_get_type_event, @is_get_type_event
                 = label_tag :is_get_type_event, 'イベント獲得'
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :is_show_card_detail, @is_show_card_detail, @is_show_card_detail
+                = label_tag :is_show_card_detail, '種類・LP・FPを表示'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
@@ -102,6 +120,12 @@
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
             %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
             %th{:colspan =>"2"} リンク
         %tbody
@@ -110,6 +134,12 @@
               %td= new_get_card.result_no
               %td= new_get_card.card_data.name if new_get_card.card_data
               %td= new_get_card.card_data.lv if new_get_card.card_data
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.kind_name.name if new_get_card.card_data && new_get_card.card_data.kind_name
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.lp if new_get_card.card_data && new_get_card.card_data.lp >= 0
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.fp if new_get_card.card_data && new_get_card.card_data.fp >= 0
               %td
                 = "全て" if new_get_card.get_type == 0
                 = "生成" if new_get_card.get_type == 1
