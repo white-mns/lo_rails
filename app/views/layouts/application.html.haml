@@ -10,10 +10,15 @@
     = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
 
   %body
-    .navbar.navbar-default.navbar-fixed-top
+    %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
           = link_to "LastOrder#Aデータ小屋", root_path, :class => "navbar-brand"
+          %button.navbar-toggle{:type => "button", data: {:toggle => "collapse", :target => "#navbar-main"}}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+        </button>
         .navbar-collapse.collapse#navbar-main
           %ul.nav.navbar-nav
             %li.dropdown
