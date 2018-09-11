@@ -1,4 +1,4 @@
-%h1 所持カード一覧
+%h1 新出取得カード一覧
 
 .bs-docs-section
   .row
@@ -15,6 +15,12 @@
         半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
         %br
         ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+      %p
+        取得方法：全て合算 　→　過去にカード生成で新出カードとして出た効果は、学科の鍛錬で獲得しても新出データに表示しません。
+        %br
+        取得方法：獲得　→　学科鍛錬によって新しく獲得する条件が見つかったカードが表示されます。
+        %br
+        完全に新規効果のカードが調べたい　→　Lvに1を代入すると既出効果の高レベルカードを除外できます
       %p
         %span#example_open.example_select.pointer{:onclick => "example_open(true)"}
           入力例（クリックで開きます）
@@ -65,36 +71,44 @@
               %td= f.label :result_no_form, '更新回'
               %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
             %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :s_no_form, 'Sno'
-              %td.formNum= text_field_tag :s_no_form, @s_no_form
-              %td= f.label :name_form, 'カード名'
-              %td.formText= text_field_tag :name_form, @name_form
-            %tr
-              %td= f.label :possession_form, '所有'
-              %td.formText= text_field_tag :possession_form, @possession_form
-              %td= f.label :kind_form, '種類'
-              %td.formText= text_field_tag :kind_form, @kind_form
-            %tr
-              %td= f.label :effect_form, '効果'
+              %td= f.label :effect_form, 'カード効果'
               %td.formText= text_field_tag :effect_form, @effect_form
               %td= f.label :lv_form, 'Lv'
               %td.formNum= text_field_tag :lv_form, @lv_form
+            - if @is_show_card_detail
+              %tr
+                %td= f.label :kind_form, '種類'
+                %td.formText{:colspan => "3"}= text_field_tag :kind_form, @kind_form
+              %tr
+                %td= f.label :lp_form, 'LP'
+                %td.formNum= text_field_tag :lp_form, @lp_form
+                %td= f.label :fp_form, 'FP'
+                %td.formNum= text_field_tag :fp_form, @fp_form
             %tr
-              %td= f.label :lp_form, 'LP'
-              %td.formNum= text_field_tag :lp_form, @lp_form
-              %td= f.label :fp_form, 'FP'
-              %td.formNum= text_field_tag :fp_form, @fp_form
+              %td= f.label :get_type_form, '取得方法'
+              %td{:colspan => "3"}
+                = check_box_tag :is_get_type_all, @is_get_type_all, @is_get_type_all
+                = label_tag :is_get_type_all, '全て合算'
+                %br
+                = check_box_tag :is_get_type_create, @is_get_type_create, @is_get_type_create
+                = label_tag :is_get_type_create, '生成'
+                　　
+                = check_box_tag :is_get_type_drop, @is_get_type_drop, @is_get_type_drop
+                = label_tag :is_get_type_drop, '獲得'
+                　　
+                = check_box_tag :is_get_type_event, @is_get_type_event, @is_get_type_event
+                = label_tag :is_get_type_event, 'イベント獲得'
+            %tr
+              %td
+              %td{:colspan => "3"}
+                = check_box_tag :is_show_card_detail, @is_show_card_detail, @is_show_card_detail
+                = label_tag :is_show_card_detail, '種類・LP・FPを表示'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@cards)
+      = paginate(@new_get_cards)
       %br
       ヒット数：#{ @count }件
       %br
@@ -104,32 +118,34 @@
         %thead
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :s_no, 'Sno', default_order: :desc)
-            %th= sort_link(@search, :name, 'カード名', default_order: :desc)
-            %th= sort_link(@search, :possession, '所有', default_order: :desc)
-            %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
             %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
             %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
-            %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
-            %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
-            %th{:colspan =>"2"}
-              結果リンク
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+            - if @is_show_card_detail
+              %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+            %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
+            %th{:colspan =>"2"} リンク
         %tbody
-          - @cards.each do |card|
+          - @new_get_cards.each do |new_get_card|
             %tr
-              %td= card.result_no
-              %td= card.p_name.name.html_safe + "(" + sprintf("%d", card.e_no) + ")"
-              %td= card.s_no
-              %td= card.name
-              %td= card.possession_name.name if card.possession_name
-              %td= card.card_data.kind_name.name if card.card_data && card.card_data.kind_name
-              %td= card.card_data.name if card.card_data
-              %td= card.card_data.lv if card.card_data
-              %td= card.card_data.lp if card.card_data
-              %td= card.card_data.fp if card.card_data
+              %td= new_get_card.result_no
+              %td= new_get_card.card_data.name if new_get_card.card_data
+              %td= new_get_card.card_data.lv if new_get_card.card_data
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.kind_name.name if new_get_card.card_data && new_get_card.card_data.kind_name
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.lp if new_get_card.card_data && new_get_card.card_data.lp >= 0
+              - if @is_show_card_detail
+                %td= new_get_card.card_data.fp if new_get_card.card_data && new_get_card.card_data.fp >= 0
               %td
-                = character_link(card.e_no)
+                = "全て" if new_get_card.get_type == 0
+                = "生成" if new_get_card.get_type == 1
+                = "獲得" if new_get_card.get_type == 2
+                = "イベント" if new_get_card.get_type == 3
+              %td= new_get_card_to_get_card_link(new_get_card.result_no, new_get_card.card_data.name, new_get_card.card_data.lv, new_get_card.get_type)
               %td
-                = character_old_link(@last_result, card.e_no, card.result_no)
-      = paginate(@cards)
+                = link_to "所持カード一覧", cards_path + "?result_no_form=" + sprintf("%d", new_get_card.result_no) + "&effect_form=\"" + new_get_card.card_data.name + "\"&lv_form=" + sprintf("%d", new_get_card.card_data.lv)
+      = paginate(@new_get_cards)

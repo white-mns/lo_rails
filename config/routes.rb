@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :new_card_uses
+  resources :new_get_cards
   resources :max_chains
   resources :card_use_pages
   resources :card_users

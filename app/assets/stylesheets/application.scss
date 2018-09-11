@@ -47,6 +47,14 @@ $nav-well-border-color: #ffcc88;
     border-width: 0.3em;
 }
 
+.navbar-toggle {
+    border: 0px;
+}
+
+.navbar-toggle:hover {
+    background-color: $navbar-default-link-hover-bg !important;
+}
+
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     color: #fff;
     background-color: #007fff;
