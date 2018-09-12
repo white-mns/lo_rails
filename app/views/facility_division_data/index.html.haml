@@ -1,4 +1,4 @@
-%h1 Listing facility_division_data
+%h1 施設詳細区分
 
 .bs-docs-section
   .row
@@ -62,23 +62,14 @@
                 %span{:style => "font-size:80%"}
                   (クリックで閉じます)
             %tr
-              %td= f.label :result_no_form, '更新回'
-              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :division_id_form, 'Division'
+              %td= f.label :division_id_form, 'ID'
               %td.formNum= text_field_tag :division_id_form, @division_id_form
             %tr
-              %td= f.label :detail_form, 'Detail'
-              %td.formNum= text_field_tag :detail_form, @detail_form
+              %td= f.label :detail_form, '詳細区分'
+              %td.formText= text_field_tag :detail_form, @detail_form
             %tr
-              %td= f.label :major_form, 'Major'
-              %td.formNum= text_field_tag :major_form, @major_form
+              %td= f.label :major_form, '区分'
+              %td.formText= text_field_tag :major_form, @major_form
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
@@ -93,20 +84,13 @@
       %table.table.table-striped.table-bordered.table-hover
         %thead
           %tr
-            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :division_id, 'Division', default_order: :desc)
-            %th= sort_link(@search, :detail, 'Detail', default_order: :desc)
-            %th= sort_link(@search, :major, 'Major', default_order: :desc)
-            %th{:colspan =>"2"} 結果リンク
+            %th= sort_link(@search, :division_id, 'ID', default_order: :desc)
+            %th= sort_link(@search, :detail, '詳細区分', default_order: :desc)
+            %th= sort_link(@search, :major, '区分', default_order: :desc)
         %tbody
           - @facility_division_data.each do |facility_division_datum|
             %tr
-              %td= facility_division_datum.result_no
-              %td= facility_division_datum.p_name.name.html_safe + "(" + sprintf("%d", facility_division_datum.e_no) + ")"
               %td= facility_division_datum.division_id
-              %td= facility_division_datum.detail
-              %td= facility_division_datum.major
-              %td= character_link(facility_division_datum.e_no)
-              %td= character_old_link(@last_result, facility_division_datum.e_no, facility_division_datum.result_no)
+              %td= facility_division_datum.detail_name.name if facility_division_datum.detail_name
+              %td= facility_division_datum.major_name.name  if facility_division_datum.major_name
       = paginate(@facility_division_data)

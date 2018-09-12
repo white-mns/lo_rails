@@ -5,8 +5,8 @@ class FacilityDivisionDataController < ApplicationController
   # GET /facility_division_data
   def index
     param_set
-    @count	= FacilityDivisionDatum.includes(:p_name).search(params[:q]).result.count()
-    @search	= FacilityDivisionDatum.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= FacilityDivisionDatum.includes(:detail_name, :major_name).search(params[:q]).result.count()
+    @search	= FacilityDivisionDatum.includes(:detail_name, :major_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @facility_division_data	= @search.result.per(50)
   end
@@ -21,8 +21,8 @@ class FacilityDivisionDataController < ApplicationController
     
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "division_id", "division_id_form")
-    reference_number_assign(params, "detail", "detail_form")
-    reference_number_assign(params, "major", "major_form")
+    reference_text_assign(params, "detail_name_name", "detail_form")
+    reference_text_assign(params, "major_name_name", "major_form")
     
     @p_name_form = params["p_name_form"]
     @division_id_form = params["division_id_form"]
