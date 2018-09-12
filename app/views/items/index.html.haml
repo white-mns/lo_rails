@@ -101,6 +101,20 @@
                 　　
                 = check_box_tag :exist_effect, @exist_effect, @exist_effect
                 = label_tag :exist_effect, '効果のあるアイテムのみ検索'
+            - if @show_facility_division
+              %tr
+                %td
+                %td
+                  = check_box_tag :show_facility_division, @show_facility_division, @show_facility_division
+                  = label_tag :show_facility_division, '施設区分を表示'
+                %td= f.label :major_form, '施設区分'
+                %td.formText= text_field_tag :major_form, @major_form
+            - else
+              %tr
+                %td
+                %td{:colspan => "3"}
+                  = check_box_tag :show_facility_division, @show_facility_division, @show_facility_division
+                  = label_tag :show_facility_division, '施設区分を表示'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
@@ -122,6 +136,8 @@
             %th= sort_link(@search, :equip, '装備', default_order: :desc)
             %th= sort_link(@search, :kind, '種類', default_order: :desc)
             %th= sort_link(@search, :effect, '効果', default_order: :desc)
+            - if @show_facility_division
+              %th= sort_link(@search, :effect, '施設区分', default_order: :desc)
             %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
             %th= sort_link(@search, :potency, '効力', default_order: :desc)
             %th= sort_link(@search, :precision, '精度', default_order: :desc)
@@ -137,6 +153,8 @@
               %td= item.equip_name.name if item.equip_name
               %td= item.kind_name.name if item.kind_name
               %td= item.effect_name.name if item.effect_name
+              - if @show_facility_division
+                %td= item.detail.major_name.name if item.detail && item.detail.major_name
               %td= item.lv > 0 ? item.lv : "-"
               %td= item.potency > -1 ? item.potency : "-"
               %td= item.precision > -1 ? item.precision : "-"

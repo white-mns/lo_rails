@@ -5,8 +5,8 @@ class ItemsController < ApplicationController
   # GET /items
   def index
     param_set
-    @count	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name).search(params[:q]).result.count()
-    @search	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name).page(params[:page]).search(params[:q])
+    @count	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name, [detail: :major_name]).search(params[:q]).result.count()
+    @search	= Item.includes(:p_name, :equip_name, :kind_name, :effect_name, [detail: :major_name]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @items	= @search.result.per(50)
   end
@@ -40,6 +40,7 @@ class ItemsController < ApplicationController
     reference_number_assign(params, "potency", "potency_form")
     reference_text_assign(params, "potency_str", "potency_str_form")
     reference_number_assign(params, "precision", "precision_form")
+    reference_text_assign(params, "detail_major_name_name", "major_form")
     
     if params["exist_effect"] == "on" then
        if params[:q]["effect_name_name_not_cont"] then
@@ -62,8 +63,11 @@ class ItemsController < ApplicationController
     @potency_form = params["potency_form"]
     @potency_str_form = params["potency_str_form"]
     @precision_form = params["precision_form"]
+
     @exist_effect = params["exist_effect"]
     @kind_equip = params["kind_equip"]
+
+    @show_facility_division = params["show_facility_division"]
   end
   # GET /items/1
   #def show
