@@ -63,6 +63,7 @@ class ItemsController < ApplicationController
     @potency_form = params["potency_form"]
     @potency_str_form = params["potency_str_form"]
     @precision_form = params["precision_form"]
+    @major_form = params["major_form"]
 
     @exist_effect = params["exist_effect"]
     @kind_equip = params["kind_equip"]
