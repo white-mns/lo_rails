@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_100341) do
+ActiveRecord::Schema.define(version: 2018_09_12_023408) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -190,6 +190,17 @@ ActiveRecord::Schema.define(version: 2018_09_10_100341) do
     t.index ["name"], name: "index_facilities_on_name"
     t.index ["period"], name: "index_facilities_on_period"
     t.index ["value"], name: "index_facilities_on_value"
+  end
+
+  create_table "facility_division_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "division_id"
+    t.integer "detail"
+    t.integer "major"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["detail"], name: "index_facility_division_data_on_detail"
+    t.index ["division_id"], name: "index_facility_division_data_on_division_id"
+    t.index ["major"], name: "index_facility_division_data_on_major"
   end
 
   create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -20,6 +20,9 @@ $navbar-default-link-hover-color: #222;
 $navbar-default-link-hover-bg: #ffcc88;
 $navbar-default-brand-hover-color: #222;
 $navbar-default-toggle-icon-bar-bg: #222;
+$navbar-default-toggle-hover-bg:           #ffcc88 !default;
+$navbar-default-toggle-icon-bar-bg:        #ffcc88 !default;
+$navbar-default-toggle-border-color:       transparent !default;
 $pagination-hover-bg: #fff0d0;
 $pagination-active-bg: #fff6d8;
 $pagination-active-color: #222;
@@ -45,14 +48,6 @@ $nav-well-border-color: #ffcc88;
     border-color: $nav-well-border-color;
     border-style: none none dashed none;
     border-width: 0.3em;
-}
-
-.navbar-toggle {
-    border: 0px;
-}
-
-.navbar-toggle:hover {
-    background-color: $navbar-default-link-hover-bg !important;
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
