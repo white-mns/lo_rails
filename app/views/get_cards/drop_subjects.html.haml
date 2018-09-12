@@ -1,178 +1,175 @@
 %h1 獲得カード＋学科一覧
 
-.bs-docs-section
-  .row
-    .col-md-12
-      %p.formNum 
-        テキストフォームの隣に赤い破線がある項目は数値検索です。
-        %br
-        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
-        %br
-        OR指定と範囲指定を同時に行うことはできません。
-      %p.formText
-        テキストフォームの隣に青い太線がある項目は文字検索です。
-        %br
-        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
-        %br
-        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
-      %p
-        %span.example_select.example_toggle.pointer
-          入力例
-          %span.act_desc（クリックで開きます）
-          %span.act_desc.closed（クリックで閉じます）
-      #example.closed
-        %p.formNum
-          数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
-          %br
-          「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
-        %p.formText
-          「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
-          %br
-          「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
-          %br
-          「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
-          %br
-          「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
-          %br
-          「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
-          %br
-          「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
-          %br
-          「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
-          %br
-          「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
-          %br
-          「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
-      = search_form_for @search, url: drop_subjects_path do |f|
-        %table.search_toggle.table.table-striped.table-bordered.table-hover
-          %tbody
-            %tr
-              %td{:colspan => "4"}
-                絞り込み検索
-                %span.act_desc (クリックで閉じます)
-                %span.act_desc.closed (クリックで開きます)
-          %tbody
-            %tr
-            %tr
-              %td= f.label :result_no_form, '更新回'
-              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :e_no_form, 'Eno'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-              %td= f.label :p_name_form, 'キャラクター名'
-              %td.formText= text_field_tag :p_name_form, @p_name_form
-            %tr
-              %td= f.label :effect_form, '効果'
-              %td.formText= text_field_tag :effect_form, @effect_form
-              %td= f.label :lv_form, 'Lv'
-              %td.formNum= text_field_tag :lv_form, @lv_form
-            %tr
-              %td= f.label :slash_form, '斬術'
-              %td.formNum= text_field_tag :slash_form, @slash_form
-              %td= f.label :fire_form, '火術'
-              %td.formNum= text_field_tag :fire_form, @fire_form
-            %tr
-              %td= f.label :thrust_form, '突術'
-              %td.formNum= text_field_tag :thrust_form, @thrust_form
-              %td= f.label :theology_form, '神術'
-              %td.formNum= text_field_tag :theology_form, @theology_form
-            %tr
-              %td= f.label :stroke_form, '打術'
-              %td.formNum= text_field_tag :stroke_form, @stroke_form
-              %td= f.label :life_form, '命術'
-              %td.formNum= text_field_tag :life_form, @life_form
-            %tr
-              %td= f.label :shot_form, '射撃'
-              %td.formNum= text_field_tag :shot_form, @shot_form
-              %td= f.label :demonology_form, '冥術'
-              %td.formNum= text_field_tag :demonology_form, @demonology_form
-            %tr
-              %td= f.label :guard_form, '護衛'
-              %td.formNum= text_field_tag :guard_form, @guard_form
-              %td= f.label :geography_form, '地学'
-              %td.formNum= text_field_tag :geography_form, @geography_form
-            %tr
-              %td= f.label :dance_form, '舞踊'
-              %td.formNum= text_field_tag :dance_form, @dance_form
-              %td= f.label :astronomy_form, '天文学'
-              %td.formNum= text_field_tag :astronomy_form, @astronomy_form
-            %tr
-              %td= f.label :theft_form, '盗術'
-              %td.formNum= text_field_tag :theft_form, @theft_form
-              %td= f.label :fengshui_form, '風水学'
-              %td.formNum= text_field_tag :fengshui_form, @fengshui_form
-            %tr
-              %td= f.label :cooking_form, '料理'
-              %td.formNum= text_field_tag :cooking_form, @cooking_form
-              %td= f.label :psychology_form, '心理学'
-              %td.formNum= text_field_tag :psychology_form, @psychology_form
-            %tr
-              %td= f.label :technology_form, '工芸学'
-              %td.formNum= text_field_tag :technology_form, @technology_form
-              %td= f.label :music_form, '音楽'
-              %td.formNum= text_field_tag :music_form, @music_form
-            %tr
-              %td= f.label :movement_form, '機動学'
-              %td.formNum= text_field_tag :movement_form, @movement_form
-              %td= f.label :curse_form, '呪術'
-              %td.formNum= text_field_tag :curse_form, @curse_form
-            %tr
-              %td= f.label :chemistry_form, '化学'
-              %td.formNum= text_field_tag :chemistry_form, @chemistry_form
-              %td= f.label :illusion_form, '幻術'
-              %td.formNum= text_field_tag :illusion_form, @illusion_form
-            %tr
-              %td= f.label :arithmetic_form, '算術'
-              %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
-              %td= f.label :trick_form, '奇術'
-              %td.formNum= text_field_tag :trick_form, @trick_form
-            %tr
-              %td
-              %td{:colspan => "3"}
-                = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
-                = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
-            %tr
-              %td
-              %td{:colspan => "3"}
-                = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
-                = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
-            %tr
-              %td= hidden_field_tag :is_form, 1
-              %td{:colspan => "3"}= f.submit '検索する'
+%p.formNum 
+  テキストフォームの隣に赤い破線がある項目は数値検索です。
+  %br
+  「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+  %br
+  OR指定と範囲指定を同時に行うことはできません。
+%p.formText
+  テキストフォームの隣に青い太線がある項目は文字検索です。
+  %br
+  半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+  %br
+  ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+%p
+  %span.example_select.example_toggle.pointer
+    入力例
+    %span.act_desc（クリックで開きます）
+    %span.act_desc.closed（クリックで閉じます）
+#example.closed
+  %p.formNum
+    数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+    %br
+    「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+  %p.formText
+    「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+    %br
+    「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+    %br
+    「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+    %br
+    「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+    %br
+    「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+    %br
+    「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+    %br
+    「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+    %br
+    「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+    %br
+    「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+= search_form_for @search, url: drop_subjects_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody
+      %tr
+        %td{:colspan => "4"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td= f.label :effect_form, '効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+      %tr
+        %td= f.label :slash_form, '斬術'
+        %td.formNum= text_field_tag :slash_form, @slash_form
+        %td= f.label :fire_form, '火術'
+        %td.formNum= text_field_tag :fire_form, @fire_form
+      %tr
+        %td= f.label :thrust_form, '突術'
+        %td.formNum= text_field_tag :thrust_form, @thrust_form
+        %td= f.label :theology_form, '神術'
+        %td.formNum= text_field_tag :theology_form, @theology_form
+      %tr
+        %td= f.label :stroke_form, '打術'
+        %td.formNum= text_field_tag :stroke_form, @stroke_form
+        %td= f.label :life_form, '命術'
+        %td.formNum= text_field_tag :life_form, @life_form
+      %tr
+        %td= f.label :shot_form, '射撃'
+        %td.formNum= text_field_tag :shot_form, @shot_form
+        %td= f.label :demonology_form, '冥術'
+        %td.formNum= text_field_tag :demonology_form, @demonology_form
+      %tr
+        %td= f.label :guard_form, '護衛'
+        %td.formNum= text_field_tag :guard_form, @guard_form
+        %td= f.label :geography_form, '地学'
+        %td.formNum= text_field_tag :geography_form, @geography_form
+      %tr
+        %td= f.label :dance_form, '舞踊'
+        %td.formNum= text_field_tag :dance_form, @dance_form
+        %td= f.label :astronomy_form, '天文学'
+        %td.formNum= text_field_tag :astronomy_form, @astronomy_form
+      %tr
+        %td= f.label :theft_form, '盗術'
+        %td.formNum= text_field_tag :theft_form, @theft_form
+        %td= f.label :fengshui_form, '風水学'
+        %td.formNum= text_field_tag :fengshui_form, @fengshui_form
+      %tr
+        %td= f.label :cooking_form, '料理'
+        %td.formNum= text_field_tag :cooking_form, @cooking_form
+        %td= f.label :psychology_form, '心理学'
+        %td.formNum= text_field_tag :psychology_form, @psychology_form
+      %tr
+        %td= f.label :technology_form, '工芸学'
+        %td.formNum= text_field_tag :technology_form, @technology_form
+        %td= f.label :music_form, '音楽'
+        %td.formNum= text_field_tag :music_form, @music_form
+      %tr
+        %td= f.label :movement_form, '機動学'
+        %td.formNum= text_field_tag :movement_form, @movement_form
+        %td= f.label :curse_form, '呪術'
+        %td.formNum= text_field_tag :curse_form, @curse_form
+      %tr
+        %td= f.label :chemistry_form, '化学'
+        %td.formNum= text_field_tag :chemistry_form, @chemistry_form
+        %td= f.label :illusion_form, '幻術'
+        %td.formNum= text_field_tag :illusion_form, @illusion_form
+      %tr
+        %td= f.label :arithmetic_form, '算術'
+        %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
+        %td= f.label :trick_form, '奇術'
+        %td.formNum= text_field_tag :trick_form, @trick_form
+      %tr
+        %td
+        %td{:colspan => "3"}
+          = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
+          = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
+      %tr
+        %td
+        %td{:colspan => "3"}
+          = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
+          = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
+      %tr
+        %td= hidden_field_tag :is_form, 1
+        %td{:colspan => "3"}= f.submit '検索する'
 
 
-      = paginate(@get_cards)
-      %br
-      ヒット数：#{ @count }件
-      %br
-      %br
-      
-      %table.table.table-striped.table-bordered.table-hover
-        %thead
-          %tr
-            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            -@subjects.each do |subject, subject_name|
-              - if params["min_0_hidden"] && @open[subject] == 0
-              - else
-                - if params["min_0_gray"] && @open[subject] == 0
-                  %th{:style => "background-color: #aaa;"}= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
-                - else
-                  %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
-            %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
-            %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
-            %th{:colspan =>"2"}
-              結果リンク
-        %tbody
-          - @get_cards.each do |get_card|
-            %tr
-              %td= get_card.result_no
-              %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
-              - render_subjects(get_card.subject, @subjects, params, @open, nil)
-              %td= get_card.card_data.name if get_card.card_data
-              %td= get_card.card_data.lv if get_card.card_data
-              %td
-                = character_link(get_card.e_no)
-              %td
-                = character_old_link(@last_result, get_card.e_no, get_card.result_no)
-      = paginate(@get_cards)
+= paginate(@get_cards)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      -@subjects.each do |subject, subject_name|
+        - if params["min_0_hidden"] && @open[subject] == 0
+        - else
+          - if params["min_0_gray"] && @open[subject] == 0
+            %th{:style => "background-color: #aaa;"}= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
+          - else
+            %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
+      %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      %th{:colspan =>"2"}
+        結果リンク
+  %tbody
+    - @get_cards.each do |get_card|
+      %tr
+        %td= get_card.result_no
+        %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
+        - render_subjects(get_card.subject, @subjects, params, @open, nil)
+        %td= get_card.card_data.name if get_card.card_data
+        %td= get_card.card_data.lv if get_card.card_data
+        %td
+          = character_link(get_card.e_no)
+        %td
+          = character_old_link(@last_result, get_card.e_no, get_card.result_no)
+= paginate(@get_cards)

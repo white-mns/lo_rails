@@ -1,147 +1,144 @@
 %h1 開拓戦勝率
 
-.bs-docs-section
-  .row
-    .col-md-12
-      %p.formNum 
-        テキストフォームの隣に赤い破線がある項目は数値検索です。
-        %br
-        「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
-        %br
-        OR指定と範囲指定を同時に行うことはできません。
-      %p.formText
-        テキストフォームの隣に青い太線がある項目は文字検索です。
-        %br
-        半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
-        %br
-        ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
-      %p
-        %span.example_select.example_toggle.pointer
-          入力例
-          %span.act_desc（クリックで開きます）
-          %span.act_desc.closed（クリックで閉じます）
-      #example.closed
-        %p.formNum
-          数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
-          %br
-          「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
-        %p.formText
-          「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
-          %br
-          「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
-          %br
-          「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
-          %br
-          「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
-          %br
-          「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
-          %br
-          「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
-          %br
-          「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
-          %br
-          「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
-          %br
-          「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
-      = search_form_for @search, url: development_result_win_per_path do |f|
-        %table.search_toggle.table.table-striped.table-bordered.table-hover
-          %tbody
-            %tr
-              %td{:colspan => "4"}
-                絞り込み検索
-                %span.act_desc (クリックで閉じます)
-                %span.act_desc.closed (クリックで開きます)
-          %tbody
-            %tr
-            %tr
-              %td= f.label :result_no_form, '更新回'
-              %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
-            %tr
-              %td= f.label :invation_lv_form, '侵攻Lv'
-              %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
-              %td= f.label :party_num_form, 'パーティ人数'
-              %td.formNum= text_field_tag :party_num_form, @party_num_form
-            %tr
-              %td= f.label :bellicose_form, '好戦度'
-              %td.formNum= text_field_tag :bellicose_form, @bellicose_form
-              %td= f.label :day_form, 'Day'
-              %td.formNum= text_field_tag :day_form, @day_form
-            %tr
-              %td
-              %td{:colspan => "3"}
-                = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
-                = label_tag :split_bellicose, '好戦度で分けて集計する'
-                　　
-                = check_box_tag :split_party_num, @split_party_num, @split_party_num
-                = label_tag :split_party_num, 'PT人数で分けて集計する'
-            %tr
-              %td
-              %td{:colspan => "3"}
-                = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
-                = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
-                　　
-                = check_box_tag :split_day, @split_day, @split_day
-                = label_tag :split_day, 'Dayで分けて集計する'
-            %tr
-              %td= hidden_field_tag :is_form, 1
-              %td{:colspan => "3"}= f.submit '検索する'
+%p.formNum 
+  テキストフォームの隣に赤い破線がある項目は数値検索です。
+  %br
+  「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
+  %br
+  OR指定と範囲指定を同時に行うことはできません。
+%p.formText
+  テキストフォームの隣に青い太線がある項目は文字検索です。
+  %br
+  半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
+  %br
+  ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+%p
+  %span.example_select.example_toggle.pointer
+    入力例
+    %span.act_desc（クリックで開きます）
+    %span.act_desc.closed（クリックで閉じます）
+#example.closed
+  %p.formNum
+    数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
+    %br
+    「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
+  %p.formText
+    「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
+    %br
+    「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
+    %br
+    「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
+    %br
+    「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
+    %br
+    「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
+    %br
+    「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
+    %br
+    「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
+    %br
+    「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
+    %br
+    「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+= search_form_for @search, url: development_result_win_per_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody
+      %tr
+        %td{:colspan => "4"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td= f.label :invation_lv_form, '侵攻Lv'
+        %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
+        %td= f.label :party_num_form, 'パーティ人数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form
+      %tr
+        %td= f.label :bellicose_form, '好戦度'
+        %td.formNum= text_field_tag :bellicose_form, @bellicose_form
+        %td= f.label :day_form, 'Day'
+        %td.formNum= text_field_tag :day_form, @day_form
+      %tr
+        %td
+        %td{:colspan => "3"}
+          = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
+          = label_tag :split_bellicose, '好戦度で分けて集計する'
+          　　
+          = check_box_tag :split_party_num, @split_party_num, @split_party_num
+          = label_tag :split_party_num, 'PT人数で分けて集計する'
+      %tr
+        %td
+        %td{:colspan => "3"}
+          = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
+          = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
+          　　
+          = check_box_tag :split_day, @split_day, @split_day
+          = label_tag :split_day, 'Dayで分けて集計する'
+      %tr
+        %td= hidden_field_tag :is_form, 1
+        %td{:colspan => "3"}= f.submit '検索する'
 
 
-      ヒット数：#{ @count }件
-      %br
-      %br
-      
-      %table.table.table-striped.table-bordered.table-hover
-        %thead
-          %tr
-            %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-            -if params["split_invation_lv"] == "on"
-              %th= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
-            -if params["split_party_num"] == "on"
-              %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
-            -if params["split_bellicose"] == "on"
-              %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
-            -if params["split_day"] == "on"
-              %th= sort_link(@search, :parameter_control_day, 'Day', default_order: :desc)
-            %th= "侵攻数"
-            %th= "勝利"
-            %th= "引分"
-            %th= "敗北"
-            %th= "勝率"
-        %tbody
-          - @all.each do |development_result|
-            %tr
-              %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
-              -if params["split_invation_lv"] == "on"
-                %td= "全体"
-              -if params["split_party_num"] == "on"
-                %td
-              -if params["split_bellicose"] == "on"
-                %td
-              -if params["split_day"] == "on"
-                %td 
-              %td= development_result.count if development_result.respond_to?(:count)
-              %td= development_result.win if development_result.respond_to?(:win)
-              %td= development_result.draw if development_result.respond_to?(:draw)
-              %td= development_result.lose if development_result.respond_to?(:lose)
-              %td
-                - if development_result.respond_to?(:win_per)
-                  = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per
-          - @development_results.each do |development_result|
-            %tr
-              %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
-              -if params["split_invation_lv"] == "on"
-                %td= development_result.place.invation_lv if development_result.place
-              -if params["split_party_num"] == "on"
-                %td= development_result.party_num
-              -if params["split_bellicose"] == "on"
-                %td= development_result.bellicose
-              -if params["split_day"] == "on"
-                %td= development_result.parameter_control.day if development_result.parameter_control
-              %td= development_result.count if development_result.respond_to?(:count)
-              %td= development_result.win if development_result.respond_to?(:win)
-              %td= development_result.draw if development_result.respond_to?(:draw)
-              %td= development_result.lose if development_result.respond_to?(:lose)
-              %td
-                - if development_result.respond_to?(:win_per)
-                  = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      -if params["split_invation_lv"] == "on"
+        %th= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
+      -if params["split_party_num"] == "on"
+        %th= sort_link(@search, :party_num, 'PT人数', default_order: :desc)
+      -if params["split_bellicose"] == "on"
+        %th= sort_link(@search, :bellicose, '好戦度', default_order: :desc)
+      -if params["split_day"] == "on"
+        %th= sort_link(@search, :parameter_control_day, 'Day', default_order: :desc)
+      %th= "侵攻数"
+      %th= "勝利"
+      %th= "引分"
+      %th= "敗北"
+      %th= "勝率"
+  %tbody
+    - @all.each do |development_result|
+      %tr
+        %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
+        -if params["split_invation_lv"] == "on"
+          %td= "全体"
+        -if params["split_party_num"] == "on"
+          %td
+        -if params["split_bellicose"] == "on"
+          %td
+        -if params["split_day"] == "on"
+          %td 
+        %td= development_result.count if development_result.respond_to?(:count)
+        %td= development_result.win if development_result.respond_to?(:win)
+        %td= development_result.draw if development_result.respond_to?(:draw)
+        %td= development_result.lose if development_result.respond_to?(:lose)
+        %td
+          - if development_result.respond_to?(:win_per)
+            = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per
+    - @development_results.each do |development_result|
+      %tr
+        %td= development_result.min_result_no == development_result.max_result_no ? development_result.max_result_no : sprintf("%d", development_result.min_result_no) + "～" + sprintf("%d", development_result.max_result_no)
+        -if params["split_invation_lv"] == "on"
+          %td= development_result.place.invation_lv if development_result.place
+        -if params["split_party_num"] == "on"
+          %td= development_result.party_num
+        -if params["split_bellicose"] == "on"
+          %td= development_result.bellicose
+        -if params["split_day"] == "on"
+          %td= development_result.parameter_control.day if development_result.parameter_control
+        %td= development_result.count if development_result.respond_to?(:count)
+        %td= development_result.win if development_result.respond_to?(:win)
+        %td= development_result.draw if development_result.respond_to?(:draw)
+        %td= development_result.lose if development_result.respond_to?(:lose)
+        %td
+          - if development_result.respond_to?(:win_per)
+            = sprintf("%.0f", development_result.win_per * 100) + "％" if development_result.win_per
