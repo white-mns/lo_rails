@@ -18,14 +18,16 @@
           %li= link_to "特性一覧", characteristics_path
           %li= link_to "学科一覧", subjects_path
           %br
-          %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
-          %br
           %li= link_to "所持アイテム一覧", items_path
           %li= link_to "所持カード一覧", cards_path
           %li= link_to "所持施設一覧", facilities_path
           %br
+          %li= link_to "鍛錬一覧", trainings_path
           %li= link_to "開拓戦勝率", development_result_win_per_path
           %li= link_to "開拓戦勝敗一覧", development_results_path
+          %br
+          %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
+          %li= link_to "鍛錬グラフ", training_graph_path
         %br
     .col-md-6
       %ul
@@ -51,6 +53,13 @@
 .well.well-sm
   %h2 更新履歴
   %ul
+    %li 2018/9/13
+    %ul
+      %li
+        = link_to "鍛錬一覧", trainings_path
+        、
+        = link_to "鍛錬グラフ", training_graph_path
+        を公開
     %li 2018/9/12
     %ul
       %li

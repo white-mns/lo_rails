@@ -19,41 +19,27 @@
 //= require "jquery.cleanQuery"
 //= require chartkick
 
-// 説明文の開閉処理
-function example_open(flg) {
-	var example=document.getElementById("example");
-	var example_open=document.getElementById("example_open");
-	var example_close=document.getElementById("example_close");
-
-    if(!example || !example_open){return;}
-
-	if(flg) {
-		example.style.display='inline';
-		example_open.style.display='none';
-		example_close.style.display='inline';
-
-	}else{
-		example.style.display='none';
-		example_open.style.display='inline';
-		example_close.style.display='none';
-	}
+// 検索遷移時の検索フォームの閉じる処理
+function search_close() {
+    $(".search_toggle").children().eq(1).hide();
+    $(".search_toggle").children().eq(0).find(".act_desc").toggle();
 };
 
-// 検索フォームの開閉処理
-function search_open(flg) {
-	var table=document.getElementById("search_table");
-	var close=document.getElementById("search_close");
+function set_triggers() {
+    $(".example_toggle").on("click", function() {
+        $(this).parent().next().slideToggle(200);
+        $(this).find(".act_desc").toggle();
+    });
 
-    if(!table || !close){return;}
-
-	if(flg) {
-		table.style.display='table';
-		close.style.display='none';
-
-	}else{
-		table.style.display='none';
-		close.style.display='table';
-	}
+    $(".search_toggle").children().eq(0).on("click", function() {
+        $(this).next().toggle();
+        $(this).find(".act_desc").toggle();
+    });
+    
+    $(".td__toggle").on("click", function() {
+        $(this).next().slideToggle();
+        $(this).find(".act_desc").toggle();
+    });
 };
 
 // ページ移動時の発火処理
@@ -62,11 +48,12 @@ var turboReady = function(){
     var params  = url.split("?");
 
 	if(params[1]){
-		search_open(false);
-        example_open(false);
+        search_close();
 	}
 
     $('FORM').cleanQuery();
+
+    set_triggers();
 };
 
 $(document).on('turbolinks:load', turboReady);

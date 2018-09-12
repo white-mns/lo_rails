@@ -92,6 +92,15 @@ p.formNum {
     border-left: solid $nav-well-border-color;
     background-color: $nav-back-color;
 }
+
 .pointer{
     cursor:pointer;
+}
+
+table tr:nth-child(1) span.act_desc{
+    font-size:80%
+}
+
+.closed{
+    display:none;
 }

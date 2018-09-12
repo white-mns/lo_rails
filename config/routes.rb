@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "training/graph",   :to => "trainings#graph",    :as => 'training_graph' 
+  resources :trainings
   resources :facility_division_data
   resources :new_card_uses
   resources :new_get_cards

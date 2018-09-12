@@ -1,4 +1,4 @@
-%h1 調整パラメータ一覧
+%h1 鍛錬一覧
 
 %p.formNum 
   テキストフォームの隣に赤い破線がある項目は数値検索です。
@@ -52,7 +52,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
@@ -60,26 +60,22 @@
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
-        %td= f.label :cond_form, 'Cond'
-        %td.formNum= text_field_tag :cond_form, @cond_form
+        %td= f.label :training_form, '鍛錬'
+        %td.formText= text_field_tag :training_form, @training_form
       %tr
-        %td= f.label :day_form, 'Day'
-        %td.formNum= text_field_tag :day_form, @day_form
-      %tr
-        %td= f.label :mod_form, 'Mod'
-        %td.formText= text_field_tag :mod_form, @mod_form
-      %tr
-        %td= f.label :cvp_form, 'CVP'
-        %td.formNum= text_field_tag :cvp_form, @cvp_form
-      %tr
-        %td= f.label :pvp_form, 'PVP'
-        %td.formNum= text_field_tag :pvp_form, @pvp_form
+        %td= f.label :training_type_form, '鍛錬種別'
+        %td{:colspan => "3"}
+          = check_box_tag :is_characteristic, @is_characteristic, @is_characteristic
+          = label_tag :is_characteristic, '特性'
+          　　
+          = check_box_tag :is_subject, @is_subject, @is_subject
+          = label_tag :is_subject, '学科'
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td= f.submit '検索する'
+        %td{:colspan => "3"}= f.submit '検索する'
 
 
-= paginate(@parameter_controls)
+= paginate(@trainings)
 %br
 ヒット数：#{ @count }件
 %br
@@ -90,25 +86,18 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :cond, 'Cond', default_order: :desc)
-      %th= sort_link(@search, :day, 'Day', default_order: :desc)
-      %th= sort_link(@search, :mod, 'Mod', default_order: :desc)
-      %th= sort_link(@search, :cvp, 'CVP', default_order: :desc)
-      %th= sort_link(@search, :pvp, 'PVP', default_order: :desc)
-      %th{:colspan =>"2"}
-        結果リンク
+      %th= sort_link(@search, :training_type, '種別', default_order: :desc)
+      %th= sort_link(@search, :training, '鍛錬', default_order: :desc)
+      %th{:colspan =>"2"} 結果リンク
   %tbody
-    - @parameter_controls.each do |parameter_control|
+    - @trainings.each do |training|
       %tr
-        %td= parameter_control.result_no
-        %td= parameter_control.p_name.name.html_safe + "(" + sprintf("%d", parameter_control.e_no) + ")"
-        %td= parameter_control.cond_name.name if parameter_control.cond
-        %td= parameter_control.day
-        %td= parameter_control.mod
-        %td= parameter_control.cvp
-        %td= parameter_control.pvp
+        %td= training.result_no
+        %td= training.p_name.name.html_safe + "(" + sprintf("%d", training.e_no) + ")"
         %td
-          = character_link(parameter_control.e_no)
-        %td
-          = character_old_link(@last_result, parameter_control.e_no, parameter_control.result_no)
-= paginate(@parameter_controls)
+          = "特性" if training.training_type == 0
+          = "学科" if training.training_type == 1
+        %td= training.training_name.name if training.training_name
+        %td= character_link(training.e_no)
+        %td= character_old_link(@last_result, training.e_no, training.result_no)
+= paginate(@trainings)

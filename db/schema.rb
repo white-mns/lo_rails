@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_023408) do
+ActiveRecord::Schema.define(version: 2018_09_12_043158) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -457,6 +457,19 @@ ActiveRecord::Schema.define(version: 2018_09_12_023408) do
     t.index ["theology"], name: "index_subjects_on_theology"
     t.index ["thrust"], name: "index_subjects_on_thrust"
     t.index ["trick"], name: "index_subjects_on_trick"
+  end
+
+  create_table "trainings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "training_type"
+    t.integer "training"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["training"], name: "index_trainings_on_training"
+    t.index ["training_type"], name: "index_trainings_on_training_type"
   end
 
 end
