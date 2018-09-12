@@ -27,7 +27,7 @@ function search_close() {
 
 function set_triggers() {
     $(".example_toggle").on("click", function() {
-        $(this).parent().next().slideToggle();
+        $(this).parent().next().slideToggle(200);
         $(this).find(".act_desc").toggle();
     });
 
