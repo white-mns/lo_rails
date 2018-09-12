@@ -1,0 +1,2 @@
+class FacilityDivisionDatum < ApplicationRecord
+end
