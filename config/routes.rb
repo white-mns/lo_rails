@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :trainings
   resources :facility_division_data
   resources :new_card_uses
   resources :new_get_cards
