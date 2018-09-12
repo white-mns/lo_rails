@@ -1,4 +1,4 @@
-%h1 Listing trainings
+%h1 鍛錬一覧
 
 .bs-docs-section
   .row
@@ -71,20 +71,16 @@
               %td= f.label :p_name_form, 'キャラクター名'
               %td.formText= text_field_tag :p_name_form, @p_name_form
             %tr
-              %td= f.label :result_no_form, 'Result no'
-              %td.formNum= text_field_tag :result_no_form, @result_no_form
+              %td= f.label :training_form, '鍛錬'
+              %td.formText= text_field_tag :training_form, @training_form
             %tr
-              %td= f.label :generate_no_form, 'Generate no'
-              %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-            %tr
-              %td= f.label :e_no_form, 'E no'
-              %td.formNum= text_field_tag :e_no_form, @e_no_form
-            %tr
-              %td= f.label :training_type_form, 'Training type'
-              %td.formNum= text_field_tag :training_type_form, @training_type_form
-            %tr
-              %td= f.label :training_form, 'Training'
-              %td.formNum= text_field_tag :training_form, @training_form
+              %td= f.label :training_type_form, '鍛錬種別'
+              %td{:colspan => "3"}
+                = check_box_tag :is_characteristic, @is_characteristic, @is_characteristic
+                = label_tag :is_characteristic, '特性'
+                　　
+                = check_box_tag :is_subject, @is_subject, @is_subject
+                = label_tag :is_subject, '学科'
             %tr
               %td= hidden_field_tag :is_form, 1
               %td{:colspan => "3"}= f.submit '検索する'
@@ -101,22 +97,18 @@
           %tr
             %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
             %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-            %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-            %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-            %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-            %th= sort_link(@search, :training_type, 'Training type', default_order: :desc)
-            %th= sort_link(@search, :training, 'Training', default_order: :desc)
+            %th= sort_link(@search, :training_type, '種別', default_order: :desc)
+            %th= sort_link(@search, :training, '鍛錬', default_order: :desc)
             %th{:colspan =>"2"} 結果リンク
         %tbody
           - @trainings.each do |training|
             %tr
               %td= training.result_no
               %td= training.p_name.name.html_safe + "(" + sprintf("%d", training.e_no) + ")"
-              %td= training.result_no
-              %td= training.generate_no
-              %td= training.e_no
-              %td= training.training_type
-              %td= training.training
+              %td
+                = "特性" if training.training_type == 0
+                = "学科" if training.training_type == 1
+              %td= training.training_name.name if training.training_name
               %td= character_link(training.e_no)
               %td= character_old_link(@last_result, training.e_no, training.result_no)
       = paginate(@trainings)

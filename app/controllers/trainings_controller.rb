@@ -5,8 +5,8 @@ class TrainingsController < ApplicationController
   # GET /trainings
   def index
     param_set
-    @count	= Training.includes(:p_name).search(params[:q]).result.count()
-    @search	= Training.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Training.includes(:p_name, :training_name).search(params[:q]).result.count()
+    @search	= Training.includes(:p_name, :training_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end
@@ -24,14 +24,25 @@ class TrainingsController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "training_type", "training_type_form")
-    reference_number_assign(params, "training", "training_form")
+    reference_text_assign(params, "training_name_name", "training_form")
     
+    params[:q]["training_type_eq_any"] ||= []
+    if !params["is_characteristic"] && !params["is_subject"]then
+        params["is_characteristic"] = "on"
+        params["is_subject"] = "on"
+    end
+    if params["is_characteristic"] == "on" then params[:q]["training_type_eq_any"].push(0) end
+    if params["is_subject"] == "on" then params[:q]["training_type_eq_any"].push(1) end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
     @training_type_form = params["training_type_form"]
     @training_form = params["training_form"]
+
+    @is_characteristic = params["is_characteristic"]
+    @is_subject = params["is_subject"]
   end
   # GET /trainings/1
   #def show
