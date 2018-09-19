@@ -42,31 +42,35 @@
     「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
+        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
+        %td  
         %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
         %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
 <% end -%>
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{colspan: "3"}= f.submit '検索する'
+        %td{colspan: "4"}= f.submit '検索する'
 
 
 = paginate(@<%= plural_table_name %>)
