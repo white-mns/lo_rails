@@ -1,6 +1,11 @@
 module NewGetCardHelper
     def new_get_card_to_get_card_link(result_no, name, lv, get_type)
-        if get_type != 3
+        if get_type == 2
+            get_type_text =  ""
+            get_type_text =  "&is_get_type_create=on" if get_type == 1
+            get_type_text =  "&is_get_type_drop=on"   if get_type == 2
+            link_to "獲得カード＋学科一覧", drop_subjects_path + "?result_no_form=" + sprintf("%d",result_no) + "&effect_form=\"" + name + "\"&lv_form=" + sprintf("%d", lv) + get_type_text 
+        elsif get_type != 3
             get_type_text =  ""
             get_type_text =  "&is_get_type_create=on" if get_type == 1
             get_type_text =  "&is_get_type_drop=on"   if get_type == 2

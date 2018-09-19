@@ -12,37 +12,53 @@
  *
  */
 
-$table-bg-accent: #fffaf0;
-$table-bg-hover: #fff0d0;
-$navbar-default-bg: #fff0d0;
-$navbar-default-link-color: #222;
-$navbar-default-link-hover-color: #222;
-$navbar-default-link-hover-bg: #ffcc88;
-$navbar-default-brand-hover-color: #222;
-$navbar-default-toggle-icon-bar-bg: #222;
-$navbar-default-toggle-hover-bg:           #ffcc88 !default;
-$navbar-default-toggle-icon-bar-bg:        #ffcc88 !default;
-$navbar-default-toggle-border-color:       transparent !default;
-$pagination-hover-bg: #fff0d0;
-$pagination-active-bg: #fff6d8;
-$pagination-active-color: #222;
-$well-bg: #fffaf0;
-$breadcrumb-bg: #fffaf0;
+$black:                 #222;
+$gray:                  #ddd;
+$hover_bg_color:        #fff0d0;
+$weak_color:            #fffaf0;
+$nav-back-color:        $hover_bg_color;
+$nav-hover-back-color:  #ffcc88;
+$nav-well-border-color: #ffcc88;
+
+$table-bg-accent:                   $weak_color;
+$table-bg-hover:                    $hover_bg_color;
+$link-color:                        #08f;
+$navbar-default-bg:                 #fff0d0;
+$navbar-default-link-color:         $black;
+$navbar-default-link-hover-color:   $black;
+$navbar-default-link-hover-bg:      #ffcc88;
+$navbar-default-brand-hover-color:  $black;
+$navbar-default-toggle-icon-bar-bg: $black;
+$navbar-default-toggle-border-color: transparent;
+$well-bg: $weak_color;
+$breadcrumb-bg: $weak_color;
+
+//== Pagination
+
+$pagination-color:                     $black;
+$pagination-bg:                        #fff;
+$pagination-border:                    $gray;
+
+$pagination-hover-color:               $black;
+$pagination-hover-bg:                  $hover_bg_color;
+$pagination-hover-border:              $gray;
+
+$pagination-active-color:              $black;
+$pagination-active-bg:                 $hover_bg_color;
+$pagination-active-border:             $gray;
+
+$pagination-disabled-color:            $black;
+$pagination-disabled-bg:               #fff;
+$pagination-disabled-border:           $gray;
 
 @import "bootstrap-sprockets";
+@import "bootswatch/flatly/variables";
 @import "bootstrap";
 
-@import "bootswatch/flatly/variables";
 
 body { padding-top: 60px; }
 
 @import "bootswatch/flatly/bootswatch";
-
-$nav-color: #222;
-$nav-back-color: #fff0d0;
-$nav-hover-back-color: #ffcc88;
-$table-well-back-color: #fffaf0;
-$nav-well-border-color: #ffcc88;
 
 .navbar-default {
     border-color: $nav-well-border-color;
