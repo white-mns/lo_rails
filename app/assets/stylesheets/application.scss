@@ -35,15 +35,15 @@ $breadcrumb-bg: $weak_color;
 
 //== Pagination
 
-$pagination-color:                     $black;
+$pagination-color:                     $link-color;
 $pagination-bg:                        #fff;
 $pagination-border:                    $gray;
 
-$pagination-hover-color:               $black;
+$pagination-hover-color:               $link-color;
 $pagination-hover-bg:                  $hover_bg_color;
 $pagination-hover-border:              $gray;
 
-$pagination-active-color:              $black;
+$pagination-active-color:              $link-color;
 $pagination-active-bg:                 $hover_bg_color;
 $pagination-active-border:             $gray;
 
