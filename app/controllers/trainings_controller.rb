@@ -5,8 +5,8 @@ class TrainingsController < ApplicationController
   # GET /trainings
   def index
     param_set
-    @count	= Training.includes(:p_name, :training_name).search(params[:q]).result.count()
-    @search	= Training.includes(:p_name, :training_name).page(params[:page]).search(params[:q])
+    @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
+    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end
@@ -14,8 +14,8 @@ class TrainingsController < ApplicationController
   # GET /training/graph
   def graph
     param_set
-    @count	= Training.includes(:p_name, :training_name).search(params[:q]).result.count()
-    @search	= Training.includes(:p_name, :training_name).page(params[:page]).search(params[:q])
+    @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
+    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end

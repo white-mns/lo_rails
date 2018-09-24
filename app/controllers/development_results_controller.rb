@@ -5,8 +5,8 @@ class DevelopmentResultsController < ApplicationController
   # GET /development_results
   def index
     param_set
-    @count	= DevelopmentResult.includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
-    @search	= DevelopmentResult.includes(:p_name, :place, :parameter_control).page(params[:page]).search(params[:q])
+    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
+    @search	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @development_results	= @search.result.per(50)
   end
@@ -18,8 +18,8 @@ class DevelopmentResultsController < ApplicationController
     param_set
     win_per_set_group
 
-    @count	= DevelopmentResult.includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
-    @search	= DevelopmentResult.includes(:p_name).joins(:place, :parameter_control).group(@group)
+    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
+    @search	= DevelopmentResult.notnil().includes(:p_name).joins(:place, :parameter_control).group(@group)
                                 .select("*").select("count(*) AS count").select("count(development_result = 1 or null) AS win,
                                     count(development_result = 0 or null) AS draw,
                                     count(development_result = -1 or null) AS lose,
@@ -29,7 +29,7 @@ class DevelopmentResultsController < ApplicationController
     @search.sorts = 'id asc' if @search.sorts.empty?
     @development_results	= @search.result
     
-    @all = DevelopmentResult.includes(:p_name).joins(:place, :parameter_control)
+    @all = DevelopmentResult.notnil().includes(:p_name).joins(:place, :parameter_control)
                                 .select("*").select("count(*) AS count").select("count(development_result = 1 or null) AS win,
                                     count(development_result = 0 or null) AS draw,
                                     count(development_result = -1 or null) AS lose,

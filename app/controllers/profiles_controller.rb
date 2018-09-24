@@ -5,16 +5,16 @@ class ProfilesController < ApplicationController
   # GET /profiles
   def index
     param_set
-    @count	= Profile.includes(:p_name, :tone_name).search(params[:q]).result.count()
-    @search	= Profile.includes(:p_name, :tone_name).page(params[:page]).search(params[:q])
+    @count	= Profile.notnil().includes(:p_name, :tone_name).search(params[:q]).result.count()
+    @search	= Profile.notnil().includes(:p_name, :tone_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @profiles	= @search.result.per(50)
   end
   
   def pgws
     param_set
-    @count	= Profile.includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).search(params[:q]).result.count()
-    @search	= Profile.includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).page(params[:page]).search(params[:q])
+    @count	= Profile.notnil().includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).search(params[:q]).result.count()
+    @search	= Profile.notnil().includes(:p_name, [potential1: :pgws_name], [potential2: :pgws_name], [good1: :pgws_name], [good2: :pgws_name], [weak1: :pgws_name], [weak2: :pgws_name], [speciality1: :pgws_name], [speciality2: :pgws_name]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @profiles	= @search.result.per(50)
   end

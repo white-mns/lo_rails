@@ -5,8 +5,8 @@ class ParameterProgressesController < ApplicationController
   # GET /parameter_progresses
   def index
     param_set
-    @count	= ParameterProgress.includes(:p_name).search(params[:q]).result.count()
-    @search	= ParameterProgress.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= ParameterProgress.notnil().includes(:p_name).search(params[:q]).result.count()
+    @search	= ParameterProgress.notnil().includes(:p_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @parameter_progresses	= @search.result.per(50)
   end

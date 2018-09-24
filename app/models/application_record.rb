@@ -1,6 +1,10 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
+  scope :notnil, -> () {
+    where.not(result_no: nil)
+  }
+
   def self.to_range_graph(column)
       max = self.pluck(column).max
       figure_length = max.to_s.length

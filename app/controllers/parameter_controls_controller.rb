@@ -5,8 +5,8 @@ class ParameterControlsController < ApplicationController
   # GET /parameter_controls
   def index
     param_set
-    @count	= ParameterControl.includes(:p_name, :cond_name).search(params[:q]).result.count()
-    @search	= ParameterControl.includes(:p_name, :cond_name).page(params[:page]).search(params[:q])
+    @count	= ParameterControl.notnil().includes(:p_name, :cond_name).search(params[:q]).result.count()
+    @search	= ParameterControl.notnil().includes(:p_name, :cond_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @parameter_controls	= @search.result.per(50)
   end
