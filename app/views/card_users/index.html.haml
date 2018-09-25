@@ -13,31 +13,36 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
         %td.formText= text_field_tag :battle_page_form, @battle_page_form
         %td= f.label :party_form, '所属パーティ'
         %td.formNum= text_field_tag :party_form, @party_form
       %tr
+        %td  
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
+        %td  
         %td= f.label :success_form, '発動成功'
         %td.formNum
           = check_box_tag :is_success, @is_success, @is_success
@@ -48,11 +53,13 @@
         %td= f.label :control_form, '制御率'
         %td.formNum{colspan: "3"}= text_field_tag :control_form, @control_form
       %tr
+        %td  
         %td
         %td{colspan: "3"}
           = check_box_tag :pre_detail_open, @pre_detail_open, @pre_detail_open
           = label_tag :pre_detail_open, '模擬戦ごとの情報・リンクも表示する'
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}= f.submit '検索する'
 

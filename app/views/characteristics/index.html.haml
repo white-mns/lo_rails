@@ -13,40 +13,50 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
+        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :str_form, '腕力'
         %td.formNum= text_field_tag :str_form, @str_form
       %tr
+        %td  
         %td= f.label :vit_form, '体力'
         %td.formNum= text_field_tag :vit_form, @vit_form
       %tr
+        %td  
         %td= f.label :int_form, '理力'
         %td.formNum= text_field_tag :int_form, @int_form
       %tr
+        %td  
         %td= f.label :mnd_form, '精神'
         %td.formNum= text_field_tag :mnd_form, @mnd_form
       %tr
+        %td  
         %td= f.label :tec_form, '器用'
         %td.formNum= text_field_tag :tec_form, @tec_form
       %tr
+        %td  
         %td= f.label :eva_form, '敏捷'
         %td.formNum= text_field_tag :eva_form, @eva_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

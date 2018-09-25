@@ -13,34 +13,40 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :bellicose_form, '好戦度'
         %td.formNum= text_field_tag :bellicose_form, @bellicose_form
         %td= f.label :party_num_form, 'パーティ人数'
         %td.formNum= text_field_tag :party_num_form, @party_num_form
       %tr
+        %td  
         %td= f.label :invation_col_form, '侵攻列'
         %td.formText= text_field_tag :invation_col_form, @invation_col_form
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
       %tr
+        %td  
         %td= f.label :day_form, 'Day'
         %td.formNum{colspan: "3"}= text_field_tag :day_form, @day_form
       %tr
+        %td  
         %td= f.label :development_result_form, '勝敗'
         %td{colspan: "3"}
           = check_box_tag :result_win, @result_win, @result_win
@@ -53,6 +59,7 @@
           = label_tag :result_lose, '敗北'
           　　
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}= f.submit '検索する'
 

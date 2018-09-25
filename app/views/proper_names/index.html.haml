@@ -13,19 +13,22 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :proper_id_form, 'ID'
         %td.formNum= text_field_tag :proper_id_form, @proper_id_form
       %tr
+        %td  
         %td= f.label :name_form, '固有名詞'
         %td.formText= text_field_tag :name_form, @name_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

@@ -13,24 +13,28 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
         %td.formText= text_field_tag :battle_page_form, @battle_page_form
         %td= f.label :party_form, '発動パーティ'
         %td.formNum= text_field_tag :party_form, @party_form
       %tr
+        %td  
         %td= f.label :use_cards_form, 'カード効果'
         %td.formText{colspan: "3"}= text_field_tag :use_cards_form, @use_cards_form
       %tr
+        %td  
         %td
         %td{colspan: "3"}
           = check_box_tag :party_all, @party_all, @party_all
@@ -39,6 +43,7 @@
           = check_box_tag :party_one, @party_one, @party_one
           = label_tag :party_one, 'PT別の使用カードを見る'
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}= f.submit '検索する'
 

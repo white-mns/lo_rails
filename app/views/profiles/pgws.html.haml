@@ -18,41 +18,48 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :potential1_form, '潜在1'
         %td.formText= text_field_tag :potential1_form, @potential1_form
         %td= f.label :potential2_form, '潜在2'
         %td.formText= text_field_tag :potential2_form, @potential2_form
       %tr
+        %td  
         %td= f.label :good1_form, 'Good1'
         %td.formText= text_field_tag :good1_form, @good1_form
         %td= f.label :good2_form, 'Good2'
         %td.formText= text_field_tag :good2_form, @good2_form
       %tr
+        %td  
         %td= f.label :weak1_form, 'Weak1'
         %td.formText= text_field_tag :weak1_form, @weak1_form
         %td= f.label :weak2_form, 'Weak2'
         %td.formText= text_field_tag :weak2_form, @weak2_form
       %tr
+        %td  
         %td= f.label :speciality1_form, '専門1'
         %td.formText= text_field_tag :speciality1_form, @speciality1_form
         %td= f.label :speciality2_form, '専門2'
         %td.formText= text_field_tag :speciality2_form, @speciality2_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}= f.submit '検索する'
 

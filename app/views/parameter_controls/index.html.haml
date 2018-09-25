@@ -13,37 +13,46 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
+        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :cond_form, 'Cond'
         %td.formNum= text_field_tag :cond_form, @cond_form
       %tr
+        %td  
         %td= f.label :day_form, 'Day'
         %td.formNum= text_field_tag :day_form, @day_form
       %tr
+        %td  
         %td= f.label :mod_form, 'Mod'
         %td.formText= text_field_tag :mod_form, @mod_form
       %tr
+        %td  
         %td= f.label :cvp_form, 'CVP'
         %td.formNum= text_field_tag :cvp_form, @cvp_form
       %tr
+        %td  
         %td= f.label :pvp_form, 'PVP'
         %td.formNum= text_field_tag :pvp_form, @pvp_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

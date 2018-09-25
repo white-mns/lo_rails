@@ -13,40 +13,50 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
+        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
+        %td  
         %td= f.label :rank_form, 'Rank'
         %td.formNum= text_field_tag :rank_form, @rank_form
       %tr
+        %td  
         %td= f.label :exp_form, 'EXP'
         %td.formNum= text_field_tag :exp_form, @exp_form
       %tr
+        %td  
         %td= f.label :next_form, 'NEXT'
         %td.formNum= text_field_tag :next_form, @next_form
       %tr
+        %td  
         %td= f.label :mlp_form, 'MLP'
         %td.formNum= text_field_tag :mlp_form, @mlp_form
       %tr
+        %td  
         %td= f.label :mfp_form, 'MFP'
         %td.formNum= text_field_tag :mfp_form, @mfp_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

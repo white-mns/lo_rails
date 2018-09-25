@@ -20,27 +20,35 @@
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
       %tr
+        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :nickname_form, '愛称'
         %td.formText= text_field_tag :nickname_form, @nickname_form
       %tr
+        %td  
         %td= f.label :tone_form, '口調'
         %td.formText= text_field_tag :tone_form, @tone_form
       %tr
+        %td  
         %td= f.label :first_form, '一人称'
         %td.formText= text_field_tag :first_form, @first_form
       %tr
+        %td  
         %td= f.label :second_form, '二人称'
         %td.formText= text_field_tag :second_form, @second_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

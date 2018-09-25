@@ -13,45 +13,54 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{colspan: "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :set_col_form, '設置マス列'
         %td.formText= text_field_tag :set_col_form, @set_col_form
         %td= f.label :set_lv_form, '設置マスLv'
         %td.formNum= text_field_tag :set_lv_form, @set_lv_form
       %tr
+        %td  
         %td= f.label :name_form, '施設名'
         %td.formText{colspan: "3"}= text_field_tag :name_form, @name_form
       %tr
+        %td  
         %td= f.label :holiday_form, '休日'
         %td.formText{colspan: "3"}= text_field_tag :holiday_form, @holiday_form
       %tr
+        %td  
         %td= f.label :division_form, '区分'
         %td.formText{colspan: "3"}= text_field_tag :division_form, @division_form
       %tr
+        %td  
         %td= f.label :detail_division_form, '詳細区分'
         %td.formText= text_field_tag :detail_division_form, @detail_division_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
+        %td  
         %td= f.label :value_form, '価値'
         %td.formNum= text_field_tag :value_form, @value_form
         %td= f.label :period_form, '期限'
         %td.formNum= text_field_tag :period_form, @period_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}= f.submit '検索する'
 
