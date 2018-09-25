@@ -82,7 +82,7 @@
     - @facilities.each do |facility|
       %tr
         %td= facility.result_no
-        %td= facility.p_name.name.html_safe + "(" + sprintf("%d", facility.e_no) + ")"
+        %td= p_name_text(facility.e_no, facility.p_name)
         %td= facility.set_col
         %td= facility.set_lv
         %td= facility.name

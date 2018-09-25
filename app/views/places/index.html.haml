@@ -63,7 +63,7 @@
     - @places.each do |place|
       %tr
         %td= place.result_no
-        %td= place.p_name.name.html_safe + "(" + sprintf("%d", place.e_no) + ")"
+        %td= p_name_text(place.e_no, place.p_name)
         %td{:colspan => "2", :style => "text-align: center;"}
           = place.invation_col
           = "-" if place.invation_lv > 0

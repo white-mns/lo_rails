@@ -58,7 +58,7 @@
     - @pgws.each do |pgw|
       %tr
         %td= pgw.result_no
-        %td= pgw.p_name.name.html_safe + "(" + sprintf("%d", pgw.e_no) + ")"
+        %td= p_name_text(pgw.e_no, pgw.p_name)
         %td= @pgws_types[pgw.pgws_type]
         %td= pgw.pgws_name.name if pgw.pgws_name
         %td

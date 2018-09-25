@@ -62,7 +62,7 @@
     - @trainings.each do |training|
       %tr
         %td= training.result_no
-        %td= training.p_name.name.html_safe + "(" + sprintf("%d", training.e_no) + ")"
+        %td= p_name_text(training.e_no, training.p_name)
         %td
           = "特性" if training.training_type == 0
           = "学科" if training.training_type == 1

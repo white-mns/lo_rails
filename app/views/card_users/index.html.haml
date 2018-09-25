@@ -86,7 +86,7 @@
     - @card_users.each do |card_user|
       %tr
         %td= card_user.result_no
-        %td= card_user.p_name.name.html_safe + "(" + sprintf("%d", card_user.e_no) + ")"
+        %td= p_name_text(card_user.e_no, card_user.p_name)
         - if @pre_detail_open == "on"
           %td= card_user.battle_page
         - if @pre_detail_open == "on"

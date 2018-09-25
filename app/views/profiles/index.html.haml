@@ -66,7 +66,7 @@
     - @profiles.each do |profile|
       %tr
         %td= profile.result_no
-        %td= profile.p_name.name.html_safe + "(" + sprintf("%d", profile.e_no) + ")"
+        %td= p_name_text(profile.e_no, profile.p_name)
         %td= profile.nickname
         %td= profile.tone_name.name if profile.tone_name
         %td= profile.first

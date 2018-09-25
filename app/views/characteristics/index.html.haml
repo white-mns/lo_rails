@@ -74,7 +74,7 @@
     - @characteristics.each do |characteristic|
       %tr
         %td= characteristic.result_no
-        %td= characteristic.p_name.name.html_safe + "(" + sprintf("%d", characteristic.e_no) + ")"
+        %td= p_name_text(characteristic.e_no, characteristic.p_name)
         %td= characteristic.str
         %td= characteristic.vit
         %td= characteristic.int

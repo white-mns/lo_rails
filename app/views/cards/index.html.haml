@@ -77,7 +77,7 @@
     - @cards.each do |card|
       %tr
         %td= card.result_no
-        %td= card.p_name.name.html_safe + "(" + sprintf("%d", card.e_no) + ")"
+        %td= p_name_text(card.e_no, card.p_name)
         %td= card.s_no
         %td= card.name
         %td= card.possession_name.name if card.possession_name

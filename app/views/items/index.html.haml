@@ -105,7 +105,7 @@
     - @items.each do |item|
       %tr
         %td= item.result_no
-        %td= item.p_name.name.html_safe + "(" + sprintf("%d", item.e_no) + ")"
+        %td= p_name_text(item.e_no, item.p_name)
         %td= item.i_no
         %td= item.name
         %td= item.equip_name.name if item.equip_name

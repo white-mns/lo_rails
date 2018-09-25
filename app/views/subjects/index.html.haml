@@ -133,7 +133,7 @@
     - @subjects.each do |subject|
       %tr
         %td= subject.result_no
-        %td= subject.p_name.name.html_safe + "(" + sprintf("%d", subject.e_no) + ")"
+        %td= p_name_text(subject.e_no, subject.p_name)
         %td= subject.slash
         %td= subject.thrust
         %td= subject.stroke

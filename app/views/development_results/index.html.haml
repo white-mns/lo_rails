@@ -80,7 +80,7 @@
     - @development_results.each do |development_result|
       %tr
         %td= development_result.result_no
-        %td= development_result.p_name.name.html_safe + "(" + sprintf("%d", development_result.e_no) + ")"
+        %td= p_name_text(development_result.e_no, development_result.p_name)
         %td{:colspan => "2", :style => "text-align: center;"}
           = development_result.place.invation_col
           = "-" if development_result.place.invation_lv > 0

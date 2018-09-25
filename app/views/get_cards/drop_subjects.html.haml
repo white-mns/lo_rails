@@ -133,7 +133,7 @@
     - @get_cards.each do |get_card|
       %tr
         %td= get_card.result_no
-        %td= get_card.p_name.name.html_safe + "(" + sprintf("%d", get_card.e_no) + ")"
+        %td= p_name_text(get_card.e_no, get_card.p_name)
         - render_subjects(get_card.subject, @subjects, params, @open, nil)
         %td= get_card.card_data.name if get_card.card_data
         %td= get_card.card_data.lv if get_card.card_data

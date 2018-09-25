@@ -70,7 +70,7 @@
     - @parameter_controls.each do |parameter_control|
       %tr
         %td= parameter_control.result_no
-        %td= parameter_control.p_name.name.html_safe + "(" + sprintf("%d", parameter_control.e_no) + ")"
+        %td= p_name_text(parameter_control.e_no, parameter_control.p_name)
         %td= parameter_control.cond_name.name if parameter_control.cond
         %td= parameter_control.day
         %td= parameter_control.mod
