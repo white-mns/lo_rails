@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -30,7 +30,7 @@
         %td.formText= text_field_tag :major_form, @major_form
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@facility_division_data)

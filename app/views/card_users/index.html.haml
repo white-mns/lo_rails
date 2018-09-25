@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -21,7 +21,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
@@ -46,15 +46,15 @@
           = check_box_tag :not_success, @not_success, @not_success
           = label_tag :not_success, '失敗'
         %td= f.label :control_form, '制御率'
-        %td.formNum{:colspan => "3"}= text_field_tag :control_form, @control_form
+        %td.formNum{colspan: "3"}= text_field_tag :control_form, @control_form
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :pre_detail_open, @pre_detail_open, @pre_detail_open
           = label_tag :pre_detail_open, '模擬戦ごとの情報・リンクも表示する'
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@card_users)
@@ -78,9 +78,9 @@
         %th= sort_link(@search, :success, '成功', default_order: :desc)
       %th= sort_link(@search, :control, '制御率', default_order: :desc)
       %th  戦闘設定
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         個人結果
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         模擬戦結果
   %tbody
     - @card_users.each do |card_user|

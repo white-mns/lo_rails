@@ -19,7 +19,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -27,7 +27,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :effect_form, 'カード効果'
         %td.formText= text_field_tag :effect_form, @effect_form
@@ -36,7 +36,7 @@
       - if @is_show_card_detail
         %tr
           %td= f.label :kind_form, '種類'
-          %td.formText{:colspan => "3"}= text_field_tag :kind_form, @kind_form
+          %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
         %tr
           %td= f.label :lp_form, 'LP'
           %td.formNum= text_field_tag :lp_form, @lp_form
@@ -44,7 +44,7 @@
           %td.formNum= text_field_tag :fp_form, @fp_form
       %tr
         %td= f.label :get_type_form, '取得方法'
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :is_get_type_all, @is_get_type_all, @is_get_type_all
           = label_tag :is_get_type_all, '全て合算'
           %br
@@ -58,12 +58,12 @@
           = label_tag :is_get_type_event, 'イベント獲得'
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :is_show_card_detail, @is_show_card_detail, @is_show_card_detail
           = label_tag :is_show_card_detail, '種類・LP・FPを表示'
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@new_get_cards)
@@ -85,7 +85,7 @@
       - if @is_show_card_detail
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
       %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
-      %th{:colspan =>"2"} リンク
+      %th{colspan:"2"} リンク
   %tbody
     - @new_get_cards.each do |new_get_card|
       %tr

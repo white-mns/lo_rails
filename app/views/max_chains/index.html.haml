@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -21,7 +21,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
         %td.formText= text_field_tag :battle_page_form, @battle_page_form
@@ -29,10 +29,10 @@
         %td.formNum= text_field_tag :party_form, @party_form
       %tr
         %td= f.label :max_chain_form, '最大連鎖数'
-        %td.formNum{:colspan => "3"}= text_field_tag :max_chain_form, @max_chain_form
+        %td.formNum{colspan: "3"}= text_field_tag :max_chain_form, @max_chain_form
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@max_chains)
@@ -48,7 +48,7 @@
       %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
       %th= sort_link(@search, :party, 'PT', default_order: :desc)
       %th= sort_link(@search, :max_chain, '最大連鎖数', default_order: :desc)
-      %th{:colspan =>"2"} 模擬戦リンク
+      %th{colspan:"2"} 模擬戦リンク
   %tbody
     - @max_chains.each do |max_chain|
       %tr

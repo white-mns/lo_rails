@@ -2,7 +2,7 @@
 %h1= @page_title
 
 .bs-component
-  %ul.breadcrumb{:style => "margin-bottom: 5px;"}
+  %ul.breadcrumb{style: "margin-bottom: 5px;"}
     %li 潜在・属性・専門一覧
     %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
 
@@ -18,7 +18,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -26,7 +26,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
@@ -54,7 +54,7 @@
         %td.formText= text_field_tag :speciality2_form, @speciality2_form
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@profiles)
@@ -76,7 +76,7 @@
       %th= sort_link(@search, :weak2_pgws_name_name, 'Weak2', default_order: :desc)
       %th= sort_link(@search, :speciality1_pgws_name_name, '専門1', default_order: :desc)
       %th= sort_link(@search, :speciality2_pgws_name_name, '専門2', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @profiles.each do |profile|

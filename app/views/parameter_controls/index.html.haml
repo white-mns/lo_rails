@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -64,7 +64,7 @@
       %th= sort_link(@search, :mod, 'Mod', default_order: :desc)
       %th= sort_link(@search, :cvp, 'CVP', default_order: :desc)
       %th= sort_link(@search, :pvp, 'PVP', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @parameter_controls.each do |parameter_control|

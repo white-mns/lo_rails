@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "2"}
+        %td{colspan: "2"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -48,7 +48,7 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :player, 'プレイヤー', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @names.each do |name|

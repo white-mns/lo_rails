@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -21,7 +21,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
@@ -33,7 +33,7 @@
         %td.formText= text_field_tag :training_form, @training_form
       %tr
         %td= f.label :training_type_form, '鍛錬種別'
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :is_characteristic, @is_characteristic, @is_characteristic
           = label_tag :is_characteristic, '特性'
           　　
@@ -41,7 +41,7 @@
           = label_tag :is_subject, '学科'
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@trainings)
@@ -57,7 +57,7 @@
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :training_type, '種別', default_order: :desc)
       %th= sort_link(@search, :training, '鍛錬', default_order: :desc)
-      %th{:colspan =>"2"} 結果リンク
+      %th{colspan:"2"} 結果リンク
   %tbody
     - @trainings.each do |training|
       %tr

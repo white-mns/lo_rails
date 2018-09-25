@@ -23,7 +23,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -31,7 +31,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form
@@ -99,19 +99,19 @@
         %td.formNum= text_field_tag :trick_form, @trick_form
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
           = label_tag :min_0_hidden, '影響しない学科は表示しない'
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
           = label_tag :min_0_gray, '影響しない学科は灰色にする'
       -@subjects.each do |subject, subject_name|
         = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+    %td{colspan: "3"}= f.submit '検索する'
 
 = paginate(@drop_min_subjects)
 %br
@@ -127,9 +127,9 @@
         - if params["min_0_hidden"] && @open[subject] == 0
         - else
           - if params["min_0_gray"] && @open[subject] == 0
-            %th{:style => "background-color: #aaa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
+            %th{style: "background-color: #aaa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
           - elsif @marked[subject] == "on"
-            %th{:style => "background-color: #faa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
+            %th{style: "background-color: #faa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
           - else
             %th= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
       %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)

@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -21,7 +21,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
@@ -39,7 +39,7 @@
         %td.formNum= text_field_tag :return_lv_form, @return_lv_form
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@places)
@@ -57,18 +57,18 @@
       %th= sort_link(@search, :invation_lv, '侵攻Lv', default_order: :desc)
       %th= sort_link(@search, :return_col, '帰還列', default_order: :desc)
       %th= sort_link(@search, :return_lv, '帰還Lv', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @places.each do |place|
       %tr
         %td= place.result_no
         %td= p_name_text(place.e_no, place.p_name)
-        %td{:colspan => "2", :style => "text-align: center;"}
+        %td{colspan: "2", style: "text-align: center;"}
           = place.invation_col
           = "-" if place.invation_lv > 0
           = place.invation_lv if place.invation_lv > 0
-        %td{:colspan => "2", :style => "text-align: center;"}
+        %td{colspan: "2", style: "text-align: center;"}
           = place.return_col
           = "-" if place.return_lv > 0
           = place.return_lv if place.return_lv > 0

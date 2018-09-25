@@ -13,7 +13,7 @@
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "4"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
@@ -21,7 +21,7 @@
       %tr
       %tr
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
@@ -34,7 +34,7 @@
         %td.formNum= text_field_tag :day_form, @day_form
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
           = label_tag :split_bellicose, '好戦度で分けて集計する'
           　　
@@ -42,7 +42,7 @@
           = label_tag :split_party_num, 'PT人数で分けて集計する'
       %tr
         %td
-        %td{:colspan => "3"}
+        %td{colspan: "3"}
           = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
           = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
           　　
@@ -50,7 +50,7 @@
           = label_tag :split_day, 'Dayで分けて集計する'
       %tr
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 ヒット数：#{ @count }件
