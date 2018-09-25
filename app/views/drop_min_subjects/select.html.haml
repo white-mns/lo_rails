@@ -4,7 +4,7 @@
 %p チェックを入れた学科の鍛錬で獲得できるカードを検索します。
 = search_form_for @search do |f|
   %table.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
         %td
           = check_box_tag :slash_min_1, @slash_min_1, @slash_min_1
