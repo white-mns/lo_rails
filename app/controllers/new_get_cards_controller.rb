@@ -5,8 +5,8 @@ class NewGetCardsController < ApplicationController
   # GET /new_get_cards
   def index
     param_set
-    @count	= NewGetCard.includes(:card_data).search(params[:q]).result.count()
-    @search	= NewGetCard.includes(:card_data).page(params[:page]).search(params[:q])
+    @count	= NewGetCard.notnil().includes(:card_data).search(params[:q]).result.count()
+    @search	= NewGetCard.notnil().includes(:card_data).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @new_get_cards	= @search.result.per(50)
   end

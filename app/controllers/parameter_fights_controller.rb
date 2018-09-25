@@ -5,8 +5,8 @@ class ParameterFightsController < ApplicationController
   # GET /parameter_fights
   def index
     param_set
-    @count	= ParameterFight.includes(:p_name).search(params[:q]).result.count()
-    @search	= ParameterFight.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= ParameterFight.notnil().includes(:p_name).search(params[:q]).result.count()
+    @search	= ParameterFight.notnil().includes(:p_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @parameter_fights	= @search.result.per(50)
   end

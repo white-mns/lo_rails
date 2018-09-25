@@ -5,8 +5,8 @@ class FacilitiesController < ApplicationController
   # GET /facilities
   def index
     param_set
-    @count	= Facility.includes(:p_name, :holiday_name, :division_name, :detail_division_name).search(params[:q]).result.count()
-    @search	= Facility.includes(:p_name, :holiday_name, :division_name, :detail_division_name).page(params[:page]).search(params[:q])
+    @count	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).search(params[:q]).result.count()
+    @search	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @facilities	= @search.result.per(50)
   end

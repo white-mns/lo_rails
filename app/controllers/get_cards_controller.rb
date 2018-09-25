@@ -5,8 +5,8 @@ class GetCardsController < ApplicationController
   # GET /get_cards
   def index
     param_set
-    @count	= GetCard.includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
-    @search	= GetCard.includes(:p_name, card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
+    @search	= GetCard.notnil().includes(:p_name, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
   end
@@ -14,8 +14,8 @@ class GetCardsController < ApplicationController
   def drop_subjects
     param_set
     params[:q]["get_type_eq_any"]=[2] 
-    @count	= GetCard.includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result.count()
-    @search	= GetCard.includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result.count()
+    @search	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
     

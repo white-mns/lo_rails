@@ -5,8 +5,8 @@ class CharacteristicsController < ApplicationController
   # GET /characteristics
   def index
     param_set
-    @count	= Characteristic.includes(:p_name).search(params[:q]).result.count()
-    @search	= Characteristic.includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Characteristic.notnil().includes(:p_name).search(params[:q]).result.count()
+    @search	= Characteristic.notnil().includes(:p_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @characteristics	= @search.result.per(50)
   end

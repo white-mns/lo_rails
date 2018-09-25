@@ -5,8 +5,8 @@ class DropMinSubjectsController < ApplicationController
   # GET /drop_min_subjects
   def index
     param_set
-    @count	= DropMinSubject.includes(card_data: :kind_name).search(params[:q]).result.count()
-    @search	= DropMinSubject.includes(card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result.count()
+    @search	= DropMinSubject.notnil().includes(card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @drop_min_subjects	= @search.result.per(50)
     
@@ -16,7 +16,7 @@ class DropMinSubjectsController < ApplicationController
   def select
     @subjects = ["slash","thrust","stroke","shot","theft","dance","guard","cooking","technology","movement",
 		 "magic","theology","life","demonology","psychology","arithmetic","music","chemistry","geography","astronomy"]
-    @search	= DropMinSubject.page(params[:page]).search(params[:q])
+    @search	= DropMinSubject.notnil().page(params[:page]).search(params[:q])
   end
 
   def set_open_flg
