@@ -4,7 +4,7 @@
 %p チェックを入れた学科の鍛錬で獲得できるカードを検索します。
 = search_form_for @search do |f|
   %table.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
         %td
           = check_box_tag :slash_min_1, @slash_min_1, @slash_min_1
@@ -90,7 +90,7 @@
           = check_box_tag :trick_min_1, @trick_min_1, @trick_min_1
           = label_tag :trick_min_1, '奇術'
       %tr
-        %td{:colspan=>"2"}
+        %td{colspan: "2"}
           = check_box_tag :other_0, @other_0, @other_0
           = label_tag :other_0, 'チェックした学科以外が必要なカードは除外'
       %tr

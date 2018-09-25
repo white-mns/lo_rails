@@ -1,75 +1,50 @@
 - @page_title = "カード情報一覧"
 %h1= @page_title
 
-%p.formNum 
-  テキストフォームの隣に赤い破線がある項目は数値検索です。
-  %br
-  「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
-  %br
-  OR指定と範囲指定を同時に行うことはできません。
-%p.formText
-  テキストフォームの隣に青い太線がある項目は文字検索です。
-  %br
-  半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
-  %br
-  ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+= render "layouts/base_desc"
 %p
   %span.example_select.example_toggle.pointer
     入力例
     %span.act_desc（クリックで開きます）
     %span.act_desc.closed（クリックで閉じます）
 #example.closed
-  %p.formNum
-    数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
-    %br
-    「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
-  %p.formText
-    「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
-    %br
-    「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
-    %br
-    「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
-    %br
-    「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
-    %br
-    「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
-    %br
-    「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
-    %br
-    「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
-    %br
-    「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
-    %br
-    「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+  = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
-        %td{:colspan => "2"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :card_id_form, 'ID'
         %td.formNum= text_field_tag :card_id_form, @card_id_form
       %tr
+        %td  
         %td= f.label :name_form, 'カード効果名'
         %td.formText= text_field_tag :name_form, @name_form
       %tr
+        %td  
         %td= f.label :kind_form, '種類'
         %td.formText= text_field_tag :kind_form, @kind_form
       %tr
+        %td  
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
+        %td  
         %td= f.label :lp_form, 'LP'
         %td.formNum= text_field_tag :lp_form, @lp_form
       %tr
+        %td  
         %td= f.label :fp_form, 'FP'
         %td.formNum= text_field_tag :fp_form, @fp_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 

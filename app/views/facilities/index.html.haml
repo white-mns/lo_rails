@@ -1,91 +1,68 @@
 - @page_title = "所持施設一覧"
 %h1= @page_title
 
-%p.formNum 
-  テキストフォームの隣に赤い破線がある項目は数値検索です。
-  %br
-  「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
-  %br
-  OR指定と範囲指定を同時に行うことはできません。
-%p.formText
-  テキストフォームの隣に青い太線がある項目は文字検索です。
-  %br
-  半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
-  %br
-  ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+= render "layouts/base_desc"
 %p
   %span.example_select.example_toggle.pointer
     入力例
     %span.act_desc（クリックで開きます）
     %span.act_desc.closed（クリックで閉じます）
 #example.closed
-  %p.formNum
-    数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
-    %br
-    「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
-  %p.formText
-    「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
-    %br
-    「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
-    %br
-    「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
-    %br
-    「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
-    %br
-    「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
-    %br
-    「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
-    %br
-    「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
-    %br
-    「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
-    %br
-    「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+  = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :set_col_form, '設置マス列'
         %td.formText= text_field_tag :set_col_form, @set_col_form
         %td= f.label :set_lv_form, '設置マスLv'
         %td.formNum= text_field_tag :set_lv_form, @set_lv_form
       %tr
+        %td  
         %td= f.label :name_form, '施設名'
-        %td.formText{:colspan => "3"}= text_field_tag :name_form, @name_form
+        %td.formText{colspan: "3"}= text_field_tag :name_form, @name_form
       %tr
+        %td  
         %td= f.label :holiday_form, '休日'
-        %td.formText{:colspan => "3"}= text_field_tag :holiday_form, @holiday_form
+        %td.formText{colspan: "3"}= text_field_tag :holiday_form, @holiday_form
       %tr
+        %td  
         %td= f.label :division_form, '区分'
-        %td.formText{:colspan => "3"}= text_field_tag :division_form, @division_form
+        %td.formText{colspan: "3"}= text_field_tag :division_form, @division_form
       %tr
+        %td  
         %td= f.label :detail_division_form, '詳細区分'
         %td.formText= text_field_tag :detail_division_form, @detail_division_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
+        %td  
         %td= f.label :value_form, '価値'
         %td.formNum= text_field_tag :value_form, @value_form
         %td= f.label :period_form, '期限'
         %td.formNum= text_field_tag :period_form, @period_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@facilities)
@@ -108,13 +85,13 @@
       %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
       %th= sort_link(@search, :value, '価値', default_order: :desc)
       %th= sort_link(@search, :period, '期限', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @facilities.each do |facility|
       %tr
         %td= facility.result_no
-        %td= facility.p_name.name.html_safe + "(" + sprintf("%d", facility.e_no) + ")"
+        %td= p_name_text(facility.e_no, facility.p_name)
         %td= facility.set_col
         %td= facility.set_lv
         %td= facility.name

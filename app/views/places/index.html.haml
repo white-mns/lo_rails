@@ -1,77 +1,50 @@
 - @page_title = "現在地一覧"
 %h1= @page_title
 
-%p.formNum 
-  テキストフォームの隣に赤い破線がある項目は数値検索です。
-  %br
-  「/」区切りでOR、「100~」や「100~200」のように「~」をつけて範囲指定となります。
-  %br
-  OR指定と範囲指定を同時に行うことはできません。
-%p.formText
-  テキストフォームの隣に青い太線がある項目は文字検索です。
-  %br
-  半角スペース区切りでAND、「/」区切りでOR、単語の前に「-」でNOT、単語の前後に「"」をつけて完全一致が使えます
-  %br
-  ANDとORを組み合わせた時は、ANDで区切った後にORで区切るという順番になります。
+= render "layouts/base_desc"
 %p
   %span.example_select.example_toggle.pointer
     入力例
     %span.act_desc（クリックで開きます）
     %span.act_desc.closed（クリックで閉じます）
 #example.closed
-  %p.formNum
-    数値入力で「100/105/110」と入力　→ 入力した項目の数値が100、105、110の結果がヒット
-    %br
-    「100~」で100以上、「~100」で100以下、「-200~100」で-200～-100の範囲指定となります。
-  %p.formText
-    「傷火炎」と入力　→　傷火炎、列傷火炎、全傷火炎……が検索結果にヒット
-    %br
-    「"傷火炎"」　→　完全一致で「傷火炎」のみ検索結果にヒット
-    %br
-    「-傷火炎」　→　「傷火炎」の単語を含まないものが検索結果にヒット
-    %br
-    「-"傷火炎"」　→　完全一致で「傷火炎」以外の全てが検索結果にヒット
-    %br
-    「傷火炎 -"傷火炎"」　→　「傷火炎」が含まれる単語で完全一致の「傷火炎」以外がヒット。つまり、傷火炎を除いて列傷火炎、全傷火炎……がヒットします。
-    %br
-    「傷 火炎」　→　「傷」と「火炎」の2つの単語が含まれるものが検索結果にヒット。傷火炎、傷身火炎、傷心火炎……がヒットします。
-    %br
-    「傷/火炎」　→　「傷」か「火炎」のどちらかの単語が含まれるものが検索結果にヒット。傷火炎、傷氷水、耐火炎……がヒットします。
-    %br
-    「傷 火炎/氷水」　→　「傷」が含まれ、さらに 「火炎」か「氷水」 が含まれるものが検索結果にヒット
-    %br
-    「-傷 -火炎」　→　「傷」もしくは「火炎」という単語が含まれるものを検索結果から除外
+  = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
-    %tbody
+    %tbody.pointer
       %tr
-        %td{:colspan => "4"}
+        %td{colspan: "5"}
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
     %tbody
       %tr
       %tr
+        %td  
         %td= f.label :result_no_form, '更新回'
-        %td.formNum{:colspan => "3"}= text_field_tag :result_no_form, @result_no_form
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
+        %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
+        %td  
         %td= f.label :invation_col_form, '侵攻列'
         %td.formText= text_field_tag :invation_col_form, @invation_col_form
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
       %tr
+        %td  
         %td= f.label :return_col_form, '帰還列'
         %td.formText= text_field_tag :return_col_form, @return_col_form
         %td= f.label :return_lv_form, '帰還Lv'
         %td.formNum= text_field_tag :return_lv_form, @return_lv_form
       %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
-        %td{:colspan => "3"}= f.submit '検索する'
+        %td{colspan: "3"}= f.submit '検索する'
 
 
 = paginate(@places)
@@ -89,18 +62,18 @@
       %th= sort_link(@search, :invation_lv, '侵攻Lv', default_order: :desc)
       %th= sort_link(@search, :return_col, '帰還列', default_order: :desc)
       %th= sort_link(@search, :return_lv, '帰還Lv', default_order: :desc)
-      %th{:colspan =>"2"}
+      %th{colspan:"2"}
         結果リンク
   %tbody
     - @places.each do |place|
       %tr
         %td= place.result_no
-        %td= place.p_name.name.html_safe + "(" + sprintf("%d", place.e_no) + ")"
-        %td{:colspan => "2", :style => "text-align: center;"}
+        %td= p_name_text(place.e_no, place.p_name)
+        %td{colspan: "2", style: "text-align: center;"}
           = place.invation_col
           = "-" if place.invation_lv > 0
           = place.invation_lv if place.invation_lv > 0
-        %td{:colspan => "2", :style => "text-align: center;"}
+        %td{colspan: "2", style: "text-align: center;"}
           = place.return_col
           = "-" if place.return_lv > 0
           = place.return_lv if place.return_lv > 0
