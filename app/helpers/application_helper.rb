@@ -1,4 +1,10 @@
 module ApplicationHelper
+    def page_title
+        title = "LastOrder#Aデータ小屋"
+        title = @page_title + " | " + title if @page_title
+        title
+    end
+
     def character_link(e_no)
         file_name = sprintf("%d",e_no)
         link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
