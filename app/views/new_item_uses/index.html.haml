@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "新出使用アイテム一覧"
 %h1= @page_title
 
 = render "layouts/base_desc"
@@ -25,24 +25,8 @@
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td  
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
-      %tr
-        %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
-      %tr
-        %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-      %tr
-        %td  
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td= f.label :name_form, 'アイテム名'
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -59,19 +43,13 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
       %th= sort_link(@search, :name, 'Name', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      %th リンク
   %tbody
     - @new_item_uses.each do |new_item_use|
       %tr
         %td= new_item_use.result_no
-        %td= p_name_text(new_item_use.e_no, new_item_use.p_name)
-        %td= new_item_use.result_no
-        %td= new_item_use.generate_no
         %td= new_item_use.name
-        %td= character_link(new_item_use.e_no)
-        %td= character_old_link(@last_result, new_item_use.e_no, new_item_use.result_no)
+        %td
+          = link_to "使用アイテム一覧", item_uses_path + "?result_no_form=" + sprintf("%d", new_item_use.result_no) + "&name_form=\"" + new_item_use.name + "\""
 = paginate(@new_item_uses)

@@ -5,8 +5,8 @@ class NewItemUsesController < ApplicationController
   # GET /new_item_uses
   def index
     param_set
-    @count	= NewItemUse.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= NewItemUse.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= NewItemUse.notnil().search(params[:q]).result.count()
+    @search	= NewItemUse.notnil().page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @new_item_uses	= @search.result.per(50)
   end
@@ -22,7 +22,7 @@ class NewItemUsesController < ApplicationController
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
