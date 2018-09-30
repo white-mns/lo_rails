@@ -24,7 +24,7 @@ class ItemUsesController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "i_no", "i_no_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]

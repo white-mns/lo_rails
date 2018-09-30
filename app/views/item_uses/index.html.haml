@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "使用アイテム一覧"
 %h1= @page_title
 
 = render "layouts/base_desc"
@@ -33,24 +33,8 @@
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
-      %tr
-        %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :i_no_form, 'I no'
-        %td.formNum= text_field_tag :i_no_form, @i_no_form
-      %tr
-        %td  
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td= f.label :name_form, 'アイテム名'
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -68,10 +52,6 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :i_no, 'I no', default_order: :desc)
       %th= sort_link(@search, :name, 'Name', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
@@ -79,10 +59,6 @@
       %tr
         %td= item_use.result_no
         %td= p_name_text(item_use.e_no, item_use.p_name)
-        %td= item_use.result_no
-        %td= item_use.generate_no
-        %td= item_use.e_no
-        %td= item_use.i_no
         %td= item_use.name
         %td= character_link(item_use.e_no)
         %td= character_old_link(@last_result, item_use.e_no, item_use.result_no)
