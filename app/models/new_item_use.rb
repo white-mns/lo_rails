@@ -1,0 +1,2 @@
+class NewItemUse < ApplicationRecord
+end
