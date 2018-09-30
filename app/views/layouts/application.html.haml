@@ -34,6 +34,7 @@
                 %li= link_to "所持施設一覧", facilities_path
                 %li.divider
                 %li= link_to "鍛錬一覧", trainings_path
+                %li= link_to "使用アイテム一覧", item_uses_path
                 %li= link_to "開拓戦勝率", development_result_win_per_path
                 %li= link_to "開拓戦勝敗一覧", development_results_path
                 %li.divider
@@ -64,6 +65,7 @@
               %ul.dropdown-menu{:aria-labelledby => "themes"}
                 %li= link_to "新出取得カード一覧", new_get_cards_path
                 %li= link_to "新出発動カード一覧", new_card_uses_path
+                %li= link_to "新出使用アイテム一覧", new_item_uses_path
     .container
       .row
         .col-md-12
