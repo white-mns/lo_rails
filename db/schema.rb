@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_12_043158) do
+ActiveRecord::Schema.define(version: 2018_09_30_112823) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -218,6 +218,19 @@ ActiveRecord::Schema.define(version: 2018_09_12_043158) do
     t.index ["name"], name: "index_get_cards_on_name"
   end
 
+  create_table "item_uses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "i_no"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["i_no"], name: "index_item_uses_on_i_no"
+    t.index ["name"], name: "index_item_uses_on_name"
+  end
+
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
@@ -286,6 +299,16 @@ ActiveRecord::Schema.define(version: 2018_09_12_043158) do
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_new_get_cards_on_card_id"
     t.index ["get_type"], name: "index_new_get_cards_on_get_type"
+    t.index ["result_no", "generate_no"], name: "resultno_and_generateno"
+  end
+
+  create_table "new_item_uses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_new_item_uses_on_name"
     t.index ["result_no", "generate_no"], name: "resultno_and_generateno"
   end
 
