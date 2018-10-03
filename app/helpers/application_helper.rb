@@ -42,6 +42,7 @@ module ApplicationHelper
     def battle_old_link(last_result_no, battle_page, result_no)
         if result_no < last_result_no
             file_name = battle_page.gsub(/ VS /, "-")
+            result_no_text = sprintf("%d",result_no)
             link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
         end
     end
