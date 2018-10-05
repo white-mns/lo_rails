@@ -58,13 +58,21 @@
 .well.well-sm
   %h2 更新履歴
   %ul
-    %li 2018/10/-
+    %li 2018/10/6
     %ul
       %li
         = link_to "干渉効果成功率一覧", meddling_success_rates_path
         、
         = link_to "干渉効果対象一覧", meddling_targets_path
-        を公開
+        を公開。
+      %li
+        = link_to "カード発動者一覧", card_users_path
+        、
+        = link_to "カード発動結果一覧", card_use_pages_path
+        において、アイテムの効果も取得するように変更
+      %li
+        = link_to "カード発動者一覧", card_users_path
+        において、制御に失敗した結果を取得できていなかった不具合を修正。
     %li 2018/9/30
     %ul
       %li

@@ -40,6 +40,9 @@ class DropMinSubjectsController < ApplicationController
     set_min_1
     set_marked
     
+    if params["show_detail_result_no"] != "1" then
+        params["result_no_form"] = sprintf('%d',@last_result)
+    end
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "card_id", "card_id_form")
@@ -102,6 +105,7 @@ class DropMinSubjectsController < ApplicationController
     
     @min_0_hidden = params["min_0_hidden"]
     @min_0_gray = params["min_0_gray"]
+    @show_detail_result_no = params["show_detail_result_no"]
   end
 
   def set_min_1
