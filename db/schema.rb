@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_153118) do
+ActiveRecord::Schema.define(version: 2018_10_05_172442) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -288,6 +288,21 @@ ActiveRecord::Schema.define(version: 2018_10_05_153118) do
     t.index ["rate"], name: "index_meddling_success_rates_on_rate"
     t.index ["success"], name: "index_meddling_success_rates_on_success"
     t.index ["sum"], name: "index_meddling_success_rates_on_sum"
+  end
+
+  create_table "meddling_targets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "card_id"
+    t.integer "chain"
+    t.integer "target_id"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["count"], name: "index_meddling_targets_on_count"
+    t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
+    t.index ["target_id"], name: "index_meddling_targets_on_target_id"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
