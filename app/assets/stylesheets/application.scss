@@ -17,8 +17,8 @@ $gray:                  #ddd;
 $hover_bg_color:        #fff0d0;
 $weak_color:            #fffaf0;
 $nav-back-color:        $hover_bg_color;
-$nav-hover-back-color:  #ffcc88;
-$nav-well-border-color: #ffcc88;
+$nav-hover-back-color:  #fc8;
+$nav-well-border-color: #fc8;
 
 $table-bg-accent:                   $weak_color;
 $table-bg-hover:                    $hover_bg_color;
@@ -26,7 +26,7 @@ $link-color:                        #08f;
 $navbar-default-bg:                 #fff0d0;
 $navbar-default-link-color:         $black;
 $navbar-default-link-hover-color:   $black;
-$navbar-default-link-hover-bg:      #ffcc88;
+$navbar-default-link-hover-bg:      #fc8;
 $navbar-default-brand-hover-color:  $black;
 $navbar-default-toggle-icon-bar-bg: $black;
 $navbar-default-toggle-border-color: transparent;
@@ -115,6 +115,22 @@ p.formNum {
 
 table tr:nth-child(1) span.act_desc{
     font-size:80%
+}
+
+table tbody:nth-child(1) td{
+    background-color: #fda;
+}
+
+table tbody:nth-child(1) td:hover{
+    background-color: #fc8;
+}
+
+table tbody.tbody_toggle td{
+    background-color: #fda;
+}
+
+table tbody.tbody_toggle td:hover{
+    background-color: #fc8;
 }
 
 .closed{

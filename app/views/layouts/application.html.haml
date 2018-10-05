@@ -58,6 +58,9 @@
                 %li= link_to "カード発動者一覧", card_users_path
                 %li= link_to "カード発動結果一覧", card_use_pages_path
                 %li= link_to "最大連鎖数ランキング", max_chains_path
+                %li.divider
+                %li= link_to "干渉効果成功率一覧", meddling_success_rates_path
+                %li= link_to "干渉効果対象一覧", meddling_targets_path
             %li.dropdown
               %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 新出データ

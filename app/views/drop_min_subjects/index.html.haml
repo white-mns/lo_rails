@@ -27,12 +27,19 @@
           絞り込み検索
           %span.act_desc (クリックで閉じます)
           %span.act_desc.closed (クリックで開きます)
-    %tbody
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_result_no, @show_detail_result_no
+          = label_tag :show_detail_result_no, '＋　過去の推定条件を表示する', class: "act_desc"
+          = label_tag :show_detail_result_no, '×　過去の推定条件を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
       %tr
         %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+    %tbody
       %tr
         %td  
         %td= f.label :effect_form, '効果'
@@ -139,7 +146,8 @@
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      - if @show_detail_result_no == "1"
+        %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       -@subjects.each do |subject, subject_name|
         - if params["min_0_hidden"] && @open[subject] == 0
         - else
@@ -154,7 +162,8 @@
   %tbody
     - @drop_min_subjects.each do |drop_min_subject|
       %tr
-        %td= drop_min_subject.result_no
+        - if @show_detail_result_no == "1"
+          %td= drop_min_subject.result_no
         - render_subjects(drop_min_subject, @subjects, params, @open, @marked)
         %td
           - gray_text = @min_0_gray ? "&min_0_gray=" + @min_0_gray : ""

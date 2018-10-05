@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  card_id: 1
+  chain: 1
+  target_id: 1
+  count: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  card_id: 1
+  chain: 1
+  target_id: 1
+  count: 1

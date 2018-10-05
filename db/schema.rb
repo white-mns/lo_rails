@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_30_112823) do
+ActiveRecord::Schema.define(version: 2018_10_05_180547) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 2018_09_30_112823) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind"
+    t.integer "lpfp"
     t.index ["card_id"], name: "index_card_data_on_card_id"
     t.index ["fp"], name: "index_card_data_on_fp"
     t.index ["kind"], name: "index_card_data_on_kind"
     t.index ["lp"], name: "index_card_data_on_lp"
+    t.index ["lpfp"], name: "index_card_data_on_lpfp"
     t.index ["lv"], name: "index_card_data_on_lv"
     t.index ["name"], name: "index_card_data_on_name"
   end
@@ -267,6 +269,42 @@ ActiveRecord::Schema.define(version: 2018_09_30_112823) do
     t.datetime "updated_at", null: false
     t.index ["battle_page", "party", "result_no", "generate_no"], name: "resultno_and_battle_page"
     t.index ["max_chain"], name: "index_max_chains_on_max_chain"
+  end
+
+  create_table "meddling_success_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "card_id"
+    t.integer "chain"
+    t.integer "success"
+    t.integer "miss"
+    t.integer "no_apply"
+    t.integer "sum"
+    t.float "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
+    t.index ["miss"], name: "index_meddling_success_rates_on_miss"
+    t.index ["no_apply"], name: "index_meddling_success_rates_on_no_apply"
+    t.index ["rate"], name: "index_meddling_success_rates_on_rate"
+    t.index ["success"], name: "index_meddling_success_rates_on_success"
+    t.index ["sum"], name: "index_meddling_success_rates_on_sum"
+  end
+
+  create_table "meddling_targets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "card_id"
+    t.integer "chain"
+    t.integer "target_id"
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["count"], name: "index_meddling_targets_on_count"
+    t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
+    t.index ["target_id"], name: "index_meddling_targets_on_target_id"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

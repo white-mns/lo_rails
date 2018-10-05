@@ -1,0 +1,168 @@
+- @page_title = "干渉効果成功率一覧"
+%h1= @page_title
+
+%p
+  成功率：成功率＝成功回数／合計で計算します。
+  %br
+  　　　　　　　合計・・・「成功回数＋失敗回数」
+  %br
+  推定成功率：上記の計算で出した成功率は、千回くらい合計回数がないと「たまたまその数字になっただけ」となる可能性があります。
+  %br
+  そのため、施行回数から計算して、「本当の成功率は多分この範囲のどこか」となる範囲を表示しています。（
+  = link_to "参考ページ", "http://aoki2.si.gunma-u.ac.jp/lecture/Hiritu/bohiritu-conf.pdf", :target => "_blank"
+  の(4)式）
+%br
+= render "layouts/base_desc"
+%p
+  %span.example_select.example_toggle.pointer
+    入力例
+    %span.act_desc（クリックで開きます）
+    %span.act_desc.closed（クリックで閉じます）
+#example.closed
+  = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :effect_form, 'カード・アイテム効果名'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+      %tr
+        %td  
+        %td= f.label :success_form, '成功回数'
+        %td.formNum= text_field_tag :success_form, @success_form
+        %td= f.label :miss_form, '失敗回数'
+        %td.formNum= text_field_tag :miss_form, @miss_form
+      %tr
+        %td  
+        %td= f.label :no_apply_form, '対象なし回数'
+        %td.formNum{colspan: "3"}= text_field_tag :no_apply_form, @no_apply_form
+      %tr
+        %td  
+        %td= f.label :sum_form, '合計'
+        %td.formNum= text_field_tag :sum_form, @sum_form
+        %td= f.label :rate_form, '成功率(0～1)'
+        %td.formNum= text_field_tag :rate_form, @rate_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_chain, @show_detail_chain
+          = label_tag :show_detail_chain, '＋　Chain別に成功率を見る', class: "act_desc"
+          = label_tag :show_detail_chain, '×　Chainは無視する', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_e_no, @show_detail_e_no
+          = label_tag :show_detail_e_no, '＋　Eno別に成功率を見る', class: "act_desc"
+          = label_tag :show_detail_e_no, '×　全体の成功率だけ見る', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td
+        %td{:colspan => "4"}
+          = check_box_tag :all_rate, @all_rate, @all_rate
+          = label_tag :all_rate, '全体の成功率も合わせて見る'
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_target, @show_detail_target
+          = label_tag :show_detail_target, '＋　対象カード効果一覧を表示する', class: "act_desc"
+          = label_tag :show_detail_target, '×　対象カード効果一覧を非表示にする', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :targets_form, '対象カード効果一覧(ORのみ)'
+        %td.formText{colspan: "3"}= text_field_tag :targets_form, @targets_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_link, @show_detail_link
+          = label_tag :show_detail_link, '＋　キャラ結果リンクを表示する', class: "act_desc"
+          = label_tag :show_detail_link, '×　キャラ結果リンクを非表示にする', class: "act_desc closed"
+    %tbody.closed
+    %tbody
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}= f.submit '検索する'
+
+= paginate(@meddling_success_rates)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_chain == "1"
+        %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
+      %th= sort_link(@search, :rate, '成功率', default_order: :desc)
+      %th= sort_link(@search, :success, '成功', default_order: :desc)
+      %th= sort_link(@search, :miss, '失敗', default_order: :desc)
+      %th= sort_link(@search, :no_apply, '対象なし', default_order: :desc)
+      %th= sort_link(@search, :sum, '合計', default_order: :desc)
+      - if @show_detail_target == "1"
+        %th 対象カード効果
+      - if @show_detail_link == "1"
+        %th{colspan: "2"} 結果リンク
+  %tbody
+    - @meddling_success_rates.each do |meddling_success_rate|
+      %tr
+        %td= meddling_success_rate.result_no
+        %td= (meddling_success_rate.e_no == 0) ? "全体" : p_name_text(meddling_success_rate.e_no, meddling_success_rate.p_name)
+        %td= meddling_success_rate.card_data.name if meddling_success_rate.card_data
+        %td= meddling_success_rate.card_data.lv   if meddling_success_rate.card_data
+        - if @show_detail_chain == "1"
+          %td= meddling_success_rate.chain > -1 ? meddling_success_rate.chain : "-"
+        %td
+          = ((meddling_success_rate.rate * 100)+0.5).to_i
+          ％
+          %br
+          = confidence_interval(meddling_success_rate.success, meddling_success_rate.sum, meddling_success_rate.rate)
+        %td= meddling_success_rate.success
+        %td= meddling_success_rate.miss
+        %td= meddling_success_rate.no_apply
+        %td= meddling_success_rate.sum
+        - if @show_detail_target == "1"
+          %td
+            - meddling_success_rate.targets.each do |target|
+              = target.target_data.name
+              Lv
+              = target.target_data.lv
+              ,
+
+        - if @show_detail_link == "1"
+          %td= character_link(meddling_success_rate.e_no)
+          %td= character_old_link(@last_result, meddling_success_rate.e_no, meddling_success_rate.result_no)
+= paginate(@meddling_success_rates)

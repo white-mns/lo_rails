@@ -21,8 +21,14 @@
 
 // 検索遷移時の検索フォームの閉じる処理
 function search_close() {
-    $(".search_toggle").children().eq(1).hide();
-    $(".search_toggle").children().eq(0).find(".act_desc").toggle();
+    tbody_0 = $(".search_toggle").children().eq(0);
+    tbody_0.find(".act_desc").toggle();
+    tbody_0.nextAll().hide();
+    $(".tbody_toggle").find('input:hidden').not("#base_first").each( function(index, element) {
+        if ($(this).val() == "1") {
+            $(this).nextAll().toggle();
+        }
+    });
 };
 
 function set_triggers() {
@@ -32,15 +38,37 @@ function set_triggers() {
     });
 
     $(".search_toggle").children().eq(0).on("click", function() {
+        $(this).nextAll().toggle();
+        $(this).find(".act_desc").toggle();
+        $(this).nextAll(".tbody_toggle").find('input:hidden').not("#base_first").each( function() {
+            if ($(this).val() != "1") { // 詳細項目を表示していない場合は再度隠す
+                $(this).parents("tbody").next().hide();
+            }
+        } );
+    });
+        
+    $(".tbody_toggle").on("click", function() {
         $(this).next().toggle();
+        $(this).find('input:hidden').each( function(index, element) {
+            $(element).val( (Number($(element).val()) + 1) % 2 );
+        } );
         $(this).find(".act_desc").toggle();
     });
-    
-    $(".td__toggle").on("click", function() {
+
+    $(".td_toggle").on("click", function() {
         $(this).next().slideToggle();
         $(this).find(".act_desc").toggle();
     });
 };
+
+// ページ表示時に必ず実行する処理
+function exec_load() {
+    $(".tbody_toggle").find('#base_first').each( function(index, element) {
+        if ($(this).val() == "1") {
+            $(this).nextAll().toggle();
+        }
+    });
+}
 
 // ページ移動時の発火処理
 var turboReady = function(){
@@ -54,6 +82,7 @@ var turboReady = function(){
     $('FORM').cleanQuery();
 
     set_triggers();
+    exec_load();
 };
 
 $(document).on('turbolinks:load', turboReady);

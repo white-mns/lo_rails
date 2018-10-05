@@ -1,0 +1,153 @@
+- @page_title = "干渉効果対象一覧"
+%h1= @page_title
+
+= render "layouts/base_desc"
+%p
+  %span.example_select.example_toggle.pointer
+    入力例
+    %span.act_desc（クリックで開きます）
+    %span.act_desc.closed（クリックで閉じます）
+#example.closed
+  = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :effect_form, 'カード・アイテム効果名'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+      %tr
+        %td  
+        %td= f.label :target_form, '対象カード効果名'
+        %td.formText= text_field_tag :target_form, @target_form
+        %td= f.label :target_lv_form, '対象Lv'
+        %td.formNum= text_field_tag :target_lv_form, @target_lv_form
+      %tr
+        %td  
+        %td= f.label :count_form, '干渉回数'
+        %td.formNum{colspan: "3"}= text_field_tag :count_form, @count_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_chain, @show_detail_chain
+          = label_tag :show_detail_chain, '＋　Chain別に成功率を見る', class: "act_desc"
+          = label_tag :show_detail_chain, '×　Chainは無視する', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card, @show_detail_card
+          = label_tag :show_detail_card, '＋　干渉効果詳細を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '×　干渉効果詳細を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+      %tr
+        %td  
+        %td= f.label :lpfp_form, 'LP+FP'
+        %td.formNum{colspan: "3"}= text_field_tag :lpfp_form, @lpfp_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_target, @show_detail_target
+          = label_tag :show_detail_target, '＋　対象カード効果を表示する', class: "act_desc"
+          = label_tag :show_detail_target, '×　対象カード効果を表示しない', class: "act_desc closed"
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :target_lp_form, '対象LP'
+        %td.formNum= text_field_tag :target_lp_form, @target_lp_form
+        %td= f.label :target_fp_form, '対象FP'
+        %td.formNum= text_field_tag :target_fp_form, @target_fp_form
+      %tr
+        %td  
+        %td= f.label :target_lpfp_form, '対象LP+FP'
+        %td.formNum{colspan: "3"}= text_field_tag :target_lpfp_form, @target_lpfp_form
+    %tbody
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}= f.submit '検索する'
+
+
+= paginate(@meddling_targets)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_card == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+        %th= sort_link(@search, :card_data_lpfp, 'LP+FP', default_order: :desc)
+      - if @show_detail_chain == "1"
+        %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
+      %th= sort_link(@search, :target_data_name, '対象', default_order: :desc)
+      %th= sort_link(@search, :target_data_lv, '対象Lv', default_order: :desc)
+      - if @show_detail_target == "1"
+        %th= sort_link(@search, :target_data_lp, '対象LP', default_order: :desc)
+        %th= sort_link(@search, :target_data_fp, '対象FP', default_order: :desc)
+        %th= sort_link(@search, :target_data_lpfp, '対象LP+FP', default_order: :desc)
+      %th= sort_link(@search, :count, '干渉回数', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @meddling_targets.each do |meddling_target|
+      %tr
+        %td= meddling_target.result_no
+        %td= (meddling_target.e_no == 0) ? "全体" : p_name_text(meddling_target.e_no, meddling_target.p_name)
+        %td= meddling_target.card_data.name if meddling_target.card_data
+        %td= meddling_target.card_data.lv   if meddling_target.card_data
+        - if @show_detail_card == "1"
+          %td= meddling_target.card_data.lp   if meddling_target.card_data && meddling_target.card_data.lpfp
+          %td= meddling_target.card_data.fp   if meddling_target.card_data && meddling_target.card_data.lpfp
+          %td= meddling_target.card_data.lpfp if meddling_target.card_data && meddling_target.card_data.lpfp
+        - if @show_detail_chain == "1"
+          %td= meddling_target.chain > -1 ? meddling_target.chain : "-"
+        %td= meddling_target.target_data.name if meddling_target.target_data
+        %td= meddling_target.target_data.lv   if meddling_target.target_data
+        - if @show_detail_target == "1"
+          %td= meddling_target.target_data.lp   if meddling_target.target_data && meddling_target.target_data.lpfp
+          %td= meddling_target.target_data.fp   if meddling_target.target_data && meddling_target.target_data.lpfp
+          %td= meddling_target.target_data.lpfp if meddling_target.target_data && meddling_target.target_data.lpfp
+        %td= meddling_target.count
+        %td= character_link(meddling_target.e_no)
+        %td= character_old_link(@last_result, meddling_target.e_no, meddling_target.result_no)
+= paginate(@meddling_targets)
