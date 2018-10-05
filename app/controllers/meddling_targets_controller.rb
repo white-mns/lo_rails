@@ -76,7 +76,7 @@ class MeddlingTargetsController < ApplicationController
     @lp_form = params["lp_form"]
     @fp_form = params["fp_form"]
     @lpfp_form = params["lpfp_form"]
-    @target__form = params["target_form"]
+    @target_form = params["target_form"]
     @target_lv_form = params["target_lv_form"]
     @target_lp_form = params["target_lp_form"]
     @target_fp_form = params["target_fp_form"]
