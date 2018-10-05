@@ -23,7 +23,7 @@ class MeddlingSuccessRatesController < ApplicationController
         params[:q]["chain_not_eq"] = -1
         params[:q]["chain_eq"] = ""
     else
-        params[:q]["chain_form"] = ""
+        params["chain_form"] = ""
         params[:q]["chain_eq"] = -1
         params[:q]["chain_not_eq"] = ""
     end
