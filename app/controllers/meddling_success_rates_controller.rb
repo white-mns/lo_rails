@@ -80,9 +80,10 @@ class MeddlingSuccessRatesController < ApplicationController
 
     @show_detail_chain = params["show_detail_chain"]
     @show_detail_e_no = params["show_detail_e_no"]
+    @all_rate = params["all_rate"]
     @show_detail_target = params["show_detail_target"]
     @show_detail_link = params["show_detail_link"]
-    @all_rate = params["all_rate"]
+    @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /meddling_success_rates/1
   #def show
