@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_172442) do
+ActiveRecord::Schema.define(version: 2018_10_05_180547) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -21,10 +21,12 @@ ActiveRecord::Schema.define(version: 2018_10_05_172442) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "kind"
+    t.integer "lpfp"
     t.index ["card_id"], name: "index_card_data_on_card_id"
     t.index ["fp"], name: "index_card_data_on_fp"
     t.index ["kind"], name: "index_card_data_on_kind"
     t.index ["lp"], name: "index_card_data_on_lp"
+    t.index ["lpfp"], name: "index_card_data_on_lpfp"
     t.index ["lv"], name: "index_card_data_on_lv"
     t.index ["name"], name: "index_card_data_on_name"
   end
