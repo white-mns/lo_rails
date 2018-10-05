@@ -117,7 +117,7 @@
       - if @show_detail_card == "1"
         %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
-        %th= sort_link(@search, :lpfp, 'LP+FP', default_order: :desc)
+        %th= sort_link(@search, :card_data_lpfp, 'LP+FP', default_order: :desc)
       - if @show_detail_chain == "1"
         %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
       %th= sort_link(@search, :target_data_name, '対象', default_order: :desc)
@@ -136,17 +136,17 @@
         %td= meddling_target.card_data.name if meddling_target.card_data
         %td= meddling_target.card_data.lv   if meddling_target.card_data
         - if @show_detail_card == "1"
-          %td= meddling_target.card_data.lp   if meddling_target.card_data
-          %td= meddling_target.card_data.fp   if meddling_target.card_data
-          %td= meddling_target.card_data.lpfp   if meddling_target.card_data
+          %td= meddling_target.card_data.lp   if meddling_target.card_data && meddling_target.card_data.lpfp
+          %td= meddling_target.card_data.fp   if meddling_target.card_data && meddling_target.card_data.lpfp
+          %td= meddling_target.card_data.lpfp if meddling_target.card_data && meddling_target.card_data.lpfp
         - if @show_detail_chain == "1"
           %td= meddling_target.chain > -1 ? meddling_target.chain : "-"
         %td= meddling_target.target_data.name if meddling_target.target_data
         %td= meddling_target.target_data.lv   if meddling_target.target_data
         - if @show_detail_target == "1"
-          %td= meddling_target.target_data.lp   if meddling_target.target_data
-          %td= meddling_target.target_data.fp   if meddling_target.target_data
-          %td= meddling_target.target_data.lpfp   if meddling_target.target_data
+          %td= meddling_target.target_data.lp   if meddling_target.target_data && meddling_target.target_data.lpfp
+          %td= meddling_target.target_data.fp   if meddling_target.target_data && meddling_target.target_data.lpfp
+          %td= meddling_target.target_data.lpfp if meddling_target.target_data && meddling_target.target_data.lpfp
         %td= meddling_target.count
         %td= character_link(meddling_target.e_no)
         %td= character_old_link(@last_result, meddling_target.e_no, meddling_target.result_no)
