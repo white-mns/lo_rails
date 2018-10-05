@@ -15,16 +15,19 @@ module ApplicationHelper
     end
 
     def character_link(e_no)
+        if e_no <= 0 then return end
+
         file_name = sprintf("%d",e_no)
         link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
     end
     
     def character_old_link(last_result_no, e_no, result_no)
-        if result_no < last_result_no
-            file_name = sprintf("%d",e_no)
-            result_no_text = sprintf("%d",result_no)
-            link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
-        end
+        if e_no <= 0 then return end
+        if result_no == last_result_no then return end
+
+        file_name = sprintf("%d",e_no)
+        result_no_text = sprintf("%d",result_no)
+        link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
     end
     
     def character_command_link(e_no)
@@ -33,18 +36,18 @@ module ApplicationHelper
     end
     
     def battle_link(last_result_no, battle_page, result_no)
-        if result_no == last_result_no
-            file_name = battle_page.gsub(/ VS /, "-")
-            link_to " 結果", "http://ykamiya.ciao.jp/result/result_pre/result_Pno"+file_name+".html", :target => "_blank"
-        end
+        if result_no != last_result_no then return end
+
+        file_name = battle_page.gsub(/ VS /, "-")
+        link_to " 結果", "http://ykamiya.ciao.jp/result/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
     
     def battle_old_link(last_result_no, battle_page, result_no)
-        if result_no < last_result_no
-            file_name = battle_page.gsub(/ VS /, "-")
-            result_no_text = sprintf("%d",result_no)
-            link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
-        end
+        if result_no == last_result_no then return end
+
+        file_name = battle_page.gsub(/ VS /, "-")
+        result_no_text = sprintf("%d",result_no)
+        link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
 
     def render_subjects(object, subjects, params, open, marked)
