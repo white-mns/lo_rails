@@ -97,8 +97,15 @@
       %tr
       %tr
         %td  
-        %td= f.label :target_form, '対象カード効果(ORかNOT)'
-        %td.formText{colspan: "3"}= text_field_tag :target_form, @target_form
+        %td= f.label :targets_form, '対象カード効果一覧(ORのみ)'
+        %td.formText{colspan: "3"}= text_field_tag :targets_form, @targets_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_link, @show_detail_link
+          = label_tag :show_detail_link, '＋　キャラ結果リンクを表示する', class: "act_desc"
+          = label_tag :show_detail_link, '×　キャラ結果リンクを非表示にする', class: "act_desc closed"
+    %tbody.closed
     %tbody
       %tr
         %td  
@@ -127,7 +134,7 @@
       %th= sort_link(@search, :sum, '合計', default_order: :desc)
       - if @show_detail_target == "1"
         %th 対象カード効果
-      - if false
+      - if @show_detail_link == "1"
         %th{colspan: "2"} 結果リンク
   %tbody
     - @meddling_success_rates.each do |meddling_success_rate|
@@ -149,7 +156,13 @@
         %td= meddling_success_rate.sum
         - if @show_detail_target == "1"
           %td
-        - if false
+            - meddling_success_rate.targets.each do |target|
+              = target.target_data.name
+              Lv
+              = target.target_data.lv
+              ,
+
+        - if @show_detail_link == "1"
           %td= character_link(meddling_success_rate.e_no)
           %td= character_old_link(@last_result, meddling_success_rate.e_no, meddling_success_rate.result_no)
 = paginate(@meddling_success_rates)

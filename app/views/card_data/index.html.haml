@@ -45,6 +45,10 @@
         %td.formNum= text_field_tag :fp_form, @fp_form
       %tr
         %td  
+        %td= f.label :lpfp_form, 'LP+FP'
+        %td.formNum= text_field_tag :lpfp_form, @lpfp_form
+      %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td= f.submit '検索する'
 
@@ -64,6 +68,7 @@
       %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
       %th= sort_link(@search, :lp, 'LP', default_order: :desc)
       %th= sort_link(@search, :fp, 'FP', default_order: :desc)
+      %th= sort_link(@search, :lpfp, 'LP+FP', default_order: :desc)
   %tbody
     - @card_data.each do |card_datum|
       %tr
@@ -73,4 +78,5 @@
         %td= card_datum.lv
         %td= card_datum.lp
         %td= card_datum.fp
+        %td= card_datum.lpfp
 = paginate(@card_data)

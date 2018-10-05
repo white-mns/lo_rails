@@ -35,45 +35,12 @@
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_card, @show_detail_card
-          = label_tag :show_detail_card, '＋　干渉効果詳細を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '×　干渉効果詳細を表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td  
-        %td= f.label :lp_form, 'LP'
-        %td.formNum= text_field_tag :lp_form, @lp_form
-        %td= f.label :fp_form, 'FP'
-        %td.formNum= text_field_tag :fp_form, @fp_form
-    %tbody
-      %tr
       %tr
         %td  
         %td= f.label :target_form, '対象カード効果名'
         %td.formText= text_field_tag :target_form, @target_form
         %td= f.label :target_lv_form, '対象Lv'
         %td.formNum= text_field_tag :target_lv_form, @target_lv_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target, @show_detail_target
-          = label_tag :show_detail_target, '＋　対象カード効果を表示する', class: "act_desc"
-          = label_tag :show_detail_target, '×　対象カード効果を表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td  
-        %td= f.label :target_lp_form, '対象LP'
-        %td.formNum= text_field_tag :target_lp_form, @target_lp_form
-        %td= f.label :target_fp_form, '対象FP'
-        %td.formNum= text_field_tag :target_fp_form, @target_fp_form
-    %tbody
-    %tbody
-      %tr
       %tr
         %td  
         %td= f.label :count_form, '干渉回数'
@@ -90,6 +57,43 @@
         %td  
         %td= f.label :chain_form, 'Chain'
         %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card, @show_detail_card
+          = label_tag :show_detail_card, '＋　干渉効果詳細を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '×　干渉効果詳細を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+      %tr
+        %td  
+        %td= f.label :lpfp_form, 'LP+FP'
+        %td.formNum{colspan: "3"}= text_field_tag :lpfp_form, @lpfp_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :base_first, @base_first
+          = hidden_field_tag :show_detail_target, @show_detail_target
+          = label_tag :show_detail_target, '＋　対象カード効果を表示する', class: "act_desc"
+          = label_tag :show_detail_target, '×　対象カード効果を表示しない', class: "act_desc closed"
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :target_lp_form, '対象LP'
+        %td.formNum= text_field_tag :target_lp_form, @target_lp_form
+        %td= f.label :target_fp_form, '対象FP'
+        %td.formNum= text_field_tag :target_fp_form, @target_fp_form
+      %tr
+        %td  
+        %td= f.label :target_lpfp_form, '対象LP+FP'
+        %td.formNum{colspan: "3"}= text_field_tag :target_lpfp_form, @target_lpfp_form
     %tbody
       %tr
         %td  
@@ -113,6 +117,7 @@
       - if @show_detail_card == "1"
         %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+        %th= sort_link(@search, :lpfp, 'LP+FP', default_order: :desc)
       - if @show_detail_chain == "1"
         %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
       %th= sort_link(@search, :target_data_name, '対象', default_order: :desc)
@@ -120,6 +125,7 @@
       - if @show_detail_target == "1"
         %th= sort_link(@search, :target_data_lp, '対象LP', default_order: :desc)
         %th= sort_link(@search, :target_data_fp, '対象FP', default_order: :desc)
+        %th= sort_link(@search, :target_data_lpfp, '対象LP+FP', default_order: :desc)
       %th= sort_link(@search, :count, '干渉回数', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
@@ -132,6 +138,7 @@
         - if @show_detail_card == "1"
           %td= meddling_target.card_data.lp   if meddling_target.card_data
           %td= meddling_target.card_data.fp   if meddling_target.card_data
+          %td= meddling_target.card_data.lpfp   if meddling_target.card_data
         - if @show_detail_chain == "1"
           %td= meddling_target.chain > -1 ? meddling_target.chain : "-"
         %td= meddling_target.target_data.name if meddling_target.target_data
@@ -139,6 +146,7 @@
         - if @show_detail_target == "1"
           %td= meddling_target.target_data.lp   if meddling_target.target_data
           %td= meddling_target.target_data.fp   if meddling_target.target_data
+          %td= meddling_target.target_data.lpfp   if meddling_target.target_data
         %td= meddling_target.count
         %td= character_link(meddling_target.e_no)
         %td= character_old_link(@last_result, meddling_target.e_no, meddling_target.result_no)

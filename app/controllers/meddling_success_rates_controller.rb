@@ -5,8 +5,8 @@ class MeddlingSuccessRatesController < ApplicationController
   # GET /meddling_success_rates
   def index
     param_set
-    @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data).search(params[:q]).result.count()
-    @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data).page(params[:page]).search(params[:q])
+    @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).search(params[:q]).result.count()
+    @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @meddling_success_rates	= @search.result.per(50)
   end
@@ -29,9 +29,14 @@ class MeddlingSuccessRatesController < ApplicationController
     end
 
     if params["show_detail_e_no"] == "1" then
+        params[:q]["e_no_eq"] = ""
+        if params["all_rate"] != "on" then
+            params[:q]["e_no_not_eq"] = 0
+        end
     else
         params["all_rate"] = "on"
         params[:q]["e_no_eq"] = 0
+        params[:q]["e_no_not_eq"] = ""
         params["e_no_form"] = ""
         params["p_name_form"] = ""
     end
@@ -52,7 +57,7 @@ class MeddlingSuccessRatesController < ApplicationController
     reference_number_assign(params, "card_data_lv", "lv_form")
     reference_number_assign(params, "card_data_lp", "lp_form")
     reference_number_assign(params, "card_data_fp", "fp_form")
-    reference_text_assign(params, "target_card_data_name", "target_form")
+    reference_text_assign(params, "targets_target_data_name", "targets_form")
 
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
@@ -70,10 +75,13 @@ class MeddlingSuccessRatesController < ApplicationController
     @lv_form = params["lv_form"]
     @lp_form = params["lp_form"]
     @fp_form = params["fp_form"]
+    @lpfp_form = params["lpfp_form"]
+    @targets_form = params["targets_form"]
 
     @show_detail_chain = params["show_detail_chain"]
     @show_detail_e_no = params["show_detail_e_no"]
     @show_detail_target = params["show_detail_target"]
+    @show_detail_link = params["show_detail_link"]
     @all_rate = params["all_rate"]
   end
   # GET /meddling_success_rates/1

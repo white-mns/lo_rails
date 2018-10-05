@@ -7,7 +7,7 @@ class MeddlingTargetsController < ApplicationController
     param_set
     @count	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).search(params[:q]).result.count()
     @search	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).page(params[:page]).search(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @search.sorts = 'target_data_lpfp desc' if @search.sorts.empty?
     @meddling_targets	= @search.result.per(50)
   end
 
@@ -70,7 +70,8 @@ class MeddlingTargetsController < ApplicationController
     
     @show_detail_chain = params["show_detail_chain"]
     @show_detail_card = params["show_detail_card"]
-    @show_detail_target = params["show_detail_target"]
+    @show_detail_target = (!params["is_form"]) ? "1" : params["show_detail_target"]
+    @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /meddling_targets/1
   #def show
