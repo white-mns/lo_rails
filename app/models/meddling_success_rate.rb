@@ -1,0 +1,2 @@
+class MeddlingSuccessRate < ApplicationRecord
+end

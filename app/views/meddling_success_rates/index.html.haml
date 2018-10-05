@@ -1,0 +1,119 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+= render "layouts/base_desc"
+%p
+  %span.example_select.example_toggle.pointer
+    入力例
+    %span.act_desc（クリックで開きます）
+    %span.act_desc.closed（クリックで閉じます）
+#example.closed
+  = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :card_id_form, 'Card'
+        %td.formNum= text_field_tag :card_id_form, @card_id_form
+      %tr
+        %td  
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum= text_field_tag :chain_form, @chain_form
+      %tr
+        %td  
+        %td= f.label :success_form, 'Success'
+        %td.formNum= text_field_tag :success_form, @success_form
+      %tr
+        %td  
+        %td= f.label :miss_form, 'Miss'
+        %td.formNum= text_field_tag :miss_form, @miss_form
+      %tr
+        %td  
+        %td= f.label :no_apply_form, 'No apply'
+        %td.formNum= text_field_tag :no_apply_form, @no_apply_form
+      %tr
+        %td  
+        %td= f.label :sum_form, 'Sum'
+        %td.formNum= text_field_tag :sum_form, @sum_form
+      %tr
+        %td  
+        %td= f.label :rate_form, 'Rate'
+        %td.formNum= text_field_tag :rate_form, @rate_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}= f.submit '検索する'
+
+
+= paginate(@meddling_success_rates)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
+      %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
+      %th= sort_link(@search, :success, 'Success', default_order: :desc)
+      %th= sort_link(@search, :miss, 'Miss', default_order: :desc)
+      %th= sort_link(@search, :no_apply, 'No apply', default_order: :desc)
+      %th= sort_link(@search, :sum, 'Sum', default_order: :desc)
+      %th= sort_link(@search, :rate, 'Rate', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @meddling_success_rates.each do |meddling_success_rate|
+      %tr
+        %td= meddling_success_rate.result_no
+        %td= p_name_text(meddling_success_rate.e_no, meddling_success_rate.p_name)
+        %td= meddling_success_rate.result_no
+        %td= meddling_success_rate.generate_no
+        %td= meddling_success_rate.e_no
+        %td= meddling_success_rate.card_id
+        %td= meddling_success_rate.chain
+        %td= meddling_success_rate.success
+        %td= meddling_success_rate.miss
+        %td= meddling_success_rate.no_apply
+        %td= meddling_success_rate.sum
+        %td= meddling_success_rate.rate
+        %td= character_link(meddling_success_rate.e_no)
+        %td= character_old_link(@last_result, meddling_success_rate.e_no, meddling_success_rate.result_no)
+= paginate(@meddling_success_rates)
