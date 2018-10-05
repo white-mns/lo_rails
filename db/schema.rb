@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 2018_10_05_153118) do
     t.integer "miss"
     t.integer "no_apply"
     t.integer "sum"
-    t.integer "rate"
+    t.float "rate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"

@@ -5,8 +5,8 @@ class MeddlingSuccessRatesController < ApplicationController
   # GET /meddling_success_rates
   def index
     param_set
-    @count	= MeddlingSuccessRate.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= MeddlingSuccessRate.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data).search(params[:q]).result.count()
+    @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @meddling_success_rates	= @search.result.per(50)
   end
@@ -19,6 +19,23 @@ class MeddlingSuccessRatesController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
     
+    if params["show_detail_chain"] == "1" then
+        params[:q]["chain_not_eq"] = -1
+        params[:q]["chain_eq"] = ""
+    else
+        params[:q]["chain_form"] = ""
+        params[:q]["chain_eq"] = -1
+        params[:q]["chain_not_eq"] = ""
+    end
+
+    if params["show_detail_e_no"] == "1" then
+    else
+        params["all_rate"] = "on"
+        params[:q]["e_no_eq"] = 0
+        params["e_no_form"] = ""
+        params["p_name_form"] = ""
+    end
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -31,6 +48,12 @@ class MeddlingSuccessRatesController < ApplicationController
     reference_number_assign(params, "sum", "sum_form")
     reference_number_assign(params, "rate", "rate_form")
     
+    reference_text_assign(params, "card_data_name", "effect_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
+    reference_text_assign(params, "target_card_data_name", "target_form")
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -42,6 +65,16 @@ class MeddlingSuccessRatesController < ApplicationController
     @no_apply_form = params["no_apply_form"]
     @sum_form = params["sum_form"]
     @rate_form = params["rate_form"]
+    
+    @effect_form = params["effect_form"]
+    @lv_form = params["lv_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
+
+    @show_detail_chain = params["show_detail_chain"]
+    @show_detail_e_no = params["show_detail_e_no"]
+    @show_detail_target = params["show_detail_target"]
+    @all_rate = params["all_rate"]
   end
   # GET /meddling_success_rates/1
   #def show

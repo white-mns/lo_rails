@@ -10,7 +10,7 @@ class CreateMeddlingSuccessRates < ActiveRecord::Migration[5.2]
       t.integer :miss
       t.integer :no_apply
       t.integer :sum
-      t.integer :rate
+      t.float :rate
 
       t.timestamps
     end
