@@ -28,6 +28,20 @@ class MeddlingTargetsController < ApplicationController
         params[:q]["chain_not_eq"] = ""
     end
 
+    if params["show_detail_e_no"] == "1" then
+        params[:q]["e_no_eq"] = ""
+        if params["all_rate"] != "on" then
+            params[:q]["e_no_not_eq"] = 0
+        end
+    else
+        params["all_rate"] = "on"
+        params[:q]["e_no_eq"] = 0
+        params[:q]["e_no_not_eq"] = ""
+        params["e_no_form"] = ""
+        params["p_name_form"] = ""
+    end
+
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -69,6 +83,8 @@ class MeddlingTargetsController < ApplicationController
     @target_lpfp_form = params["target_lpfp_form"]
     
     @show_detail_chain = params["show_detail_chain"]
+    @show_detail_e_no = params["show_detail_e_no"]
+    @all_rate = params["all_rate"]
     @show_detail_card = params["show_detail_card"]
     @show_detail_target = (!params["is_form"]) ? "1" : params["show_detail_target"]
     @base_first    = (!params["is_form"]) ? "1" : "0"
