@@ -30,11 +30,11 @@
       %tr
         %td  
         %td= f.label :name_form, 'キャラクター名'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= f.label :player_form, 'プレイヤー名'
-        %td.formNum= text_field_tag :player_form, @player_form
+        %td.formText= text_field_tag :player_form, @player_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
