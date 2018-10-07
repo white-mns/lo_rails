@@ -113,7 +113,8 @@
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
-        %td{colspan: "3"}= f.submit '検索する'
+        %td{colspan: "3"}
+          - search_submit_button
 
 
 = paginate(@meddling_targets)

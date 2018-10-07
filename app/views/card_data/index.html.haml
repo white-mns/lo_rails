@@ -50,8 +50,8 @@
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
-        %td= f.submit '検索する'
-
+        %td
+          - search_submit_button
 
 = paginate(@card_data)
 %br

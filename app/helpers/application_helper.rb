@@ -49,6 +49,12 @@ module ApplicationHelper
         result_no_text = sprintf("%d",result_no)
         link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
+    
+    def search_submit_button()
+        haml_tag :button, type: "submit" do
+            haml_concat fa_icon("search") + "検索する"
+        end
+    end
 
     def render_subjects(object, subjects, params, open, marked)
         subjects.each do |subject, subject_name|
