@@ -49,6 +49,42 @@ module ApplicationHelper
         result_no_text = sprintf("%d",result_no)
         link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
+    
+    def search_submit_button()
+        haml_tag :button, class: "submit", type: "submit" do
+            haml_concat fa_icon "search", text: "検索する"
+        end
+    end
+
+    def help_icon()
+        haml_concat fa_icon "question-circle"
+    end
+
+    def act_desc(is_opened)
+        desc        = is_opened ? "（クリックで閉じます）" : "（クリックで開きます）"
+        desc_closed = is_opened ? "（クリックで開きます）" : "（クリックで閉じます）"
+
+        haml_tag :span, class: "act_desc" do
+            haml_concat desc
+        end
+
+        haml_tag :span, class: "act_desc closed" do
+            haml_concat desc_closed
+        end
+    end
+
+    def act_icon(is_opened)
+        icon        = is_opened ? "times" : "plus"
+        icon_closed = is_opened ? "plus"  : "times"
+
+        haml_tag :span, class: "act_desc" do
+            haml_concat fa_icon icon, class: "fa-lg"
+        end
+
+        haml_tag :span, class: "act_desc closed" do
+            haml_concat fa_icon icon_closed, class: "fa-lg"
+        end
+    end
 
     def render_subjects(object, subjects, params, open, marked)
         subjects.each do |subject, subject_name|

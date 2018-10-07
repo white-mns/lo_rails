@@ -10,6 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require font-awesome
+ *
  */
 
 $black:                 #222;
@@ -87,6 +89,14 @@ h2 {
     border-width: 0.2em;
 }
 
+.well.desc {
+    background-color: #fff;
+    border-color: $nav-well-border-color;
+    border-style: solid;
+    border-width: 0.05em;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+}
+
 .formText {
     border-left: 0.2em solid #44c !important;
 }
@@ -104,13 +114,17 @@ p.formNum {
 }
 
 .example_select{
-    padding-left: 0.5em;
-    border-left: solid $nav-well-border-color;
     background-color: $nav-back-color;
+    border-left: 0.5em solid #fa0;
+    padding: 0.5em 0.8em;
 }
 
 .pointer{
     cursor:pointer;
+}
+
+.closed{
+    display:none;
 }
 
 table tr:nth-child(1) span.act_desc{
@@ -118,21 +132,41 @@ table tr:nth-child(1) span.act_desc{
 }
 
 table tbody:nth-child(1) td{
-    background-color: #fda;
-}
-
-table tbody:nth-child(1) td:hover{
-    background-color: #fc8;
+    border-left:   0.5em solid #fa0;
 }
 
 table tbody.tbody_toggle td{
-    background-color: #fda;
+    border-left:  0.5em solid #fa0;
+    padding-left: 2em;
 }
 
-table tbody.tbody_toggle td:hover{
-    background-color: #fc8;
+$submit-color: #2255ee;
+
+button.submit {
+    background-color: $submit-color;
+    border-radius: 5px;
+    border: 0.2em solid transparent;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em 0.8em;
+    transition: 0.2s linear;
 }
 
-.closed{
-    display:none;
+button.submit:hover {
+    background-color: #fff;
+    border: 0.2em solid $submit-color;
+    color: $submit-color;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+input + label:hover {
+    cursor: pointer;
+}
+
+input + label:hover {
+    box-shadow: 0px -6px 5px -5px #fa0 inset,0px 8px 4px -8px #fa0;
 }

@@ -1,22 +1,23 @@
 - @page_title = "名前一覧"
 %h1= @page_title
 
-= render "layouts/base_desc"
-%p
-  %span.example_select.example_toggle.pointer
-    入力例
-    %span.act_desc（クリックで開きます）
-    %span.act_desc.closed（クリックで閉じます）
-#example.closed
-  = render "layouts/input_desc"
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
         %td{colspan: "3"}
+          - act_icon(true)
           絞り込み検索
-          %span.act_desc (クリックで閉じます)
-          %span.act_desc.closed (クリックで開きます)
+          - act_desc(true)
     %tbody
       %tr
       %tr
@@ -30,15 +31,16 @@
       %tr
         %td  
         %td= f.label :name_form, 'キャラクター名'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= f.label :player_form, 'プレイヤー名'
-        %td.formNum= text_field_tag :player_form, @player_form
+        %td.formText= text_field_tag :player_form, @player_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
-        %td= f.submit '検索する'
+        %td{colspan: "3"}
+          - search_submit_button
 
 
 = paginate(@names)

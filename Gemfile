@@ -87,3 +87,4 @@ gem 'kaminari'
 gem 'ransack', github: "activerecord-hackery/ransack"
 gem 'composite_primary_keys'
 gem 'chartkick'
+gem 'font-awesome-rails'
