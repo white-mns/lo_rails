@@ -1,22 +1,23 @@
 - @page_title = "キャラ設定プロフィール一覧"
 %h1= @page_title
 
-= render "layouts/base_desc"
-%p
-  %span.example_select.example_toggle.pointer
-    入力例
-    %span.act_desc（クリックで開きます）
-    %span.act_desc.closed（クリックで閉じます）
-#example.closed
-  = render "layouts/input_desc"
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
         %td{colspan: "4"}
+          - act_icon(true)
           絞り込み検索
-          %span.act_desc (クリックで閉じます)
-          %span.act_desc.closed (クリックで開きます)
+          - act_desc(true)
     %tbody
       %tr
       %tr

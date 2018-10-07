@@ -1,35 +1,36 @@
 - @page_title = "干渉効果成功率一覧"
 %h1= @page_title
 
-%p
-  干渉効果：白紙、上昇、待機など、別のカードの性質を変化させるカード・アイテムの効果を指します。
+%div.well.desc
+  %p
+    干渉効果：白紙、上昇、待機など、別のカードの性質を変化させるカード・アイテムの効果を指します。
+    %br
+    成功率：成功率＝成功回数／合計で計算します。
+    %br
+    　　　　　　　合計・・・「成功回数＋失敗回数」
+    %br
+    推定成功率：上記の計算で出した成功率は、千回くらい合計回数がないと「たまたまその数字になっただけ」となる可能性があります。
+    %br
+    そのため、施行回数から計算して、「本当の成功率は多分この範囲のどこか」となる範囲を表示しています。（
+    = link_to "参考ページ", "http://aoki2.si.gunma-u.ac.jp/lecture/Hiritu/bohiritu-conf.pdf", :target => "_blank"
+    の(4)式）
   %br
-  成功率：成功率＝成功回数／合計で計算します。
-  %br
-  　　　　　　　合計・・・「成功回数＋失敗回数」
-  %br
-  推定成功率：上記の計算で出した成功率は、千回くらい合計回数がないと「たまたまその数字になっただけ」となる可能性があります。
-  %br
-  そのため、施行回数から計算して、「本当の成功率は多分この範囲のどこか」となる範囲を表示しています。（
-  = link_to "参考ページ", "http://aoki2.si.gunma-u.ac.jp/lecture/Hiritu/bohiritu-conf.pdf", :target => "_blank"
-  の(4)式）
-%br
-= render "layouts/base_desc"
-%p
-  %span.example_select.example_toggle.pointer
-    入力例
-    %span.act_desc（クリックで開きます）
-    %span.act_desc.closed（クリックで閉じます）
-#example.closed
-  = render "layouts/input_desc"
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
         %td{colspan: "5"}
+          - act_icon(true)
           絞り込み検索
-          %span.act_desc (クリックで閉じます)
-          %span.act_desc.closed (クリックで開きます)
+          - act_desc(true)
     %tbody
       %tr
       %tr
