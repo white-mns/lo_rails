@@ -114,6 +114,8 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.25)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.4)
@@ -306,6 +308,7 @@ DEPENDENCIES
   composite_primary_keys
   ejs
   execjs
+  font-awesome-rails
   haml-rails
   hirb-unicode
   jbuilder (~> 2.5)
