@@ -46,8 +46,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_chain, @show_detail_chain
-          = label_tag :show_detail_chain, '＋　Chain別に表示する', class: "act_desc"
-          = label_tag :show_detail_chain, '×　Chainは無視して表示する', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_chain, '　Chain別に表示する', class: "act_desc"
+          = label_tag :show_detail_chain, '　Chainは無視して表示する', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -58,8 +59,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_e_no, @show_detail_e_no
-          = label_tag :show_detail_e_no, '＋　Eno別に表示する', class: "act_desc"
-          = label_tag :show_detail_e_no, '×　全体でまとめて表示する', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_e_no, '　Eno別に表示する', class: "act_desc"
+          = label_tag :show_detail_e_no, '　全体でまとめて表示する', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -77,8 +79,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_card, @show_detail_card
-          = label_tag :show_detail_card, '＋　干渉効果詳細を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '×　干渉効果詳細を表示しない', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_card, '　干渉効果詳細を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　干渉効果詳細を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -96,8 +99,9 @@
         %td{colspan: "5"}
           = hidden_field_tag :base_first, @base_first
           = hidden_field_tag :show_detail_target, @show_detail_target
-          = label_tag :show_detail_target, '＋　対象カード効果を表示する', class: "act_desc"
-          = label_tag :show_detail_target, '×　対象カード効果を表示しない', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_target, '　対象カード効果を表示する', class: "act_desc"
+          = label_tag :show_detail_target, '　対象カード効果を表示しない', class: "act_desc closed"
     %tbody
       %tr
       %tr

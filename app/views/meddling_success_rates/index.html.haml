@@ -63,8 +63,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_chain, @show_detail_chain
-          = label_tag :show_detail_chain, '＋　Chain別に表示する', class: "act_desc"
-          = label_tag :show_detail_chain, '×　Chainは無視して表示する', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_chain, '　Chain別に表示する', class: "act_desc"
+          = label_tag :show_detail_chain, '　Chainは無視して表示する', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -75,8 +76,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_e_no, @show_detail_e_no
-          = label_tag :show_detail_e_no, '＋　Eno別に表示する', class: "act_desc"
-          = label_tag :show_detail_e_no, '×　全体でまとめて表示する', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_e_no, '　Eno別に表示する', class: "act_desc"
+          = label_tag :show_detail_e_no, '　全体でまとめて表示する', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -94,8 +96,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_target, @show_detail_target
-          = label_tag :show_detail_target, '＋　対象カード効果一覧を表示する', class: "act_desc"
-          = label_tag :show_detail_target, '×　対象カード効果一覧を非表示にする', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_target, '　対象カード効果一覧を表示する', class: "act_desc"
+          = label_tag :show_detail_target, '　対象カード効果一覧を非表示にする', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -106,8 +109,9 @@
       %tr
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_link, @show_detail_link
-          = label_tag :show_detail_link, '＋　キャラ結果リンクを表示する', class: "act_desc"
-          = label_tag :show_detail_link, '×　キャラ結果リンクを非表示にする', class: "act_desc closed"
+          - act_icon(false)
+          = label_tag :show_detail_link, '　キャラ結果リンクを表示する', class: "act_desc"
+          = label_tag :show_detail_link, '　キャラ結果リンクを非表示にする', class: "act_desc closed"
     %tbody.closed
     %tbody
       %tr

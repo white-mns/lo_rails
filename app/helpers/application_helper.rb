@@ -51,7 +51,7 @@ module ApplicationHelper
     end
     
     def search_submit_button()
-        haml_tag :button, type: "submit" do
+        haml_tag :button, class: "submit", type: "submit" do
             haml_concat fa_icon "search", text: "検索する"
         end
     end
@@ -78,11 +78,11 @@ module ApplicationHelper
         icon_closed = is_opened ? "plus"  : "times"
 
         haml_tag :span, class: "act_desc" do
-            haml_concat fa_icon icon, class: "fa-2x"
+            haml_concat fa_icon icon, class: "fa-lg"
         end
 
         haml_tag :span, class: "act_desc closed" do
-            haml_concat fa_icon icon_closed, class: "fa-2x"
+            haml_concat fa_icon icon_closed, class: "fa-lg"
         end
     end
 
