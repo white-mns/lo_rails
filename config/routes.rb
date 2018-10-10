@@ -3,13 +3,16 @@ Rails.application.routes.draw do
   resources :meddling_success_rates
   resources :new_item_uses
   resources :item_uses
-  get "training/graph",   :to => "trainings#graph",    :as => 'training_graph' 
+  get "training/graph",   :to => "trainings#graph",   :as => 'training_graph' 
+  get "training/history", :to => "trainings#history", :as => 'training_history' 
   resources :trainings
   resources :facility_division_data
   resources :new_card_uses
   resources :new_get_cards
   resources :max_chains
   resources :card_use_pages
+  get "card_user/sum",     :to => "card_users#sum",     :as => 'card_user_sum' 
+  get "card_user/history", :to => "card_users#history", :as => 'card_user_history' 
   resources :card_users
   get "development_result/win_per", :to => "development_results#win_per", :as => 'development_result_win_per' 
   resources :development_results
