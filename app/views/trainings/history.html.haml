@@ -45,13 +45,13 @@
 %br
 
 %h3 特性鍛錬(割合)
-= line_chart Training.training_type(0).search_result(params).to_training_history_rate_graph(params, :training), ytitle:"％"
+= line_chart Training.training_type(0).search_result(params).to_training_history_rate_graph(params, :training), xtitle:"更新回", ytitle:"％"
 
 %h3 学科鍛錬(割合)
-= line_chart Training.training_type(1).search_result(params).to_training_history_rate_graph(params, :training), ytitle:"％", height: "750px"
+= line_chart Training.training_type(1).search_result(params).to_training_history_rate_graph(params, :training), xtitle:"更新回", ytitle:"％", height: "750px"
 
 %h3 特性鍛錬(回数)
-= line_chart Training.training_type(0).search_result(params).to_training_history_graph(params, :training), ytitle:"％"
+= line_chart Training.training_type(0).search_result(params).to_training_history_graph(params, :training), xtitle:"更新回", ytitle:"鍛錬数"
 
 %h3 学科鍛錬(回数)
-= line_chart Training.training_type(1).search_result(params).to_training_history_graph(params, :training), ytitle:"鍛錬数", height: "750px"
+= line_chart Training.training_type(1).search_result(params).to_training_history_graph(params, :training), xtitle:"更新回", ytitle:"鍛錬数", height: "750px"
