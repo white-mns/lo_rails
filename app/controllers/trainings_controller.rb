@@ -13,12 +13,31 @@ class TrainingsController < ApplicationController
 
   # GET /training/graph
   def graph
+    index
+    @trainings	= @search.result
+  end
+
+  # GET /training/graph
+  def history
+    @last_result = Name.maximum('result_no')
+
+    params[:q] ||= {}
+    if !params["is_form"] then
+        params["result_no_form"] ||= "~" + sprintf('%d',@last_result)
+    end
+    index
+    @trainings	= @search.result
+  end
+
+  # GET /training/graph
+  def graph
     param_set
     @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
     @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end
+
 
   def param_set
     @last_result = Name.maximum('result_no')
@@ -49,6 +68,7 @@ class TrainingsController < ApplicationController
     @e_no_form = params["e_no_form"]
     @training_type_form = params["training_type_form"]
     @training_form = params["training_form"]
+    @training_graph_form = params["training_graph_form"]
 
     @is_characteristic = params["is_characteristic"]
     @is_subject = params["is_subject"]

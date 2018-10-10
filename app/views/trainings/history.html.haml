@@ -1,4 +1,4 @@
-- @page_title = "鍛錬グラフ"
+- @page_title = "鍛錬遷移グラフ"
 %h1= @page_title
 
 %div.well.desc
@@ -10,7 +10,7 @@
       - act_desc(false)
   #example.closed
     = render "layouts/input_desc"
-= search_form_for @search, url: training_graph_path do |f|
+= search_form_for @search, url: training_history_path do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
@@ -34,19 +34,24 @@
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
         %td  
+        %td= f.label :training_form, '鍛錬(ORのみ)'
+        %td.formText= text_field_tag :training_graph_form, @training_graph_form
+      %tr
+        %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 %br
 %br
 
-%h3 特性鍛錬
-= column_chart Training.training_type(0).search_result(params).to_training_graph(:training), ytitle:"鍛錬数"
-
-%h3 学科鍛錬
-= column_chart Training.training_type(1).search_result(params).to_training_graph(:training), ytitle:"鍛錬数" 
+%h3 特性鍛錬(割合)
+= line_chart Training.training_type(0).search_result(params).to_training_history_rate_graph(params, :training), ytitle:"％"
 
 %h3 学科鍛錬(割合)
-= column_chart Training.training_type(1).search_result(params).to_training_rate_graph(:training), ytitle:"％" 
-      
-      
+= line_chart Training.training_type(1).search_result(params).to_training_history_rate_graph(params, :training), ytitle:"％", height: "750px"
+
+%h3 特性鍛錬(回数)
+= line_chart Training.training_type(0).search_result(params).to_training_history_graph(params, :training), ytitle:"％"
+
+%h3 学科鍛錬(回数)
+= line_chart Training.training_type(1).search_result(params).to_training_history_graph(params, :training), ytitle:"鍛錬数", height: "750px"

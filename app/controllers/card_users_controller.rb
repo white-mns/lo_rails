@@ -11,6 +11,17 @@ class CardUsersController < ApplicationController
     @card_users	= @search.result.per(50)
   end
 
+  # GET /card_users
+  def sum
+    index
+  end
+
+  # GET /card_users
+  def history
+    index
+    @card_users	= @search.result
+  end
+
   def param_set
     @last_result = Name.maximum('result_no')
     
