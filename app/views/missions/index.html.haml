@@ -33,7 +33,7 @@
       %tr
         %td  
         %td= f.label :mission_name_form, 'ミッション名'
-        %td.formText= text_field_tag :mission_name_form, @mission_name_form
+        %td.formText{colspan: "3"}= text_field_tag :mission_name_form, @mission_name_form
       %tr
         %td  
         %td= f.label :mission_type_form, 'ミッション種別'
