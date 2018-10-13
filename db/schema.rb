@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_05_180547) do
+ActiveRecord::Schema.define(version: 2018_10_13_040510) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -305,6 +305,35 @@ ActiveRecord::Schema.define(version: 2018_10_05_180547) do
     t.index ["count"], name: "index_meddling_targets_on_count"
     t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
     t.index ["target_id"], name: "index_meddling_targets_on_target_id"
+  end
+
+  create_table "mission_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "mission_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_mission_names_on_mission_id"
+    t.index ["name"], name: "index_mission_names_on_name"
+  end
+
+  create_table "missions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "mission_id"
+    t.integer "mission_type"
+    t.integer "status"
+    t.string "col"
+    t.integer "lv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["col"], name: "index_missions_on_col"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
+    t.index ["lv"], name: "index_missions_on_lv"
+    t.index ["mission_id"], name: "index_missions_on_mission_id"
+    t.index ["mission_type"], name: "index_missions_on_mission_type"
+    t.index ["status"], name: "index_missions_on_status"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

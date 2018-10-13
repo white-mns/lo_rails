@@ -1,0 +1,54 @@
+- @page_title = "ミッション名一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :mission_id_form, 'ミッションID'
+        %td.formNum= text_field_tag :mission_id_form, @mission_id_form
+      %tr
+        %td  
+        %td= f.label :name_form, 'ミッション名'
+        %td.formText= text_field_tag :name_form, @name_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@mission_names)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :mission_id, 'ID', default_order: :desc)
+      %th= sort_link(@search, :name, 'ミッション名', default_order: :desc)
+  %tbody
+    - @mission_names.each do |mission_name|
+      %tr
+        %td= mission_name.mission_id
+        %td= mission_name.name
+= paginate(@mission_names)

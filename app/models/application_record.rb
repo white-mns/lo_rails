@@ -5,9 +5,12 @@ class ApplicationRecord < ActiveRecord::Base
     where.not(result_no: nil)
   }
 
-  def self.to_range_graph(column)
+  scope :to_range_graph, -> (column) {
       max = self.pluck(column).max
-      figure_length = max.to_s.length
+      
+      if !max then return nil end
+      
+      figure_length = max.to_s.length # 桁数取得
       
       range = (max / 20).to_i
       floor_num = (10 ** (range.to_s.length - 1))
@@ -15,7 +18,9 @@ class ApplicationRecord < ActiveRecord::Base
       range = range <= 2 ? range : 5
       range = range * floor_num
       
-      self.pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; hash[floor.to_s.rjust(figure_length) + "～" + (floor+range).to_s.rjust(figure_length)] += 1 ; hash}.sort
-  end
+      if range == 0 then range = 1 end
+      
+      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; hash[floor.to_s.rjust(figure_length) + "～" + (floor+range).to_s.rjust(figure_length)] += 1 ; hash}.sort
+  }
 
 end
