@@ -5,8 +5,8 @@ class MissionsController < ApplicationController
   # GET /missions
   def index
     param_set
-    @count	= Mission.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= Mission.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
+    @search	= Mission.notnil().includes(:p_name, :mission).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @missions	= @search.result.per(50)
   end
@@ -26,8 +26,26 @@ class MissionsController < ApplicationController
     reference_number_assign(params, "mission_id", "mission_id_form")
     reference_number_assign(params, "mission_type", "mission_type_form")
     reference_number_assign(params, "status", "status_form")
-    reference_number_assign(params, "col", "col_form")
+    reference_text_assign(params, "col", "col_form")
     reference_number_assign(params, "lv", "lv_form")
+
+    reference_text_assign(params, "mission_name", "mission_name_form")
+    
+    params[:q]["mission_type_eq_any"] ||= []
+    if !params["is_form"] then params["type_normal"]  = "on" end
+    if params["type_normal"]     == "on" then params[:q]["mission_type_eq_any"].push(0) end
+    if params["type_additional"] == "on" then params[:q]["mission_type_eq_any"].push(1) end
+
+    params[:q]["status_eq_any"] ||= []
+    if !params["is_form"] then
+        params["status_receiving"]  = "on"
+        params["status_clear"]      = "on"
+        params["status_lost"]       = "on"
+    end
+
+    if params["status_receiving"]  == "on" then params[:q]["status_eq_any"].push(0)  end
+    if params["status_clear"]      == "on" then params[:q]["status_eq_any"].push(1)  end
+    if params["status_lost"]       == "on" then params[:q]["status_eq_any"].push(-1) end
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
@@ -38,6 +56,13 @@ class MissionsController < ApplicationController
     @status_form = params["status_form"]
     @col_form = params["col_form"]
     @lv_form = params["lv_form"]
+
+    @mission_name_form = params["mission_name_form"]
+    @status_receiving = params["status_receiving"]
+    @status_clear = params["status_clear"]
+    @status_lost = params["status_lost"]
+    @type_normal = params["type_normal"]
+    @type_additional = params["type_additional"]
   end
   # GET /missions/1
   #def show

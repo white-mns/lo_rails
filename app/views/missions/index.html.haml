@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "受給ミッション一覧"
 %h1= @page_title
 
 %div.well.desc
@@ -28,41 +28,38 @@
         %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :mission_name_form, 'ミッション名'
+        %td.formText= text_field_tag :mission_name_form, @mission_name_form
       %tr
         %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+        %td= f.label :mission_type_form, 'ミッション種別'
+        %td{colspan: "3"}
+          = check_box_tag :type_normal, @type_normal, @type_normal
+          = label_tag :type_normal, '個別注文'
+          　　
+          = check_box_tag :type_additional, @type_additional, @type_additional
+          = label_tag :type_additional, '#A(追加注文？)'
       %tr
         %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :status_form, '受給状況'
+        %td{colspan: "3"}
+          = check_box_tag :status_receiving, @status_receiving, @status_receiving
+          = label_tag :status_receiving, '受給中'
+          　　
+          = check_box_tag :status_clear, @status_clear, @status_clear
+          = label_tag :status_clear, 'Clear'
+          　　
+          = check_box_tag :status_lost, @status_lost, @status_lost
+          = label_tag :status_lost, 'Lost'
       %tr
         %td  
-        %td= f.label :mission_id_form, 'Mission'
-        %td.formNum= text_field_tag :mission_id_form, @mission_id_form
-      %tr
-        %td  
-        %td= f.label :mission_type_form, 'mission_type'
-        %td.formNum= text_field_tag :mission_type_form, @mission_type_form
-      %tr
-        %td  
-        %td= f.label :status_form, 'Status'
-        %td.formNum= text_field_tag :status_form, @status_form
-      %tr
-        %td  
-        %td= f.label :col_form, 'Col'
-        %td.formNum= text_field_tag :col_form, @col_form
-      %tr
-        %td  
-        %td= f.label :lv_form, 'Lv'
+        %td= f.label :col_form, '目的地：列'
+        %td.formText= text_field_tag :col_form, @col_form
+        %td= f.label :lv_form, '目的地：Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
         %td  
@@ -82,28 +79,27 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :mission_id, 'Mission', default_order: :desc)
-      %th= sort_link(@search, :mission_type, 'mission_type', default_order: :desc)
-      %th= sort_link(@search, :status, 'Status', default_order: :desc)
-      %th= sort_link(@search, :col, 'Col', default_order: :desc)
-      %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
+      %th= sort_link(@search, :mission_name, 'ミッション', default_order: :desc)
+      %th= sort_link(@search, :mission_type, '種別', default_order: :desc)
+      %th= sort_link(@search, :status, '状況', default_order: :desc)
+      %th= sort_link(@search, :lv, '目的地', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @missions.each do |mission|
       %tr
         %td= mission.result_no
         %td= p_name_text(mission.e_no, mission.p_name)
-        %td= mission.result_no
-        %td= mission.generate_no
-        %td= mission.e_no
-        %td= mission.mission_id
-        %td= mission.mission_type
-        %td= mission.status
-        %td= mission.col
-        %td= mission.lv
+        %td= mission.mission.name if mission.mission
+        %td
+          = "個別" if mission.mission_type == 0
+          = "#A" if mission.mission_type == 1
+        %td
+          = "Lost" if mission.status == -1
+          = "Clear" if mission.status == 1
+          = "受給中" if mission.status == 0
+          = mission.status if mission.status < -1
+        %td
+          = mission.col + " - " + sprintf("%d", mission.lv) if mission.col.present? || mission.lv > 0
         %td= character_link(mission.e_no)
         %td= character_old_link(@last_result, mission.e_no, mission.result_no)
 = paginate(@missions)
