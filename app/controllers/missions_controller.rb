@@ -11,6 +11,23 @@ class MissionsController < ApplicationController
     @missions	= @search.result.per(50)
   end
 
+  # GET /mission/statistics
+  def statistics
+    param_set
+    @count	 = Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
+    @search	 = Mission.notnil().includes(:p_name, :mission)
+                                .where(mission_type: 0)
+                                .group(:result_no, :mission_id)
+                                .select("*").select("count(*) AS count").select("
+                                    max(lv) AS lv,
+                                    count(status = 1 or null) AS status_clear,
+                                    count(status = 1 or null) / count(*) AS clear_per
+                                    ")
+                                .page(params[:page]).search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @missions	= @search.result.per(50)
+  end
+
   def param_set
     @last_result = Name.maximum('result_no')
     

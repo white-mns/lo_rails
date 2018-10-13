@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :mission_names
+  get "mission/statistics",   :to => "missions#statistics",   :as => 'mission_statistics' 
   resources :missions
   resources :meddling_targets
   resources :meddling_success_rates
