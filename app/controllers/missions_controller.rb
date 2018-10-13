@@ -1,0 +1,91 @@
+class MissionsController < ApplicationController
+  include MyUtility
+  before_action :set_mission, only: [:show, :edit, :update, :destroy]
+
+  # GET /missions
+  def index
+    param_set
+    @count	= Mission.notnil().includes(:p_name).search(params[:q]).result.count()
+    @search	= Mission.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @missions	= @search.result.per(50)
+  end
+
+  def param_set
+    @last_result = Name.maximum('result_no')
+    
+    params[:q] ||= {}
+    if !params["is_form"] then
+        params["result_no_form"] ||= sprintf('%d',@last_result)
+    end
+    
+    reference_text_assign(params, "p_name_name", "p_name_form")
+    reference_number_assign(params, "result_no", "result_no_form")
+    reference_number_assign(params, "generate_no", "generate_no_form")
+    reference_number_assign(params, "e_no", "e_no_form")
+    reference_number_assign(params, "mission_id", "mission_id_form")
+    reference_number_assign(params, "type", "type_form")
+    reference_number_assign(params, "status", "status_form")
+    reference_number_assign(params, "col", "col_form")
+    reference_number_assign(params, "lv", "lv_form")
+    
+    @p_name_form = params["p_name_form"]
+    @result_no_form = params["result_no_form"]
+    @generate_no_form = params["generate_no_form"]
+    @e_no_form = params["e_no_form"]
+    @mission_id_form = params["mission_id_form"]
+    @type_form = params["type_form"]
+    @status_form = params["status_form"]
+    @col_form = params["col_form"]
+    @lv_form = params["lv_form"]
+  end
+  # GET /missions/1
+  #def show
+  #end
+
+  # GET /missions/new
+  #def new
+  #  @mission = Mission.new
+  #end
+
+  # GET /missions/1/edit
+  #def edit
+  #end
+
+  # POST /missions
+  #def create
+  #  @mission = Mission.new(mission_params)
+
+  #  if @mission.save
+  #    redirect_to @mission, notice: 'Mission was successfully created.'
+  #  else
+  #    render action: 'new'
+  #  end
+  #end
+
+  # PATCH/PUT /missions/1
+  #def update
+  #  if @mission.update(mission_params)
+  #    redirect_to @mission, notice: 'Mission was successfully updated.'
+  #  else
+  #    render action: 'edit'
+  #  end
+  #end
+
+  # DELETE /missions/1
+  #def destroy
+  #  @mission.destroy
+  #  redirect_to missions_url, notice: 'Mission was successfully destroyed.'
+  #end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_mission
+      @mission = Mission.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def mission_params
+      params.require(:mission).permit(:result_no, :generate_no, :e_no, :mission_id, :type, :status, :col, :lv)
+    end
+end

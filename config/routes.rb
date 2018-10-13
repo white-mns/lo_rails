@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :missions
   resources :meddling_targets
   resources :meddling_success_rates
   resources :new_item_uses
