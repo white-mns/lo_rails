@@ -5,8 +5,8 @@ class MissionNamesController < ApplicationController
   # GET /mission_names
   def index
     param_set
-    @count	= MissionName.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= MissionName.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= MissionName.search(params[:q]).result.count()
+    @search	= MissionName.page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @mission_names	= @search.result.per(50)
   end
@@ -21,7 +21,7 @@ class MissionNamesController < ApplicationController
     
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "mission_id", "mission_id_form")
-    reference_number_assign(params, "name", "name_form")
+    reference_text_assign(params, "name", "name_form")
     
     @p_name_form = params["p_name_form"]
     @mission_id_form = params["mission_id_form"]

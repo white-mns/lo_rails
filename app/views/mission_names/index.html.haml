@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "ミッション名一覧"
 %h1= @page_title
 
 %div.well.desc
@@ -22,24 +22,12 @@
       %tr
       %tr
         %td  
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
-      %tr
-        %td  
-        %td= f.label :mission_id_form, 'Mission'
+        %td= f.label :mission_id_form, 'ミッションID'
         %td.formNum= text_field_tag :mission_id_form, @mission_id_form
       %tr
         %td  
-        %td= f.label :name_form, 'Name'
-        %td.formNum= text_field_tag :name_form, @name_form
+        %td= f.label :name_form, 'ミッション名'
+        %td.formText= text_field_tag :name_form, @name_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -56,18 +44,11 @@
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :mission_id, 'Mission', default_order: :desc)
-      %th= sort_link(@search, :name, 'Name', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      %th= sort_link(@search, :mission_id, 'ID', default_order: :desc)
+      %th= sort_link(@search, :name, 'ミッション名', default_order: :desc)
   %tbody
     - @mission_names.each do |mission_name|
       %tr
-        %td= mission_name.result_no
-        %td= p_name_text(mission_name.e_no, mission_name.p_name)
         %td= mission_name.mission_id
         %td= mission_name.name
-        %td= character_link(mission_name.e_no)
-        %td= character_old_link(@last_result, mission_name.e_no, mission_name.result_no)
 = paginate(@mission_names)
