@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_13_035012) do
+ActiveRecord::Schema.define(version: 2018_10_13_040510) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -321,7 +321,7 @@ ActiveRecord::Schema.define(version: 2018_10_13_035012) do
     t.integer "generate_no"
     t.integer "e_no"
     t.integer "mission_id"
-    t.integer "type"
+    t.integer "mission_type"
     t.integer "status"
     t.string "col"
     t.integer "lv"
@@ -332,8 +332,8 @@ ActiveRecord::Schema.define(version: 2018_10_13_035012) do
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
     t.index ["lv"], name: "index_missions_on_lv"
     t.index ["mission_id"], name: "index_missions_on_mission_id"
+    t.index ["mission_type"], name: "index_missions_on_mission_type"
     t.index ["status"], name: "index_missions_on_status"
-    t.index ["type"], name: "index_missions_on_type"
   end
 
   create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

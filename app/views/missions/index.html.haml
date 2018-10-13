@@ -50,8 +50,8 @@
         %td.formNum= text_field_tag :mission_id_form, @mission_id_form
       %tr
         %td  
-        %td= f.label :type_form, 'Type'
-        %td.formNum= text_field_tag :type_form, @type_form
+        %td= f.label :mission_type_form, 'mission_type'
+        %td.formNum= text_field_tag :mission_type_form, @mission_type_form
       %tr
         %td  
         %td= f.label :status_form, 'Status'
@@ -86,7 +86,7 @@
       %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
       %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
       %th= sort_link(@search, :mission_id, 'Mission', default_order: :desc)
-      %th= sort_link(@search, :type, 'Type', default_order: :desc)
+      %th= sort_link(@search, :mission_type, 'mission_type', default_order: :desc)
       %th= sort_link(@search, :status, 'Status', default_order: :desc)
       %th= sort_link(@search, :col, 'Col', default_order: :desc)
       %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
@@ -100,7 +100,7 @@
         %td= mission.generate_no
         %td= mission.e_no
         %td= mission.mission_id
-        %td= mission.type
+        %td= mission.mission_type
         %td= mission.status
         %td= mission.col
         %td= mission.lv

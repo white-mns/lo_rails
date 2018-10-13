@@ -24,7 +24,7 @@ class MissionsController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "mission_id", "mission_id_form")
-    reference_number_assign(params, "type", "type_form")
+    reference_number_assign(params, "mission_type", "mission_type_form")
     reference_number_assign(params, "status", "status_form")
     reference_number_assign(params, "col", "col_form")
     reference_number_assign(params, "lv", "lv_form")
@@ -34,7 +34,7 @@ class MissionsController < ApplicationController
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
     @mission_id_form = params["mission_id_form"]
-    @type_form = params["type_form"]
+    @mission_type_form = params["mission_type_form"]
     @status_form = params["status_form"]
     @col_form = params["col_form"]
     @lv_form = params["lv_form"]
@@ -86,6 +86,6 @@ class MissionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def mission_params
-      params.require(:mission).permit(:result_no, :generate_no, :e_no, :mission_id, :type, :status, :col, :lv)
+      params.require(:mission).permit(:result_no, :generate_no, :e_no, :mission_id, :mission_type, :status, :col, :lv)
     end
 end
