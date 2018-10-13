@@ -78,6 +78,10 @@ class DevelopmentResultsController < ApplicationController
     reference_number_assign(params, "place_invation_lv", "invation_lv_form")
     reference_number_assign(params, "parameter_control_day", "day_form")
     
+    params[:q]["development_result_eq_any"] ||= []
+    if params["result_win"]  == "on" then params[:q]["development_result_eq_any"].push(1) end
+    if params["result_draw"] == "on" then params[:q]["development_result_eq_any"].push(0) end
+    if params["result_lose"] == "on" then params[:q]["development_result_eq_any"].push(-1) end
     
     if params["split_invation_lv"] != "on" && params["split_bellicose"] != "on" && params["split_party_num"] != "on" && params["split_day"] != "on" then
         params["split_invation_lv"] = "on"
