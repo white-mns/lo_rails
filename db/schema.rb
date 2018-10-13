@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_13_034030) do
+ActiveRecord::Schema.define(version: 2018_10_13_035012) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -305,6 +305,15 @@ ActiveRecord::Schema.define(version: 2018_10_13_034030) do
     t.index ["count"], name: "index_meddling_targets_on_count"
     t.index ["e_no", "card_id", "chain", "result_no", "generate_no"], name: "resultno_eno_cardid_chain"
     t.index ["target_id"], name: "index_meddling_targets_on_target_id"
+  end
+
+  create_table "mission_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "mission_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mission_id"], name: "index_mission_names_on_mission_id"
+    t.index ["name"], name: "index_mission_names_on_name"
   end
 
   create_table "missions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
