@@ -50,12 +50,6 @@
         %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
       %tr
         %td  
-        %td= f.label :effect_form, '効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
-        %td= f.label :effect_lv_form, '効果Lv'
-        %td.formNum= text_field_tag :effect_lv_form, @effect_lv_form
-      %tr
-        %td  
         %td= f.label :potency_form, '効力'
         %td.formNum= text_field_tag :potency_form, @potency_form
         %td= f.label :precision_form, '精度'
@@ -88,8 +82,6 @@
       %th= sort_link(@search, :item_name, 'アイテム名', default_order: :desc)
       %th= sort_link(@search, :cost, '作製費', default_order: :desc)
       %th= sort_link(@search, :kind, '種類', default_order: :desc)
-      %th= sort_link(@search, :effect, '効果', default_order: :desc)
-      %th= sort_link(@search, :effect_lv, '効果Lv', default_order: :desc)
       %th= sort_link(@search, :potency, '効力', default_order: :desc)
       %th= sort_link(@search, :precision, '精度', default_order: :desc)
       %th= sort_link(@search, :total, '効力＋精度', default_order: :desc)
@@ -105,8 +97,6 @@
         %td= manufacture.item_name
         %td= manufacture.cost
         %td= manufacture.kind_name.name   if manufacture.kind_name
-        %td= manufacture.effect_name.name if manufacture.effect_name
-        %td= manufacture.effect_lv
         %td= manufacture.potency
         %td= manufacture.precision
         %td= manufacture.total
