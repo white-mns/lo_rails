@@ -1,0 +1,100 @@
+- @page_title = "施設利用一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :facility_name_form, '施設名'
+        %td.formText{colspan: "3"}= text_field_tag :facility_name_form, @facility_name_form
+      %tr
+        %td  
+        %td= f.label :facility_effect_form, '施設詳細区分'
+        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
+        %td= f.label :facility_lv_form, '施設Lv'
+        %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
+      %tr
+        %td  
+        %td= f.label :facility_e_no_form, '施設所有者ENo'
+        %td.formNum{colspan: "3"}= text_field_tag :facility_e_no_form, @facility_e_no_form
+      %tr
+        %td  
+        %td= f.label :cost_form, '費用'
+        %td.formNum{colspan: "3"}= text_field_tag :cost_form, @cost_form
+      %tr
+        %td  
+        %td= f.label :success_form, '利用成功'
+        %td{colspan: "3"}
+          = check_box_tag :is_success, @is_success, @is_success
+          = label_tag :is_success, '成功'
+          　　
+          = check_box_tag :is_false, @is_false, @is_false
+          = label_tag :is_false, '失敗（所持金不足）'
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@facility_uses)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :facility_name, '施設名', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, '詳細区分', default_order: :desc)
+      %th= sort_link(@search, :facility_lv, '施設Lv', default_order: :desc)
+      %th= sort_link(@search, :facility_e_no, '所有ENo', default_order: :desc)
+      %th= sort_link(@search, :cost, '費用', default_order: :desc)
+      %th= sort_link(@search, :success, '利用成功', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @facility_uses.each do |facility_use|
+      %tr
+        %td= facility_use.result_no
+        %td= p_name_text(facility_use.e_no, facility_use.p_name)
+        %td= facility_use.facility_name
+        %td= facility_use.facility_effect_name.name if facility_use.facility_effect_name
+        %td= facility_use.facility_lv
+        %td= facility_use.facility_e_no if facility_use.facility_e_no > 0
+        %td= facility_use.cost          if facility_use.cost  > 0
+        %td.td-sign
+          = "○" if facility_use.success == 1
+          = "×" if facility_use.success == -1
+        %td= character_link(facility_use.e_no)
+        %td= character_old_link(@last_result, facility_use.e_no, facility_use.result_no)
+= paginate(@facility_uses)

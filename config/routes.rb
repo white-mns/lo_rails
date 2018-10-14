@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :facility_uses
   resources :manufactures
   resources :mission_names
   get "mission/statistics",   :to => "missions#statistics",   :as => 'mission_statistics' 

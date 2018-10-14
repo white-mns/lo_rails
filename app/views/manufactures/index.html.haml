@@ -36,7 +36,7 @@
         %td.formText{colspan: "3"}= text_field_tag :facility_name_form, @facility_name_form
       %tr
         %td  
-        %td= f.label :facility_effect_form, '施設効果'
+        %td= f.label :facility_effect_form, '施設詳細区分'
         %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
         %td= f.label :facility_lv_form, '施設Lv'
         %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
@@ -83,7 +83,7 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :facility_name, '施設名', default_order: :desc)
-      %th= sort_link(@search, :facility_effect, '施設効果', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, '詳細区分', default_order: :desc)
       %th= sort_link(@search, :facility_lv, '施設Lv', default_order: :desc)
       %th= sort_link(@search, :item_name, 'アイテム名', default_order: :desc)
       %th= sort_link(@search, :cost, '作製費', default_order: :desc)

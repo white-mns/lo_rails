@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_14_041120) do
+ActiveRecord::Schema.define(version: 2018_10_14_053405) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -203,6 +203,29 @@ ActiveRecord::Schema.define(version: 2018_10_14_041120) do
     t.index ["detail"], name: "index_facility_division_data_on_detail"
     t.index ["division_id"], name: "index_facility_division_data_on_division_id"
     t.index ["major"], name: "index_facility_division_data_on_major"
+  end
+
+  create_table "facility_uses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.string "facility_name"
+    t.integer "facility_effect"
+    t.integer "facility_lv"
+    t.integer "facility_e_no"
+    t.integer "usage"
+    t.integer "cost"
+    t.integer "success"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cost"], name: "index_facility_uses_on_cost"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["facility_e_no"], name: "index_facility_uses_on_facility_e_no"
+    t.index ["facility_effect"], name: "index_facility_uses_on_facility_effect"
+    t.index ["facility_lv"], name: "index_facility_uses_on_facility_lv"
+    t.index ["facility_name"], name: "index_facility_uses_on_facility_name"
+    t.index ["success"], name: "index_facility_uses_on_success"
+    t.index ["usage"], name: "index_facility_uses_on_usage"
   end
 
   create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
