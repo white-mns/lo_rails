@@ -1,0 +1,157 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :facility_name_form, 'Facility name'
+        %td.formNum= text_field_tag :facility_name_form, @facility_name_form
+      %tr
+        %td  
+        %td= f.label :facility_effect_form, 'Facility effect'
+        %td.formNum= text_field_tag :facility_effect_form, @facility_effect_form
+      %tr
+        %td  
+        %td= f.label :facility_lv_form, 'Facility lv'
+        %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
+      %tr
+        %td  
+        %td= f.label :facility_e_no_form, 'Facility e no'
+        %td.formNum= text_field_tag :facility_e_no_form, @facility_e_no_form
+      %tr
+        %td  
+        %td= f.label :item_name_form, 'Item name'
+        %td.formNum= text_field_tag :item_name_form, @item_name_form
+      %tr
+        %td  
+        %td= f.label :usage_form, 'Usage'
+        %td.formNum= text_field_tag :usage_form, @usage_form
+      %tr
+        %td  
+        %td= f.label :cost_form, 'Cost'
+        %td.formNum= text_field_tag :cost_form, @cost_form
+      %tr
+        %td  
+        %td= f.label :kind_form, 'Kind'
+        %td.formNum= text_field_tag :kind_form, @kind_form
+      %tr
+        %td  
+        %td= f.label :effect_form, 'Effect'
+        %td.formNum= text_field_tag :effect_form, @effect_form
+      %tr
+        %td  
+        %td= f.label :effect_lv_form, 'Effect lv'
+        %td.formNum= text_field_tag :effect_lv_form, @effect_lv_form
+      %tr
+        %td  
+        %td= f.label :potency_form, 'Potency'
+        %td.formNum= text_field_tag :potency_form, @potency_form
+      %tr
+        %td  
+        %td= f.label :precision_form, 'Precision'
+        %td.formNum= text_field_tag :precision_form, @precision_form
+      %tr
+        %td  
+        %td= f.label :total_form, 'Total'
+        %td.formNum= text_field_tag :total_form, @total_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@manufactures)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :facility_name, 'Facility name', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, 'Facility effect', default_order: :desc)
+      %th= sort_link(@search, :facility_lv, 'Facility lv', default_order: :desc)
+      %th= sort_link(@search, :facility_e_no, 'Facility e no', default_order: :desc)
+      %th= sort_link(@search, :item_name, 'Item name', default_order: :desc)
+      %th= sort_link(@search, :usage, 'Usage', default_order: :desc)
+      %th= sort_link(@search, :cost, 'Cost', default_order: :desc)
+      %th= sort_link(@search, :kind, 'Kind', default_order: :desc)
+      %th= sort_link(@search, :effect, 'Effect', default_order: :desc)
+      %th= sort_link(@search, :effect_lv, 'Effect lv', default_order: :desc)
+      %th= sort_link(@search, :potency, 'Potency', default_order: :desc)
+      %th= sort_link(@search, :precision, 'Precision', default_order: :desc)
+      %th= sort_link(@search, :total, 'Total', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @manufactures.each do |manufacture|
+      %tr
+        %td= manufacture.result_no
+        %td= p_name_text(manufacture.e_no, manufacture.p_name)
+        %td= manufacture.result_no
+        %td= manufacture.generate_no
+        %td= manufacture.e_no
+        %td= manufacture.facility_name
+        %td= manufacture.facility_effect
+        %td= manufacture.facility_lv
+        %td= manufacture.facility_e_no
+        %td= manufacture.item_name
+        %td= manufacture.usage
+        %td= manufacture.cost
+        %td= manufacture.kind
+        %td= manufacture.effect
+        %td= manufacture.effect_lv
+        %td= manufacture.potency
+        %td= manufacture.precision
+        %td= manufacture.total
+        %td= character_link(manufacture.e_no)
+        %td= character_old_link(@last_result, manufacture.e_no, manufacture.result_no)
+= paginate(@manufactures)
