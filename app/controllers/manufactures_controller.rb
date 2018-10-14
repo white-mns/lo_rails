@@ -5,8 +5,8 @@ class ManufacturesController < ApplicationController
   # GET /manufactures
   def index
     param_set
-    @count	= Manufacture.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= Manufacture.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Manufacture.notnil().includes(:p_name, :facility_effect_name, :kind_name, :effect_name).search(params[:q]).result.count()
+    @search	= Manufacture.notnil().includes(:p_name, :facility_effect_name, :kind_name, :effect_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @manufactures	= @search.result.per(50)
   end
@@ -23,15 +23,15 @@ class ManufacturesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "facility_name", "facility_name_form")
-    reference_number_assign(params, "facility_effect", "facility_effect_form")
+    reference_text_assign(params, "facility_name", "facility_name_form")
+    reference_text_assign(params, "facility_effect_name_name", "facility_effect_form")
     reference_number_assign(params, "facility_lv", "facility_lv_form")
     reference_number_assign(params, "facility_e_no", "facility_e_no_form")
-    reference_number_assign(params, "item_name", "item_name_form")
+    reference_text_assign(params, "item_name", "item_name_form")
     reference_number_assign(params, "usage", "usage_form")
     reference_number_assign(params, "cost", "cost_form")
-    reference_number_assign(params, "kind", "kind_form")
-    reference_number_assign(params, "effect", "effect_form")
+    reference_text_assign(params, "kind_name_name", "kind_form")
+    reference_text_assign(params, "effect_name_name", "effect_form")
     reference_number_assign(params, "effect_lv", "effect_lv_form")
     reference_number_assign(params, "potency", "potency_form")
     reference_number_assign(params, "precision", "precision_form")

@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "作製結果一覧"
 %h1= @page_title
 
 %div.well.desc
@@ -28,74 +28,42 @@
         %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :facility_name_form, '施設名'
+        %td.formText{colspan: "3"}= text_field_tag :facility_name_form, @facility_name_form
       %tr
         %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :facility_name_form, 'Facility name'
-        %td.formNum= text_field_tag :facility_name_form, @facility_name_form
-      %tr
-        %td  
-        %td= f.label :facility_effect_form, 'Facility effect'
-        %td.formNum= text_field_tag :facility_effect_form, @facility_effect_form
-      %tr
-        %td  
-        %td= f.label :facility_lv_form, 'Facility lv'
+        %td= f.label :facility_effect_form, '施設効果'
+        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
+        %td= f.label :facility_lv_form, '施設Lv'
         %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
       %tr
         %td  
-        %td= f.label :facility_e_no_form, 'Facility e no'
-        %td.formNum= text_field_tag :facility_e_no_form, @facility_e_no_form
+        %td= f.label :cost_form, '作製費'
+        %td.formNum{colspan: "3"}= text_field_tag :cost_form, @cost_form
       %tr
         %td  
-        %td= f.label :item_name_form, 'Item name'
-        %td.formNum= text_field_tag :item_name_form, @item_name_form
+        %td= f.label :kind_form, '種類'
+        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
       %tr
         %td  
-        %td= f.label :usage_form, 'Usage'
-        %td.formNum= text_field_tag :usage_form, @usage_form
-      %tr
-        %td  
-        %td= f.label :cost_form, 'Cost'
-        %td.formNum= text_field_tag :cost_form, @cost_form
-      %tr
-        %td  
-        %td= f.label :kind_form, 'Kind'
-        %td.formNum= text_field_tag :kind_form, @kind_form
-      %tr
-        %td  
-        %td= f.label :effect_form, 'Effect'
-        %td.formNum= text_field_tag :effect_form, @effect_form
-      %tr
-        %td  
-        %td= f.label :effect_lv_form, 'Effect lv'
+        %td= f.label :effect_form, '効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :effect_lv_form, '効果Lv'
         %td.formNum= text_field_tag :effect_lv_form, @effect_lv_form
       %tr
         %td  
-        %td= f.label :potency_form, 'Potency'
+        %td= f.label :potency_form, '効力'
         %td.formNum= text_field_tag :potency_form, @potency_form
-      %tr
-        %td  
-        %td= f.label :precision_form, 'Precision'
+        %td= f.label :precision_form, '精度'
         %td.formNum= text_field_tag :precision_form, @precision_form
       %tr
         %td  
-        %td= f.label :total_form, 'Total'
-        %td.formNum= text_field_tag :total_form, @total_form
+        %td= f.label :total_form, '効力＋精度'
+        %td.formNum{colspan: "3"}= text_field_tag :total_form, @total_form
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -114,40 +82,30 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :facility_name, 'Facility name', default_order: :desc)
-      %th= sort_link(@search, :facility_effect, 'Facility effect', default_order: :desc)
-      %th= sort_link(@search, :facility_lv, 'Facility lv', default_order: :desc)
-      %th= sort_link(@search, :facility_e_no, 'Facility e no', default_order: :desc)
-      %th= sort_link(@search, :item_name, 'Item name', default_order: :desc)
-      %th= sort_link(@search, :usage, 'Usage', default_order: :desc)
-      %th= sort_link(@search, :cost, 'Cost', default_order: :desc)
-      %th= sort_link(@search, :kind, 'Kind', default_order: :desc)
-      %th= sort_link(@search, :effect, 'Effect', default_order: :desc)
-      %th= sort_link(@search, :effect_lv, 'Effect lv', default_order: :desc)
-      %th= sort_link(@search, :potency, 'Potency', default_order: :desc)
-      %th= sort_link(@search, :precision, 'Precision', default_order: :desc)
-      %th= sort_link(@search, :total, 'Total', default_order: :desc)
+      %th= sort_link(@search, :facility_name, '施設名', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, '施設効果', default_order: :desc)
+      %th= sort_link(@search, :facility_lv, '施設Lv', default_order: :desc)
+      %th= sort_link(@search, :item_name, 'アイテム名', default_order: :desc)
+      %th= sort_link(@search, :cost, '作製費', default_order: :desc)
+      %th= sort_link(@search, :kind, '種類', default_order: :desc)
+      %th= sort_link(@search, :effect, '効果', default_order: :desc)
+      %th= sort_link(@search, :effect_lv, '効果Lv', default_order: :desc)
+      %th= sort_link(@search, :potency, '効力', default_order: :desc)
+      %th= sort_link(@search, :precision, '精度', default_order: :desc)
+      %th= sort_link(@search, :total, '効力＋精度', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @manufactures.each do |manufacture|
       %tr
         %td= manufacture.result_no
         %td= p_name_text(manufacture.e_no, manufacture.p_name)
-        %td= manufacture.result_no
-        %td= manufacture.generate_no
-        %td= manufacture.e_no
         %td= manufacture.facility_name
-        %td= manufacture.facility_effect
+        %td= manufacture.facility_effect_name.name if manufacture.facility_effect_name
         %td= manufacture.facility_lv
-        %td= manufacture.facility_e_no
         %td= manufacture.item_name
-        %td= manufacture.usage
         %td= manufacture.cost
-        %td= manufacture.kind
-        %td= manufacture.effect
+        %td= manufacture.kind_name.name   if manufacture.kind_name
+        %td= manufacture.effect_name.name if manufacture.effect_name
         %td= manufacture.effect_lv
         %td= manufacture.potency
         %td= manufacture.precision
