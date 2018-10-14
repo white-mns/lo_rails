@@ -1,0 +1,115 @@
+- @page_title = "作製結果一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :facility_name_form, '施設名'
+        %td.formText{colspan: "3"}= text_field_tag :facility_name_form, @facility_name_form
+      %tr
+        %td  
+        %td= f.label :facility_effect_form, '施設効果'
+        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
+        %td= f.label :facility_lv_form, '施設Lv'
+        %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
+      %tr
+        %td  
+        %td= f.label :cost_form, '作製費'
+        %td.formNum{colspan: "3"}= text_field_tag :cost_form, @cost_form
+      %tr
+        %td  
+        %td= f.label :kind_form, '種類'
+        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
+      %tr
+        %td  
+        %td= f.label :effect_form, '効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :effect_lv_form, '効果Lv'
+        %td.formNum= text_field_tag :effect_lv_form, @effect_lv_form
+      %tr
+        %td  
+        %td= f.label :potency_form, '効力'
+        %td.formNum= text_field_tag :potency_form, @potency_form
+        %td= f.label :precision_form, '精度'
+        %td.formNum= text_field_tag :precision_form, @precision_form
+      %tr
+        %td  
+        %td= f.label :total_form, '効力＋精度'
+        %td.formNum{colspan: "3"}= text_field_tag :total_form, @total_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@manufactures)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :facility_name, '施設名', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, '施設効果', default_order: :desc)
+      %th= sort_link(@search, :facility_lv, '施設Lv', default_order: :desc)
+      %th= sort_link(@search, :item_name, 'アイテム名', default_order: :desc)
+      %th= sort_link(@search, :cost, '作製費', default_order: :desc)
+      %th= sort_link(@search, :kind, '種類', default_order: :desc)
+      %th= sort_link(@search, :effect, '効果', default_order: :desc)
+      %th= sort_link(@search, :effect_lv, '効果Lv', default_order: :desc)
+      %th= sort_link(@search, :potency, '効力', default_order: :desc)
+      %th= sort_link(@search, :precision, '精度', default_order: :desc)
+      %th= sort_link(@search, :total, '効力＋精度', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @manufactures.each do |manufacture|
+      %tr
+        %td= manufacture.result_no
+        %td= p_name_text(manufacture.e_no, manufacture.p_name)
+        %td= manufacture.facility_name
+        %td= manufacture.facility_effect_name.name if manufacture.facility_effect_name
+        %td= manufacture.facility_lv
+        %td= manufacture.item_name
+        %td= manufacture.cost
+        %td= manufacture.kind_name.name   if manufacture.kind_name
+        %td= manufacture.effect_name.name if manufacture.effect_name
+        %td= manufacture.effect_lv
+        %td= manufacture.potency
+        %td= manufacture.precision
+        %td= manufacture.total
+        %td= character_link(manufacture.e_no)
+        %td= character_old_link(@last_result, manufacture.e_no, manufacture.result_no)
+= paginate(@manufactures)

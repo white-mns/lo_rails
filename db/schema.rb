@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_13_040510) do
+ActiveRecord::Schema.define(version: 2018_10_14_041120) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -257,6 +257,41 @@ ActiveRecord::Schema.define(version: 2018_10_13_040510) do
     t.index ["potency"], name: "index_items_on_potency"
     t.index ["potency_str"], name: "index_items_on_potency_str"
     t.index ["precision"], name: "index_items_on_precision"
+  end
+
+  create_table "manufactures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.string "facility_name"
+    t.integer "facility_effect"
+    t.integer "facility_lv"
+    t.integer "facility_e_no"
+    t.string "item_name"
+    t.integer "usage"
+    t.integer "cost"
+    t.integer "kind"
+    t.integer "effect"
+    t.integer "effect_lv"
+    t.integer "potency"
+    t.integer "precision"
+    t.integer "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cost"], name: "index_manufactures_on_cost"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["effect"], name: "index_manufactures_on_effect"
+    t.index ["effect_lv"], name: "index_manufactures_on_effect_lv"
+    t.index ["facility_e_no"], name: "index_manufactures_on_facility_e_no"
+    t.index ["facility_effect"], name: "index_manufactures_on_facility_effect"
+    t.index ["facility_lv"], name: "index_manufactures_on_facility_lv"
+    t.index ["facility_name"], name: "index_manufactures_on_facility_name"
+    t.index ["item_name"], name: "index_manufactures_on_item_name"
+    t.index ["kind"], name: "index_manufactures_on_kind"
+    t.index ["potency"], name: "index_manufactures_on_potency"
+    t.index ["precision"], name: "index_manufactures_on_precision"
+    t.index ["total"], name: "index_manufactures_on_total"
+    t.index ["usage"], name: "index_manufactures_on_usage"
   end
 
   create_table "max_chains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
