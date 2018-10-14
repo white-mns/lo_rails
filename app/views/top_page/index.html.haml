@@ -34,6 +34,7 @@
           %li= link_to "使用アイテム一覧", item_uses_path
           %li= link_to "開拓戦勝率", development_result_win_per_path
           %li= link_to "開拓戦勝敗一覧", development_results_path
+          %li= link_to "施設利用一覧", facility_uses_path
           %li= link_to "作製結果一覧", manufactures_path
           %br
           %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
@@ -70,6 +71,8 @@
     %li 2018/10/14
     %ul
       %li
+        = link_to "施設利用一覧", facility_uses_path
+        、
         = link_to "作製結果一覧", manufactures_path
         を公開。
     %li 2018/10/13
