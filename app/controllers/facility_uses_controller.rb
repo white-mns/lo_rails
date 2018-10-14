@@ -5,8 +5,8 @@ class FacilityUsesController < ApplicationController
   # GET /facility_uses
   def index
     param_set
-    @count	= FacilityUse.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= FacilityUse.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= FacilityUse.notnil().includes(:p_name, :facility_effect_name).search(params[:q]).result.count()
+    @search	= FacilityUse.notnil().includes(:p_name, :facility_effect_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @facility_uses	= @search.result.per(50)
   end
@@ -23,14 +23,22 @@ class FacilityUsesController < ApplicationController
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "facility_name", "facility_name_form")
-    reference_number_assign(params, "facility_effect", "facility_effect_form")
+    reference_text_assign(params, "facility_name", "facility_name_form")
+    reference_text_assign(params, "facility_effect_name_name", "facility_effect_form")
     reference_number_assign(params, "facility_lv", "facility_lv_form")
     reference_number_assign(params, "facility_e_no", "facility_e_no_form")
     reference_number_assign(params, "usage", "usage_form")
     reference_number_assign(params, "cost", "cost_form")
     reference_number_assign(params, "success", "success_form")
     
+    params[:q]["success_eq_any"] ||= []
+    if !params["is_form"] then
+        params["is_success"] = "on"
+        params["is_false"]   = "on"
+    end
+    if params["is_success"] == "on" then params[:q]["success_eq_any"].push(1) end
+    if params["is_false"]   == "on" then params[:q]["success_eq_any"].push(-1) end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -42,6 +50,9 @@ class FacilityUsesController < ApplicationController
     @usage_form = params["usage_form"]
     @cost_form = params["cost_form"]
     @success_form = params["success_form"]
+
+    @is_success = params["is_success"]
+    @is_false = params["is_false"]
   end
   # GET /facility_uses/1
   #def show

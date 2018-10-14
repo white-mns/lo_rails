@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "施設利用一覧"
 %h1= @page_title
 
 %div.well.desc
@@ -28,50 +28,35 @@
         %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :facility_name_form, '施設名'
+        %td.formText{colspan: "3"}= text_field_tag :facility_name_form, @facility_name_form
       %tr
         %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
-      %tr
-        %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
-        %td= f.label :facility_name_form, 'Facility name'
-        %td.formNum= text_field_tag :facility_name_form, @facility_name_form
-      %tr
-        %td  
-        %td= f.label :facility_effect_form, 'Facility effect'
-        %td.formNum= text_field_tag :facility_effect_form, @facility_effect_form
-      %tr
-        %td  
-        %td= f.label :facility_lv_form, 'Facility lv'
+        %td= f.label :facility_effect_form, '施設詳細区分'
+        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
+        %td= f.label :facility_lv_form, '施設Lv'
         %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
       %tr
         %td  
-        %td= f.label :facility_e_no_form, 'Facility e no'
-        %td.formNum= text_field_tag :facility_e_no_form, @facility_e_no_form
+        %td= f.label :facility_e_no_form, '施設所有者ENo'
+        %td.formNum{colspan: "3"}= text_field_tag :facility_e_no_form, @facility_e_no_form
       %tr
         %td  
-        %td= f.label :usage_form, 'Usage'
-        %td.formNum= text_field_tag :usage_form, @usage_form
+        %td= f.label :cost_form, '費用'
+        %td.formNum{colspan: "3"}= text_field_tag :cost_form, @cost_form
       %tr
         %td  
-        %td= f.label :cost_form, 'Cost'
-        %td.formNum= text_field_tag :cost_form, @cost_form
-      %tr
-        %td  
-        %td= f.label :success_form, 'Success'
-        %td.formNum= text_field_tag :success_form, @success_form
+        %td= f.label :success_form, '利用成功'
+        %td{colspan: "3"}
+          = check_box_tag :is_success, @is_success, @is_success
+          = label_tag :is_success, '成功'
+          　　
+          = check_box_tag :is_false, @is_false, @is_false
+          = label_tag :is_false, '失敗（所持金不足）'
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -90,32 +75,26 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :facility_name, 'Facility name', default_order: :desc)
-      %th= sort_link(@search, :facility_effect, 'Facility effect', default_order: :desc)
-      %th= sort_link(@search, :facility_lv, 'Facility lv', default_order: :desc)
-      %th= sort_link(@search, :facility_e_no, 'Facility e no', default_order: :desc)
-      %th= sort_link(@search, :usage, 'Usage', default_order: :desc)
-      %th= sort_link(@search, :cost, 'Cost', default_order: :desc)
-      %th= sort_link(@search, :success, 'Success', default_order: :desc)
+      %th= sort_link(@search, :facility_name, '施設名', default_order: :desc)
+      %th= sort_link(@search, :facility_effect, '詳細区分', default_order: :desc)
+      %th= sort_link(@search, :facility_lv, '施設Lv', default_order: :desc)
+      %th= sort_link(@search, :facility_e_no, '所有ENo', default_order: :desc)
+      %th= sort_link(@search, :cost, '費用', default_order: :desc)
+      %th= sort_link(@search, :success, '利用成功', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @facility_uses.each do |facility_use|
       %tr
         %td= facility_use.result_no
         %td= p_name_text(facility_use.e_no, facility_use.p_name)
-        %td= facility_use.result_no
-        %td= facility_use.generate_no
-        %td= facility_use.e_no
         %td= facility_use.facility_name
-        %td= facility_use.facility_effect
+        %td= facility_use.facility_effect_name.name if facility_use.facility_effect_name
         %td= facility_use.facility_lv
-        %td= facility_use.facility_e_no
-        %td= facility_use.usage
-        %td= facility_use.cost
-        %td= facility_use.success
+        %td= facility_use.facility_e_no if facility_use.facility_e_no > 0
+        %td= facility_use.cost          if facility_use.cost  > 0
+        %td.td-sign
+          = "○" if facility_use.success == 1
+          = "×" if facility_use.success == -1
         %td= character_link(facility_use.e_no)
         %td= character_old_link(@last_result, facility_use.e_no, facility_use.result_no)
 = paginate(@facility_uses)
