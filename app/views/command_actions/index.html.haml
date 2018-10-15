@@ -1,4 +1,4 @@
-- @page_title = "カード設定一覧"
+- @page_title = "カード対戦設定一覧"
 %h1= @page_title
 
 %div.well.desc
@@ -44,20 +44,29 @@
         %td.formText= text_field_tag :gowait_form, @gowait_form
       %tr
         %td  
-        %td= f.label :kind_form, '種類'
-        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
-      %tr
-        %td  
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card_data, @show_detail_card_data
+          - act_icon(false)
+          = label_tag :show_detail_card_data, '　その他カード情報を表示する', class: "act_desc"
+          = label_tag :show_detail_card_data, '　その他カード情報を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+        %td  
+        %td= f.label :kind_form, '種類'
+        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
       %tr
         %td  
         %td= f.label :lp_form, 'LP'
         %td.formNum= text_field_tag :lp_form, @lp_form
         %td= f.label :fp_form, 'FP'
         %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -83,6 +92,9 @@
       %th= sort_link(@search, :card_data_kind, '種類', default_order: :desc)
       %th= sort_link(@search, :card_id, '効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @command_actions.each do |command_action|
@@ -93,9 +105,13 @@
         %td= command_action.s_no
         %td= command_action.timing_name.name if command_action.timing_name
         %td= command_action.gowait_name.name if command_action.gowait_name
-        %td= command_action.card_data.kind_name.name     if command_action.card_data && command_action.card_data.kind_name
+        - if @show_detail_card_data == "1"
+          %td= command_action.card_data.kind_name.name     if command_action.card_data && command_action.card_data.kind_name
         %td= command_action.card_data.name   if command_action.card_data
         %td= command_action.card_data.lv     if command_action.card_data
+        - if @show_detail_card_data == "1"
+          %td= command_action.card_data.lp if command_action.card_data
+          %td= command_action.card_data.fp if command_action.card_data
         %td= character_link(command_action.e_no)
         %td= character_old_link(@last_result, command_action.e_no, command_action.result_no)
 = paginate(@command_actions)

@@ -50,6 +50,8 @@ class CommandActionsController < ApplicationController
     @lv_form = params["lv_form"]
     @lp_form = params["lp_form"]
     @fp_form = params["fp_form"]
+
+    @show_detail_card_data = params["show_detail_card_data"]
   end
   # GET /command_actions/1
   #def show

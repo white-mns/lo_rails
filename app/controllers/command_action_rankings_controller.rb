@@ -5,8 +5,8 @@ class CommandActionRankingsController < ApplicationController
   # GET /command_action_rankings
   def index
     param_set
-    @count	= CommandActionRanking.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= CommandActionRanking.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= CommandActionRanking.notnil().includes([card_data: :kind_name]).search(params[:q]).result.count()
+    @search	= CommandActionRanking.notnil().includes([card_data: :kind_name]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @command_action_rankings	= @search.result.per(50)
   end
@@ -19,6 +19,8 @@ class CommandActionRankingsController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
     
+    if params["rank_type"] == "1" then params["lv_form"] = nil end
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
@@ -26,7 +28,22 @@ class CommandActionRankingsController < ApplicationController
     reference_number_assign(params, "rank_type", "rank_type_form")
     reference_number_assign(params, "rank", "rank_form")
     reference_number_assign(params, "num", "num_form")
+
+    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
+    reference_text_assign(params, "card_data_name", "effect_form")
+    reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
     
+    if params["rank_type"] == "1" then @all_lv      = "on" end
+    if params["rank_type"] == "0" then @separate_lv = "on" end
+    params[:q]["rank_type_eq_any"] ||= []
+    if !params["is_form"] then
+        @all_lv = "on"
+    end
+    if @all_lv       == "on" then params[:q]["rank_type_eq_any"].push(1) end
+    if @separate_lv  == "on" then params[:q]["rank_type_eq_any"].push(0) end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -34,6 +51,17 @@ class CommandActionRankingsController < ApplicationController
     @rank_type_form = params["rank_type_form"]
     @rank_form = params["rank_form"]
     @num_form = params["num_form"]
+    
+    @kind_form = params["kind_form"]
+    @effect_form = params["effect_form"]
+    @lv_form = params["lv_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
+
+    @rank_type = params["rank_type"]
+
+    @show_detail_card_data = params["show_detail_card_data"]
+    @show_detail_rank = params["show_detail_rank"]
   end
   # GET /command_action_rankings/1
   #def show

@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "カード対戦設定枚数ランキング"
 %h1= @page_title
 
 %div.well.desc
@@ -26,36 +26,54 @@
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td  
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :effect_form, '効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
         %td  
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td= f.label :num_form, '総設定枚数'
+        %td.formNum{colspan: "3"}= text_field_tag :num_form, @num_form
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :rank_type_form, '集計方法'
+        %td{colspan: "3"}
+          = radio_button_tag :rank_type, 1, @all_lv
+          = label_tag :rank_type_1, '異なるLvもまとめて集計'
+          　　
+          = radio_button_tag :rank_type, 0, @separate_lv
+          = label_tag :rank_type_0, 'Lv別で集計'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card_data, @show_detail_card_data
+          - act_icon(false)
+          = label_tag :show_detail_card_data, '　その他カード情報を表示する', class: "act_desc"
+          = label_tag :show_detail_card_data, '　その他カード情報を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+        %td= f.label :kind_form, '種類'
+        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
       %tr
         %td  
-        %td= f.label :card_id_form, 'Card'
-        %td.formNum= text_field_tag :card_id_form, @card_id_form
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_rank, @show_detail_rank
+          - act_icon(false)
+          = label_tag :show_detail_rank, '　順位を表示する', class: "act_desc"
+          = label_tag :show_detail_rank, '　順位を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :rank_type_form, 'Rank type'
-        %td.formNum= text_field_tag :rank_type_form, @rank_type_form
-      %tr
-        %td  
-        %td= f.label :rank_form, 'Rank'
+        %td= f.label :rank_form, '順位'
         %td.formNum= text_field_tag :rank_form, @rank_form
-      %tr
-        %td  
-        %td= f.label :num_form, 'Num'
-        %td.formNum= text_field_tag :num_form, @num_form
+    %tbody
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -73,25 +91,30 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
-      %th= sort_link(@search, :rank_type, 'Rank type', default_order: :desc)
-      %th= sort_link(@search, :rank, 'Rank', default_order: :desc)
-      %th= sort_link(@search, :num, 'Num', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :card_data_kind, '種類', default_order: :desc)
+      %th= sort_link(@search, :card_id, '効果', default_order: :desc)
+      - if @all_lv != "on"
+        %th= sort_link(@search, :card_data_lv, 'LV', default_order: :desc)
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+      - if @show_detail_rank == "1"
+        %th= sort_link(@search, :rank, '順位', default_order: :desc)
+      %th= sort_link(@search, :num, '枚数', default_order: :desc)
   %tbody
     - @command_action_rankings.each do |command_action_ranking|
       %tr
         %td= command_action_ranking.result_no
-        %td= p_name_text(command_action_ranking.e_no, command_action_ranking.p_name)
-        %td= command_action_ranking.result_no
-        %td= command_action_ranking.generate_no
-        %td= command_action_ranking.card_id
-        %td= command_action_ranking.rank_type
-        %td= command_action_ranking.rank
+        - if @show_detail_card_data == "1"
+          %td= command_action_ranking.card_data.kind_name.name if command_action_ranking.card_data && command_action_ranking.card_data.kind_name
+        %td= command_action_ranking.card_data.name if command_action_ranking.card_data
+        - if @all_lv != "on"
+          %td= command_action_ranking.card_data.lv   if command_action_ranking.card_data
+        - if @show_detail_card_data == "1"
+          %td= command_action_ranking.card_data.lp if command_action_ranking.card_data
+          %td= command_action_ranking.card_data.fp if command_action_ranking.card_data
+        - if @show_detail_rank == "1"
+          %td= command_action_ranking.rank
         %td= command_action_ranking.num
-        %td= character_link(command_action_ranking.e_no)
-        %td= character_old_link(@last_result, command_action_ranking.e_no, command_action_ranking.result_no)
 = paginate(@command_action_rankings)
