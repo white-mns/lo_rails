@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_042639) do
+ActiveRecord::Schema.define(version: 2018_10_15_065925) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -94,6 +94,22 @@ ActiveRecord::Schema.define(version: 2018_10_15_042639) do
     t.index ["str"], name: "index_characteristics_on_str"
     t.index ["tec"], name: "index_characteristics_on_tec"
     t.index ["vit"], name: "index_characteristics_on_vit"
+  end
+
+  create_table "command_action_rankings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "card_id"
+    t.integer "rank_type"
+    t.integer "rank"
+    t.integer "num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_command_action_rankings_on_card_id"
+    t.index ["num"], name: "index_command_action_rankings_on_num"
+    t.index ["rank"], name: "index_command_action_rankings_on_rank"
+    t.index ["rank_type"], name: "index_command_action_rankings_on_rank_type"
+    t.index ["result_no", "generate_no"], name: "resultno_and_generateno"
   end
 
   create_table "command_actions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
