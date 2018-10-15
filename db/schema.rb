@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_14_053405) do
+ActiveRecord::Schema.define(version: 2018_10_15_042639) do
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
@@ -94,6 +94,25 @@ ActiveRecord::Schema.define(version: 2018_10_14_053405) do
     t.index ["str"], name: "index_characteristics_on_str"
     t.index ["tec"], name: "index_characteristics_on_tec"
     t.index ["vit"], name: "index_characteristics_on_vit"
+  end
+
+  create_table "command_actions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "act"
+    t.integer "s_no"
+    t.integer "timing"
+    t.integer "gowait"
+    t.integer "card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act"], name: "index_command_actions_on_act"
+    t.index ["card_id"], name: "index_command_actions_on_card_id"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["gowait"], name: "index_command_actions_on_gowait"
+    t.index ["s_no"], name: "index_command_actions_on_s_no"
+    t.index ["timing"], name: "index_command_actions_on_timing"
   end
 
   create_table "development_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

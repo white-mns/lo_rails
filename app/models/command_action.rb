@@ -1,0 +1,2 @@
+class CommandAction < ApplicationRecord
+end

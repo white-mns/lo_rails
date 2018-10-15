@@ -1,0 +1,109 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :act_form, 'Act'
+        %td.formNum= text_field_tag :act_form, @act_form
+      %tr
+        %td  
+        %td= f.label :s_no_form, 'S no'
+        %td.formNum= text_field_tag :s_no_form, @s_no_form
+      %tr
+        %td  
+        %td= f.label :timing_form, 'Timing'
+        %td.formNum= text_field_tag :timing_form, @timing_form
+      %tr
+        %td  
+        %td= f.label :gowait_form, 'Gowait'
+        %td.formNum= text_field_tag :gowait_form, @gowait_form
+      %tr
+        %td  
+        %td= f.label :card_id_form, 'Card'
+        %td.formNum= text_field_tag :card_id_form, @card_id_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@command_actions)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :act, 'Act', default_order: :desc)
+      %th= sort_link(@search, :s_no, 'S no', default_order: :desc)
+      %th= sort_link(@search, :timing, 'Timing', default_order: :desc)
+      %th= sort_link(@search, :gowait, 'Gowait', default_order: :desc)
+      %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @command_actions.each do |command_action|
+      %tr
+        %td= command_action.result_no
+        %td= p_name_text(command_action.e_no, command_action.p_name)
+        %td= command_action.result_no
+        %td= command_action.generate_no
+        %td= command_action.e_no
+        %td= command_action.act
+        %td= command_action.s_no
+        %td= command_action.timing
+        %td= command_action.gowait
+        %td= command_action.card_id
+        %td= character_link(command_action.e_no)
+        %td= character_old_link(@last_result, command_action.e_no, command_action.result_no)
+= paginate(@command_actions)
