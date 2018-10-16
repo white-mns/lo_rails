@@ -1,4 +1,4 @@
-- @page_title = "カード対戦設定枚数ランキング"
+- @page_title = "カード設定枚数ランキング"
 %h1= @page_title
 
 %div.well.desc
@@ -72,7 +72,7 @@
       %tr
         %td  
         %td= f.label :rank_form, '順位'
-        %td.formNum= text_field_tag :rank_form, @rank_form
+        %td.formNum{colspan: "3"}= text_field_tag :rank_form, @rank_form
     %tbody
       %tr
         %td  
