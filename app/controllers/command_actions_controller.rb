@@ -5,8 +5,8 @@ class CommandActionsController < ApplicationController
   # GET /command_actions
   def index
     param_set
-    @count	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name).search(params[:q]).result.count()
-    @search	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name).page(params[:page]).search(params[:q])
+    @count	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).search(params[:q]).result.count()
+    @search	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @command_actions	= @search.result.per(50)
   end
@@ -29,12 +29,23 @@ class CommandActionsController < ApplicationController
     reference_text_assign(params, "gowait_name_name", "gowait_form")
     reference_number_assign(params, "card_id", "card_id_form")
 
+    reference_text_assign(params, "s_no_data_name", "card_name_form")
     reference_text_assign(params, "card_data_kind_name_name", "kind_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
     reference_number_assign(params, "card_data_lp", "lp_form")
     reference_number_assign(params, "card_data_fp", "fp_form")
     
+    params[:q]["gowait_name_name_cont_any"] ||= []
+    if !params["is_form"] then
+        params["is_go"] = "on"
+        params["is_wait"] = "on"
+        params["is_no_release"] = "on"
+    end
+    if params["is_go"] == "on"         then params[:q]["gowait_name_name_cont_any"].push("Go") end
+    if params["is_wait"] == "on"       then params[:q]["gowait_name_name_cont_any"].push("Wait") end
+    if params["is_no_release"] == "on" then params[:q]["gowait_name_name_cont_any"].push("-") end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -45,6 +56,11 @@ class CommandActionsController < ApplicationController
     @gowait_form = params["gowait_form"]
     @card_id_form = params["card_id_form"]
     
+    @is_go = params["is_go"]
+    @is_wait = params["is_wait"]
+    @is_no_release = params["is_no_release"]
+    
+    @card_name_form = params["card_name_form"]
     @kind_form = params["kind_form"]
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]

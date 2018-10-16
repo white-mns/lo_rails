@@ -32,7 +32,7 @@ module ApplicationHelper
     
     def character_command_link(e_no)
         file_name = sprintf("%d",e_no)
-        link_to " 設定", "http://ykamiya.ciao.jp/cgi-bin/command.cgi?En_input="+file_name, :target => "_blank"
+        link_to " 最新設定", "http://ykamiya.ciao.jp/cgi-bin/command.cgi?En_input="+file_name, :target => "_blank"
     end
     
     def battle_link(last_result_no, battle_page, result_no)
