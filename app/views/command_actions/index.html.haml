@@ -1,0 +1,136 @@
+- @page_title = "カード対戦設定一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :act_form, 'Act'
+        %td.formNum= text_field_tag :act_form, @act_form
+        %td= f.label :timing_form, 'Timing'
+        %td.formText= text_field_tag :timing_form, @timing_form
+      %tr
+        %td  
+        %td= f.label :gowait_form, 'Go/Wait'
+        %td{colspan: "3"}
+          = check_box_tag :is_go, @is_go, @is_go
+          = label_tag :is_go, 'Go'
+          　　
+          = check_box_tag :is_wait, @is_wait, @is_wait
+          = label_tag :is_wait, 'Wait'
+          　　
+          = check_box_tag :is_no_release, @is_no_release, @is_no_release
+          = label_tag :is_no_release, '解離以外'
+      %tr
+        %td  
+        %td= f.label :effect_form, '効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card_data, @show_detail_card_data
+          - act_icon(false)
+          = label_tag :show_detail_card_data, '　その他カード情報を表示する', class: "act_desc"
+          = label_tag :show_detail_card_data, '　その他カード情報を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+        %td  
+        %td= f.label :s_no_form, 'S_no'
+        %td.formNum= text_field_tag :s_no_form, @s_no_form
+        %td= f.label :name_form, 'カード名'
+        %td.formText= text_field_tag :card_name_form, @card_name_form
+      %tr
+        %td  
+        %td= f.label :kind_form, '種類'
+        %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
+      %tr
+        %td  
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@command_actions)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :act, 'Act', default_order: :desc)
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :s_no, 'Sno', default_order: :desc)
+        %th= sort_link(@search, :s_data_name, 'カード名', default_order: :desc)
+      %th= sort_link(@search, :timing, 'Timing', default_order: :desc)
+      %th= sort_link(@search, :gowait, 'Go/Wait', default_order: :desc)
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :card_data_kind, '種類', default_order: :desc)
+      %th= sort_link(@search, :card_id, '効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_card_data == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+      %th  戦闘設定
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @command_actions.each do |command_action|
+      %tr
+        %td= command_action.result_no
+        %td= p_name_text(command_action.e_no, command_action.p_name)
+        %td= command_action.act
+        - if @show_detail_card_data == "1"
+          %td= command_action.s_no
+          %td= command_action.s_no_data.name if command_action.s_no_data
+        %td= command_action.timing_name.name if command_action.timing_name
+        %td= command_action.gowait_name.name if command_action.gowait_name
+        - if @show_detail_card_data == "1"
+          %td= command_action.card_data.kind_name.name     if command_action.card_data && command_action.card_data.kind_name
+        %td= command_action.card_data.name   if command_action.card_data
+        %td= command_action.card_data.lv     if command_action.card_data
+        - if @show_detail_card_data == "1"
+          %td= command_action.card_data.lp if command_action.card_data
+          %td= command_action.card_data.fp if command_action.card_data
+        %td= character_command_link(command_action.e_no)
+        %td= character_link(command_action.e_no)
+        %td= character_old_link(@last_result, command_action.e_no, command_action.result_no)
+= paginate(@command_actions)

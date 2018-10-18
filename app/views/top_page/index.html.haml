@@ -37,6 +37,9 @@
           %li= link_to "施設利用一覧", facility_uses_path
           %li= link_to "作製結果一覧", manufactures_path
           %br
+          %li= link_to "カード対戦設定一覧", command_actions_path
+          %li= link_to "カード設定枚数ランキング", command_action_rankings_path
+          %br
           %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
           %li= link_to "鍛錬グラフ", training_graph_path
           %li= link_to "鍛錬遷移グラフ", training_history_path
@@ -68,6 +71,13 @@
 .well.well-sm
   %h2 更新履歴
   %ul
+    %li 2018/10/18
+    %ul
+      %li
+        = link_to "カード対戦設定一覧", command_actions_path
+        、
+        = link_to "カード設定枚数ランキング", command_action_rankings_path
+        を公開。
     %li 2018/10/14
     %ul
       %li

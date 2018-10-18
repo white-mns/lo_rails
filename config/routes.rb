@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :command_action_rankings
+  resources :command_actions
   resources :facility_uses
   resources :manufactures
   resources :mission_names
