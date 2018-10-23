@@ -5,9 +5,9 @@ class BugsController < ApplicationController
   # GET /bugs
   def index
     param_set
-    @count	= Bug.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= Bug.notnil().includes(:p_name).page(params[:page]).search(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @count	= Bug.notnil().includes(:p_name, :bug_name).search(params[:q]).result.count()
+    @search	= Bug.notnil().includes(:p_name, :bug_name).page(params[:page]).search(params[:q])
+    @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
 
@@ -20,6 +20,7 @@ class BugsController < ApplicationController
     end
     
     reference_text_assign(params, "p_name_name", "p_name_form")
+    reference_text_assign(params, "bug_name_name", "bug_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
@@ -27,6 +28,7 @@ class BugsController < ApplicationController
     reference_number_assign(params, "lv", "lv_form")
     
     @p_name_form = params["p_name_form"]
+    @bug_name_form = params["bug_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
