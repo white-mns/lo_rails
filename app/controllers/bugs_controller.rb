@@ -26,7 +26,13 @@ class BugsController < ApplicationController
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "bug_e_no", "bug_e_no_form")
     reference_number_assign(params, "lv", "lv_form")
-    
+ 
+    if params["show_unknown"] then
+        params[:q]["bug_e_no_not_eq"] = ""
+    else
+        params[:q]["bug_e_no_not_eq"] = 0
+    end
+   
     @p_name_form = params["p_name_form"]
     @bug_name_form = params["bug_name_form"]
     @result_no_form = params["result_no_form"]
@@ -34,6 +40,7 @@ class BugsController < ApplicationController
     @e_no_form = params["e_no_form"]
     @bug_e_no_form = params["bug_e_no_form"]
     @lv_form = params["lv_form"]
+    @show_unknown = params["show_unknown"]
   end
   # GET /bugs/1
   #def show

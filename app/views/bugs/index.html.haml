@@ -41,7 +41,13 @@
         %td= f.label :lv_form, 'BugLv'
         %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td 
+        %td 
+        %td{colspan: "3"}
+          = check_box_tag :show_unknown, @show_unknown, @show_unknown
+          = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
+      %tr
+        %td 
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
