@@ -1,0 +1,86 @@
+- @page_title = "BUG出現一覧"
+%h1= @page_title
+
+%div.well.desc
+  = render "layouts/base_desc"
+  %p
+    %span.example_select.example_toggle.pointer
+      - help_icon
+      入力例
+      - act_desc(false)
+  #example.closed
+    = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :bug_e_no_form, 'BUGEno'
+        %td.formNum= text_field_tag :bug_e_no_form, @bug_e_no_form
+        %td= f.label :p_name_form, 'BUGキャラクター名'
+        %td.formText= text_field_tag :bug_name_form, @bug_name_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, '開拓Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, '開拓キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :lv_form, 'BugLv'
+        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
+      %tr
+        %td 
+        %td 
+        %td{colspan: "3"}
+          = check_box_tag :show_unknown, @show_unknown, @show_unknown
+          = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
+      %tr
+        %td 
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@bugs)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :bug_e_no, 'BUG (Eno)', default_order: :desc)
+      %th= sort_link(@search, :lv, 'BUGLv', default_order: :desc)
+      %th{colspan: "2"} BUG元結果リンク
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @bugs.each do |bug|
+      %tr
+        %td= bug.result_no
+        %td
+          - if bug.bug_e_no > 0
+            = p_name_text(bug.bug_e_no, bug.bug_name)
+          - else
+            = "BUG元照合失敗"
+        %td= bug.lv
+        %td= character_link(bug.bug_e_no)
+        %td= character_old_link(@last_result, bug.bug_e_no, bug.result_no)
+        %td= p_name_text(bug.e_no, bug.p_name)
+        %td= character_link(bug.e_no)
+        %td= character_old_link(@last_result, bug.e_no, bug.result_no)
+= paginate(@bugs)
