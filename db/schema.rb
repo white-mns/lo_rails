@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_15_065925) do
+ActiveRecord::Schema.define(version: 2018_10_23_050453) do
+
+  create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "bug_e_no"
+    t.integer "lv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bug_e_no"], name: "index_bugs_on_bug_e_no"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
+    t.index ["lv"], name: "index_bugs_on_lv"
+  end
 
   create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "card_id"
