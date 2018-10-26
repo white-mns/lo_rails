@@ -14,109 +14,146 @@
  *
  */
 
-$black:                 #222;
-$gray:                  #ddd;
-$hover_bg_color:        #fff0d0;
-$weak_color:            #fffaf0;
-$nav-back-color:        $hover_bg_color;
-$nav-hover-back-color:  #fc8;
-$nav-well-border-color: #fc8;
+$black:                             #222;
+$gray:                              #ddd;
 
-$table-bg-accent:                   $weak_color;
-$table-bg-hover:                    $hover_bg_color;
+$primary:                           #fff0d0;
+
+$hover-bg-color:                    #fff0d0;
+$weak-color:                        #fffaf0;
+$nav-back-color:                    $hover-bg-color;
+$nav-hover-bg-color:                #fc8;
+$nav-active-bg-color:               #fda;
+$nav-well-border-color:             #fc8;
+
+
+$table-accent-bg:                   $weak-color;
+$table-hover-bg:                    $hover-bg-color;
 $link-color:                        #08f;
-$navbar-default-bg:                 #fff0d0;
-$navbar-default-link-color:         $black;
-$navbar-default-link-hover-color:   $black;
-$navbar-default-link-hover-bg:      #fc8;
-$navbar-default-brand-hover-color:  $black;
-$navbar-default-toggle-icon-bar-bg: $black;
-$navbar-default-toggle-border-color: transparent;
-$well-bg: $weak_color;
-$breadcrumb-bg: $weak_color;
+$link-bg-color:                     $link-color;
+$navbar-light-color:                $black;
+$navbar-light-hover-color:          $black;
+$navbar-light-active-color:         $black;
+$navbar-light-toggler-border-color: transparent;
+$dropdown-link-hover-bg:            $link-color;
+$dropdown-link-active-bg:           $link-color;
+$breadcrumb-bg:                     $weak-color;
 
 //== Pagination
 
-$pagination-color:                     $link-color;
-$pagination-bg:                        #fff;
-$pagination-border:                    $gray;
+$pagination-color:                  $link-color;
+$pagination-bg:                     #fff;
+$pagination-border-color:           $gray;
+$pagination-border-width:           0.05rem;
 
-$pagination-hover-color:               $link-color;
-$pagination-hover-bg:                  $hover_bg_color;
-$pagination-hover-border:              $gray;
+$pagination-hover-color:            $link-color;
+$pagination-hover-bg:               $hover-bg-color;
+$pagination-hover-border-color:     $gray;
 
-$pagination-active-color:              $link-color;
-$pagination-active-bg:                 $hover_bg_color;
-$pagination-active-border:             $gray;
+$pagination-active-color:           $link-color;
+$pagination-active-bg:              $hover-bg-color;
+$pagination-active-border-color:    $gray;
 
-$pagination-disabled-color:            $black;
-$pagination-disabled-bg:               #fff;
-$pagination-disabled-border:           $gray;
+$pagination-disabled-color:         $black;
+$pagination-disabled-bg:            #fff;
+$pagination-disabled-border-color:  $gray;
 
-@import "bootstrap-sprockets";
 @import "bootswatch/flatly/variables";
 @import "bootstrap";
 
-
-body { padding-top: 60px; }
-
 @import "bootswatch/flatly/bootswatch";
 
-.navbar-default {
+body { padding-top: 5rem; }
+
+.navbar-custom {
     border-color: $nav-well-border-color;
     border-style: none none dashed none;
-    border-width: 0.3em;
+    border-width: 0.3rem;
 }
 
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-    color: #fff;
-    background-color: #007fff;
+.navbar-custom .navbar-brand,{
+    padding: .8rem .5rem;
+}
+.navbar-custom .navbar-nav .nav-link{
+    padding: 1rem .5rem;
+}
+
+.navbar-custom .nav-item.show .nav-link {
+    background-color: $nav-active-bg-color;
+}
+
+.navbar-custom .nav-item:hover .nav-link {
+    background-color: $nav-hover-bg-color;
+}
+
+.dropdown-menu.show[aria-labelledby="themes"] {
+    display:flex;
+    width:28rem;
+    flex-wrap:wrap;
+}
+
+.dropdown-menu.show[aria-labelledby="themes"] .dropdown-item{
+    width:50%;
+}
+
+.dropdown-menu.show[aria-labelledby="themes"] .dropdown-item.one-item{
+    width:100%
 }
 
 .pagination li a {
-    padding: 10px 18px;
+    padding: .8rem 1rem;
+}
+
+.page-item.disabled {
+    cursor: not-allowed;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 2rem;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 0.5rem;
 }
 
-.well-sm {
+label {
+    font-weight: bold;
+}
+.card.top {
+    background-color: $weak-color;
     border-color: $nav-well-border-color;
     border-style: dashed;
-    border-width: 0.2em;
+    border-width: 0.2rem;
+    margin-bottom: 1rem;
 }
 
-.well.desc {
+.card.desc {
     background-color: #fff;
     border-color: $nav-well-border-color;
     border-style: solid;
-    border-width: 0.05em;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+    border-width: 0.05rem;
+    box-shadow: .3rem .3rem .3rem rgba(0,0,0,0.2);
+    margin-bottom: 1rem;
 }
 
 .formText {
-    border-left: 0.2em solid #44c !important;
+    border-left: 0.2rem solid #44c !important;
 }
 
 p.formText {
-    padding-left:0.3em;
+    padding-left:0.3rem;
 }
 
 .formNum {
-    border-left: 0.2em dashed red !important;
+    border-left: 0.2rem dashed red !important;
 }
 
 p.formNum {
-    padding-left:0.3em;
+    padding-left:0.3rem;
 }
 
 .example_select{
     background-color: $nav-back-color;
-    border-left: 0.5em solid #fa0;
-    padding: 0.5em 0.8em;
+    border-left: 0.5rem solid #fa0;
+    padding: 0.5rem 0.8rem;
 }
 
 .pointer{
@@ -136,30 +173,30 @@ table tr:nth-child(1) span.act_desc{
 }
 
 table tbody:nth-child(1) td{
-    border-left:   0.5em solid #fa0;
+    border-left:   0.5rem solid #fa0;
 }
 
 table tbody.tbody_toggle td{
-    border-left:  0.5em solid #fa0;
-    padding-left: 2em;
+    border-left:  0.5rem solid #fa0;
+    padding-left: 2rem;
 }
 
 $submit-color: #2255ee;
 
 button.submit {
     background-color: $submit-color;
-    border-radius: 5px;
-    border: 0.2em solid transparent;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    border-radius: 0.5rem;
+    border: 0.2rem solid transparent;
+    box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2);
     color: #fff;
     font-weight: bold;
-    padding: 0.5em 0.8em;
+    padding: 0.5rem 0.8rem;
     transition: 0.2s linear;
 }
 
 button.submit:hover {
     background-color: #fff;
-    border: 0.2em solid $submit-color;
+    border: 0.2rem solid $submit-color;
     color: $submit-color;
 }
 
@@ -172,5 +209,5 @@ input + label:hover {
 }
 
 input + label:hover {
-    box-shadow: 0px -6px 5px -5px #fa0 inset,0px 8px 4px -8px #fa0;
+    box-shadow: 0rem -0.5rem 0.5rem -0.5rem #fa0 inset,0rem 0.5rem 0.2rem -0.5rem #fa0;
 }

@@ -1,19 +1,20 @@
 - @page_title = "受給ミッション達成率"
 %h1= @page_title
 
-%div.well.desc
-  %p
-    NPCから受給する個別注文の達成率を表示しています。
-    %br
-    達成率は達成数÷受給数で求めています。
-  = render "layouts/base_desc"
-  %p
-    %span.example_select.example_toggle.pointer
-      - help_icon
-      入力例
-      - act_desc(false)
-  #example.closed
-    = render "layouts/input_desc"
+.card.desc
+  .card-body
+    %p
+      NPCから受給する個別注文の達成率を表示しています。
+      %br
+      達成率は達成数÷受給数で求めています。
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
 = search_form_for @search, url: mission_statistics_path do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer

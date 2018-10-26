@@ -1,15 +1,16 @@
 - @page_title = "全取得カード一覧"
 %h1= @page_title
 
-%div.well.desc
-  = render "layouts/base_desc"
-  %p
-    %span.example_select.example_toggle.pointer
-      - help_icon
-      入力例
-      - act_desc(false)
-  #example.closed
-    = render "layouts/input_desc"
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
