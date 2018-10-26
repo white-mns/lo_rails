@@ -10,75 +10,72 @@
     = javascript_include_tag "https://www.gstatic.com/charts/loader.js"
 
   %body
-    %nav.navbar.navbar-default.navbar-fixed-top
+    %nav.navbar.navbar-expand-md.fixed-top.navbar-light.bg-primary.navbar-custom.p-0
       .container
-        .navbar-header
-          = link_to "LastOrder#Aデータ小屋", root_path, :class => "navbar-brand"
-          %button.navbar-toggle{:type => "button", data: {:toggle => "collapse", :target => "#navbar-main"}}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-        .navbar-collapse.collapse#navbar-main
-          %ul.nav.navbar-nav
-            %li.dropdown
-              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+        = link_to "LastOrder#Aデータ小屋", root_path, class: "navbar-brand"
+        %button.navbar-toggler{type: "button", data: {toggle: "collapse", target: "#navbarResponsive"}, area: {controls: "navbarResponsive", expanded: "false", label: "Toggle navigation"}}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarResponsive
+          %ul.navbar-nav
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 個人データ
                 %span.caret
-              %ul.dropdown-menu{:aria-labelledby => "themes"}
-                %li= link_to "潜在・属性・専門一覧", profile_pgws_path
-                %li= link_to "特性一覧", characteristics_path
-                %li= link_to "学科一覧", subjects_path
-                %li.divider
-                %li= link_to "所持アイテム一覧", items_path
-                %li= link_to "所持カード一覧", cards_path
-                %li= link_to "設置施設一覧", facilities_path
-                %li.divider
-                %li= link_to "受給ミッション達成率", mission_statistics_path
-                %li= link_to "受給ミッション一覧", missions_path
-                %li.divider
-                %li= link_to "鍛錬一覧", trainings_path
-                %li= link_to "使用アイテム一覧", item_uses_path
-                %li= link_to "開拓戦勝率", development_result_win_per_path
-                %li= link_to "開拓戦勝敗一覧", development_results_path
-                %li= link_to "施設利用一覧", facility_uses_path
-                %li= link_to "作製結果一覧", manufactures_path
-                %li= link_to "BUG一覧", bugs_path
-                %li.divider
-                %li= link_to "カード対戦設定一覧", command_actions_path
-                %li= link_to "カード設定枚数ランキング", command_action_rankings_path
-                %li.divider
-                %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
-                %li= link_to "鍛錬グラフ", training_graph_path
-                %li= link_to "鍛錬遷移グラフ", training_history_path
-            %li.dropdown
-              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              .dropdown-menu{aria: {labelledby: "themes"}}
+                = link_to "潜在・属性・専門一覧", profile_pgws_path, class: "dropdown-item"
+                = link_to "特性一覧", characteristics_path, class: "dropdown-item"
+                = link_to "学科一覧", subjects_path, class: "dropdown-item one-item"
+                .dropdown-divider
+                = link_to "所持アイテム一覧", items_path, class: "dropdown-item"
+                = link_to "所持カード一覧", cards_path, class: "dropdown-item"
+                = link_to "設置施設一覧", facilities_path, class: "dropdown-item one-item"
+                .dropdown-divider
+                = link_to "受給ミッション達成率", mission_statistics_path, class: "dropdown-item"
+                = link_to "受給ミッション一覧", missions_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "鍛錬一覧", trainings_path, class: "dropdown-item"
+                = link_to "使用アイテム一覧", item_uses_path, class: "dropdown-item"
+                = link_to "開拓戦勝率", development_result_win_per_path, class: "dropdown-item"
+                = link_to "開拓戦勝敗一覧", development_results_path, class: "dropdown-item"
+                = link_to "施設利用一覧", facility_uses_path, class: "dropdown-item"
+                = link_to "作製結果一覧", manufactures_path, class: "dropdown-item"
+                = link_to "BUG一覧", bugs_path, class: "dropdown-item one-item"
+                .dropdown-divider
+                = link_to "カード対戦設定一覧", command_actions_path, class: "dropdown-item"
+                = link_to "カード設定枚数ランキング", command_action_rankings_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "潜在・属性・専門グラフ", pgws_graph_path, class: "dropdown-item"
+                = link_to "鍛錬グラフ", training_graph_path, class: "dropdown-item"
+                = link_to "鍛錬遷移グラフ", training_history_path, class: "dropdown-item"
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 取得カード
                 %span.caret
-              %ul.dropdown-menu{:aria-labelledby => "themes"}
-                %li= link_to "全取得カード一覧", get_cards_path
-                %li.divider
-                %li= link_to "獲得カード＋学科一覧", drop_subjects_path
-                %li= link_to "推定カード獲得条件一覧", drop_min_subjects_path
-                %li= link_to "学科から獲得カードを探す", drop_min_subject_select_path
-            %li.dropdown
-              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              .dropdown-menu
+                = link_to "全取得カード一覧", get_cards_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "獲得カード＋学科一覧", drop_subjects_path, class: "dropdown-item"
+                = link_to "推定カード獲得条件一覧", drop_min_subjects_path, class: "dropdown-item"
+                = link_to "学科から獲得カードを探す", drop_min_subject_select_path, class: "dropdown-item"
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 模擬戦データ
                 %span.caret
-              %ul.dropdown-menu{:aria-labelledby => "themes"}
-                %li= link_to "カード発動者一覧", card_users_path
-                %li= link_to "カード発動結果一覧", card_use_pages_path
-                %li= link_to "最大連鎖数ランキング", max_chains_path
-                %li.divider
-                %li= link_to "干渉効果成功率一覧", meddling_success_rates_path
-                %li= link_to "干渉効果対象一覧", meddling_targets_path
-            %li.dropdown
-              %a.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
+              .dropdown-menu
+                = link_to "カード発動者一覧", card_users_path, class: "dropdown-item"
+                = link_to "カード発動結果一覧", card_use_pages_path, class: "dropdown-item"
+                = link_to "最大連鎖数ランキング", max_chains_path, class: "dropdown-item"
+                .dropdown-divider
+                = link_to "干渉効果成功率一覧", meddling_success_rates_path, class: "dropdown-item"
+                = link_to "干渉効果対象一覧", meddling_targets_path, class: "dropdown-item"
+            %li.nav-item.dropdown
+              %a.nav-link.dropdown-toggle#themes{ :data => {:toggle =>"dropdown"}, :href => "#"}
                 新出データ
                 %span.caret
-              %ul.dropdown-menu{:aria-labelledby => "themes"}
-                %li= link_to "新出取得カード一覧", new_get_cards_path
-                %li= link_to "新出発動カード一覧", new_card_uses_path
-                %li= link_to "新出使用アイテム一覧", new_item_uses_path
+              .dropdown-menu
+                = link_to "新出取得カード一覧", new_get_cards_path, class: "dropdown-item"
+                = link_to "新出発動カード一覧", new_card_uses_path, class: "dropdown-item"
+                = link_to "新出使用アイテム一覧", new_item_uses_path, class: "dropdown-item"
     .container
       .row
         .col-md-12

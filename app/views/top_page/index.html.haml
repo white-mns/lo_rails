@@ -7,182 +7,183 @@
 %p 
   Vol.#{@last_result}#{ "再" if @last_generate > 0}#{ num = 2; text = ""; while num <= @last_generate do num += 1; text += "々" end; text}更新結果まで反映済です。
 
-.well.well-sm
-  %h2 サイトマップ
-  %ul
-    %li
-      %span{style: "font-size:x-large;"}
-        = link_to "学科から獲得カードを探す", drop_min_subject_select_path
-  %br
-  .row
-    .col-md-6
+.card.top
+  .card-body
+    %h2 サイトマップ
+    %ul
+      %li
+        %span{style: "font-size:x-large;"}
+          = link_to "学科から獲得カードを探す", drop_min_subject_select_path
+    %br
+    .row
+      .col-md-6
+        %ul
+          %li 個人データ
+          %ul  
+            %li= link_to "潜在・属性・専門一覧", profile_pgws_path
+            %li= link_to "特性一覧", characteristics_path
+            %li= link_to "学科一覧", subjects_path
+            %br
+            %li= link_to "所持アイテム一覧", items_path
+            %li= link_to "所持カード一覧", cards_path
+            %li= link_to "設置施設一覧", facilities_path
+            %br
+            %li= link_to "受給ミッション達成率", mission_statistics_path
+            %li= link_to "受給ミッション一覧", missions_path
+            %br
+            %li= link_to "鍛錬一覧", trainings_path
+            %li= link_to "使用アイテム一覧", item_uses_path
+            %li= link_to "開拓戦勝率", development_result_win_per_path
+            %li= link_to "開拓戦勝敗一覧", development_results_path
+            %li= link_to "施設利用一覧", facility_uses_path
+            %li= link_to "作製結果一覧", manufactures_path
+            %li= link_to "BUG一覧", bugs_path
+            %br
+            %li= link_to "カード対戦設定一覧", command_actions_path
+            %li= link_to "カード設定枚数ランキング", command_action_rankings_path
+            %br
+            %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
+            %li= link_to "鍛錬グラフ", training_graph_path
+            %li= link_to "鍛錬遷移グラフ", training_history_path
+          %br
+      .col-md-6
+        %ul
+          %li 取得カード
+          %ul  
+            %li= link_to "全取得カード一覧", get_cards_path
+            %br
+            %li= link_to "獲得カード＋学科一覧", drop_subjects_path
+            %li= link_to "推定カード獲得条件一覧", drop_min_subjects_path
+          %br
+          %li 模擬戦データ
+          %ul  
+            %li= link_to "カード発動者一覧", card_users_path
+            %li= link_to "カード発動結果一覧", card_use_pages_path
+            %li= link_to "最大連鎖数ランキング", max_chains_path
+            %br
+            %li= link_to "干渉効果成功率一覧", meddling_success_rates_path
+            %li= link_to "干渉効果対象一覧", meddling_targets_path
+          %br
+          %li 新出データ
+          %ul  
+            %li= link_to "新出取得カード一覧", new_get_cards_path
+            %li= link_to "新出発動カード一覧", new_card_uses_path
+            %li= link_to "新出使用アイテム一覧", new_item_uses_path
+.card.top
+  .card-body
+    %h2 更新履歴
+    %ul
+      %li 2018/10/23
       %ul
-        %li 個人データ
-        %ul  
-          %li= link_to "潜在・属性・専門一覧", profile_pgws_path
-          %li= link_to "特性一覧", characteristics_path
-          %li= link_to "学科一覧", subjects_path
-          %br
-          %li= link_to "所持アイテム一覧", items_path
-          %li= link_to "所持カード一覧", cards_path
-          %li= link_to "設置施設一覧", facilities_path
-          %br
-          %li= link_to "受給ミッション達成率", mission_statistics_path
-          %li= link_to "受給ミッション一覧", missions_path
-          %br
-          %li= link_to "鍛錬一覧", trainings_path
-          %li= link_to "使用アイテム一覧", item_uses_path
-          %li= link_to "開拓戦勝率", development_result_win_per_path
-          %li= link_to "開拓戦勝敗一覧", development_results_path
-          %li= link_to "施設利用一覧", facility_uses_path
-          %li= link_to "作製結果一覧", manufactures_path
-          %li= link_to "BUG一覧", bugs_path
-          %br
-          %li= link_to "カード対戦設定一覧", command_actions_path
-          %li= link_to "カード設定枚数ランキング", command_action_rankings_path
-          %br
-          %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
-          %li= link_to "鍛錬グラフ", training_graph_path
-          %li= link_to "鍛錬遷移グラフ", training_history_path
-        %br
-    .col-md-6
+        %li
+          = link_to "BUG一覧", bugs_path
+          を公開。
+        %li
+          所持施設一覧を
+          = link_to "設置施設一覧", facilities_path
+          に改名。
+      %li 2018/10/18
       %ul
-        %li 取得カード
-        %ul  
-          %li= link_to "全取得カード一覧", get_cards_path
-          %br
-          %li= link_to "獲得カード＋学科一覧", drop_subjects_path
-          %li= link_to "推定カード獲得条件一覧", drop_min_subjects_path
-        %br
-        %li 模擬戦データ
-        %ul  
-          %li= link_to "カード発動者一覧", card_users_path
-          %li= link_to "カード発動結果一覧", card_use_pages_path
-          %li= link_to "最大連鎖数ランキング", max_chains_path
-          %br
-          %li= link_to "干渉効果成功率一覧", meddling_success_rates_path
-          %li= link_to "干渉効果対象一覧", meddling_targets_path
-        %br
-        %li 新出データ
-        %ul  
-          %li= link_to "新出取得カード一覧", new_get_cards_path
-          %li= link_to "新出発動カード一覧", new_card_uses_path
-          %li= link_to "新出使用アイテム一覧", new_item_uses_path
-
-.well.well-sm
-  %h2 更新履歴
-  %ul
-    %li 2018/10/23
-    %ul
-      %li
-        = link_to "BUG一覧", bugs_path
-        を公開。
-      %li
-        所持施設一覧を
-        = link_to "設置施設一覧", facilities_path
-        に改名。
-    %li 2018/10/18
-    %ul
-      %li
-        = link_to "カード対戦設定一覧", command_actions_path
-        、
-        = link_to "カード設定枚数ランキング", command_action_rankings_path
-        を公開。
-    %li 2018/10/14
-    %ul
-      %li
-        = link_to "施設利用一覧", facility_uses_path
-        、
-        = link_to "作製結果一覧", manufactures_path
-        を公開。
-    %li 2018/10/13
-    %ul
-      %li
-        = link_to "受給ミッション達成率", mission_statistics_path
-        、
-        = link_to "受給ミッション一覧", missions_path
-        を公開。
-      %li
-        = link_to "開拓戦勝率", development_result_win_per_path
-        、
-        = link_to "開拓戦勝敗一覧", development_results_path
-        において、敗北結果が正しく取得できていなかった不具合を修正
-    %li 2018/10/10
-    %ul
-      %li
-        = link_to "鍛錬遷移グラフ", training_history_path
-        を公開。
-    %li 2018/10/6
-    %ul
-      %li
-        = link_to "干渉効果成功率一覧", meddling_success_rates_path
-        、
-        = link_to "干渉効果対象一覧", meddling_targets_path
-        を公開。
-      %li
-        = link_to "カード発動者一覧", card_users_path
-        、
-        = link_to "カード発動結果一覧", card_use_pages_path
-        において、アイテムの効果も取得するように変更
-      %li
-        = link_to "カード発動者一覧", card_users_path
-        において、制御に失敗した結果を取得できていなかった不具合を修正。
-    %li 2018/9/30
-    %ul
-      %li
-        = link_to "使用アイテム一覧", item_uses_path
-        、
-        = link_to "新出使用アイテム一覧", new_item_uses_path
-        を公開
-    %li 2018/9/22
-    %ul
-      %li
-        = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-        において、Vol.1の情報を引き継いでいなかった不具合を修正
-    %li 2018/9/13
-    %ul
-      %li
-        = link_to "鍛錬一覧", trainings_path
-        、
-        = link_to "鍛錬グラフ", training_graph_path
-        を公開
-    %li 2018/9/12
-    %ul
-      %li
-        = link_to "所持アイテム一覧", items_path
-        に施設区分の表示・検索機能
-    %li 2018/9/11
-    %ul
-      %li
-        = link_to "新出取得カード一覧", new_get_cards_path
-        、
-        = link_to "新出発動カード一覧", new_card_uses_path
-        を公開
-    %li 2018/9/10
-    %ul
-      %li
-        = link_to "カード発動者一覧", card_users_path
-        、
-        = link_to "カード発動結果一覧", card_use_pages_path
-        、
-        = link_to "最大連鎖数ランキング", max_chains_path
-        を公開
-    %li 2018/9/9
-    %ul
-      %li
-        = link_to "所持施設一覧", facilities_path
-        、
-        = link_to "開拓戦勝率", development_result_win_per_path
-        、
-        = link_to "開拓戦勝敗一覧", development_results_path
-        を公開
-    %li 2018/9/8
-    %ul
-      %li 
-        = link_to "獲得カード＋学科一覧", drop_subjects_path
-        、
-        = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-        において、学科の値が0のときは文字色を薄く表示するように。
-    %li 2018/9/8
-    %ul
-      %li サイト公開
+        %li
+          = link_to "カード対戦設定一覧", command_actions_path
+          、
+          = link_to "カード設定枚数ランキング", command_action_rankings_path
+          を公開。
+      %li 2018/10/14
+      %ul
+        %li
+          = link_to "施設利用一覧", facility_uses_path
+          、
+          = link_to "作製結果一覧", manufactures_path
+          を公開。
+      %li 2018/10/13
+      %ul
+        %li
+          = link_to "受給ミッション達成率", mission_statistics_path
+          、
+          = link_to "受給ミッション一覧", missions_path
+          を公開。
+        %li
+          = link_to "開拓戦勝率", development_result_win_per_path
+          、
+          = link_to "開拓戦勝敗一覧", development_results_path
+          において、敗北結果が正しく取得できていなかった不具合を修正
+      %li 2018/10/10
+      %ul
+        %li
+          = link_to "鍛錬遷移グラフ", training_history_path
+          を公開。
+      %li 2018/10/6
+      %ul
+        %li
+          = link_to "干渉効果成功率一覧", meddling_success_rates_path
+          、
+          = link_to "干渉効果対象一覧", meddling_targets_path
+          を公開。
+        %li
+          = link_to "カード発動者一覧", card_users_path
+          、
+          = link_to "カード発動結果一覧", card_use_pages_path
+          において、アイテムの効果も取得するように変更
+        %li
+          = link_to "カード発動者一覧", card_users_path
+          において、制御に失敗した結果を取得できていなかった不具合を修正。
+      %li 2018/9/30
+      %ul
+        %li
+          = link_to "使用アイテム一覧", item_uses_path
+          、
+          = link_to "新出使用アイテム一覧", new_item_uses_path
+          を公開
+      %li 2018/9/22
+      %ul
+        %li
+          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+          において、Vol.1の情報を引き継いでいなかった不具合を修正
+      %li 2018/9/13
+      %ul
+        %li
+          = link_to "鍛錬一覧", trainings_path
+          、
+          = link_to "鍛錬グラフ", training_graph_path
+          を公開
+      %li 2018/9/12
+      %ul
+        %li
+          = link_to "所持アイテム一覧", items_path
+          に施設区分の表示・検索機能
+      %li 2018/9/11
+      %ul
+        %li
+          = link_to "新出取得カード一覧", new_get_cards_path
+          、
+          = link_to "新出発動カード一覧", new_card_uses_path
+          を公開
+      %li 2018/9/10
+      %ul
+        %li
+          = link_to "カード発動者一覧", card_users_path
+          、
+          = link_to "カード発動結果一覧", card_use_pages_path
+          、
+          = link_to "最大連鎖数ランキング", max_chains_path
+          を公開
+      %li 2018/9/9
+      %ul
+        %li
+          = link_to "所持施設一覧", facilities_path
+          、
+          = link_to "開拓戦勝率", development_result_win_per_path
+          、
+          = link_to "開拓戦勝敗一覧", development_results_path
+          を公開
+      %li 2018/9/8
+      %ul
+        %li 
+          = link_to "獲得カード＋学科一覧", drop_subjects_path
+          、
+          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+          において、学科の値が0のときは文字色を薄く表示するように。
+      %li 2018/9/8
+      %ul
+        %li サイト公開

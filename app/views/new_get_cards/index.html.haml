@@ -1,21 +1,22 @@
 - @page_title = "新出取得カード一覧"
 %h1= @page_title
 
-%div.well.desc
-  = render "layouts/base_desc"
-  %p
-    取得方法：全て合算 　→　過去にカード生成で新出カードとして出た効果は、学科の鍛錬で獲得しても新出データに表示しません。
-    %br
-    取得方法：獲得　→　学科鍛錬によって新しく獲得する条件が見つかったカードが表示されます。
-    %br
-    完全に新規効果のカードが調べたい　→　取得方法：全て合算でLvに1を代入すると既出効果の高レベルカードを除外できます
-  %p
-    %span.example_select.example_toggle.pointer
-      - help_icon
-      入力例
-      - act_desc(false)
-  #example.closed
-    = render "layouts/input_desc"
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      取得方法：全て合算 　→　過去にカード生成で新出カードとして出た効果は、学科の鍛錬で獲得しても新出データに表示しません。
+      %br
+      取得方法：獲得　→　学科鍛錬によって新しく獲得する条件が見つかったカードが表示されます。
+      %br
+      完全に新規効果のカードが調べたい　→　取得方法：全て合算でLvに1を代入すると既出効果の高レベルカードを除外できます
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer

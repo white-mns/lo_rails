@@ -1,19 +1,20 @@
 - @page_title = "カード設定枚数ランキング"
 %h1= @page_title
 
-%div.well.desc
-  %p
-    本家結果更新中に取得した対戦設定を表示しています。
-    %br
-    同じSnoが複数枚設定されている場合は一枚として計算しています。（同じSnoは基本的に二回以上発動しないため）
-  = render "layouts/base_desc"
-  %p
-    %span.example_select.example_toggle.pointer
-      - help_icon
-      入力例
-      - act_desc(false)
-  #example.closed
-    = render "layouts/input_desc"
+.card.desc
+  .card-body
+    %p
+      本家結果更新中に取得した対戦設定を表示しています。
+      %br
+      同じSnoが複数枚設定されている場合は一枚として計算しています。（同じSnoは基本的に二回以上発動しないため）
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
 = search_form_for @search do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
