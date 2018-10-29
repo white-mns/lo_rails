@@ -27,6 +27,7 @@ module ApplicationHelper
 
         file_name = sprintf("%d",e_no)
         result_no_text = sprintf("%d",result_no)
+        result_no_text = (result_no == 4) ? result_no_text + "r" : result_no_text;
         link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
     end
     
@@ -47,6 +48,7 @@ module ApplicationHelper
 
         file_name = battle_page.gsub(/ VS /, "-")
         result_no_text = sprintf("%d",result_no)
+        result_no_text = (result_no == 4) ? result_no_text + "r" : result_no_text;
         link_to " 過去結果", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
     
