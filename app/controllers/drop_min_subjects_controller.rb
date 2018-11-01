@@ -6,6 +6,7 @@ class DropMinSubjectsController < ApplicationController
   def index
     param_set
     @count	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result.count()
+    @all	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result
     @search	= DropMinSubject.notnil().includes(card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @drop_min_subjects	= @search.result.per(50)
@@ -22,7 +23,7 @@ class DropMinSubjectsController < ApplicationController
   def set_open_flg
     @open = {}
     @subjects.each do |subject, subject_name|
-      @open[subject] = @search.result.maximum(subject.to_sym) ? @search.result.maximum(subject.to_sym) : 0
+      @open[subject] = @all.maximum(subject.to_sym) ? @all.maximum(subject.to_sym) : 0
     end
   end
 
@@ -121,7 +122,14 @@ class DropMinSubjectsController < ApplicationController
     end
 
     # 選択した学科以外は必要値を0にして除外
-    if params["other_0"] == 'on'then
+    if params["comb_or"] == 'on'then
+        @subjects.each do |subject, subject_name|
+            params[subject + "_form"] = params[subject + "_min_1"] ? "" : "0"
+        end
+    end
+    
+    # 選択した学科以外は必要値を0にして除外
+    if params["comb_and"] == 'on'then
         @subjects.each do |subject, subject_name|
             params[subject + "_form"] = params[subject + "_min_1"] ? params[subject + "_form"] : "0"
         end
