@@ -121,7 +121,14 @@ class DropMinSubjectsController < ApplicationController
     end
 
     # 選択した学科以外は必要値を0にして除外
-    if params["other_0"] == 'on'then
+    if params["comb_or"] == 'on'then
+        @subjects.each do |subject, subject_name|
+            params[subject + "_form"] = params[subject + "_min_1"] ? "" : "0"
+        end
+    end
+    
+    # 選択した学科以外は必要値を0にして除外
+    if params["comb_and"] == 'on'then
         @subjects.each do |subject, subject_name|
             params[subject + "_form"] = params[subject + "_min_1"] ? params[subject + "_form"] : "0"
         end

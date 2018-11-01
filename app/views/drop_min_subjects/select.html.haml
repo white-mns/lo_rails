@@ -94,8 +94,40 @@
           = label_tag :trick_min_1, '奇術'
       %tr
         %td{colspan: "2"}
-          = check_box_tag :other_0, @other_0, @other_0
-          = label_tag :other_0, 'チェックした学科以外が必要なカードは除外'
+          = label_tag :example, '複数の学科を選択した時の絞り込み方'
+      %tr
+        %td{colspan: "2"}
+          %ul.image_checkbox
+            %li
+              .check_div
+                = label_tag :comb_or, "チェックした学科どちらかで獲得"
+                .image_box
+                  .image_frame
+                    = image_tag('combination_0001.png')
+                    %br
+                    = check_box_tag :comb_or, @comb_or, @comb_or
+            %li
+              .check_div
+                = label_tag :comb_and, "チェックした学科の組み合わせで獲得"
+                .image_box
+                  .image_frame
+                    = image_tag('combination_0002.png')
+                    %br
+                    = check_box_tag :comb_and, @comb_and, @comb_and
+          %p
+            %span.example_select.example_toggle.pointer
+              - help_icon
+              どちらにもチェックしなかった時
+              - act_desc(false)
+          #example.closed
+            ・一つの学科を選択：選択した学科単体で獲得できるカードと、選択した学科＋αで獲得できるカードがヒットします。
+            %br
+            ・複数の学科を選択：選択した学科の組み合わせで獲得できるカードと、選択した学科の組み合わせ＋αで獲得できるカードがヒットします。それぞれの学科単体での獲得カードはヒットしません。
+            %br
+            .image_frame
+              = image_tag('combination_default_0001.png', size: '250x250')
+            .image_frame
+              = image_tag('combination_default_0002.png', size: '250x250')
       %tr
         %td
         %td{colspan: "3"}

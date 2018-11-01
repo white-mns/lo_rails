@@ -61,6 +61,26 @@ function set_triggers() {
     });
 };
 
+// 学科から獲得カードを探すページ用処理
+function set_drop_min_select_checkbox() {
+    $('.check_div').click(function() {
+        console.info(this);
+        var check = true;
+        if ($(this).hasClass('checked')){
+            check = false;
+        }
+        var $imageList = $('.image_checkbox');
+        $imageList.find('.check_div.checked').removeClass('checked');
+        $imageList.find('input').prop('checked', false);
+   
+        if (check){ 
+            $(this).addClass('checked');
+            $(this).find('input').prop('checked', true);
+        }
+        return false;
+    });
+}
+
 // ページ表示時に必ず実行する処理
 function exec_load() {
     $(".tbody_toggle").find('#base_first').each( function(index, element) {
@@ -82,6 +102,7 @@ var turboReady = function(){
     $('FORM').cleanQuery();
 
     set_triggers();
+    set_drop_min_select_checkbox();
     exec_load();
 };
 
