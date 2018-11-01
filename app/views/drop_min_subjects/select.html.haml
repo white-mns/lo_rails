@@ -100,7 +100,7 @@
           %ul.image_checkbox
             %li
               .check_div
-                = label_tag :comb_or, "チェックした学科どちらかで獲得"
+                = label_tag :comb_or, "チェックした学科のどれかで獲得"
                 .image_box
                   .image_frame
                     = image_tag('combination_0001.png')
@@ -117,7 +117,7 @@
           %p
             %span.example_select.example_toggle.pointer
               - help_icon
-              どちらにもチェックしなかった時
+              どちらにもチェックしない時の挙動
               - act_desc(false)
           #example.closed
             ・一つの学科を選択：選択した学科単体で獲得できるカードと、選択した学科＋αで獲得できるカードがヒットします。
