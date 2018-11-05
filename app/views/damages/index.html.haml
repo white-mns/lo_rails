@@ -65,18 +65,6 @@
         %td.formNum= text_field_tag :tec_form, @tec_form
         %td= f.label :eva_form, '敏捷'
         %td.formNum= text_field_tag :eva_form, @eva_form
-    %tbody
-      %tr.sep
-        %td  
-        %td= f.label :effect_form, 'カード効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
-        %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form
-      %tr
-      %tr
-        %td  
-        %td= f.label :chain_form, 'Chain'
-        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -91,6 +79,18 @@
         %td.formNum= text_field_tag :party_num_form, @party_num_form
         %td= f.label :party_num_form, '対象パーティ人数'
         %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
+    %tbody
+      %tr.sep
+        %td  
+        %td= f.label :effect_form, 'カード効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+      %tr
+      %tr
+        %td  
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -222,12 +222,12 @@
         %th= sort_link(@search, :characteristic_mnd, '精神', default_order: :desc)
         %th= sort_link(@search, :characteristic_tec, '器用', default_order: :desc)
         %th= sort_link(@search, :characteristic_eva, '敏捷', default_order: :desc)
-      %th.sep= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
-      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
-      %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
       - if @show_detail_party == "1"
         %th.sep= sort_link(@search, :party_data_party_num, '使用者PT人数', default_order: :desc)
         %th= sort_link(@search, :target_party_data_party_num, '対象PT人数', default_order: :desc)
+      %th.sep= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
       - if @show_detail_target == "1"
         %th.sep= sort_link(@search, :target_e_no, '対象キャラクター(Eno)', default_order: :desc)
       - if @show_detail_target_characteristic == "1"
@@ -260,12 +260,12 @@
           %td= damage.characteristic.mnd
           %td= damage.characteristic.tec
           %td= damage.characteristic.eva
-        %td.sep= damage.card_data.name if damage.card_data
-        %td= damage.card_data.lv if damage.card_data
-        %td= damage.chain
         - if @show_detail_party == "1"
           %td.sep= damage.party_data.party_num if damage.party_data
           %td= damage.target_party_data.party_num if damage.target_party_data
+        %td.sep= damage.card_data.name if damage.card_data
+        %td= damage.card_data.lv if damage.card_data
+        %td= damage.chain
         - if @show_detail_target == "1"
           %td.sep= p_name_text(damage.target_e_no, damage.target_p_name)
         - if @show_detail_target_characteristic == "1"
