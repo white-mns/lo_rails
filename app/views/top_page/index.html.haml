@@ -63,6 +63,8 @@
             %br
             %li= link_to "干渉効果成功率一覧", meddling_success_rates_path
             %li= link_to "干渉効果対象一覧", meddling_targets_path
+            %br
+            %li= link_to "ダメージ・回復一覧", damages_path
           %br
           %li 新出データ
           %ul  
@@ -73,6 +75,11 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2018/11/6
+      %ul
+        %li
+          = link_to "ダメージ・回復一覧", damages_path
+          を公開。
       %li 2018/11/2
       %ul
         %li
