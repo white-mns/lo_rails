@@ -167,6 +167,14 @@ p.formNum {
     font-size: x-large;
 }
 
+th.sep,td.sep{
+    border-left: 3px solid $table-border-color;
+}
+
+tr.sep{
+    border-top: 4px solid $table-border-color;
+}
+
 table tr:nth-child(1) span.act_desc{
     font-size:80%
 }

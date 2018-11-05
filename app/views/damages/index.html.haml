@@ -1,0 +1,164 @@
+- @page_title = "一覧"
+%h1= @page_title
+
+.card.desc
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td  
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td  
+        %td= f.label :result_no_form, 'Result no'
+        %td.formNum= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td  
+        %td= f.label :generate_no_form, 'Generate no'
+        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+      %tr
+        %td  
+        %td= f.label :battle_page_form, 'Battle page'
+        %td.formNum= text_field_tag :battle_page_form, @battle_page_form
+      %tr
+        %td  
+        %td= f.label :e_no_form, 'E no'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+      %tr
+        %td  
+        %td= f.label :party_form, 'Party'
+        %td.formNum= text_field_tag :party_form, @party_form
+      %tr
+        %td  
+        %td= f.label :card_id_form, 'Card'
+        %td.formNum= text_field_tag :card_id_form, @card_id_form
+      %tr
+        %td  
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum= text_field_tag :chain_form, @chain_form
+      %tr
+        %td  
+        %td= f.label :target_e_no_form, 'Target e no'
+        %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
+      %tr
+        %td  
+        %td= f.label :target_party_form, 'Target party'
+        %td.formNum= text_field_tag :target_party_form, @target_party_form
+      %tr
+        %td  
+        %td= f.label :act_type_form, 'Act type'
+        %td.formNum= text_field_tag :act_type_form, @act_type_form
+      %tr
+        %td  
+        %td= f.label :element_form, 'Element'
+        %td.formNum= text_field_tag :element_form, @element_form
+      %tr
+        %td  
+        %td= f.label :damage_form, 'Damage'
+        %td.formNum= text_field_tag :damage_form, @damage_form
+      %tr
+        %td  
+        %td= f.label :is_weak_form, 'Is weak'
+        %td.formNum= text_field_tag :is_weak_form, @is_weak_form
+      %tr
+        %td  
+        %td= f.label :is_critical_form, 'Is critical'
+        %td.formNum= text_field_tag :is_critical_form, @is_critical_form
+      %tr
+        %td  
+        %td= f.label :is_clean_form, 'Is clean'
+        %td.formNum= text_field_tag :is_clean_form, @is_clean_form
+      %tr
+        %td  
+        %td= f.label :is_vanish_form, 'Is vanish'
+        %td.formNum= text_field_tag :is_vanish_form, @is_vanish_form
+      %tr
+        %td  
+        %td= f.label :is_absorb_form, 'Is absorb'
+        %td.formNum= text_field_tag :is_absorb_form, @is_absorb_form
+      %tr
+        %td  
+        %td= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@damages)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
+      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
+      %th= sort_link(@search, :battle_page, 'Battle page', default_order: :desc)
+      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
+      %th= sort_link(@search, :party, 'Party', default_order: :desc)
+      %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
+      %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
+      %th= sort_link(@search, :target_e_no, 'Target e no', default_order: :desc)
+      %th= sort_link(@search, :target_party, 'Target party', default_order: :desc)
+      %th= sort_link(@search, :act_type, 'Act type', default_order: :desc)
+      %th= sort_link(@search, :element, 'Element', default_order: :desc)
+      %th= sort_link(@search, :damage, 'Damage', default_order: :desc)
+      %th= sort_link(@search, :is_weak, 'Is weak', default_order: :desc)
+      %th= sort_link(@search, :is_critical, 'Is critical', default_order: :desc)
+      %th= sort_link(@search, :is_clean, 'Is clean', default_order: :desc)
+      %th= sort_link(@search, :is_vanish, 'Is vanish', default_order: :desc)
+      %th= sort_link(@search, :is_absorb, 'Is absorb', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @damages.each do |damage|
+      %tr
+        %td= damage.result_no
+        %td= p_name_text(damage.e_no, damage.p_name)
+        %td= damage.result_no
+        %td= damage.generate_no
+        %td= damage.battle_page
+        %td= damage.e_no
+        %td= damage.party
+        %td= damage.card_id
+        %td= damage.chain
+        %td= damage.target_e_no
+        %td= damage.target_party
+        %td= damage.act_type
+        %td= damage.element
+        %td= damage.damage
+        %td= damage.is_weak
+        %td= damage.is_critical
+        %td= damage.is_clean
+        %td= damage.is_vanish
+        %td= damage.is_absorb
+        %td= character_link(damage.e_no)
+        %td= character_old_link(@last_result, damage.e_no, damage.result_no)
+= paginate(@damages)
