@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "ダメージ・回復量一覧"
 %h1= @page_title
 
 .card.desc
@@ -25,82 +25,177 @@
         %td  
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_target, @show_detail_target
+          - act_icon(false)
+          = label_tag :show_detail_card, '　使用者で検索する', class: "act_desc"
+          = label_tag :show_detail_card, '　使用者で検索を隠す', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
-      %tr
-        %td  
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_characteristic, @show_detail_characteristic
+          - act_icon(false)
+          = label_tag :show_detail_card, '　使用者の特性(腕力など)を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　使用者の特性を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :result_no_form, 'Result no'
-        %td.formNum= text_field_tag :result_no_form, @result_no_form
+        %td= f.label :str_form, '腕力'
+        %td.formNum= text_field_tag :str_form, @str_form
+        %td= f.label :vit_form, '体力'
+        %td.formNum= text_field_tag :vit_form, @vit_form
       %tr
         %td  
-        %td= f.label :generate_no_form, 'Generate no'
-        %td.formNum= text_field_tag :generate_no_form, @generate_no_form
+        %td= f.label :int_form, '理力'
+        %td.formNum= text_field_tag :int_form, @int_form
+        %td= f.label :mnd_form, '精神'
+        %td.formNum= text_field_tag :mnd_form, @mnd_form
       %tr
         %td  
-        %td= f.label :battle_page_form, 'Battle page'
-        %td.formNum= text_field_tag :battle_page_form, @battle_page_form
-      %tr
+        %td= f.label :tec_form, '器用'
+        %td.formNum= text_field_tag :tec_form, @tec_form
+        %td= f.label :eva_form, '敏捷'
+        %td.formNum= text_field_tag :eva_form, @eva_form
+    %tbody
+      %tr.sep
         %td  
-        %td= f.label :e_no_form, 'E no'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :effect_form, 'カード効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
-        %td= f.label :party_form, 'Party'
-        %td.formNum= text_field_tag :party_form, @party_form
-      %tr
-        %td  
-        %td= f.label :card_id_form, 'Card'
-        %td.formNum= text_field_tag :card_id_form, @card_id_form
       %tr
         %td  
         %td= f.label :chain_form, 'Chain'
-        %td.formNum= text_field_tag :chain_form, @chain_form
+        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_party, @show_detail_party
+          - act_icon(false)
+          = label_tag :show_detail_card, '　戦闘開始時パーティ人数を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　戦闘開始時パーティ人数を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :target_e_no_form, 'Target e no'
+        %td= f.label :party_num_form, '使用者パーティ人数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form
+        %td= f.label :party_num_form, '対象パーティ人数'
+        %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_target, @show_detail_target
+          - act_icon(false)
+          = label_tag :show_detail_card, '　対象キャラクターを表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　対象キャラクターを表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+        %td  
+        %td= f.label :target_e_no_form, '対象Eno'
         %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
+        %td= f.label :p_name_form, '対象キャラクター名'
+        %td.formText= text_field_tag :target_p_name_form, @target_p_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_target_characteristic, @show_detail_target_characteristic
+          - act_icon(false)
+          = label_tag :show_detail_card, '　対象の特性(腕力など)を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　対象の特性を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :target_party_form, 'Target party'
-        %td.formNum= text_field_tag :target_party_form, @target_party_form
+        %td= f.label :target_str_form, '腕力'
+        %td.formNum= text_field_tag :target_str_form, @target_str_form
+        %td= f.label :target_vit_form, '体力'
+        %td.formNum= text_field_tag :target_vit_form, @target_vit_form
       %tr
         %td  
-        %td= f.label :act_type_form, 'Act type'
-        %td.formNum= text_field_tag :act_type_form, @act_type_form
+        %td= f.label :target_int_form, '理力'
+        %td.formNum= text_field_tag :target_int_form, @target_int_form
+        %td= f.label :target_mnd_form, '精神'
+        %td.formNum= text_field_tag :target_mnd_form, @target_mnd_form
       %tr
         %td  
-        %td= f.label :element_form, 'Element'
-        %td.formNum= text_field_tag :element_form, @element_form
+        %td= f.label :target_tec_form, '器用'
+        %td.formNum= text_field_tag :target_tec_form, @target_tec_form
+        %td= f.label :target_eva_form, '敏捷'
+        %td.formNum= text_field_tag :target_eva_form, @target_eva_form
+    %tbody
+      %tr.sep
+        %td  
+        %td= f.label :act_type_form, '行動種別'
+        %td{colspan: "3"}
+          = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
+          = label_tag :act_type_damage, 'ダメージ'
+          　　
+          = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
+          = label_tag :act_type_fp_damage, 'FPダメージ'
+          　　
+          = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
+          = label_tag :act_type_lp_heal, 'LP回復'
+          　　
+          = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
+          = label_tag :act_type_fp_heal, 'FP回復'
       %tr
         %td  
-        %td= f.label :damage_form, 'Damage'
-        %td.formNum= text_field_tag :damage_form, @damage_form
+        %td= f.label :damage_form, '効果量'
+        %td.formNum{colspan: "3"}= text_field_tag :damage_form, @damage_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_damage_option, @show_detail_damage_option
+          - act_icon(false)
+          = label_tag :show_detail_card, '　Criticalなどの有無を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　Criticalなどの有無を表示しない', class: "act_desc closed"
+    %tbody.closed
       %tr
         %td  
-        %td= f.label :is_weak_form, 'Is weak'
-        %td.formNum= text_field_tag :is_weak_form, @is_weak_form
+        %td= f.label :act_type_form, 'ヒット時効果'
+        %td{colspan: "3"}
+          = check_box_tag :is_weak, @is_weak, @is_weak
+          = label_tag :is_weak, 'WeakPoint'
+          　　
+          = check_box_tag :is_critical, @is_critical, @is_critical
+          = label_tag :is_critical, 'Critical'
+          　　
+          = check_box_tag :is_clean, @is_clean, @is_clean
+          = label_tag :is_clean, 'Clean Hit'
+          %br
+          = check_box_tag :is_vanish, @is_vanish, @is_vanish
+          = label_tag :is_vanish, 'Vanish(耐○○の効果) '
+          　　
+          = check_box_tag :is_absorb, @is_absorb, @is_absorb
+          = label_tag :is_absorb, 'Absorb(吸○○の効果)'
       %tr
         %td  
-        %td= f.label :is_critical_form, 'Is critical'
-        %td.formNum= text_field_tag :is_critical_form, @is_critical_form
-      %tr
-        %td  
-        %td= f.label :is_clean_form, 'Is clean'
-        %td.formNum= text_field_tag :is_clean_form, @is_clean_form
-      %tr
-        %td  
-        %td= f.label :is_vanish_form, 'Is vanish'
-        %td.formNum= text_field_tag :is_vanish_form, @is_vanish_form
-      %tr
-        %td  
-        %td= f.label :is_absorb_form, 'Is absorb'
-        %td.formNum= text_field_tag :is_absorb_form, @is_absorb_form
+        %td= f.label :act_type_form, 'ヒット時効果（除外）'
+        %td{colspan: "3"}
+          = check_box_tag :no_weak, @no_weak, @no_weak
+          = label_tag :no_weak, '× WeakPoint'
+          　　
+          = check_box_tag :no_critical, @no_critical, @no_critical
+          = label_tag :no_critical, '× Critical'
+          　　
+          = check_box_tag :no_clean, @no_clean, @no_clean
+          = label_tag :no_clean, '× Clean Hit'
+          %br
+          = check_box_tag :no_vannoh, @no_vannoh, @no_vannoh
+          = label_tag :no_vanish, '× Vanish(耐○○の効果) '
+          　　
+          = check_box_tag :no_absorb, @no_absorb, @no_absorb
+          = label_tag :no_absorb, '× Absorb(吸○○の効果)'
+    %tbody
       %tr
         %td  
         %td= hidden_field_tag :is_form, 1
@@ -118,47 +213,78 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :result_no, 'Result no', default_order: :desc)
-      %th= sort_link(@search, :generate_no, 'Generate no', default_order: :desc)
-      %th= sort_link(@search, :battle_page, 'Battle page', default_order: :desc)
-      %th= sort_link(@search, :e_no, 'E no', default_order: :desc)
-      %th= sort_link(@search, :party, 'Party', default_order: :desc)
-      %th= sort_link(@search, :card_id, 'Card', default_order: :desc)
+      %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
+      - if @show_detail_characteristic == "1"
+        %th.sep= sort_link(@search, :characteristic_str, '腕力', default_order: :desc)
+        %th= sort_link(@search, :characteristic_vit, '体力', default_order: :desc)
+        %th= sort_link(@search, :characteristic_int, '理力', default_order: :desc)
+        %th= sort_link(@search, :characteristic_mnd, '精神', default_order: :desc)
+        %th= sort_link(@search, :characteristic_tec, '器用', default_order: :desc)
+        %th= sort_link(@search, :characteristic_eva, '敏捷', default_order: :desc)
+      %th.sep= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
+      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
       %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
-      %th= sort_link(@search, :target_e_no, 'Target e no', default_order: :desc)
-      %th= sort_link(@search, :target_party, 'Target party', default_order: :desc)
-      %th= sort_link(@search, :act_type, 'Act type', default_order: :desc)
-      %th= sort_link(@search, :element, 'Element', default_order: :desc)
-      %th= sort_link(@search, :damage, 'Damage', default_order: :desc)
-      %th= sort_link(@search, :is_weak, 'Is weak', default_order: :desc)
-      %th= sort_link(@search, :is_critical, 'Is critical', default_order: :desc)
-      %th= sort_link(@search, :is_clean, 'Is clean', default_order: :desc)
-      %th= sort_link(@search, :is_vanish, 'Is vanish', default_order: :desc)
-      %th= sort_link(@search, :is_absorb, 'Is absorb', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      - if @show_detail_party == "1"
+        %th.sep= sort_link(@search, :party_data_party_num, '使用者PT人数', default_order: :desc)
+        %th= sort_link(@search, :target_party_data_party_num, '対象PT人数', default_order: :desc)
+      - if @show_detail_target == "1"
+        %th.sep= sort_link(@search, :target_e_no, '対象キャラクター(Eno)', default_order: :desc)
+      - if @show_detail_target_characteristic == "1"
+        %th.sep= sort_link(@search, :target_characteristic_str, '対象腕力', default_order: :desc)
+        %th= sort_link(@search, :target_characteristic_vit, '対象体力', default_order: :desc)
+        %th= sort_link(@search, :target_characteristic_int, '対象理力', default_order: :desc)
+        %th= sort_link(@search, :target_characteristic_mnd, '対象精神', default_order: :desc)
+        %th= sort_link(@search, :target_characteristic_tec, '対象器用', default_order: :desc)
+        %th= sort_link(@search, :target_characteristic_eva, '対象敏捷', default_order: :desc)
+      %th.sep= sort_link(@search, :act_type, '行動', default_order: :desc)
+      %th= sort_link(@search, :damage, '効果量', default_order: :desc)
+      - if @show_detail_damage_option == "1"
+        %th.sep= sort_link(@search, :is_weak, 'Weak', default_order: :desc)
+        %th= sort_link(@search, :is_critical, 'Critical', default_order: :desc)
+        %th= sort_link(@search, :is_clean, 'Clean', default_order: :desc)
+        %th= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
+        %th= sort_link(@search, :is_absorb, 'Absorb', default_order: :desc)
+      %th.sep{colspan: "2"} 結果リンク
+      %th{colspan: "2"} 模擬戦結果
   %tbody
     - @damages.each do |damage|
       %tr
         %td= damage.result_no
-        %td= p_name_text(damage.e_no, damage.p_name)
-        %td= damage.result_no
-        %td= damage.generate_no
-        %td= damage.battle_page
-        %td= damage.e_no
-        %td= damage.party
-        %td= damage.card_id
+        %td.sep= p_name_text(damage.e_no, damage.p_name)
+        %td.sep= damage.battle_page
+        - if @show_detail_characteristic == "1"
+          %td.sep= damage.characteristic.str
+          %td= damage.characteristic.vit
+          %td= damage.characteristic.int
+          %td= damage.characteristic.mnd
+          %td= damage.characteristic.tec
+          %td= damage.characteristic.eva
+        %td.sep= damage.card_data.name if damage.card_data
+        %td= damage.card_data.lv if damage.card_data
         %td= damage.chain
-        %td= damage.target_e_no
-        %td= damage.target_party
-        %td= damage.act_type
-        %td= damage.element
+        - if @show_detail_party == "1"
+          %td.sep= damage.party_data.party_num if damage.party_data
+          %td= damage.target_party_data.party_num if damage.target_party_data
+        - if @show_detail_target == "1"
+          %td.sep= p_name_text(damage.target_e_no, damage.target_p_name)
+        - if @show_detail_target_characteristic == "1"
+          %td.sep= damage.target_characteristic.str
+          %td= damage.target_characteristic.vit
+          %td= damage.target_characteristic.int
+          %td= damage.target_characteristic.mnd
+          %td= damage.target_characteristic.tec
+          %td= damage.target_characteristic.eva
+        %td.sep= damage.act_type_name.name if damage.act_type_name
         %td= damage.damage
-        %td= damage.is_weak
-        %td= damage.is_critical
-        %td= damage.is_clean
-        %td= damage.is_vanish
-        %td= damage.is_absorb
-        %td= character_link(damage.e_no)
+        - if @show_detail_damage_option == "1"
+          %td.td-sign.sep= "○" if damage.is_weak     == 1 
+          %td.td-sign= "○" if damage.is_critical == 1
+          %td.td-sign= "○" if damage.is_clean    == 1
+          %td.td-sign= "○" if damage.is_vanish   == 1
+          %td.td-sign= "○" if damage.is_absorb   == 1
+        %td.sep= character_link(damage.e_no)
         %td= character_old_link(@last_result, damage.e_no, damage.result_no)
+        %td= battle_link(@last_result, damage.battle_page, damage.result_no)
+        %td= battle_old_link(@last_result, damage.battle_page, damage.result_no)
 = paginate(@damages)
