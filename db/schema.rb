@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_050453) do
+ActiveRecord::Schema.define(version: 2018_11_06_054218) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -142,6 +142,44 @@ ActiveRecord::Schema.define(version: 2018_10_23_050453) do
     t.index ["gowait"], name: "index_command_actions_on_gowait"
     t.index ["s_no"], name: "index_command_actions_on_s_no"
     t.index ["timing"], name: "index_command_actions_on_timing"
+  end
+
+  create_table "damages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "act_id"
+    t.integer "e_no"
+    t.integer "party"
+    t.integer "card_id"
+    t.integer "chain"
+    t.integer "target_e_no"
+    t.integer "target_party"
+    t.integer "act_type"
+    t.integer "element"
+    t.integer "damage"
+    t.integer "is_weak"
+    t.integer "is_critical"
+    t.integer "is_clean"
+    t.integer "is_vanish"
+    t.integer "is_absorb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_id"], name: "index_damages_on_act_id"
+    t.index ["act_type"], name: "index_damages_on_act_type"
+    t.index ["battle_page", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
+    t.index ["card_id"], name: "index_damages_on_card_id"
+    t.index ["chain"], name: "index_damages_on_chain"
+    t.index ["damage"], name: "index_damages_on_damage"
+    t.index ["element"], name: "index_damages_on_element"
+    t.index ["is_absorb"], name: "index_damages_on_is_absorb"
+    t.index ["is_clean"], name: "index_damages_on_is_clean"
+    t.index ["is_critical"], name: "index_damages_on_is_critical"
+    t.index ["is_vanish"], name: "index_damages_on_is_vanish"
+    t.index ["is_weak"], name: "index_damages_on_is_weak"
+    t.index ["party"], name: "index_damages_on_party"
+    t.index ["target_e_no"], name: "index_damages_on_target_e_no"
+    t.index ["target_party"], name: "index_damages_on_target_party"
   end
 
   create_table "development_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

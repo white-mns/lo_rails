@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  battle_page: MyString
+  act_id: 1
+  e_no: 1
+  party: 1
+  card_id: 1
+  chain: 1
+  target_e_no: 1
+  target_party: 1
+  act_type: 1
+  element: 1
+  damage: 1
+  is_weak: 1
+  is_critical: 1
+  is_clean: 1
+  is_vanish: 1
+  is_absorb: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  battle_page: MyString
+  act_id: 1
+  e_no: 1
+  party: 1
+  card_id: 1
+  chain: 1
+  target_e_no: 1
+  target_party: 1
+  act_type: 1
+  element: 1
+  damage: 1
+  is_weak: 1
+  is_critical: 1
+  is_clean: 1
+  is_vanish: 1
+  is_absorb: 1

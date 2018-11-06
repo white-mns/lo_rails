@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :damages
   resources :bugs
   resources :command_action_rankings
   resources :command_actions
