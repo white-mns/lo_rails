@@ -4,6 +4,7 @@ class CreateDamages < ActiveRecord::Migration[5.2]
       t.integer :result_no
       t.integer :generate_no
       t.string :battle_page
+      t.integer :act_id
       t.integer :e_no
       t.integer :party
       t.integer :card_id

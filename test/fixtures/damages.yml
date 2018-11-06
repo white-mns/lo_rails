@@ -4,6 +4,7 @@ one:
   result_no: 1
   generate_no: 1
   battle_page: MyString
+  act_id: 1
   e_no: 1
   party: 1
   card_id: 1
@@ -23,6 +24,7 @@ two:
   result_no: 1
   generate_no: 1
   battle_page: MyString
+  act_id: 1
   e_no: 1
   party: 1
   card_id: 1

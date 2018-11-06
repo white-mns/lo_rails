@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_05_194900) do
+ActiveRecord::Schema.define(version: 2018_11_06_054218) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_194900) do
     t.integer "result_no"
     t.integer "generate_no"
     t.string "battle_page"
+    t.integer "act_id"
     t.integer "e_no"
     t.integer "party"
     t.integer "card_id"
@@ -164,6 +165,7 @@ ActiveRecord::Schema.define(version: 2018_11_05_194900) do
     t.integer "is_absorb"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["act_id"], name: "index_damages_on_act_id"
     t.index ["act_type"], name: "index_damages_on_act_type"
     t.index ["battle_page", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
     t.index ["card_id"], name: "index_damages_on_card_id"

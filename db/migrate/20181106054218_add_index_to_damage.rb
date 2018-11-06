@@ -1,6 +1,7 @@
 class AddIndexToDamage < ActiveRecord::Migration[5.2]
   def change
     add_index :damages, [:battle_page, :e_no, :result_no, :generate_no], :unique => false, :name => 'resultno_and_battle_page'
+    add_index :damages, :act_id
     add_index :damages, :party
     add_index :damages, :card_id
     add_index :damages, :chain

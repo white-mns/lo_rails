@@ -14,6 +14,7 @@ class DamagesTest < ApplicationSystemTestCase
     visit damages_url
     click_on "New Damage"
 
+    fill_in "Act", with: @damage.act_id
     fill_in "Act Type", with: @damage.act_type
     fill_in "Battle Page", with: @damage.battle_page
     fill_in "Card", with: @damage.card_id
@@ -41,6 +42,7 @@ class DamagesTest < ApplicationSystemTestCase
     visit damages_url
     click_on "Edit", match: :first
 
+    fill_in "Act", with: @damage.act_id
     fill_in "Act Type", with: @damage.act_type
     fill_in "Battle Page", with: @damage.battle_page
     fill_in "Card", with: @damage.card_id
