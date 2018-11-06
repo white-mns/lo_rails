@@ -30,9 +30,10 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_target, @show_detail_target
           - act_icon(false)
-          = label_tag :show_detail_card, '　使用者で検索する', class: "act_desc"
-          = label_tag :show_detail_card, '　使用者で検索を隠す', class: "act_desc closed"
+          = label_tag :show_detail_card, '　使用者で絞り込む', class: "act_desc"
+          = label_tag :show_detail_card, '　使用者で絞り込みを隠す', class: "act_desc closed"
     %tbody.closed
+      %tr
       %tr
         %td  
         %td= f.label :e_no_form, 'Eno'
@@ -42,11 +43,25 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
+          = hidden_field_tag :show_detail_battle_page, @show_detail_battle_page
+          - act_icon(false)
+          = label_tag :show_detail_card, '　模擬戦名で絞り込む', class: "act_desc"
+          = label_tag :show_detail_card, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td  
+        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+        %td.formText{colspan: "3"}= text_field_tag :battle_page_form, @battle_page_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
           = hidden_field_tag :show_detail_characteristic, @show_detail_characteristic
           - act_icon(false)
           = label_tag :show_detail_card, '　使用者の特性(腕力など)を表示する', class: "act_desc"
           = label_tag :show_detail_card, '　使用者の特性を表示しない', class: "act_desc closed"
     %tbody.closed
+      %tr
       %tr
         %td  
         %td= f.label :str_form, '腕力'
@@ -74,6 +89,7 @@
           = label_tag :show_detail_card, '　戦闘開始時パーティ人数を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
+      %tr
         %td  
         %td= f.label :party_num_form, '使用者パーティ人数'
         %td.formNum= text_field_tag :party_num_form, @party_num_form
@@ -87,7 +103,6 @@
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-      %tr
         %td  
         %td= f.label :chain_form, 'Chain'
         %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
@@ -99,6 +114,7 @@
           = label_tag :show_detail_card, '　対象キャラクターを表示する', class: "act_desc"
           = label_tag :show_detail_card, '　対象キャラクターを表示しない', class: "act_desc closed"
     %tbody.closed
+      %tr
       %tr
         %td  
         %td= f.label :target_e_no_form, '対象Eno'
@@ -113,6 +129,7 @@
           = label_tag :show_detail_card, '　対象の特性(腕力など)を表示する', class: "act_desc"
           = label_tag :show_detail_card, '　対象の特性を表示しない', class: "act_desc closed"
     %tbody.closed
+      %tr
       %tr
         %td  
         %td= f.label :target_str_form, '腕力'
@@ -160,6 +177,7 @@
           = label_tag :show_detail_card, '　Criticalなどの有無を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
+      %tr
         %td  
         %td= f.label :act_type_form, 'ヒット時効果'
         %td{colspan: "3"}
@@ -197,11 +215,11 @@
           = label_tag :no_absorb, '× Absorb(吸○○の効果)'
     %tbody
       %tr
+      %tr
         %td  
         %td= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
-
 
 = paginate(@damages)
 %br

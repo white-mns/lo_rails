@@ -134,6 +134,7 @@ class DamagesController < ApplicationController
     @party_num_form = params["party_num_form"]
     @target_party_num_form = params["target_party_num_form"]
 
+    @show_detail_battle_page = params["show_detail_battle_page"]
     @show_detail_characteristic = params["show_detail_characteristic"]
     @show_detail_party = params["show_detail_party"]
     @show_detail_target = params["show_detail_target"]
