@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
   def param_set
     @last_result = Name.maximum('result_no')
     
-    params[:q] ||= {}
+    params[:q] = {}
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end
