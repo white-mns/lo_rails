@@ -32,7 +32,7 @@ class DropMinSubjectsController < ApplicationController
 		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
     @last_result = Name.maximum('result_no')
     
-    params[:q] ||= {}
+    params[:q] = {}
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
         params["min_0_gray"] = "on"

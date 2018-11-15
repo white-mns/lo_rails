@@ -19,12 +19,6 @@ class TrainingsController < ApplicationController
 
   # GET /training/graph
   def history
-    @last_result = Name.maximum('result_no')
-
-    params[:q] ||= {}
-    if !params["is_form"] then
-        params["result_no_form"] ||= "~" + sprintf('%d',@last_result)
-    end
     index
     @trainings	= @search.result
   end
@@ -42,7 +36,12 @@ class TrainingsController < ApplicationController
   def param_set
     @last_result = Name.maximum('result_no')
     
-    params[:q] ||= {}
+    params[:q] = {}
+
+    if !params["is_form"] && action_name == "history" then
+        params["result_no_form"] ||= "~" + sprintf('%d',@last_result)
+    end
+
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
     end

@@ -6,6 +6,7 @@ class GetCardsController < ApplicationController
   def index
     param_set
     @count	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
+    @all	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result
     @search	= GetCard.notnil().includes(:p_name, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
@@ -15,6 +16,7 @@ class GetCardsController < ApplicationController
     param_set
     params[:q]["get_type_eq_any"]=[2] 
     @count	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result.count()
+    @all	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result
     @search	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
@@ -25,7 +27,7 @@ class GetCardsController < ApplicationController
   def set_open_flg
     @open = {}
     @subjects.each do |subject, subject_name|
-      @open[subject] = @search.result.maximum("subjects."+subject) ? @search.result.maximum("subjects."+subject) : 0
+      @open[subject] = @all.maximum("subjects."+subject) ? @all.maximum("subjects."+subject) : 0
     end
   end
 
@@ -34,7 +36,7 @@ class GetCardsController < ApplicationController
 		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
     @last_result = Name.maximum('result_no')
 
-    params[:q] ||= {}
+    params[:q] = {}
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@last_result)
         params["min_0_gray"] = "on"
