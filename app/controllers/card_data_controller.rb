@@ -12,7 +12,7 @@ class CardDataController < ApplicationController
   end
 
   def param_set
-    params[:q] = {}
+    params_clean(params)
     
     reference_number_assign(params, "card_id", "card_id_form")
     reference_text_assign(params, "name", "name_form")
