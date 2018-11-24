@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_06_054218) do
+ActiveRecord::Schema.define(version: 2018_11_24_061027) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2018_11_06_054218) do
     t.integer "generate_no"
     t.string "battle_page"
     t.integer "party"
-    t.string "use_cards"
+    t.text "use_cards"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["battle_page", "party", "result_no", "generate_no"], name: "resultno_and_battle_page"
