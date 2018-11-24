@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     %p
       本家結果更新中に取得した対戦設定を表示しています。
@@ -26,28 +30,29 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :num_form, '総設定枚数'
         %td.formNum{colspan: "3"}= text_field_tag :num_form, @num_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :rank_type_form, '集計方法'
         %td{colspan: "3"}
-          = radio_button_tag :rank_type, 1, @all_lv
-          = label_tag :rank_type_1, '異なるLvもまとめて集計'
-          　　
-          = radio_button_tag :rank_type, 0, @separate_lv
-          = label_tag :rank_type_0, 'Lv別で集計'
+          %span.input
+            = radio_button_tag :rank_type, 1, @all_lv
+            = label_tag :rank_type_1, '異なるLvもまとめて集計'
+          %span.input
+            = radio_button_tag :rank_type, 0, @separate_lv
+            = label_tag :rank_type_0, 'Lv別で集計'
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -57,11 +62,11 @@
           = label_tag :show_detail_card_data, '　その他カード情報を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
-        %td  
+        %td.indent
         %td= f.label :kind_form, '種類'
         %td.formText{colspan: "3"}= text_field_tag :kind_form, @kind_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :lp_form, 'LP'
         %td.formNum= text_field_tag :lp_form, @lp_form
         %td= f.label :fp_form, 'FP'
@@ -75,13 +80,13 @@
           = label_tag :show_detail_rank, '　順位を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
-        %td  
+        %td.indent
         %td= f.label :rank_form, '順位'
         %td.formNum{colspan: "3"}= text_field_tag :rank_form, @rank_form
     %tbody
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

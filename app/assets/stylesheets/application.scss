@@ -263,3 +263,48 @@ ul.image_checkbox li .check_div .image_box{
     right:12px;
     pointer-events: none; 
 }
+
+span.input::after {
+    content: "　" ;
+}
+@media screen and (max-width:767px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    table.search_toggle:not(.subject) {
+        border-collapse: collapse;
+        td, th {
+            display: block;
+        }
+    }
+    table.subject input[type="text"] {
+        width:80px;
+    }
+    td.indent {
+        border:  0rem;
+        padding: 0rem;
+    }
+
+    .pagination {
+        display: inline;
+    }
+
+    .pagination li {
+        display: inline-block;
+    }
+    
+    span.input::after {
+        content: "\a" ;
+        white-space: pre ;
+    }
+    ul.image_checkbox li .check_div .image_box{
+        width:200px;
+        height:200px;
+    }
+    
+    .image_box .image_frame{
+        width:200px;
+        height:200px;
+    }
+}

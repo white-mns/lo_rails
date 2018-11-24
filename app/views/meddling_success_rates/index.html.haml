@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     %p
       成功率：成功率＝成功回数／合計で計算します。
@@ -33,27 +37,27 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :effect_form, 'カード・アイテム効果名'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :success_form, '成功回数'
         %td.formNum= text_field_tag :success_form, @success_form
         %td= f.label :miss_form, '失敗回数'
         %td.formNum= text_field_tag :miss_form, @miss_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :no_apply_form, '対象なし回数'
         %td.formNum{colspan: "3"}= text_field_tag :no_apply_form, @no_apply_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :sum_form, '合計'
         %td.formNum= text_field_tag :sum_form, @sum_form
         %td= f.label :rate_form, '成功率(0～1)'
@@ -68,7 +72,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :chain_form, 'Chain'
         %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
     %tbody.tbody_toggle.pointer
@@ -81,12 +85,12 @@
     %tbody.closed
       %tr
       %tr
-        %td
+        %td.indent
         %td{:colspan => "4"}
           = check_box_tag :all_rate, @all_rate, @all_rate
           = label_tag :all_rate, '全体の成功率も合わせて見る'
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
@@ -101,7 +105,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :targets_form, '対象カード効果一覧(ORのみ)'
         %td.formText{colspan: "3"}= text_field_tag :targets_form, @targets_form
     %tbody.tbody_toggle.pointer
@@ -114,8 +118,8 @@
     %tbody.closed
     %tbody
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

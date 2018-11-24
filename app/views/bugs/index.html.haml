@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,34 +26,35 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :bug_e_no_form, 'BUGEno'
         %td.formNum= text_field_tag :bug_e_no_form, @bug_e_no_form
         %td= f.label :p_name_form, 'BUGキャラクター名'
         %td.formText= text_field_tag :bug_name_form, @bug_name_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, '開拓Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, '開拓キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :lv_form, 'BugLv'
         %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
       %tr
-        %td 
-        %td 
+        %td.indent
+        %td.indent
         %td{colspan: "3"}
-          = check_box_tag :show_unknown, @show_unknown, @show_unknown
-          = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
+          %span.input
+            = check_box_tag :show_unknown, @show_unknown, @show_unknown
+            = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
       %tr
-        %td 
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

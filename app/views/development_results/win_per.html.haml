@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,42 +26,44 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
         %td= f.label :party_num_form, 'パーティ人数'
         %td.formNum= text_field_tag :party_num_form, @party_num_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :bellicose_form, '好戦度'
         %td.formNum= text_field_tag :bellicose_form, @bellicose_form
         %td= f.label :day_form, 'Day'
         %td.formNum= text_field_tag :day_form, @day_form
       %tr
-        %td  
-        %td
+        %td.indent
+        %td.indent
         %td{colspan: "3"}
-          = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
-          = label_tag :split_bellicose, '好戦度で分けて集計する'
-          　　
-          = check_box_tag :split_party_num, @split_party_num, @split_party_num
-          = label_tag :split_party_num, 'PT人数で分けて集計する'
+          %span.input
+            = check_box_tag :split_bellicose, @split_bellicose, @split_bellicose
+            = label_tag :split_bellicose, '好戦度で分けて集計する'
+          %span.input
+            = check_box_tag :split_party_num, @split_party_num, @split_party_num
+            = label_tag :split_party_num, 'PT人数で分けて集計する'
       %tr
-        %td  
-        %td
+        %td.indent
+        %td.indent
         %td{colspan: "3"}
-          = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
-          = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
-          　　
-          = check_box_tag :split_day, @split_day, @split_day
-          = label_tag :split_day, 'Dayで分けて集計する'
+          %span.input
+            = check_box_tag :split_invation_lv, @split_invation_lv, @split_invation_lv
+            = label_tag :split_invation_lv, '侵攻Lvで分けて集計する'
+          %span.input
+            = check_box_tag :split_day, @split_day, @split_day
+            = label_tag :split_day, 'Dayで分けて集計する'
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 
@@ -94,7 +100,7 @@
         -if params["split_bellicose"] == "on"
           %td
         -if params["split_day"] == "on"
-          %td 
+          %td
         %td= development_result.count if development_result.respond_to?(:count)
         %td= development_result.win if development_result.respond_to?(:win)
         %td= development_result.draw if development_result.respond_to?(:draw)
