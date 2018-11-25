@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,30 +26,30 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :invation_col_form, '侵攻列'
         %td.formText= text_field_tag :invation_col_form, @invation_col_form
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :return_col_form, '帰還列'
         %td.formText= text_field_tag :return_col_form, @return_col_form
         %td= f.label :return_lv_form, '帰還Lv'
         %td.formNum= text_field_tag :return_lv_form, @return_lv_form
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

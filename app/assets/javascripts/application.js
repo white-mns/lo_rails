@@ -24,14 +24,26 @@ function search_close() {
     tbody_0 = $(".search_toggle").children().eq(0);
     tbody_0.find(".act_desc").toggle();
     tbody_0.nextAll().hide();
-    $(".tbody_toggle").find('input:hidden').not("#base_first").each( function(index, element) {
+    $(".tbody_toggle").find('input:hidden').each( function(index, element) {
         if ($(this).val() == "1") {
             $(this).nextAll().toggle();
         }
     });
 };
 
+function desc_close() {
+    $(".desc .card-header").each( function() {
+        $(this).next().toggle();
+        $(this).find(".act_desc").toggle();
+    });
+};
+
 function set_triggers() {
+    $(".desc .card-header").on("click", function() {
+        $(this).next().slideToggle(200);
+        $(this).find(".act_desc").toggle();
+    });
+
     $(".example_toggle").on("click", function() {
         $(this).parent().next().slideToggle(200);
         $(this).find(".act_desc").toggle();
@@ -95,8 +107,9 @@ var turboReady = function(){
 	var url     = location.href;
     var params  = url.split("?");
 
-	if(params[1]){
+	if(params[1] || window.innerWidth < 767){
         search_close();
+        desc_close();
 	}
 
     $('FORM').cleanQuery();

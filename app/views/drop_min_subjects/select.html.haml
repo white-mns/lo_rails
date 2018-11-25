@@ -117,7 +117,8 @@
           %p
             %span.example_select.example_toggle.pointer
               - help_icon
-              どちらにもチェックしない時の挙動
+              %span.input
+                どちらにもチェックしない時の挙動
               - act_desc(false)
           #example.closed
             ・一つの学科を選択：選択した学科単体で獲得できるカードと、選択した学科＋αで獲得できるカードがヒットします。
@@ -125,9 +126,9 @@
             ・複数の学科を選択：選択した学科の組み合わせで獲得できるカードと、選択した学科の組み合わせ＋αで獲得できるカードがヒットします。それぞれの学科単体での獲得カードはヒットしません。
             %br
             .image_frame
-              = image_tag('combination_default_0001.png', size: '300x300')
+              = image_tag('combination_default_0001.png', size: '200x200')
             .image_frame
-              = image_tag('combination_default_0002.png', size: '300x300')
+              = image_tag('combination_default_0002.png', size: '200x200')
       %tr
         %td
         %td{colspan: "3"}

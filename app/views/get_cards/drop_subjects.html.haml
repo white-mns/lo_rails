@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -12,7 +16,7 @@
     #example.closed
       = render "layouts/input_desc"
 = search_form_for @search, url: drop_subjects_path do |f|
-  %table.search_toggle.table.table-striped.table-bordered.table-hover
+  %table.search_toggle.table.table-striped.table-bordered.table-hover.subject
     %tbody.pointer
       %tr
         %td{colspan: "5"}
@@ -22,108 +26,110 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td.formNum{colspan: "3"}= text_field_tag :e_no_form, @e_no_form
       %tr
-        %td  
+        %td.indent
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText{colspan: "3"}= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td.indent
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :slash_form, '斬術'
         %td.formNum= text_field_tag :slash_form, @slash_form
         %td= f.label :fire_form, '火術'
         %td.formNum= text_field_tag :fire_form, @fire_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :thrust_form, '突術'
         %td.formNum= text_field_tag :thrust_form, @thrust_form
         %td= f.label :theology_form, '神術'
         %td.formNum= text_field_tag :theology_form, @theology_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :stroke_form, '打術'
         %td.formNum= text_field_tag :stroke_form, @stroke_form
         %td= f.label :life_form, '命術'
         %td.formNum= text_field_tag :life_form, @life_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :shot_form, '射撃'
         %td.formNum= text_field_tag :shot_form, @shot_form
         %td= f.label :demonology_form, '冥術'
         %td.formNum= text_field_tag :demonology_form, @demonology_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :guard_form, '護衛'
         %td.formNum= text_field_tag :guard_form, @guard_form
         %td= f.label :geography_form, '地学'
         %td.formNum= text_field_tag :geography_form, @geography_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :dance_form, '舞踊'
         %td.formNum= text_field_tag :dance_form, @dance_form
         %td= f.label :astronomy_form, '天文学'
         %td.formNum= text_field_tag :astronomy_form, @astronomy_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :theft_form, '盗術'
         %td.formNum= text_field_tag :theft_form, @theft_form
         %td= f.label :fengshui_form, '風水学'
         %td.formNum= text_field_tag :fengshui_form, @fengshui_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :cooking_form, '料理'
         %td.formNum= text_field_tag :cooking_form, @cooking_form
         %td= f.label :psychology_form, '心理学'
         %td.formNum= text_field_tag :psychology_form, @psychology_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :technology_form, '工芸学'
         %td.formNum= text_field_tag :technology_form, @technology_form
         %td= f.label :music_form, '音楽'
         %td.formNum= text_field_tag :music_form, @music_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :movement_form, '機動学'
         %td.formNum= text_field_tag :movement_form, @movement_form
         %td= f.label :curse_form, '呪術'
         %td.formNum= text_field_tag :curse_form, @curse_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :chemistry_form, '化学'
         %td.formNum= text_field_tag :chemistry_form, @chemistry_form
         %td= f.label :illusion_form, '幻術'
         %td.formNum= text_field_tag :illusion_form, @illusion_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :arithmetic_form, '算術'
         %td.formNum= text_field_tag :arithmetic_form, @arithmetic_form
         %td= f.label :trick_form, '奇術'
         %td.formNum= text_field_tag :trick_form, @trick_form
       %tr
-        %td  
-        %td
+        %td.indent
+        %td.indent
         %td{colspan: "3"}
           = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
           = label_tag :min_0_hidden, '値が全て0の学科は表示しない'
       %tr
-        %td  
-        %td
+        %td.indent
+        %td.indent
         %td{colspan: "3"}
           = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
           = label_tag :min_0_gray, '値が全て0の学科は灰色にする'
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

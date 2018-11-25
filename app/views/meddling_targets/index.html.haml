@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,23 +26,23 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :effect_form, 'カード・アイテム効果名'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_form, '対象カード効果名'
         %td.formText= text_field_tag :target_form, @target_form
         %td= f.label :target_lv_form, '対象Lv'
         %td.formNum= text_field_tag :target_lv_form, @target_lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :count_form, '干渉回数'
         %td.formNum{colspan: "3"}= text_field_tag :count_form, @count_form
     %tbody.tbody_toggle.pointer
@@ -51,7 +55,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :chain_form, 'Chain'
         %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
     %tbody.tbody_toggle.pointer
@@ -64,12 +68,12 @@
     %tbody.closed
       %tr
       %tr
-        %td
+        %td.indent
         %td{:colspan => "4"}
           = check_box_tag :all_rate, @all_rate, @all_rate
           = label_tag :all_rate, '全体の成功率も合わせて見る'
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
@@ -84,13 +88,13 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :lp_form, 'LP'
         %td.formNum= text_field_tag :lp_form, @lp_form
         %td= f.label :fp_form, 'FP'
         %td.formNum= text_field_tag :fp_form, @fp_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :lpfp_form, 'LP+FP'
         %td.formNum{colspan: "3"}= text_field_tag :lpfp_form, @lpfp_form
     %tbody.tbody_toggle.pointer
@@ -104,19 +108,19 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_lp_form, '対象LP'
         %td.formNum= text_field_tag :target_lp_form, @target_lp_form
         %td= f.label :target_fp_form, '対象FP'
         %td.formNum= text_field_tag :target_fp_form, @target_fp_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_lpfp_form, '対象LP+FP'
         %td.formNum{colspan: "3"}= text_field_tag :target_lpfp_form, @target_lpfp_form
     %tbody
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 

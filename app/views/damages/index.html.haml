@@ -2,6 +2,10 @@
 %h1= @page_title
 
 .card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
   .card-body
     = render "layouts/base_desc"
     %p
@@ -22,7 +26,7 @@
     %tbody
       %tr
       %tr
-        %td  
+        %td.indent.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
     %tbody.tbody_toggle.pointer
@@ -35,7 +39,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
@@ -50,7 +54,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
         %td.formText{colspan: "3"}= text_field_tag :battle_page_form, @battle_page_form
     %tbody.tbody_toggle.pointer
@@ -63,19 +67,19 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :str_form, '腕力'
         %td.formNum= text_field_tag :str_form, @str_form
         %td= f.label :vit_form, '体力'
         %td.formNum= text_field_tag :vit_form, @vit_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :int_form, '理力'
         %td.formNum= text_field_tag :int_form, @int_form
         %td= f.label :mnd_form, '精神'
         %td.formNum= text_field_tag :mnd_form, @mnd_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :tec_form, '器用'
         %td.formNum= text_field_tag :tec_form, @tec_form
         %td= f.label :eva_form, '敏捷'
@@ -90,20 +94,20 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :party_num_form, '使用者パーティ人数'
         %td.formNum= text_field_tag :party_num_form, @party_num_form
         %td= f.label :party_num_form, '対象パーティ人数'
         %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
     %tbody
       %tr.sep
-        %td  
+        %td.indent
         %td= f.label :effect_form, 'カード効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :chain_form, 'Chain'
         %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
     %tbody.tbody_toggle.pointer
@@ -116,7 +120,7 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_e_no_form, '対象Eno'
         %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
         %td= f.label :p_name_form, '対象キャラクター名'
@@ -131,41 +135,43 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_str_form, '腕力'
         %td.formNum= text_field_tag :target_str_form, @target_str_form
         %td= f.label :target_vit_form, '体力'
         %td.formNum= text_field_tag :target_vit_form, @target_vit_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_int_form, '理力'
         %td.formNum= text_field_tag :target_int_form, @target_int_form
         %td= f.label :target_mnd_form, '精神'
         %td.formNum= text_field_tag :target_mnd_form, @target_mnd_form
       %tr
-        %td  
+        %td.indent
         %td= f.label :target_tec_form, '器用'
         %td.formNum= text_field_tag :target_tec_form, @target_tec_form
         %td= f.label :target_eva_form, '敏捷'
         %td.formNum= text_field_tag :target_eva_form, @target_eva_form
     %tbody
       %tr.sep
-        %td  
+        %td.indent
         %td= f.label :act_type_form, '行動種別'
         %td{colspan: "3"}
-          = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
-          = label_tag :act_type_damage, 'ダメージ'
-          　　
-          = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
-          = label_tag :act_type_fp_damage, 'FPダメージ'
-          　　
-          = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
-          = label_tag :act_type_lp_heal, 'LP回復'
-          　　
-          = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
-          = label_tag :act_type_fp_heal, 'FP回復'
+          %span.input
+            = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
+            = label_tag :act_type_damage, 'ダメージ'
+          %span.input
+            = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
+            = label_tag :act_type_fp_damage, 'FPダメージ'
+          %br
+          %span.input
+            = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
+            = label_tag :act_type_lp_heal, 'LP回復'
+          %span.input
+            = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
+            = label_tag :act_type_fp_heal, 'FP回復'
       %tr
-        %td  
+        %td.indent
         %td= f.label :damage_form, '効果量'
         %td.formNum{colspan: "3"}= text_field_tag :damage_form, @damage_form
     %tbody.tbody_toggle.pointer
@@ -178,46 +184,50 @@
     %tbody.closed
       %tr
       %tr
-        %td  
+        %td.indent
         %td= f.label :act_type_form, 'ヒット時効果'
         %td{colspan: "3"}
-          = check_box_tag :is_weak, @is_weak, @is_weak
-          = label_tag :is_weak, 'WeakPoint'
-          　　
-          = check_box_tag :is_critical, @is_critical, @is_critical
-          = label_tag :is_critical, 'Critical'
-          　　
-          = check_box_tag :is_clean, @is_clean, @is_clean
-          = label_tag :is_clean, 'Clean Hit'
+          %span.input
+            = check_box_tag :is_weak, @is_weak, @is_weak
+            = label_tag :is_weak, 'WeakPoint'
+          %span.input
+            = check_box_tag :is_critical, @is_critical, @is_critical
+            = label_tag :is_critical, 'Critical'
+          %span.input
+            = check_box_tag :is_clean, @is_clean, @is_clean
+            = label_tag :is_clean, 'Clean Hit'
           %br
-          = check_box_tag :is_vanish, @is_vanish, @is_vanish
-          = label_tag :is_vanish, 'Vanish(耐○○の効果) '
-          　　
-          = check_box_tag :is_absorb, @is_absorb, @is_absorb
-          = label_tag :is_absorb, 'Absorb(吸○○の効果)'
+          %span.input
+            = check_box_tag :is_vanish, @is_vanish, @is_vanish
+            = label_tag :is_vanish, 'Vanish(耐○○の効果) '
+          %span.input
+            = check_box_tag :is_absorb, @is_absorb, @is_absorb
+            = label_tag :is_absorb, 'Absorb(吸○○の効果)'
       %tr
-        %td  
+        %td.indent
         %td= f.label :act_type_form, 'ヒット時効果（除外）'
         %td{colspan: "3"}
-          = check_box_tag :no_weak, @no_weak, @no_weak
-          = label_tag :no_weak, '× WeakPoint'
-          　　
-          = check_box_tag :no_critical, @no_critical, @no_critical
-          = label_tag :no_critical, '× Critical'
-          　　
-          = check_box_tag :no_clean, @no_clean, @no_clean
-          = label_tag :no_clean, '× Clean Hit'
+          %span.input
+            = check_box_tag :no_weak, @no_weak, @no_weak
+            = label_tag :no_weak, '× WeakPoint'
+          %span.input
+            = check_box_tag :no_critical, @no_critical, @no_critical
+            = label_tag :no_critical, '× Critical'
+          %span.input
+            = check_box_tag :no_clean, @no_clean, @no_clean
+            = label_tag :no_clean, '× Clean Hit'
           %br
-          = check_box_tag :no_vannoh, @no_vannoh, @no_vannoh
-          = label_tag :no_vanish, '× Vanish(耐○○の効果) '
-          　　
-          = check_box_tag :no_absorb, @no_absorb, @no_absorb
-          = label_tag :no_absorb, '× Absorb(吸○○の効果)'
+          %span.input
+            = check_box_tag :no_vannoh, @no_vannoh, @no_vannoh
+            = label_tag :no_vanish, '× Vanish(耐○○の効果) '
+          %span.input
+            = check_box_tag :no_absorb, @no_absorb, @no_absorb
+            = label_tag :no_absorb, '× Absorb(吸○○の効果)'
     %tbody
       %tr
       %tr
-        %td  
-        %td= hidden_field_tag :is_form, 1
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
 
