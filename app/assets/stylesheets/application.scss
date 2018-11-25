@@ -37,6 +37,7 @@ $navbar-light-toggler-border-color: transparent;
 $dropdown-link-hover-bg:            $link-color;
 $dropdown-link-active-bg:           $link-color;
 $breadcrumb-bg:                     $weak-color;
+$card-cap-bg:                       $weak-color;
 
 //== Pagination
 
@@ -103,6 +104,10 @@ body { padding-top: 5rem; }
     padding: .8rem 1rem;
 }
 
+.page-item {
+    white-space: nowrap
+}
+
 .page-item.disabled {
     cursor: not-allowed;
 }
@@ -131,6 +136,10 @@ label {
     border-width: 0.05rem;
     box-shadow: .3rem .3rem .3rem rgba(0,0,0,0.2);
     margin-bottom: 1rem;
+}
+
+.card.desc .card-header {
+    margin-left: 1px;
 }
 
 .formText {
@@ -267,6 +276,7 @@ ul.image_checkbox li .check_div .image_box{
 span.input::after {
     content: "　" ;
 }
+
 @media screen and (max-width:767px) {
     h1 {
         font-size: 1.5rem;
@@ -298,6 +308,7 @@ span.input::after {
         content: "\a" ;
         white-space: pre ;
     }
+
     ul.image_checkbox li .check_div .image_box{
         width:200px;
         height:200px;
