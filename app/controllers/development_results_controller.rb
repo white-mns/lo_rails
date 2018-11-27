@@ -26,7 +26,7 @@ class DevelopmentResultsController < ApplicationController
                                     count(development_result = 1 or null) / count(*) AS win_per,
                                     min(places.result_no) AS min_result_no, max(places.result_no) AS max_result_no")
                                 .search(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @search.sorts = @sort if @search.sorts.empty?
     @development_results	= @search.result
     
     @all = DevelopmentResult.notnil().includes(:p_name).joins(:place, :parameter_control)
