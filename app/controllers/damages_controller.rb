@@ -74,11 +74,11 @@ class DamagesController < ApplicationController
     if params["is_vanish"]   == "on" then params[:q]["is_vanish_eq"]   = 1 end
     if params["is_absorb"]   == "on" then params[:q]["is_absorb_eq"]   = 1 end
     
-    if params["no_weak"]     == "on" then params[:q]["no_weak_eq"]     = 0 end
-    if params["no_critical"] == "on" then params[:q]["no_critical_eq"] = 0 end
-    if params["no_clean"]    == "on" then params[:q]["no_clean_eq"]    = 0 end
-    if params["no_vanish"]   == "on" then params[:q]["no_vanish_eq"]   = 0 end
-    if params["no_absorb"]   == "on" then params[:q]["no_absorb_eq"]   = 0 end
+    if params["no_weak"]     == "on" then params[:q]["is_weak_eq"]     = 0 end
+    if params["no_critical"] == "on" then params[:q]["is_critical_eq"] = 0 end
+    if params["no_clean"]    == "on" then params[:q]["is_clean_eq"]    = 0 end
+    if params["no_vanish"]   == "on" then params[:q]["is_vanish_eq"]   = 0 end
+    if params["no_absorb"]   == "on" then params[:q]["is_absorb_eq"]   = 0 end
     
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
