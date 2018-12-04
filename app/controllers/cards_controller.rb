@@ -32,6 +32,20 @@ class CardsController < ApplicationController
     reference_number_assign(params, "card_data_lp", "lp_form")
     reference_number_assign(params, "card_data_fp", "fp_form")
     
+    params[:q]["possession_name_name_eq_any"] ||= []
+    if params["possession_is_common"]  == "on" then params[:q]["possession_name_name_eq_any"].push("共有") end
+    if params["possession_is_owning"]  == "on" then params[:q]["possession_name_name_eq_any"].push("専有") end
+    if params["possession_is_special"] == "on" then params[:q]["possession_name_name_eq_any"].push("特有") end
+    if params["possession_is_endemic"] == "on" then params[:q]["possession_name_name_eq_any"].push("固有") end
+
+    params[:q]["card_data_kind_name_name_eq_any"] ||= []
+    if params["kind_is_dissociation"] == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("解離") end
+    if params["kind_is_first"]        == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("先発") end
+    if params["kind_is_trap"]         == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("罠") end
+    if params["kind_is_automatic"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("自動") end
+    if params["kind_is_abnormity"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("異常") end
+    if params["kind_is_moribundity"]  == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("瀕死") end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -44,6 +58,20 @@ class CardsController < ApplicationController
     @lv_form = params["lv_form"]
     @lp_form = params["lp_form"]
     @fp_form = params["fp_form"]
+
+    @possession_is_common  = params["possession_is_common"]
+    @possession_is_owning  = params["possession_is_owning"]
+    @possession_is_special = params["possession_is_special"]
+    @possession_is_endemic = params["possession_is_endemic"]
+    @kind_is_dissociation = params["kind_is_dissociation"]
+    @kind_is_first        = params["kind_is_first"]
+    @kind_is_trap         = params["kind_is_trap"]
+    @kind_is_automatic    = params["kind_is_automatic"]
+    @kind_is_abnormity    = params["kind_is_abnormity"]
+    @kind_is_moribundity  = params["kind_is_moribundity"]
+
+    @show_detail_e_no = params["show_detail_e_no"]
+    @show_detail_s_no = params["show_detail_s_no"]
   end
   # GET /cards/1
   #def show

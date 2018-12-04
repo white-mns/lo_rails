@@ -49,7 +49,7 @@
     %tbody
       %tr
         %td.indent
-        %td= f.label :effect_form, '効果'
+        %td= f.label :effect_form, 'カード効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
@@ -129,18 +129,56 @@
         %td.indent
         %td.indent
         %td{colspan: "3"}
-          = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
-          = label_tag :min_0_hidden, '影響しない学科は表示しない'
+          %span.input
+            = check_box_tag :min_0_hidden, @min_0_hidden, @min_0_hidden
+            = label_tag :min_0_hidden, '影響しない学科は表示しない'
+          %span.input
+            = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
+            = label_tag :min_0_gray, '影響しない学科は灰色にする'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card, @show_detail_card
+          - act_icon(false)
+          = label_tag :show_detail_card, '　カードの詳細を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　カードの詳細を表示しない', class: "act_desc closed"
+          %div.act_desc 　種類(発動タイミング)、LP、FP
+    %tbody.closed
+      %tr
       %tr
         %td.indent
-        %td.indent
+        %td= f.label :kind_form, '種類'
         %td{colspan: "3"}
-          = check_box_tag :min_0_gray, @min_0_gray, @min_0_gray
-          = label_tag :min_0_gray, '影響しない学科は灰色にする'
-      -@subjects.each do |subject, subject_name|
-        = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
+          %span.input
+            = check_box_tag :kind_is_dissociation, @kind_is_dissociation, @kind_is_dissociation
+            = label_tag :kind_is_dissociation, '解離'
+            　
+            = check_box_tag :kind_is_first, @kind_is_first, @kind_is_first
+            = label_tag :kind_is_first, '先発'
+            　
+            = check_box_tag :kind_is_trap, @kind_is_trap, @kind_is_trap
+            = label_tag :kind_is_trap, '罠'
+          %span.input
+            = check_box_tag :kind_is_automatic, @kind_is_automatic, @kind_is_automatic
+            = label_tag :kind_is_automatic, '自動'
+            　
+            = check_box_tag :kind_is_abnormity, @kind_is_abnormity, @kind_is_abnormity
+            = label_tag :kind_is_abnormity, '異常'
+            　
+            = check_box_tag :kind_is_moribundity, @kind_is_moribundity, @kind_is_moribundity
+            = label_tag :kind_is_moribundity, '瀕死'
       %tr
         %td.indent
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody
+      %tr
+      %tr
+        %td.indent
+          -@subjects.each do |subject, subject_name|
+            = hidden_field_tag ("marked_" + subject).to_sym, @marked[subject]
         %td.indent= hidden_field_tag :is_form, 1
         %td{colspan: "3"}
           - search_submit_button
@@ -165,17 +203,27 @@
             %th{style: "background-color: #faa;"}= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
           - else
             %th= sort_link(@search, (subject).to_sym,      subject_name, default_order: :desc)
+      - if @show_detail_card == "1"
+        %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
       %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_card == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
   %tbody
     - @drop_min_subjects.each do |drop_min_subject|
       %tr
         - if @show_detail_result_no == "1"
           %td= drop_min_subject.result_no
         - render_subjects(drop_min_subject, @subjects, params, @open, @marked)
+        - if @show_detail_card == "1"
+          %td= drop_min_subject.card_data.kind_name.name if drop_min_subject.card_data && drop_min_subject.card_data.kind_name
         %td
           - gray_text = @min_0_gray ? "&min_0_gray=" + @min_0_gray : ""
           - hidden_text = @min_0_hidden ? "&min_0_hidden=" + @min_0_hidden : ""
           = link_to drop_min_subject.card_data.name, drop_subjects_path + "?result_no_form=1~" + sprintf("%d",@last_result) + "&effect_form=\"" + drop_min_subject.card_data.name + "\"&lv_form=" + sprintf("%d", drop_min_subject.card_data.lv) + gray_text + hidden_text
         %td= drop_min_subject.card_data.lv   if drop_min_subject.card_data
+        - if @show_detail_card == "1"
+          %td= drop_min_subject.card_data.lp if drop_min_subject.card_data
+          %td= drop_min_subject.card_data.fp if drop_min_subject.card_data
 = paginate(@drop_min_subjects)

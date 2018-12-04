@@ -71,8 +71,19 @@ class DropMinSubjectsController < ApplicationController
     reference_number_assign(params, "curse", "curse_form")
     reference_number_assign(params, "illusion", "illusion_form")
     reference_number_assign(params, "trick", "trick_form")
+    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
+ 
+    params[:q]["card_data_kind_name_name_eq_any"] ||= []
+    if params["kind_is_dissociation"] == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("解離") end
+    if params["kind_is_first"]        == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("先発") end
+    if params["kind_is_trap"]         == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("罠") end
+    if params["kind_is_automatic"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("自動") end
+    if params["kind_is_abnormity"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("異常") end
+    if params["kind_is_moribundity"]  == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("瀕死") end
 
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -101,12 +112,26 @@ class DropMinSubjectsController < ApplicationController
     @curse_form = params["curse_form"]
     @illusion_form = params["illusion_form"]
     @trick_form = params["trick_form"]
+    @kind_form = params["kind_form"]
     @effect_form = params["effect_form"]
     @lv_form = params["lv_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
     
     @min_0_hidden = params["min_0_hidden"]
     @min_0_gray = params["min_0_gray"]
+
+    @kind_is_dissociation = params["kind_is_dissociation"]
+    @kind_is_first        = params["kind_is_first"]
+    @kind_is_trap         = params["kind_is_trap"]
+    @kind_is_automatic    = params["kind_is_automatic"]
+    @kind_is_abnormity    = params["kind_is_abnormity"]
+    @kind_is_moribundity  = params["kind_is_moribundity"]
+
     @show_detail_result_no = params["show_detail_result_no"]
+    @show_detail_e_no = params["show_detail_e_no"]
+    @show_detail_s_no = params["show_detail_s_no"]
+    @show_detail_card = params["show_detail_card"]
   end
 
   def set_min_1

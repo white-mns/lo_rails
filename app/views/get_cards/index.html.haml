@@ -29,22 +29,82 @@
         %td.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_e_no, @show_detail_e_no
+          - act_icon(false)
+          = label_tag :show_detail_e_no, '　Eno・キャラクター名で絞り込む', class: "act_desc"
+          = label_tag :show_detail_e_no, '　Eno・キャラクター名での絞り込みフォームを閉じる', class: "act_desc closed"
+    %tbody.closed
+      %tr
       %tr
         %td.indent
         %td= f.label :e_no_form, 'Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, 'キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_s_no, @show_detail_s_no
+          - act_icon(false)
+          = label_tag :show_detail_s_no, '　カード名で絞り込む', class: "act_desc"
+          = label_tag :show_detail_s_no, '　カード名での絞り込みフォームを閉じる', class: "act_desc closed"
+    %tbody.closed
+      %tr
       %tr
         %td.indent
         %td= f.label :name_form, 'カード名'
         %td.formText{colspan: "3"}= text_field_tag :name_form, @name_form
+    %tbody
+      %tr
       %tr
         %td.indent
-        %td= f.label :effect_form, '効果'
+        %td= f.label :effect_form, 'カード効果'
         %td.formText= text_field_tag :effect_form, @effect_form
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card, @show_detail_card
+          - act_icon(false)
+          = label_tag :show_detail_card, '　カードの詳細を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　カードの詳細を表示しない', class: "act_desc closed"
+          %div.act_desc 　種類(発動タイミング)、LP、FP
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :kind_form, '種類'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :kind_is_dissociation, @kind_is_dissociation, @kind_is_dissociation
+            = label_tag :kind_is_dissociation, '解離'
+            　
+            = check_box_tag :kind_is_first, @kind_is_first, @kind_is_first
+            = label_tag :kind_is_first, '先発'
+            　
+            = check_box_tag :kind_is_trap, @kind_is_trap, @kind_is_trap
+            = label_tag :kind_is_trap, '罠'
+          %span.input
+            = check_box_tag :kind_is_automatic, @kind_is_automatic, @kind_is_automatic
+            = label_tag :kind_is_automatic, '自動'
+            　
+            = check_box_tag :kind_is_abnormity, @kind_is_abnormity, @kind_is_abnormity
+            = label_tag :kind_is_abnormity, '異常'
+            　
+            = check_box_tag :kind_is_moribundity, @kind_is_moribundity, @kind_is_moribundity
+            = label_tag :kind_is_moribundity, '瀕死'
+      %tr
+        %td.indent
+        %td= f.label :lp_form, 'LP'
+        %td.formNum= text_field_tag :lp_form, @lp_form
+        %td= f.label :fp_form, 'FP'
+        %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody
+      %tr
       %tr
         %td.indent
         %td= f.label :get_type_form, '取得方法'
@@ -76,8 +136,13 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :name, 'カード名', default_order: :desc)
+      - if @show_detail_card == "1"
+        %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
       %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
+      - if @show_detail_card == "1"
+        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
       %th= sort_link(@search, :get_type, '取得方法', default_order: :desc)
       %th{colspan:"2"}
         結果リンク
@@ -87,8 +152,13 @@
         %td= get_card.result_no
         %td= p_name_text(get_card.e_no, get_card.p_name)
         %td= get_card.name
+        - if @show_detail_card == "1"
+          %td= get_card.card_data.kind_name.name if get_card.card_data && get_card.card_data.kind_name
         %td= get_card.card_data.name if get_card.card_data
         %td= get_card.card_data.lv if get_card.card_data
+        - if @show_detail_card == "1"
+          %td= get_card.card_data.lp if get_card.card_data
+          %td= get_card.card_data.fp if get_card.card_data
         %td
           -if get_card.get_type == 0
             失敗

@@ -47,8 +47,11 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_number_assign(params, "e_no", "e_no_form")
     reference_text_assign(params, "name", "name_form")
+    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
+    reference_number_assign(params, "card_data_lp", "lp_form")
+    reference_number_assign(params, "card_data_fp", "fp_form")
     reference_number_assign(params, "subject_slash", "slash_form")
     reference_number_assign(params, "subject_thrust", "thrust_form")
     reference_number_assign(params, "subject_stroke", "stroke_form")
@@ -78,15 +81,26 @@ class GetCardsController < ApplicationController
     if params["is_get_type_failed"] == "on" then params[:q]["get_type_eq_any"].push(0) end
     if params["is_get_type_create"] == "on" then params[:q]["get_type_eq_any"].push(1) end
     if params["is_get_type_drop"]   == "on" then params[:q]["get_type_eq_any"].push(2) end
-    
+     
+    params[:q]["card_data_kind_name_name_eq_any"] ||= []
+    if params["kind_is_dissociation"] == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("解離") end
+    if params["kind_is_first"]        == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("先発") end
+    if params["kind_is_trap"]         == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("罠") end
+    if params["kind_is_automatic"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("自動") end
+    if params["kind_is_abnormity"]    == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("異常") end
+    if params["kind_is_moribundity"]  == "on" then params[:q]["card_data_kind_name_name_eq_any"].push("瀕死") end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @e_no_form = params["e_no_form"]
     @name_form = params["name_form"]
+    @kind_form = params["kind_form"]
     @effect_form = params["effect_form"]
     @get_type_form = params["get_type_form"]
     @lv_form = params["lv_form"]
+    @lp_form = params["lp_form"]
+    @fp_form = params["fp_form"]
     @slash_form = params["slash_form"]
     @thrust_form = params["thrust_form"]
     @stroke_form = params["stroke_form"]
@@ -123,6 +137,18 @@ class GetCardsController < ApplicationController
     
     @min_0_hidden = params["min_0_hidden"]
     @min_0_gray = params["min_0_gray"]
+
+    @kind_is_dissociation = params["kind_is_dissociation"]
+    @kind_is_first        = params["kind_is_first"]
+    @kind_is_trap         = params["kind_is_trap"]
+    @kind_is_automatic    = params["kind_is_automatic"]
+    @kind_is_abnormity    = params["kind_is_abnormity"]
+    @kind_is_moribundity  = params["kind_is_moribundity"]
+
+    @show_detail_e_no = params["show_detail_e_no"]
+    @show_detail_s_no = params["show_detail_s_no"]
+    @show_detail_card = params["show_detail_card"]
+
   end
 
   # GET /get_cards/1
