@@ -152,6 +152,7 @@
         %th= sort_link(@search, :target_data_lpfp, '対象LP+FP', default_order: :desc)
       %th= sort_link(@search, :count, '干渉回数', default_order: :desc)
       %th{colspan: "2"} 結果リンク
+      %th
   %tbody
     - @meddling_targets.each do |meddling_target|
       %tr
@@ -174,4 +175,6 @@
         %td= meddling_target.count
         %td= character_link(meddling_target.e_no)
         %td= character_old_link(@last_result, meddling_target.e_no, meddling_target.result_no)
+        %td
+          = link_to "発動結果一覧", card_users_path + "?result_no_form=" + sprintf("%d", meddling_target.result_no) + "&e_no_form=" + sprintf("%d", meddling_target.e_no) + "&effect_form=\"" + meddling_target.card_data.name + "\"&lv_form=" + sprintf("%d", meddling_target.card_data.lv) + "&pre_detail_open=on"
 = paginate(@meddling_targets)
