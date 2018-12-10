@@ -1,4 +1,4 @@
-- @page_title = "最前線好戦度とBUGの模擬戦勝数一覧"
+- @page_title = "最前線における好戦度と主導BUGの模擬戦勝数一覧"
 %h1= @page_title
 
 .card.desc
@@ -19,7 +19,7 @@
         - act_desc(false)
     #example.closed
       = render "layouts/input_desc"
-= search_form_for @search do |f|
+= search_form_for @search, url: bug_effect_pre_path do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
@@ -35,52 +35,22 @@
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
       %tr
         %td.indent
-        %td= f.label :bug_e_no_form, 'BUGEno'
-        %td.formNum= text_field_tag :bug_e_no_form, @bug_e_no_form
-        %td= f.label :p_name_form, 'BUGキャラクター名'
-        %td.formText= text_field_tag :bug_name_form, @bug_name_form
-      %tr
-        %td.indent
-        %td= f.label :lv_form, 'BugLv'
-        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
-      %tr.sep
-        %td.indent
-        %td= f.label :e_no_form, '開拓Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-        %td= f.label :p_name_form, '開拓キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td= f.label :bellicose_form, '好戦度'
+        %td.formNum{colspan: "3"}= text_field_tag :bellicose_form, @bellicose_form
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
-          = hidden_field_tag :show_detail_development, @show_detail_development
+          = hidden_field_tag :show_detail_party_num, @show_detail_party_num
           - act_icon(false)
-          = label_tag :show_detail_development, '　開拓キャラクターの開拓設定を表示する', class: "act_desc"
-          = label_tag :show_detail_development, '　開拓キャラクターの開拓設定は表示しない', class: "act_desc closed"
-          %div.act_desc 　開拓好戦度、PT人数
+          = label_tag :show_detail_party_num, '　パーティ人数を表示する', class: "act_desc"
+          = label_tag :show_detail_party_num, '　パーティ人数は表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :bellicose_form, '好戦度'
-        %td.formNum= text_field_tag :bellicose_form, @bellicose_form
         %td= f.label :party_num_form, 'パーティ人数'
-        %td.formNum= text_field_tag :party_num_form, @party_num_form
+        %td.formNum{colspan: "3"}= text_field_tag :party_num_form, @party_num_form
     %tbody
-      %tr
-      %tr.sep
-        %td.indent
-        %td.indent
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :only_bug_reader, @only_bug_reader, @only_bug_reader
-            = label_tag :only_bug_reader, '主導BUG（一番上に表示されるBUG）のみ表示する'
-      %tr
-        %td.indent
-        %td.indent
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :show_unknown, @show_unknown, @show_unknown
-            = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
       %tr
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -88,7 +58,6 @@
           - search_submit_button
 
 
-= paginate(@bugs)
 %br
 ヒット数：#{ @count }件
 %br
@@ -98,34 +67,25 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th.sep= sort_link(@search, :bug_e_no, 'BUG (Eno)', default_order: :desc)
       %th= sort_link(@search, :lv, 'BUGLv', default_order: :desc)
-      - if @show_detail_development == "1" || @only_bug_reader == "on"
-        %th= sort_link(@search, :order, '主導BUG', default_order: :desc)
-      %th{colspan: "2"} BUG元結果リンク
-      %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      - if @show_detail_development == "1"
-        %th= sort_link(@search, :development_result_bellicose,'好戦度', default_order: :desc)
+      %th= sort_link(@search, :development_result_bellicose,'好戦度', default_order: :desc)
+      - if @show_detail_party_num == "1"
         %th= sort_link(@search, :development_result_party_num,'PT人数', default_order: :desc)
-      %th{colspan: "2"} 結果リンク
+      %th 0勝
+      %th 1勝
+      %th 2勝
+      %th 3勝
+      %th 合計
   %tbody
     - @bugs.each do |bug|
       %tr
         %td= bug.result_no
-        %td.sep
-          - if bug.bug_e_no > 0
-            = p_name_text(bug.bug_e_no, bug.bug_name)
-          - else
-            = "BUG元照合失敗"
         %td= bug.lv
-        - if @show_detail_development == "1" || @only_bug_reader == "on"
-          %td.td-sign= "○" if bug.order == 0
-        %td= character_link(bug.bug_e_no)
-        %td= character_old_link(@last_result, bug.bug_e_no, bug.result_no)
-        %td.sep= p_name_text(bug.e_no, bug.p_name)
-        - if @show_detail_development == "1"
-          %td= bug.development_result.bellicose if bug.development_result
+        %td= bug.development_result.bellicose if bug.development_result
+        - if @show_detail_party_num == "1"
           %td= bug.development_result.party_num if bug.development_result
-        %td= character_link(bug.e_no)
-        %td= character_old_link(@last_result, bug.e_no, bug.result_no)
-= paginate(@bugs)
+        %td= bug.win_0 if bug.respond_to?(:win_0)
+        %td= bug.win_1 if bug.respond_to?(:win_1)
+        %td= bug.win_2 if bug.respond_to?(:win_2)
+        %td= bug.win_3 if bug.respond_to?(:win_3)
+        %td= bug.count if bug.respond_to?(:count)
