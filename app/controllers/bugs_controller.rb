@@ -5,8 +5,8 @@ class BugsController < ApplicationController
   # GET /bugs
   def index
     param_set
-    @count	= Bug.notnil().includes(:p_name, :bug_name).search(params[:q]).result.count()
-    @search	= Bug.notnil().includes(:p_name, :bug_name).page(params[:page]).search(params[:q])
+    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result).search(params[:q]).result.count()
+    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result).page(params[:page]).search(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
@@ -26,7 +26,16 @@ class BugsController < ApplicationController
     reference_number_assign(params, "e_no", "e_no_form")
     reference_number_assign(params, "bug_e_no", "bug_e_no_form")
     reference_number_assign(params, "lv", "lv_form")
+
+    reference_number_assign(params, "development_result_bellicose", "bellicose_form")
+    reference_number_assign(params, "development_result_party_num", "party_num_form")
  
+    if params["only_bug_reader"] then
+        params[:q]["order_eq"] = 0
+    else
+        params[:q]["order_eq"] = ""
+    end
+
     if params["show_unknown"] then
         params[:q]["bug_e_no_not_eq"] = ""
     else
@@ -40,7 +49,12 @@ class BugsController < ApplicationController
     @e_no_form = params["e_no_form"]
     @bug_e_no_form = params["bug_e_no_form"]
     @lv_form = params["lv_form"]
+
+    @bellicose_form = params["bellicose_form"]
+    @party_num_form = params["party_num_form"]
+
     @show_unknown = params["show_unknown"]
+    @show_detail_development = params["show_detail_development"]
   end
   # GET /bugs/1
   #def show
