@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_014815) do
+ActiveRecord::Schema.define(version: 2018_12_10_032547) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -613,6 +613,23 @@ ActiveRecord::Schema.define(version: 2018_12_10_014815) do
     t.index ["invation_lv"], name: "index_places_on_invation_lv"
     t.index ["return_col"], name: "index_places_on_return_col"
     t.index ["return_lv"], name: "index_places_on_return_lv"
+  end
+
+  create_table "pre_wins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "win"
+    t.integer "draw"
+    t.integer "lose"
+    t.integer "all"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["all"], name: "index_pre_wins_on_all"
+    t.index ["draw"], name: "index_pre_wins_on_draw"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["lose"], name: "index_pre_wins_on_lose"
+    t.index ["win"], name: "index_pre_wins_on_win"
   end
 
   create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
