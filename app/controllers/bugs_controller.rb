@@ -11,6 +11,15 @@ class BugsController < ApplicationController
     @bugs	= @search.result.per(50)
   end
 
+  # GET /effect_pre
+  def effect_pre
+    param_set
+    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result).search(params[:q]).result.count()
+    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result).page(params[:page]).search(params[:q])
+    @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
+    @bugs	= @search.result.per(50)
+  end
+
   def param_set
     @last_result = Name.maximum('result_no')
     
