@@ -97,6 +97,13 @@
         %td.indent
         %td{colspan: "3"}
           %span.input
+            = check_box_tag :only_front, @only_front, @only_front
+            = label_tag :only_front, '侵攻Lvが更新回と同じ（各更新回の最も奥地で出現した）BUGのみ表示する'
+      %tr
+        %td.indent
+        %td.indent
+        %td{colspan: "3"}
+          %span.input
             = check_box_tag :show_unknown, @show_unknown, @show_unknown
             = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
       %tr

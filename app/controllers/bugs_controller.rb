@@ -5,8 +5,8 @@ class BugsController < ApplicationController
   # GET /bugs
   def index
     param_set
-    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
-    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
+    @count	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
+    @search	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
@@ -87,6 +87,7 @@ class BugsController < ApplicationController
     @bug_all_form = params["bug_all_form"]
 
     @only_bug_reader = params["only_bug_reader"]
+    @only_front = params["only_front"]
     @show_unknown = params["show_unknown"]
     @show_detail_development = params["show_detail_development"]
     @show_detail_pre = params["show_detail_pre"]
