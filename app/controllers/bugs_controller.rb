@@ -5,8 +5,8 @@ class BugsController < ApplicationController
   # GET /bugs
   def index
     param_set
-    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result).search(params[:q]).result.count()
-    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result).page(params[:page]).search(params[:q])
+    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
+    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
@@ -14,8 +14,8 @@ class BugsController < ApplicationController
   # GET /effect_pre
   def effect_pre
     param_set
-    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result).search(params[:q]).result.count()
-    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result).page(params[:page]).search(params[:q])
+    @count	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
+    @search	= Bug.notnil().includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
@@ -38,6 +38,10 @@ class BugsController < ApplicationController
 
     reference_number_assign(params, "development_result_bellicose", "bellicose_form")
     reference_number_assign(params, "development_result_party_num", "party_num_form")
+    reference_number_assign(params, "bug_pre_win_win", "bug_win_form")
+    reference_number_assign(params, "bug_pre_win_draw", "bug_draw_form")
+    reference_number_assign(params, "bug_pre_win_lose", "bug_lose_form")
+    reference_number_assign(params, "bug_pre_win_all", "bug_all_form")
  
     if params["only_bug_reader"] then
         params[:q]["order_eq"] = 0
@@ -61,9 +65,15 @@ class BugsController < ApplicationController
 
     @bellicose_form = params["bellicose_form"]
     @party_num_form = params["party_num_form"]
+    @bug_win_form = params["bug_win_form"]
+    @bug_draw_form = params["bug_draw_form"]
+    @bug_lose_form = params["bug_lose_form"]
+    @bug_all_form = params["bug_all_form"]
 
+    @only_bug_reader = params["only_bug_reader"]
     @show_unknown = params["show_unknown"]
     @show_detail_development = params["show_detail_development"]
+    @show_detail_pre = params["show_detail_pre"]
   end
   # GET /bugs/1
   #def show

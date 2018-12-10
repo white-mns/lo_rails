@@ -1,4 +1,4 @@
-- @page_title = "最前線好戦度とBUGの模擬戦勝数一覧"
+- @page_title = "BUG一覧"
 %h1= @page_title
 
 .card.desc
@@ -43,6 +43,24 @@
         %td.indent
         %td= f.label :lv_form, 'BugLv'
         %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_pre, @show_detail_pre
+          - act_icon(false)
+          = label_tag :show_detail_pre, '　BUGの模擬戦結果を表示する', class: "act_desc"
+          = label_tag :show_detail_pre, '　BUGの模擬戦結果は表示しない', class: "act_desc closed"
+          %div.act_desc 　勝数、引分数
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :bug_win_form, '勝数'
+        %td.formNum= text_field_tag :bug_win_form, @bug_win_form
+        %td= f.label :bug_draw_form, '引分数'
+        %td.formNum= text_field_tag :bug_draw_form, @bug_draw_form
+    %tbody
+      %tr
       %tr.sep
         %td.indent
         %td= f.label :e_no_form, '開拓Eno'
@@ -100,8 +118,11 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th.sep= sort_link(@search, :bug_e_no, 'BUG (Eno)', default_order: :desc)
       %th= sort_link(@search, :lv, 'BUGLv', default_order: :desc)
-      - if @show_detail_development == "1" || @only_bug_reader == "on"
+      - if @show_detail_development == "1" || @show_detail_pre == "1" || @only_bug_reader == "on"
         %th= sort_link(@search, :order, '主導BUG', default_order: :desc)
+      - if @show_detail_pre == "1"
+        %th= sort_link(@search, :bug_pre_win_win, '勝', default_order: :desc)
+        %th= sort_link(@search, :bug_pre_win_draw, '引', default_order: :desc)
       %th{colspan: "2"} BUG元結果リンク
       %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       - if @show_detail_development == "1"
@@ -117,9 +138,12 @@
             = p_name_text(bug.bug_e_no, bug.bug_name)
           - else
             = "BUG元照合失敗"
-        %td= bug.lv
-        - if @show_detail_development == "1" || @only_bug_reader == "on"
+        %td{style: "#{ bug_lv_border(bug) }" }= bug.lv
+        - if @show_detail_development == "1" || @show_detail_pre == "1" || @only_bug_reader == "on"
           %td.td-sign= "○" if bug.order == 0
+        - if @show_detail_pre == "1"
+          %td= bug.bug_pre_win.win  if bug.bug_pre_win
+          %td= bug.bug_pre_win.draw if bug.bug_pre_win
         %td= character_link(bug.bug_e_no)
         %td= character_old_link(@last_result, bug.bug_e_no, bug.result_no)
         %td.sep= p_name_text(bug.e_no, bug.p_name)
