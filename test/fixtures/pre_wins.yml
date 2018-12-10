@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  win: 1
+  draw: 1
+  lose: 1
+  all: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  win: 1
+  draw: 1
+  lose: 1
+  all: 1

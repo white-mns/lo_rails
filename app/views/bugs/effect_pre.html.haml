@@ -1,0 +1,91 @@
+- @page_title = "最前線における好戦度と主導BUGの模擬戦勝数一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      主導BUG：BUGの並び順で一番上のキャラクターを指します。つまりPTを編成したキャラクターです。
+      %br
+      BUGの模擬戦勝数は最新結果のものを表示しています。最前線以外の侵攻Lvで出てくるBUGには過去の状態を模倣したものが含まれるため、侵攻Lvが低いBUGに対しては参考にならないと思われます。
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: bug_effect_pre_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :bellicose_form, '好戦度'
+        %td.formNum{colspan: "3"}= text_field_tag :bellicose_form, @bellicose_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_party_num, @show_detail_party_num
+          - act_icon(false)
+          = label_tag :show_detail_party_num, '　パーティ人数を表示する', class: "act_desc"
+          = label_tag :show_detail_party_num, '　パーティ人数は表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :party_num_form, 'パーティ人数'
+        %td.formNum{colspan: "3"}= text_field_tag :party_num_form, @party_num_form
+    %tbody
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :lv, 'BUGLv', default_order: :desc)
+      %th= sort_link(@search, :development_result_bellicose,'好戦度', default_order: :desc)
+      - if @show_detail_party_num == "1"
+        %th= sort_link(@search, :development_result_party_num,'PT人数', default_order: :desc)
+      %th 0勝
+      %th 1勝
+      %th 2勝
+      %th 3勝
+      %th 合計
+  %tbody
+    - @bugs.each do |bug|
+      %tr
+        %td= bug.result_no
+        %td= bug.lv
+        %td= bug.development_result.bellicose if bug.development_result
+        - if @show_detail_party_num == "1"
+          %td= bug.development_result.party_num if bug.development_result
+        %td= bug.win_0 if bug.respond_to?(:win_0)
+        %td= bug.win_1 if bug.respond_to?(:win_1)
+        %td= bug.win_2 if bug.respond_to?(:win_2)
+        %td= bug.win_3 if bug.respond_to?(:win_3)
+        %td= bug.count if bug.respond_to?(:count)

@@ -9,6 +9,10 @@
   .card-body
     = render "layouts/base_desc"
     %p
+      主導BUG：BUGの並び順で一番上のキャラクターを指します。つまりPTを編成したキャラクターです。
+      %br
+      BUGの模擬戦勝数は最新結果のものを表示しています。最前線以外の侵攻Lvで出てくるBUGには過去の状態を模倣したものが含まれるため、侵攻Lvが低いBUGに対しては参考にならないと思われます。
+    %p
       %span.example_select.example_toggle.pointer
         - help_icon
         入力例
@@ -37,14 +41,64 @@
         %td.formText= text_field_tag :bug_name_form, @bug_name_form
       %tr
         %td.indent
+        %td= f.label :lv_form, 'BugLv'
+        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_pre, @show_detail_pre
+          - act_icon(false)
+          = label_tag :show_detail_pre, '　BUGの模擬戦結果を表示する', class: "act_desc"
+          = label_tag :show_detail_pre, '　BUGの模擬戦結果は表示しない', class: "act_desc closed"
+          %div.act_desc 　勝数、引分数
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :bug_win_form, '勝数'
+        %td.formNum= text_field_tag :bug_win_form, @bug_win_form
+        %td= f.label :bug_draw_form, '引分数'
+        %td.formNum= text_field_tag :bug_draw_form, @bug_draw_form
+    %tbody
+      %tr
+      %tr.sep
+        %td.indent
         %td= f.label :e_no_form, '開拓Eno'
         %td.formNum= text_field_tag :e_no_form, @e_no_form
         %td= f.label :p_name_form, '開拓キャラクター名'
         %td.formText= text_field_tag :p_name_form, @p_name_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_development, @show_detail_development
+          - act_icon(false)
+          = label_tag :show_detail_development, '　開拓キャラクターの開拓設定を表示する', class: "act_desc"
+          = label_tag :show_detail_development, '　開拓キャラクターの開拓設定は表示しない', class: "act_desc closed"
+          %div.act_desc 　開拓好戦度、PT人数
+    %tbody.closed
+      %tr
       %tr
         %td.indent
-        %td= f.label :lv_form, 'BugLv'
-        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
+        %td= f.label :bellicose_form, '好戦度'
+        %td.formNum= text_field_tag :bellicose_form, @bellicose_form
+        %td= f.label :party_num_form, 'パーティ人数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form
+    %tbody
+      %tr
+      %tr.sep
+        %td.indent
+        %td.indent
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :only_bug_reader, @only_bug_reader, @only_bug_reader
+            = label_tag :only_bug_reader, '主導BUG（一番上に表示されるBUG）のみ表示する'
+      %tr
+        %td.indent
+        %td.indent
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :only_front, @only_front, @only_front
+            = label_tag :only_front, '侵攻Lvが更新回と同じ（各更新回の最も奥地で出現した）BUGのみ表示する'
       %tr
         %td.indent
         %td.indent
@@ -69,24 +123,40 @@
   %thead
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :bug_e_no, 'BUG (Eno)', default_order: :desc)
+      %th.sep= sort_link(@search, :bug_e_no, 'BUG (Eno)', default_order: :desc)
       %th= sort_link(@search, :lv, 'BUGLv', default_order: :desc)
+      - if @show_detail_development == "1" || @show_detail_pre == "1" || @only_bug_reader == "on"
+        %th= sort_link(@search, :order, '主導BUG', default_order: :desc)
+      - if @show_detail_pre == "1"
+        %th= sort_link(@search, :bug_pre_win_win, '勝', default_order: :desc)
+        %th= sort_link(@search, :bug_pre_win_draw, '引', default_order: :desc)
       %th{colspan: "2"} BUG元結果リンク
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      - if @show_detail_development == "1"
+        %th= sort_link(@search, :development_result_bellicose,'好戦度', default_order: :desc)
+        %th= sort_link(@search, :development_result_party_num,'PT人数', default_order: :desc)
       %th{colspan: "2"} 結果リンク
   %tbody
     - @bugs.each do |bug|
       %tr
         %td= bug.result_no
-        %td
+        %td.sep
           - if bug.bug_e_no > 0
             = p_name_text(bug.bug_e_no, bug.bug_name)
           - else
             = "BUG元照合失敗"
-        %td= bug.lv
+        %td{style: "#{ bug_lv_border(bug) }" }= bug.lv
+        - if @show_detail_development == "1" || @show_detail_pre == "1" || @only_bug_reader == "on"
+          %td.td-sign= "○" if bug.order == 0
+        - if @show_detail_pre == "1"
+          %td= bug.bug_pre_win.win  if bug.bug_pre_win
+          %td= bug.bug_pre_win.draw if bug.bug_pre_win
         %td= character_link(bug.bug_e_no)
         %td= character_old_link(@last_result, bug.bug_e_no, bug.result_no)
-        %td= p_name_text(bug.e_no, bug.p_name)
+        %td.sep= p_name_text(bug.e_no, bug.p_name)
+        - if @show_detail_development == "1"
+          %td= bug.development_result.bellicose if bug.development_result
+          %td= bug.development_result.party_num if bug.development_result
         %td= character_link(bug.e_no)
         %td= character_old_link(@last_result, bug.e_no, bug.result_no)
 = paginate(@bugs)

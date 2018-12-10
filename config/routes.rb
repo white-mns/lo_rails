@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  resources :pre_wins
   resources :damages
+  #get "bug/effect_pre",   :to => "bugs#effect_pre",   :as => 'bug_effect_pre' 
   resources :bugs
   resources :command_action_rankings
   resources :command_actions
