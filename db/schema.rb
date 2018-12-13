@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_032547) do
+ActiveRecord::Schema.define(version: 2018_12_13_151201) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -542,6 +542,25 @@ ActiveRecord::Schema.define(version: 2018_12_10_032547) do
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["mod"], name: "index_parameter_controls_on_mod"
     t.index ["pvp"], name: "index_parameter_controls_on_pvp"
+  end
+
+  create_table "parameter_developments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "lv"
+    t.integer "rank"
+    t.integer "mlp"
+    t.integer "mfp"
+    t.integer "cond"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cond"], name: "index_parameter_developments_on_cond"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["lv"], name: "index_parameter_developments_on_lv"
+    t.index ["mfp"], name: "index_parameter_developments_on_mfp"
+    t.index ["mlp"], name: "index_parameter_developments_on_mlp"
+    t.index ["rank"], name: "index_parameter_developments_on_rank"
   end
 
   create_table "parameter_fights", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
