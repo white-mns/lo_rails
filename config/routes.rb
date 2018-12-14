@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :dices
   resources :parameter_developments
   resources :pre_wins
   resources :damages

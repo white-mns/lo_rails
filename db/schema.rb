@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_13_151201) do
+ActiveRecord::Schema.define(version: 2018_12_14_005910) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -197,6 +197,21 @@ ActiveRecord::Schema.define(version: 2018_12_13_151201) do
     t.index ["development_result"], name: "index_development_results_on_development_result"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["party_num"], name: "index_development_results_on_party_num"
+  end
+
+  create_table "dices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "number"
+    t.integer "dice"
+    t.integer "use_item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dice"], name: "index_dices_on_dice"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["number"], name: "index_dices_on_number"
+    t.index ["use_item"], name: "index_dices_on_use_item"
   end
 
   create_table "drop_min_subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
