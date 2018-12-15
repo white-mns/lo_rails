@@ -82,5 +82,5 @@
           = "学科" if training.training_type == 1
         %td= training.training_name.name if training.training_name
         %td= character_link(training.e_no)
-        %td= character_old_link(@last_result, training.e_no, training.result_no)
+        %td= character_old_link(@latest_result, training.e_no, training.result_no)
 = paginate(@trainings)

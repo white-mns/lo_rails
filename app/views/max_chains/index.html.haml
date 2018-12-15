@@ -67,6 +67,6 @@
         %td= max_chain.battle_page
         %td= max_chain.party
         %td= max_chain.max_chain
-        %td= battle_link(@last_result, max_chain.battle_page, max_chain.result_no)
-        %td= battle_old_link(@last_result, max_chain.battle_page, max_chain.result_no)
+        %td= battle_link(@latest_result, max_chain.battle_page, max_chain.result_no)
+        %td= battle_old_link(@latest_result, max_chain.battle_page, max_chain.result_no)
 = paginate(@max_chains)

@@ -34,16 +34,16 @@ class TrainingsController < ApplicationController
 
 
   def param_set
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
     
     params_clean(params)
 
     if !params["is_form"] && action_name == "history" then
-        params["result_no_form"] ||= "~" + sprintf('%d',@last_result)
+        params["result_no_form"] ||= "~" + sprintf('%d',@latest_result)
     end
 
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
     reference_text_assign(params, "p_name_name", "p_name_form")

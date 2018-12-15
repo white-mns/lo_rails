@@ -5,18 +5,18 @@ class DamagesController < ApplicationController
   # GET /damages
   def index
     param_set
-    @count	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_fight, :target_parameter_fight).search(params[:q]).result.count()
-    @search	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_fight, :target_parameter_fight).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
+    @search	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
   end
 
   def param_set
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
     
     params_clean(params)
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
     reference_text_assign(params, "p_name_name", "p_name_form")
@@ -39,7 +39,7 @@ class DamagesController < ApplicationController
     reference_number_assign(params, "card_data_fp", "fp_form")
     reference_number_assign(params, "card_data_lpfp", "lp_fp_form")
     
-    reference_number_assign(params, "parameter_fight_rank", "rank_form")
+    reference_number_assign(params, "parameter_development_rank", "rank_form")
 
     reference_number_assign(params, "characteristic_str", "str_form")
     reference_number_assign(params, "characteristic_vit", "vit_form")
@@ -48,7 +48,7 @@ class DamagesController < ApplicationController
     reference_number_assign(params, "characteristic_tec", "tec_form")
     reference_number_assign(params, "characteristic_eva", "eva_form")
     
-    reference_number_assign(params, "target_parameter_fight_rank", "target_rank_form")
+    reference_number_assign(params, "target_parameter_development_rank", "target_rank_form")
 
     reference_number_assign(params, "target_characteristic_str", "target_str_form")
     reference_number_assign(params, "target_characteristic_vit", "target_vit_form")
@@ -143,11 +143,11 @@ class DamagesController < ApplicationController
     @target_party_num_form = params["target_party_num_form"]
 
     @show_detail_battle_page = params["show_detail_battle_page"]
-    @show_detail_parameter_fight = params["show_detail_parameter_fight"]
+    @show_detail_parameter_development = params["show_detail_parameter_development"]
     @show_detail_characteristic = params["show_detail_characteristic"]
     @show_detail_party = params["show_detail_party"]
     @show_detail_target = params["show_detail_target"]
-    @show_detail_target_parameter_fight = params["show_detail_target_parameter_fight"]
+    @show_detail_target_parameter_development = params["show_detail_target_parameter_development"]
     @show_detail_target_characteristic = params["show_detail_target_characteristic"]
     @show_detail_damage_option = params["show_detail_damage_option"]
     @base_first    = (!params["is_form"]) ? "1" : "0"

@@ -40,7 +40,7 @@
       %tr
         %td.indent
         %td= f.label :cond_form, 'Cond'
-        %td.formNum= text_field_tag :cond_form, @cond_form
+        %td.formText= text_field_tag :cond_form, @cond_form
       %tr
         %td.indent
         %td= f.label :day_form, 'Day'
@@ -95,5 +95,5 @@
         %td
           = character_link(parameter_control.e_no)
         %td
-          = character_old_link(@last_result, parameter_control.e_no, parameter_control.result_no)
+          = character_old_link(@latest_result, parameter_control.e_no, parameter_control.result_no)
 = paginate(@parameter_controls)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_032547) do
+ActiveRecord::Schema.define(version: 2018_12_15_033713) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -199,6 +199,21 @@ ActiveRecord::Schema.define(version: 2018_12_10_032547) do
     t.index ["party_num"], name: "index_development_results_on_party_num"
   end
 
+  create_table "dices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "number"
+    t.integer "dice"
+    t.integer "use_item"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dice"], name: "index_dices_on_dice"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["number"], name: "index_dices_on_number"
+    t.index ["use_item"], name: "index_dices_on_use_item"
+  end
+
   create_table "drop_min_subjects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
@@ -306,12 +321,16 @@ ActiveRecord::Schema.define(version: 2018_12_10_032547) do
     t.integer "success"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recovery_lv"
+    t.integer "number"
     t.index ["cost"], name: "index_facility_uses_on_cost"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
     t.index ["facility_e_no"], name: "index_facility_uses_on_facility_e_no"
     t.index ["facility_effect"], name: "index_facility_uses_on_facility_effect"
     t.index ["facility_lv"], name: "index_facility_uses_on_facility_lv"
     t.index ["facility_name"], name: "index_facility_uses_on_facility_name"
+    t.index ["number"], name: "index_facility_uses_on_number"
+    t.index ["recovery_lv"], name: "index_facility_uses_on_recovery_lv"
     t.index ["success"], name: "index_facility_uses_on_success"
     t.index ["usage"], name: "index_facility_uses_on_usage"
   end
@@ -339,9 +358,11 @@ ActiveRecord::Schema.define(version: 2018_12_10_032547) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recovery_lv"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["i_no"], name: "index_item_uses_on_i_no"
     t.index ["name"], name: "index_item_uses_on_name"
+    t.index ["recovery_lv"], name: "index_item_uses_on_recovery_lv"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -542,6 +563,29 @@ ActiveRecord::Schema.define(version: 2018_12_10_032547) do
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["mod"], name: "index_parameter_controls_on_mod"
     t.index ["pvp"], name: "index_parameter_controls_on_pvp"
+  end
+
+  create_table "parameter_developments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "lv"
+    t.integer "rank"
+    t.integer "mlp"
+    t.integer "mfp"
+    t.integer "cond"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "last_result_no"
+    t.integer "last_generate_no"
+    t.index ["cond"], name: "index_parameter_developments_on_cond"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["last_generate_no"], name: "index_parameter_developments_on_last_generate_no"
+    t.index ["last_result_no"], name: "index_parameter_developments_on_last_result_no"
+    t.index ["lv"], name: "index_parameter_developments_on_lv"
+    t.index ["mfp"], name: "index_parameter_developments_on_mfp"
+    t.index ["mlp"], name: "index_parameter_developments_on_mlp"
+    t.index ["rank"], name: "index_parameter_developments_on_rank"
   end
 
   create_table "parameter_fights", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

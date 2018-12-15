@@ -175,5 +175,5 @@
 
         - if @show_detail_link == "1"
           %td= character_link(meddling_success_rate.e_no)
-          %td= character_old_link(@last_result, meddling_success_rate.e_no, meddling_success_rate.result_no)
+          %td= character_old_link(@latest_result, meddling_success_rate.e_no, meddling_success_rate.result_no)
 = paginate(@meddling_success_rates)

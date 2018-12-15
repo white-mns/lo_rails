@@ -113,11 +113,11 @@
         %td= card_user.control if card_user.control > 0
         %td= character_command_link(card_user.e_no)
         %td= character_link(card_user.e_no)
-        %td= character_old_link(@last_result, card_user.e_no, card_user.result_no)
+        %td= character_old_link(@latest_result, card_user.e_no, card_user.result_no)
         %td
           - if @pre_detail_open == "on"
-            = battle_link(@last_result, card_user.battle_page, card_user.result_no)
+            = battle_link(@latest_result, card_user.battle_page, card_user.result_no)
         %td
           - if @pre_detail_open == "on"
-            = battle_old_link(@last_result, card_user.battle_page, card_user.result_no)
+            = battle_old_link(@latest_result, card_user.battle_page, card_user.result_no)
 = paginate(@card_users)

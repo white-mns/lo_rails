@@ -60,10 +60,10 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
-          = hidden_field_tag :show_detail_parameter_fight, @show_detail_parameter_fight
+          = hidden_field_tag :show_detail_parameter_development, @show_detail_parameter_development
           - act_icon(false)
-          = label_tag :show_detail_card, '　使用者のRankを表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　使用者のRankを表示しない', class: "act_desc closed"
+          = label_tag :show_detail_parameter_development, '　使用者のRankを表示する', class: "act_desc"
+          = label_tag :show_detail_parameter_development, '　使用者のRankを表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -141,10 +141,10 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target_parameter_fight, @show_detail_target_parameter_fight
+          = hidden_field_tag :show_detail_target_parameter_development, @show_detail_target_parameter_development
           - act_icon(false)
-          = label_tag :show_detail_card, '　対象のRankを表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　対象のRankを表示しない', class: "act_desc closed"
+          = label_tag :show_detail_target_parameter_development, '　対象のRankを表示する', class: "act_desc"
+          = label_tag :show_detail_target_parameter_development, '　対象のRankを表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -244,7 +244,7 @@
             = label_tag :no_clean, '× Clean Hit'
           %br
           %span.input
-            = check_box_tag :no_vannoh, @no_vannoh, @no_vannoh
+            = check_box_tag :no_vanish, @no_vanish, @no_vanish
             = label_tag :no_vanish, '× Vanish(耐○○の効果) '
           %span.input
             = check_box_tag :no_absorb, @no_absorb, @no_absorb
@@ -269,8 +269,8 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
-      - if @show_detail_parameter_fight == "1"
-        %th.sep= sort_link(@search, :parameter_fight_rank, 'Rank', default_order: :desc)
+      - if @show_detail_parameter_development == "1"
+        %th.sep= sort_link(@search, :parameter_development_rank, 'Rank', default_order: :desc)
       - if @show_detail_characteristic == "1"
         %th.sep= sort_link(@search, :characteristic_str, '腕力', default_order: :desc)
         %th= sort_link(@search, :characteristic_vit, '体力', default_order: :desc)
@@ -286,8 +286,8 @@
       %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
       - if @show_detail_target == "1"
         %th.sep= sort_link(@search, :target_e_no, '対象キャラクター(Eno)', default_order: :desc)
-      - if @show_detail_target_parameter_fight == "1"
-        %th.sep= sort_link(@search, :target_parameter_fight_rank, '対象Rank', default_order: :desc)
+      - if @show_detail_target_parameter_development == "1"
+        %th.sep= sort_link(@search, :target_parameter_development_rank, '対象Rank', default_order: :desc)
       - if @show_detail_target_characteristic == "1"
         %th.sep= sort_link(@search, :target_characteristic_str, '対象腕力', default_order: :desc)
         %th= sort_link(@search, :target_characteristic_vit, '対象体力', default_order: :desc)
@@ -311,8 +311,8 @@
         %td= damage.result_no
         %td.sep= p_name_text(damage.e_no, damage.p_name)
         %td.sep= damage.battle_page
-        - if @show_detail_parameter_fight == "1"
-          %td.sep= damage.parameter_fight.rank if damage.parameter_fight
+        - if @show_detail_parameter_development == "1"
+          %td.sep= damage.parameter_development.rank if damage.parameter_development
         - if @show_detail_characteristic == "1"
           %td.sep= damage.characteristic.str if damage.characteristic
           %td= damage.characteristic.vit if damage.characteristic
@@ -328,8 +328,8 @@
         %td= damage.chain
         - if @show_detail_target == "1"
           %td.sep= p_name_text(damage.target_e_no, damage.target_p_name)
-        - if @show_detail_target_parameter_fight == "1"
-          %td.sep= damage.target_parameter_fight.rank if damage.target_parameter_fight
+        - if @show_detail_target_parameter_development == "1"
+          %td.sep= damage.target_parameter_development.rank if damage.target_parameter_development
         - if @show_detail_target_characteristic == "1"
           %td.sep= damage.target_characteristic.str if damage.target_characteristic
           %td= damage.target_characteristic.vit if damage.target_characteristic
@@ -346,7 +346,7 @@
           %td.td-sign= "○" if damage.is_vanish   == 1
           %td.td-sign= "○" if damage.is_absorb   == 1
         %td.sep= character_link(damage.e_no)
-        %td= character_old_link(@last_result, damage.e_no, damage.result_no)
-        %td= battle_link(@last_result, damage.battle_page, damage.result_no)
-        %td= battle_old_link(@last_result, damage.battle_page, damage.result_no)
+        %td= character_old_link(@latest_result, damage.e_no, damage.result_no)
+        %td= battle_link(@latest_result, damage.battle_page, damage.result_no)
+        %td= battle_old_link(@latest_result, damage.battle_page, damage.result_no)
 = paginate(@damages)

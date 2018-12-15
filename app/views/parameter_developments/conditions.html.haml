@@ -1,0 +1,233 @@
+- @page_title = "体調変化一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        入力例
+        %span.act_desc（クリックで開きます）
+        %span.act_desc.closed（クリックで閉じます）
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search, url: conditions_path do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          絞り込み検索
+          %span.act_desc (クリックで閉じます)
+          %span.act_desc.closed (クリックで開きます)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form
+      %tr
+        %td.indent
+        %td= f.label :rank_form, '開拓前Rank'
+        %td.formNum{colspan: "3"}= text_field_tag :rank_form, @rank_form
+      %tr
+        %td.indent
+          %td= f.label :last_parameter_cond_form, '前回Cond'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :last_parameter_cond_over, @last_parameter_cond_over, @last_parameter_cond_over
+            = label_tag :last_parameter_cond_over, 'OVER'
+            　
+            = check_box_tag :last_parameter_cond_good, @last_parameter_cond_good, @last_parameter_cond_good
+            = label_tag :last_parameter_cond_good, 'GOOD'
+          %span.input
+            = check_box_tag :last_parameter_cond_not_good, @last_parameter_cond_not_good, @last_parameter_cond_not_good
+            = label_tag :last_parameter_cond_not_good, 'NOT GOOD'
+            　
+            = check_box_tag :last_parameter_cond_bad, @last_parameter_cond_bad, @last_parameter_cond_bad
+            = label_tag :last_parameter_cond_bad, 'BAD'
+            　
+            = check_box_tag :last_parameter_cond_worst, @last_parameter_cond_worst, @last_parameter_cond_worst
+            = label_tag :last_parameter_cond_worst, 'WORST'
+      %tr
+        %td.indent
+        %td= f.label :cond_form, '開拓直前Cond'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :cond_over, @cond_over, @cond_over
+            = label_tag :cond_over, 'OVER'
+            　
+            = check_box_tag :cond_good, @cond_good, @cond_good
+            = label_tag :cond_good, 'GOOD'
+          %span.input
+            = check_box_tag :cond_not_good, @cond_not_good, @cond_not_good
+            = label_tag :cond_not_good, 'NOT GOOD'
+            　
+            = check_box_tag :cond_bad, @cond_bad, @cond_bad
+            = label_tag :cond_bad, 'BAD'
+            　
+            = check_box_tag :cond_worst, @cond_worst, @cond_worst
+            = label_tag :cond_worst, 'WORST'
+      %tr
+        %td.indent
+        %td= f.label :parameter_control_cond_form, '開拓戦後Cond'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :parameter_control_cond_over, @parameter_control_cond_over, @parameter_control_cond_over
+            = label_tag :parameter_control_cond_over, 'OVER'
+            　
+            = check_box_tag :parameter_control_cond_good, @parameter_control_cond_good, @parameter_control_cond_good
+            = label_tag :parameter_control_cond_good, 'GOOD'
+          %span.input
+            = check_box_tag :parameter_control_cond_not_good, @parameter_control_cond_not_good, @parameter_control_cond_not_good
+            = label_tag :parameter_control_cond_not_good, 'NOT GOOD'
+            　
+            = check_box_tag :parameter_control_cond_bad, @parameter_control_cond_bad, @parameter_control_cond_bad
+            = label_tag :parameter_control_cond_bad, 'BAD'
+            　
+            = check_box_tag :parameter_control_cond_worst, @parameter_control_cond_worst, @parameter_control_cond_worst
+            = label_tag :parameter_control_cond_worst, 'WORST'
+      %tr
+        %td.indent
+        %td= f.label :facility_recovery_form, '施設利用1回目'
+        %td.formNum
+          = text_field_tag :facility_use_1_recovery_lv_form, @facility_use_1_recovery_lv_form
+          　
+          = check_box_tag :facility_1_no_recovery, @facility_1_no_recovery, @facility_1_no_recovery
+          = label_tag :facility_1_no_recovery, '回復なし'
+        %td= f.label :facility_recovery_form, '施設利用2回目'
+        %td.formNum
+          = text_field_tag :facility_use_2_recovery_lv_form, @facility_use_2_recovery_lv_form
+          　
+          = check_box_tag :facility_2_no_recovery, @facility_2_no_recovery, @facility_2_no_recovery
+          = label_tag :facility_2_no_recovery, '回復なし'
+      %tr
+        %td.indent
+        %td= f.label :item_recovery_form, 'アイテム使用'
+        %td.formNum{colspan: "3"}
+          = text_field_tag :item_use_recovery_lv_form, @item_use_recovery_lv_form
+          　
+          = check_box_tag :item_no_recovery, @item_no_recovery, @item_no_recovery
+          = label_tag :item_no_recovery, '回復なし'
+      %tr
+        %td.indent
+        %td= f.label :dice_recovery_1_form, 'ダイス1回目'
+        %td
+          %span.input
+            = check_box_tag :dice_recovery_1, @dice_recovery_1, @dice_recovery_1
+            = label_tag :dice_recovery_1, '休憩(体調回復)'
+            　
+            = check_box_tag :dice_no_recovery_1, @dice_no_recovery_1, @dice_no_recovery_1
+            = label_tag :dice_no_recovery_1, '移動'
+        %td= f.label :dice_recovery_2_form, 'ダイス2回目'
+        %td
+          %span.input
+            = check_box_tag :dice_recovery_2, @dice_recovery_2, @dice_recovery_2
+            = label_tag :dice_recovery_2, '休憩(体調回復)'
+            　
+            = check_box_tag :dice_no_recovery_2, @dice_no_recovery_2, @dice_no_recovery_2
+            = label_tag :dice_no_recovery_2, '移動'
+      %tr
+        %td.indent
+        %td= f.label :development_result_form, '勝敗'
+        %td{colspan: "3"}
+          = check_box_tag :result_win, @result_win, @result_win
+          = label_tag :result_win, '勝利'
+          　　
+          = check_box_tag :result_draw, @result_draw, @result_draw
+          = label_tag :result_draw, '引分'
+          　　
+          = check_box_tag :result_lose, @result_lose, @result_lose
+          = label_tag :result_lose, '敗北'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_invation_lv, @show_detail_invation_lv
+          - act_icon(false)
+          = label_tag :show_detail_invation_lv, '　開拓条件を表示する', class: "act_desc"
+          = label_tag :show_detail_invation_lv, '　開拓条件を表示しない', class: "act_desc closed"
+          %div.act_desc 　好戦度、パーティ人数、侵攻Lv
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :invation_lv_form, '侵攻Lv'
+        %td.formNum{colspan: "3"}= text_field_tag :invation_lv_form, @invation_lv_form
+      %tr
+        %td.indent
+        %td= f.label :bellicose_form, '好戦度'
+        %td.formNum= text_field_tag :bellicose_form, @bellicose_form
+        %td= f.label :party_num_form, 'パーティ人数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form
+    %tbody
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@conditions)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th.sep= sort_link(@search, :rank, 'Rank', default_order: :desc)
+      %th= sort_link(@search, :last_parameter_cond, '前回Cond', default_order: :desc)
+      %th.sep= sort_link(@search, :facility_use_1_recovery_lv, '施設1休憩', default_order: :desc)
+      %th= sort_link(@search, :facility_use_2_recovery_lv, '施設2休憩', default_order: :desc)
+      %th= sort_link(@search, :item_use_recovery_lv, 'アイテム回復', default_order: :desc)
+      %th= sort_link(@search, :dice_1_dice, '1回目休憩', default_order: :asc)
+      %th= sort_link(@search, :dice_2_dice, '2回目休憩', default_order: :asc)
+      %th.sep= sort_link(@search, :cond, '開拓前Cond', default_order: :desc)
+      %th= sort_link(@search, :development_result_development_result, '勝敗', default_order: :desc)
+      %th= sort_link(@search, :parameter_control_cond, '開拓後Cond', default_order: :desc)
+      - if @show_detail_invation_lv == "1"
+        %th.sep= sort_link(@search, :place_invation_lv, '侵攻Lv', default_order: :desc)
+        %th= sort_link(@search, :development_result_bellicose, '好戦度', default_order: :desc)
+        %th= sort_link(@search, :development_result_party_num, 'PT人数', default_order: :desc)
+      %th.sep{colspan:"2"}
+        結果リンク
+  %tbody
+    - @conditions.each do |condition|
+      %tr
+        %td= condition.result_no
+        %td= p_name_text(condition.e_no, condition.p_name)
+        %td.sep= condition.rank
+        %td= condition.last_parameter.cond_name.name if condition.last_parameter && condition.last_parameter.cond_name
+        %td.sep= condition.facility_use_1.recovery_lv if condition.facility_use_1
+        %td= condition.facility_use_2.recovery_lv if condition.facility_use_2
+        %td= condition.item_use.recovery_lv if condition.item_use
+        %td.td-sign= "○" if condition.dice_1 && condition.dice_1.dice == 0
+        %td.td-sign= "○" if condition.dice_2 && condition.dice_2.dice == 0
+        %td.sep= condition.cond_name.name if condition.cond_name
+        %td
+          = "勝利" if condition.development_result && condition.development_result.development_result == 1
+          = "引分" if condition.development_result && condition.development_result.development_result == 0
+          = "敗北" if condition.development_result && condition.development_result.development_result == -1
+          = "？"   if condition.development_result && condition.development_result.development_result == -2
+        %td= condition.parameter_control.cond_name.name if condition.parameter_control
+        - if @show_detail_invation_lv == "1"
+          %td.sep= condition.place.invation_lv if condition.place && condition.place.invation_lv > 0
+          %td= condition.development_result.bellicose if condition.development_result
+          %td= condition.development_result.party_num if condition.development_result
+        %td.sep
+          = character_link(condition.e_no)
+        %td
+          = character_old_link(@latest_result, condition.e_no, condition.result_no)
+= paginate(@conditions)
