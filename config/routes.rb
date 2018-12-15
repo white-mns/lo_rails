@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  get "conditions",   :to => "parameter_developments#conditions",   :as => 'conditions' 
   resources :dices
   resources :parameter_developments
   resources :pre_wins
   resources :damages
-  #get "bug/effect_pre",   :to => "bugs#effect_pre",   :as => 'bug_effect_pre' 
   resources :bugs
   resources :command_action_rankings
   resources :command_actions

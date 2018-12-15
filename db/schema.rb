@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_14_005910) do
+ActiveRecord::Schema.define(version: 2018_12_15_033713) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -321,12 +321,16 @@ ActiveRecord::Schema.define(version: 2018_12_14_005910) do
     t.integer "success"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recovery_lv"
+    t.integer "number"
     t.index ["cost"], name: "index_facility_uses_on_cost"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_eno"
     t.index ["facility_e_no"], name: "index_facility_uses_on_facility_e_no"
     t.index ["facility_effect"], name: "index_facility_uses_on_facility_effect"
     t.index ["facility_lv"], name: "index_facility_uses_on_facility_lv"
     t.index ["facility_name"], name: "index_facility_uses_on_facility_name"
+    t.index ["number"], name: "index_facility_uses_on_number"
+    t.index ["recovery_lv"], name: "index_facility_uses_on_recovery_lv"
     t.index ["success"], name: "index_facility_uses_on_success"
     t.index ["usage"], name: "index_facility_uses_on_usage"
   end
@@ -354,9 +358,11 @@ ActiveRecord::Schema.define(version: 2018_12_14_005910) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "recovery_lv"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["i_no"], name: "index_item_uses_on_i_no"
     t.index ["name"], name: "index_item_uses_on_name"
+    t.index ["recovery_lv"], name: "index_item_uses_on_recovery_lv"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -570,8 +576,12 @@ ActiveRecord::Schema.define(version: 2018_12_14_005910) do
     t.integer "cond"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "last_result_no"
+    t.integer "last_generate_no"
     t.index ["cond"], name: "index_parameter_developments_on_cond"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["last_generate_no"], name: "index_parameter_developments_on_last_generate_no"
+    t.index ["last_result_no"], name: "index_parameter_developments_on_last_result_no"
     t.index ["lv"], name: "index_parameter_developments_on_lv"
     t.index ["mfp"], name: "index_parameter_developments_on_mfp"
     t.index ["mlp"], name: "index_parameter_developments_on_mlp"

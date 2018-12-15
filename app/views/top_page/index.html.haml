@@ -38,6 +38,7 @@
             %li= link_to "施設利用一覧", facility_uses_path
             %li= link_to "作製結果一覧", manufactures_path
             %li= link_to "BUG一覧", bugs_path
+            %li= link_to "体調変化一覧", conditions_path
             %br
             %li= link_to "カード対戦設定一覧", command_actions_path
             %li= link_to "カード設定枚数ランキング", command_action_rankings_path
@@ -75,24 +76,27 @@
   .card-body
     %h2 更新履歴
     %ul
-      %li 2018/12/--
+      %li 2018/12/15
       %ul
         %li
+          = link_to "体調変化一覧", conditions_path
+          を公開。
+        %li
           = link_to "ダメージ・回復一覧", damages_path
-          に表示するRankを開拓戦後のものから開拓戦直前（＝前回）のものに修正
+          に表示するRankを開拓戦後のものから開拓戦直前（＝前回）のものに修正。
       %li 2018/12/10
       %ul
         %li
           = link_to "BUG一覧", bugs_path
-          で開拓者の好戦度、PT人数、また、主導BUG、主導BUGの模擬戦勝数を表示できるように
+          で開拓者の好戦度、PT人数、また、主導BUG、主導BUGの模擬戦勝数を表示できるように。
       %li 2018/12/6
       %ul
         %li
           = link_to "ダメージ・回復一覧", damages_path
-          で使用者・対象のRankを表示・検索できるように
+          で使用者・対象のRankを表示・検索できるように。
         %li
           = link_to "干渉効果対象一覧", meddling_targets_path
-          にカード発動者一覧へのリンクを追加
+          にカード発動者一覧へのリンクを追加。
       %li 2018/12/4
       %ul
         %li
@@ -101,7 +105,7 @@
           = link_to "獲得カード＋学科一覧", drop_subjects_path
           、
           = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、カードの種類（発動タイミング）、LP、FPを表示できるように変更
+          において、カードの種類（発動タイミング）、LP、FPを表示できるように変更。
         %li
           = link_to "所持カード一覧", cards_path
           の検索フォームにおいて所有、種類（発動タイミング）の絞り込みをテキスト入力からチェックボックスに変更。
