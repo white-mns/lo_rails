@@ -152,11 +152,11 @@
           %td= bug.bug_pre_win.win  if bug.bug_pre_win
           %td= bug.bug_pre_win.draw if bug.bug_pre_win
         %td= character_link(bug.bug_e_no)
-        %td= character_old_link(@last_result, bug.bug_e_no, bug.result_no)
+        %td= character_old_link(@latest_result, bug.bug_e_no, bug.result_no)
         %td.sep= p_name_text(bug.e_no, bug.p_name)
         - if @show_detail_development == "1"
           %td= bug.development_result.bellicose if bug.development_result
           %td= bug.development_result.party_num if bug.development_result
         %td= character_link(bug.e_no)
-        %td= character_old_link(@last_result, bug.e_no, bug.result_no)
+        %td= character_old_link(@latest_result, bug.e_no, bug.result_no)
 = paginate(@bugs)

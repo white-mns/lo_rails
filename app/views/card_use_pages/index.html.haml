@@ -77,6 +77,6 @@
         %td= card_use_page.battle_page
         %td= card_use_page.party > 0 ? card_use_page.party : "全体"
         %td= card_use_page.use_cards
-        %td= battle_link(@last_result, card_use_page.battle_page, card_use_page.result_no)
-        %td= battle_old_link(@last_result, card_use_page.battle_page, card_use_page.result_no)
+        %td= battle_link(@latest_result, card_use_page.battle_page, card_use_page.result_no)
+        %td= battle_old_link(@latest_result, card_use_page.battle_page, card_use_page.result_no)
 = paginate(@card_use_pages)

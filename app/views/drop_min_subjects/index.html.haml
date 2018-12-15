@@ -221,7 +221,7 @@
         %td
           - gray_text = @min_0_gray ? "&min_0_gray=" + @min_0_gray : ""
           - hidden_text = @min_0_hidden ? "&min_0_hidden=" + @min_0_hidden : ""
-          = link_to drop_min_subject.card_data.name, drop_subjects_path + "?result_no_form=1~" + sprintf("%d",@last_result) + "&effect_form=\"" + drop_min_subject.card_data.name + "\"&lv_form=" + sprintf("%d", drop_min_subject.card_data.lv) + gray_text + hidden_text
+          = link_to drop_min_subject.card_data.name, drop_subjects_path + "?result_no_form=1~" + sprintf("%d",@latest_result) + "&effect_form=\"" + drop_min_subject.card_data.name + "\"&lv_form=" + sprintf("%d", drop_min_subject.card_data.lv) + gray_text + hidden_text
         %td= drop_min_subject.card_data.lv   if drop_min_subject.card_data
         - if @show_detail_card == "1"
           %td= drop_min_subject.card_data.lp if drop_min_subject.card_data

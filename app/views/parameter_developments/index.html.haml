@@ -92,5 +92,5 @@
         %td= parameter_development.mfp
         %td= parameter_development.cond_name.name if parameter_development.cond_name
         %td= character_link(parameter_development.e_no)
-        %td= character_old_link(@last_result, parameter_development.e_no, parameter_development.result_no)
+        %td= character_old_link(@latest_result, parameter_development.e_no, parameter_development.result_no)
 = paginate(@parameter_developments)

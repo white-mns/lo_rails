@@ -97,5 +97,5 @@
           = "○" if facility_use.success == 1
           = "×" if facility_use.success == -1
         %td= character_link(facility_use.e_no)
-        %td= character_old_link(@last_result, facility_use.e_no, facility_use.result_no)
+        %td= character_old_link(@latest_result, facility_use.e_no, facility_use.result_no)
 = paginate(@facility_uses)

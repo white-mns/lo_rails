@@ -17,11 +17,11 @@ class PgwsController < ApplicationController
   end
 
   def param_set
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
     
     params_clean(params)
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
     @pgws_types = ["", "潜在1", "潜在2", "Good1", "Good2", "Weak1", "weak2", "専門1", "専門2"]

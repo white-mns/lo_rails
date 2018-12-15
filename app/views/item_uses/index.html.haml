@@ -68,5 +68,5 @@
         %td= p_name_text(item_use.e_no, item_use.p_name)
         %td= item_use.name
         %td= character_link(item_use.e_no)
-        %td= character_old_link(@last_result, item_use.e_no, item_use.result_no)
+        %td= character_old_link(@latest_result, item_use.e_no, item_use.result_no)
 = paginate(@item_uses)

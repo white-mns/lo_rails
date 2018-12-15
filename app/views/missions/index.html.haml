@@ -106,5 +106,5 @@
         %td
           = mission.col + " - " + sprintf("%d", mission.lv) if mission.col.present? || mission.lv > 0
         %td= character_link(mission.e_no)
-        %td= character_old_link(@last_result, mission.e_no, mission.result_no)
+        %td= character_old_link(@latest_result, mission.e_no, mission.result_no)
 = paginate(@missions)

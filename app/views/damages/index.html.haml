@@ -346,7 +346,7 @@
           %td.td-sign= "○" if damage.is_vanish   == 1
           %td.td-sign= "○" if damage.is_absorb   == 1
         %td.sep= character_link(damage.e_no)
-        %td= character_old_link(@last_result, damage.e_no, damage.result_no)
-        %td= battle_link(@last_result, damage.battle_page, damage.result_no)
-        %td= battle_old_link(@last_result, damage.battle_page, damage.result_no)
+        %td= character_old_link(@latest_result, damage.e_no, damage.result_no)
+        %td= battle_link(@latest_result, damage.battle_page, damage.result_no)
+        %td= battle_old_link(@latest_result, damage.battle_page, damage.result_no)
 = paginate(@damages)

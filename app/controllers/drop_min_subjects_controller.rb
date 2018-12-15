@@ -30,11 +30,11 @@ class DropMinSubjectsController < ApplicationController
   def param_set
     @subjects = [["slash","斬術"], ["thrust","突術"], ["stroke","打術"], ["shot","射撃"], ["guard","護衛"], ["dance","舞踊"], ["theft","盗術"], ["cooking","料理"], ["technology","工芸"], ["movement","機動"], ["chemistry","化学"], ["arithmetic","算術"],
 		 ["fire","火術"], ["theology","神術"], ["life","命術"], ["demonology","冥術"], ["geography","地学"], ["astronomy","天文"], ["fengshui","風水"], ["psychology","心理"], ["music","音楽"], ["curse","呪術"], ["illusion","幻術"], ["trick","奇術"]]
-    @last_result = Name.maximum('result_no')
+    @latest_result = Name.maximum('result_no')
     
     params_clean(params)
     if !params["is_form"] then
-        params["result_no_form"] ||= sprintf('%d',@last_result)
+        params["result_no_form"] ||= sprintf('%d',@latest_result)
         params["min_0_gray"] = "on"
     end
     
@@ -42,7 +42,7 @@ class DropMinSubjectsController < ApplicationController
     set_marked
     
     if params["show_detail_result_no"] != "1" then
-        params["result_no_form"] = sprintf('%d',@last_result)
+        params["result_no_form"] = sprintf('%d',@latest_result)
     end
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")

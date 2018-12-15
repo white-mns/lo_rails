@@ -87,5 +87,5 @@
           = "休"      if dice.dice == 0
         %td.td-sign= "○" if dice.use_item > 0
         %td= character_link(dice.e_no)
-        %td= character_old_link(@last_result, dice.e_no, dice.result_no)
+        %td= character_old_link(@latest_result, dice.e_no, dice.result_no)
 = paginate(@dices)

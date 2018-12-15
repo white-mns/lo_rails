@@ -21,9 +21,9 @@ module ApplicationHelper
         link_to " 結果", "http://ykamiya.ciao.jp/result/result_chara/result_Eno"+file_name+".html", :target => "_blank"
     end
     
-    def character_old_link(last_result_no, e_no, result_no)
+    def character_old_link(latest_result_no, e_no, result_no)
         if e_no <= 0 then return end
-        if result_no == last_result_no then return end
+        if result_no == latest_result_no then return end
 
         file_name = sprintf("%d",e_no)
         result_no_text = sprintf("%d",result_no)
@@ -36,15 +36,15 @@ module ApplicationHelper
         link_to " 最新設定", "http://ykamiya.ciao.jp/cgi-bin/command.cgi?En_input="+file_name, :target => "_blank"
     end
     
-    def battle_link(last_result_no, battle_page, result_no)
-        if result_no != last_result_no then return end
+    def battle_link(latest_result_no, battle_page, result_no)
+        if result_no != latest_result_no then return end
 
         file_name = battle_page.gsub(/ VS /, "-")
         link_to " 結果", "http://ykamiya.ciao.jp/result/result_pre/result_Pno"+file_name+".html", :target => "_blank"
     end
     
-    def battle_old_link(last_result_no, battle_page, result_no)
-        if result_no == last_result_no then return end
+    def battle_old_link(latest_result_no, battle_page, result_no)
+        if result_no == latest_result_no then return end
 
         file_name = battle_page.gsub(/ VS /, "-")
         result_no_text = sprintf("%d",result_no)

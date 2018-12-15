@@ -106,5 +106,5 @@
         %td= manufacture.precision
         %td= manufacture.total
         %td= character_link(manufacture.e_no)
-        %td= character_old_link(@last_result, manufacture.e_no, manufacture.result_no)
+        %td= character_old_link(@latest_result, manufacture.e_no, manufacture.result_no)
 = paginate(@manufactures)
