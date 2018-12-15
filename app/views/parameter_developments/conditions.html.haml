@@ -55,7 +55,7 @@
             　
             = check_box_tag :last_parameter_cond_bad, @last_parameter_cond_bad, @last_parameter_cond_bad
             = label_tag :last_parameter_cond_bad, 'BAD'
-            　
+          %span.input
             = check_box_tag :last_parameter_cond_worst, @last_parameter_cond_worst, @last_parameter_cond_worst
             = label_tag :last_parameter_cond_worst, 'WORST'
       %tr
@@ -74,7 +74,7 @@
             　
             = check_box_tag :cond_bad, @cond_bad, @cond_bad
             = label_tag :cond_bad, 'BAD'
-            　
+          %span.input
             = check_box_tag :cond_worst, @cond_worst, @cond_worst
             = label_tag :cond_worst, 'WORST'
       %tr
@@ -93,31 +93,37 @@
             　
             = check_box_tag :parameter_control_cond_bad, @parameter_control_cond_bad, @parameter_control_cond_bad
             = label_tag :parameter_control_cond_bad, 'BAD'
-            　
+          %span.input
             = check_box_tag :parameter_control_cond_worst, @parameter_control_cond_worst, @parameter_control_cond_worst
             = label_tag :parameter_control_cond_worst, 'WORST'
       %tr
         %td.indent
         %td= f.label :facility_recovery_form, '施設利用1回目'
         %td.formNum
-          = text_field_tag :facility_use_1_recovery_lv_form, @facility_use_1_recovery_lv_form
-          　
-          = check_box_tag :facility_1_no_recovery, @facility_1_no_recovery, @facility_1_no_recovery
-          = label_tag :facility_1_no_recovery, '回復なし'
+          %span.input
+            = text_field_tag :facility_use_1_recovery_lv_form, @facility_use_1_recovery_lv_form
+          %span.input
+          %span.input
+            = check_box_tag :facility_1_no_recovery, @facility_1_no_recovery, @facility_1_no_recovery
+            = label_tag :facility_1_no_recovery, '回復なし'
         %td= f.label :facility_recovery_form, '施設利用2回目'
         %td.formNum
-          = text_field_tag :facility_use_2_recovery_lv_form, @facility_use_2_recovery_lv_form
-          　
-          = check_box_tag :facility_2_no_recovery, @facility_2_no_recovery, @facility_2_no_recovery
-          = label_tag :facility_2_no_recovery, '回復なし'
+          %span.input
+            = text_field_tag :facility_use_2_recovery_lv_form, @facility_use_2_recovery_lv_form
+          %span.input
+          %span.input
+            = check_box_tag :facility_2_no_recovery, @facility_2_no_recovery, @facility_2_no_recovery
+            = label_tag :facility_2_no_recovery, '回復なし'
       %tr
         %td.indent
         %td= f.label :item_recovery_form, 'アイテム使用'
         %td.formNum{colspan: "3"}
-          = text_field_tag :item_use_recovery_lv_form, @item_use_recovery_lv_form
-          　
-          = check_box_tag :item_no_recovery, @item_no_recovery, @item_no_recovery
-          = label_tag :item_no_recovery, '回復なし'
+          %span.input
+            = text_field_tag :item_use_recovery_lv_form, @item_use_recovery_lv_form
+          %span.input
+          %span.input
+            = check_box_tag :item_no_recovery, @item_no_recovery, @item_no_recovery
+            = label_tag :item_no_recovery, '回復なし'
       %tr
         %td.indent
         %td= f.label :dice_recovery_1_form, 'ダイス1回目'
