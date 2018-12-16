@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_15_033713) do
+ActiveRecord::Schema.define(version: 2018_12_16_011515) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -167,6 +167,9 @@ ActiveRecord::Schema.define(version: 2018_12_15_033713) do
     t.integer "is_absorb"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "turn"
+    t.integer "line"
+    t.integer "target_line"
     t.index ["act_id"], name: "index_damages_on_act_id"
     t.index ["act_type"], name: "index_damages_on_act_type"
     t.index ["battle_page", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
@@ -179,9 +182,12 @@ ActiveRecord::Schema.define(version: 2018_12_15_033713) do
     t.index ["is_critical"], name: "index_damages_on_is_critical"
     t.index ["is_vanish"], name: "index_damages_on_is_vanish"
     t.index ["is_weak"], name: "index_damages_on_is_weak"
+    t.index ["line"], name: "index_damages_on_line"
     t.index ["party"], name: "index_damages_on_party"
     t.index ["target_e_no"], name: "index_damages_on_target_e_no"
+    t.index ["target_line"], name: "index_damages_on_target_line"
     t.index ["target_party"], name: "index_damages_on_target_party"
+    t.index ["turn"], name: "index_damages_on_turn"
   end
 
   create_table "development_results", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
