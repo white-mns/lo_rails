@@ -262,6 +262,37 @@
 ヒット数：#{ @count }件
 %br
 %br
+%p
+  %span.example_select.example_toggle.pointer
+    = fa_icon "calculator"
+    最大、平均、命中率など
+    - act_desc(false)
+#test.closed
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %th 行動
+      %th 回数
+      %th 合計
+      %th 最大
+      %th 最低
+      %th 平均
+      %th 命中
+      %th 被回避
+      %th 命中率
+      %th 回避率
+    %tbody
+      - @statistics.each do |statistic|
+        %tr
+          %td= statistic.act_type_name.name if statistic.act_type_name
+          %td= statistic.count
+          %td= statistic.sum
+          %td= statistic.max
+          %td= statistic.min
+          %td= statistic.avg.floor(1)
+          %td= statistic.hit
+          %td= statistic.dodge
+          %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
+          %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
 
 %table.table.table-striped.table-bordered.table-hover
   %thead

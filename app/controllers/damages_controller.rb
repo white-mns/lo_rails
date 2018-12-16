@@ -9,6 +9,18 @@ class DamagesController < ApplicationController
     @search	= Damage.notnil().where_dodge().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
+    @statistics = Damage.notnil().includes(:act_type_name)
+        .group(:act_type)
+        .select("damages.act_type,
+                count(*) AS count,
+                SUM(CASE WHEN damage >= 0 THEN damage ELSE 0 END) AS sum,
+                MAX(CASE WHEN damage >= 0 THEN damage ELSE 0 END) AS max,
+                MIN(CASE WHEN damage >= 0 THEN damage ELSE 0 END) AS min,
+                SUM(CASE WHEN damage >= 0 THEN damage ELSE 0 END) / COUNT(damage >= 0 or null) AS avg,
+                COUNT(damage >= 0 or null) AS hit,
+                COUNT(damage = -1 or null) AS dodge
+                ")
+        .search(params[:q]).result
   end
 
   def param_set
