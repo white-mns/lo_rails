@@ -338,7 +338,9 @@
           %td= damage.target_characteristic.tec if damage.target_characteristic
           %td= damage.target_characteristic.eva if damage.target_characteristic
         %td.sep= damage.act_type_name.name if damage.act_type_name
-        %td= damage.damage
+        %td
+          = damage.damage if damage.damage >= 0
+          = "回避" if damage.damage < 0
         - if @show_detail_damage_option == "1"
           %td.td-sign.sep= "○" if damage.is_weak     == 1 
           %td.td-sign= "○" if damage.is_critical == 1
