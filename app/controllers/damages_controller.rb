@@ -5,8 +5,8 @@ class DamagesController < ApplicationController
   # GET /damages
   def index
     param_set
-    @count	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
-    @search	= Damage.notnil().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
   end
