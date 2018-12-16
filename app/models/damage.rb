@@ -10,9 +10,13 @@ class Damage < ApplicationRecord
 	belongs_to :card_data,      :foreign_key => :card_id,  :primary_key => :card_id,   :class_name => 'CardDatum'
 	belongs_to :act_type_name,  :foreign_key => :act_type, :primary_key => :proper_id, :class_name => 'ProperName'
 
-    scope :where_dodge, ->()   {
-        if @show_detail_dodge then
-            return nil
+    scope :where_dodge, ->(show_detail_dodge, only_dodge)   {
+        if show_detail_dodge then
+            if only_dodge then
+                where(damage: -1)
+            else
+                return nil
+            end
         else
             where(damage: 0..Float::INFINITY)
         end

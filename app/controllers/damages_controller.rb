@@ -5,8 +5,8 @@ class DamagesController < ApplicationController
   # GET /damages
   def index
     param_set
-    @count	= Damage.notnil().where_dodge().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
-    @search	= Damage.notnil().where_dodge().includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
     @statistics = Damage.notnil().includes(:act_type_name)
@@ -133,6 +133,8 @@ class DamagesController < ApplicationController
     @no_vanish = params["no_vanish"]
     @no_absorb = params["no_absorb"]
     
+    @only_dodge = params["only_dodge"]
+    
     @rank_form = params["rank_form"]
 
     @str_form = params["str_form"]
@@ -162,6 +164,7 @@ class DamagesController < ApplicationController
     @show_detail_target_parameter_development = params["show_detail_target_parameter_development"]
     @show_detail_target_characteristic = params["show_detail_target_characteristic"]
     @show_detail_damage_option = params["show_detail_damage_option"]
+    @show_detail_dodge = params["show_detail_dodge"]
     @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /damages/1

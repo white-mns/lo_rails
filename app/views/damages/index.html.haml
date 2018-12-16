@@ -249,6 +249,22 @@
           %span.input
             = check_box_tag :no_absorb, @no_absorb, @no_absorb
             = label_tag :no_absorb, '× Absorb(吸○○の効果)'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_dodge, @show_detail_dodge
+          - act_icon(false)
+          = label_tag :show_detail_dodge, '　回避された攻撃を表示する', class: "act_desc"
+          = label_tag :show_detail_dodge, '　回避された攻撃を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :only_dodge, @only_dodge, @only_dodge
+            = label_tag :only_dodge, '回避のみ表示'
     %tbody
       %tr
       %tr
@@ -265,7 +281,7 @@
 %p
   %span.example_select.example_toggle.pointer
     = fa_icon "calculator"
-    最大、平均、命中率など
+    　最大、平均、命中率など
     - act_desc(false)
 #test.closed
   %table.table.table-striped.table-bordered.table-hover
