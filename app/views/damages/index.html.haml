@@ -342,11 +342,11 @@
           = damage.damage if damage.damage >= 0
           = "回避" if damage.damage < 0
         - if @show_detail_damage_option == "1"
-          %td.td-sign.sep= "○" if damage.is_weak     == 1 
-          %td.td-sign= "○" if damage.is_critical == 1
-          %td.td-sign= "○" if damage.is_clean    == 1
-          %td.td-sign= "○" if damage.is_vanish   == 1
-          %td.td-sign= "○" if damage.is_absorb   == 1
+          %td.sep= showPreDamage(damage.is_weak)
+          %td= showPreDamage(damage.is_critical)
+          %td= showPreDamage(damage.is_clean)
+          %td= showPreDamage(damage.is_vanish)
+          %td= showPreDamage(damage.is_absorb)
         %td.sep= character_link(damage.e_no)
         %td= character_old_link(@latest_result, damage.e_no, damage.result_no)
         %td= battle_link(@latest_result, damage.battle_page, damage.result_no)
