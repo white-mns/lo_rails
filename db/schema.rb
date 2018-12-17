@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_16_011515) do
+ActiveRecord::Schema.define(version: 2018_12_17_055555) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -144,6 +144,23 @@ ActiveRecord::Schema.define(version: 2018_12_16_011515) do
     t.index ["gowait"], name: "index_command_actions_on_gowait"
     t.index ["s_no"], name: "index_command_actions_on_s_no"
     t.index ["timing"], name: "index_command_actions_on_timing"
+  end
+
+  create_table "damage_buffers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.string "battle_page"
+    t.integer "act_id"
+    t.integer "e_no"
+    t.integer "buffer_id"
+    t.integer "lv"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["battle_page", "act_id", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page_and_act_id"
+    t.index ["buffer_id"], name: "index_damage_buffers_on_buffer_id"
+    t.index ["lv"], name: "index_damage_buffers_on_lv"
+    t.index ["value"], name: "index_damage_buffers_on_value"
   end
 
   create_table "damages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

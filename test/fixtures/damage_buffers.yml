@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  battle_page: 1
+  act_id: 1
+  e_no: 1
+  buffer_id: 1
+  lv: 1
+  value: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  battle_page: 1
+  act_id: 1
+  e_no: 1
+  buffer_id: 1
+  lv: 1
+  value: 1
