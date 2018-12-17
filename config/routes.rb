@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :damage_buffers
   get "conditions",   :to => "parameter_developments#conditions",   :as => 'conditions' 
   resources :dices
   resources :parameter_developments
