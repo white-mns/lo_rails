@@ -29,6 +29,65 @@
         %td.indent.indent
         %td= f.label :result_no_form, '更新回'
         %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+    %tbody
+      %tr.sep
+        %td.indent
+        %td= f.label :effect_form, 'カード効果'
+        %td.formText= text_field_tag :effect_form, @effect_form
+        %td= f.label :lv_form, 'Lv'
+        %td.formNum= text_field_tag :lv_form, @lv_form
+      %tr
+        %td.indent
+        %td= f.label :chain_form, 'Chain'
+        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+    %tbody
+      %tr.sep
+        %td.indent
+        %td= f.label :act_type_form, '行動種別'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
+            = label_tag :act_type_damage, 'ダメージ'
+          %span.input
+            = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
+            = label_tag :act_type_fp_damage, 'FPダメージ'
+          %br
+          %span.input
+            = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
+            = label_tag :act_type_lp_heal, 'LP回復'
+          %span.input
+            = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
+            = label_tag :act_type_fp_heal, 'FP回復'
+      %tr
+        %td.indent
+        %td= f.label :damage_form, '効果量'
+        %td.formNum{colspan: "3"}= text_field_tag :damage_form, @damage_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_element, @show_detail_element
+          - act_icon(false)
+          = label_tag :show_detail_element, '　攻撃属性を表示する', class: "act_desc"
+          = label_tag :show_detail_element, '　攻撃属性を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :element_form, '属性'
+        %td.formText{colspan: "3"}= text_field_tag :element_form, @element_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_battle_page, @show_detail_battle_page
+          - act_icon(false)
+          = label_tag :show_detail_card, '　模擬戦名で絞り込む', class: "act_desc"
+          = label_tag :show_detail_card, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+        %td.formText{colspan: "3"}= text_field_tag :battle_page_form, @battle_page_form
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -47,29 +106,18 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
-          = hidden_field_tag :show_detail_battle_page, @show_detail_battle_page
+          = hidden_field_tag :show_detail_target, @show_detail_target
           - act_icon(false)
-          = label_tag :show_detail_card, '　模擬戦名で絞り込む', class: "act_desc"
-          = label_tag :show_detail_card, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
+          = label_tag :show_detail_card, '　対象キャラクターを表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　対象キャラクターを表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
-        %td.formText{colspan: "3"}= text_field_tag :battle_page_form, @battle_page_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_parameter_development, @show_detail_parameter_development
-          - act_icon(false)
-          = label_tag :show_detail_parameter_development, '　使用者のRankを表示する', class: "act_desc"
-          = label_tag :show_detail_parameter_development, '　使用者のRankを表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td.indent
-        %td= f.label :rank_form, 'Rank'
-        %td.formNum{colspan: "3"}= text_field_tag :rank_form, @rank_form
+        %td= f.label :target_e_no_form, '対象Eno'
+        %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
+        %td= f.label :p_name_form, '対象キャラクター名'
+        %td.formText= text_field_tag :target_p_name_form, @target_p_name_form
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -100,60 +148,6 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
-          = hidden_field_tag :show_detail_party, @show_detail_party
-          - act_icon(false)
-          = label_tag :show_detail_card, '　戦闘開始時パーティ人数を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　戦闘開始時パーティ人数を表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td.indent
-        %td= f.label :party_num_form, '使用者パーティ人数'
-        %td.formNum= text_field_tag :party_num_form, @party_num_form
-        %td= f.label :party_num_form, '対象パーティ人数'
-        %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
-    %tbody
-      %tr.sep
-        %td.indent
-        %td= f.label :effect_form, 'カード効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
-        %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form
-      %tr
-        %td.indent
-        %td= f.label :chain_form, 'Chain'
-        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target, @show_detail_target
-          - act_icon(false)
-          = label_tag :show_detail_card, '　対象キャラクターを表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　対象キャラクターを表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td.indent
-        %td= f.label :target_e_no_form, '対象Eno'
-        %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
-        %td= f.label :p_name_form, '対象キャラクター名'
-        %td.formText= text_field_tag :target_p_name_form, @target_p_name_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target_parameter_development, @show_detail_target_parameter_development
-          - act_icon(false)
-          = label_tag :show_detail_target_parameter_development, '　対象のRankを表示する', class: "act_desc"
-          = label_tag :show_detail_target_parameter_development, '　対象のRankを表示しない', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td.indent
-        %td= f.label :target_rank_form, 'Rank'
-        %td.formNum{colspan: "3"}= text_field_tag :target_rank_form, @target_rank_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
           = hidden_field_tag :show_detail_target_characteristic, @show_detail_target_characteristic
           - act_icon(false)
           = label_tag :show_detail_card, '　対象の特性(腕力など)を表示する', class: "act_desc"
@@ -178,28 +172,67 @@
         %td.formNum= text_field_tag :target_tec_form, @target_tec_form
         %td= f.label :target_eva_form, '敏捷'
         %td.formNum= text_field_tag :target_eva_form, @target_eva_form
-    %tbody
-      %tr.sep
-        %td.indent
-        %td= f.label :act_type_form, '行動種別'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
-            = label_tag :act_type_damage, 'ダメージ'
-          %span.input
-            = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
-            = label_tag :act_type_fp_damage, 'FPダメージ'
-          %br
-          %span.input
-            = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
-            = label_tag :act_type_lp_heal, 'LP回復'
-          %span.input
-            = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
-            = label_tag :act_type_fp_heal, 'FP回復'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_parameter_development, @show_detail_parameter_development
+          - act_icon(false)
+          = label_tag :show_detail_parameter_development, '　発動者・対象のRankを表示する', class: "act_desc"
+          = label_tag :show_detail_parameter_development, '　Rankを表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
       %tr
         %td.indent
-        %td= f.label :damage_form, '効果量'
-        %td.formNum{colspan: "3"}= text_field_tag :damage_form, @damage_form
+        %td= f.label :rank_form, '発動者Rank'
+        %td.formNum= text_field_tag :rank_form, @rank_form
+        %td= f.label :target_rank_form, '対象Rank'
+        %td.formNum= text_field_tag :target_rank_form, @target_rank_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_party, @show_detail_party
+          - act_icon(false)
+          = label_tag :show_detail_card, '　発動時パーティ人数を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　発動時パーティ人数を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :party_num_form, '使用者パーティ人数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form
+        %td= f.label :party_num_form, '対象パーティ人数'
+        %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_line, @show_detail_line
+          - act_icon(false)
+          = label_tag :show_detail_line, '　発動者・対象の隊列を表示する', class: "act_desc"
+          = label_tag :show_detail_line, '　隊列を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :rank_form, '隊列'
+        %td
+          = check_box_tag :line_front, @line_front, @line_front
+          = label_tag :line_front, '前'
+          　
+          = check_box_tag :line_middle, @line_middle, @line_middle
+          = label_tag :line_middle, '中'
+          　
+          = check_box_tag :line_back, @line_back, @line_back
+          = label_tag :line_back, '後'
+        %td= f.label :target_rank_form, '対象隊列'
+        %td
+          = check_box_tag :target_line_front, @target_line_front, @target_line_front
+          = label_tag :target_line_front, '前'
+          　
+          = check_box_tag :target_line_middle, @target_line_middle, @target_line_middle
+          = label_tag :target_line_middle, '中'
+          　
+          = check_box_tag :target_line_back, @target_line_back, @target_line_back
+          = label_tag :target_line_back, '後'
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -315,9 +348,7 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
-      - if @show_detail_parameter_development == "1"
-        %th.sep= sort_link(@search, :parameter_development_rank, 'Rank', default_order: :desc)
+      %th.sep= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
       - if @show_detail_characteristic == "1"
         %th.sep= sort_link(@search, :characteristic_str, '腕力', default_order: :desc)
         %th= sort_link(@search, :characteristic_vit, '体力', default_order: :desc)
@@ -326,15 +357,21 @@
         %th= sort_link(@search, :characteristic_tec, '器用', default_order: :desc)
         %th= sort_link(@search, :characteristic_eva, '敏捷', default_order: :desc)
       - if @show_detail_party == "1"
-        %th.sep= sort_link(@search, :party_data_party_num, '使用者PT人数', default_order: :desc)
-        %th= sort_link(@search, :target_party_data_party_num, '対象PT人数', default_order: :desc)
+        %th.sep= sort_link(@search, :party_num, '使用者PT人数', default_order: :desc)
+        %th= sort_link(@search, :target_party_num, '対象PT人数', default_order: :desc)
+      - if @show_detail_line == "1"
+        %th.sep= sort_link(@search, :line, '隊列', default_order: :desc)
+        %th= sort_link(@search, :target_line, '対象隊列', default_order: :desc)
+      - if @show_detail_parameter_development == "1"
+        %th.sep= sort_link(@search, :parameter_development_rank, 'Rank', default_order: :desc)
+        %th.sep= sort_link(@search, :target_parameter_development_rank, '対象Rank', default_order: :desc)
       %th.sep= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
       %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
+      - if @show_detail_element == "1"
+        %th.sep= sort_link(@search, :element, '属性', default_order: :desc)
       - if @show_detail_target == "1"
         %th.sep= sort_link(@search, :target_e_no, '対象キャラクター(Eno)', default_order: :desc)
-      - if @show_detail_target_parameter_development == "1"
-        %th.sep= sort_link(@search, :target_parameter_development_rank, '対象Rank', default_order: :desc)
       - if @show_detail_target_characteristic == "1"
         %th.sep= sort_link(@search, :target_characteristic_str, '対象腕力', default_order: :desc)
         %th= sort_link(@search, :target_characteristic_vit, '対象体力', default_order: :desc)
@@ -358,8 +395,6 @@
         %td= damage.result_no
         %td.sep= p_name_text(damage.e_no, damage.p_name)
         %td.sep= damage.battle_page
-        - if @show_detail_parameter_development == "1"
-          %td.sep= damage.parameter_development.rank if damage.parameter_development
         - if @show_detail_characteristic == "1"
           %td.sep= damage.characteristic.str if damage.characteristic
           %td= damage.characteristic.vit if damage.characteristic
@@ -368,15 +403,21 @@
           %td= damage.characteristic.tec if damage.characteristic
           %td= damage.characteristic.eva if damage.characteristic
         - if @show_detail_party == "1"
-          %td.sep= damage.party_data.party_num if damage.party_data
-          %td= damage.target_party_data.party_num if damage.target_party_data
+          %td.sep= damage.party_num
+          %td= damage.target_party_num
+        - if @show_detail_line == "1"
+          %td.sep= showLine(damage.line)
+          %td= showLine(damage.target_line)
+        - if @show_detail_parameter_development == "1"
+          %td.sep= damage.parameter_development.rank if damage.parameter_development
+          %td.sep= damage.target_parameter_development.rank if damage.target_parameter_development
         %td.sep= damage.card_data.name if damage.card_data
         %td= damage.card_data.lv if damage.card_data
         %td= damage.chain
+        - if @show_detail_element == "1"
+          %td.sep= damage.element_name.name if damage.element_name
         - if @show_detail_target == "1"
           %td.sep= p_name_text(damage.target_e_no, damage.target_p_name)
-        - if @show_detail_target_parameter_development == "1"
-          %td.sep= damage.target_parameter_development.rank if damage.target_parameter_development
         - if @show_detail_target_characteristic == "1"
           %td.sep= damage.target_characteristic.str if damage.target_characteristic
           %td= damage.target_characteristic.vit if damage.target_characteristic

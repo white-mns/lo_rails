@@ -170,6 +170,8 @@ ActiveRecord::Schema.define(version: 2018_12_16_011515) do
     t.integer "turn"
     t.integer "line"
     t.integer "target_line"
+    t.integer "party_num"
+    t.integer "target_party_num"
     t.index ["act_id"], name: "index_damages_on_act_id"
     t.index ["act_type"], name: "index_damages_on_act_type"
     t.index ["battle_page", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
@@ -184,9 +186,11 @@ ActiveRecord::Schema.define(version: 2018_12_16_011515) do
     t.index ["is_weak"], name: "index_damages_on_is_weak"
     t.index ["line"], name: "index_damages_on_line"
     t.index ["party"], name: "index_damages_on_party"
+    t.index ["party_num"], name: "index_damages_on_party_num"
     t.index ["target_e_no"], name: "index_damages_on_target_e_no"
     t.index ["target_line"], name: "index_damages_on_target_line"
     t.index ["target_party"], name: "index_damages_on_target_party"
+    t.index ["target_party_num"], name: "index_damages_on_target_party_num"
     t.index ["turn"], name: "index_damages_on_turn"
   end
 

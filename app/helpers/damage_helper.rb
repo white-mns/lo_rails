@@ -14,4 +14,20 @@ module DamageHelper
 
         return nil
     end
+
+    def showLine(line)
+        if !line then 
+            return
+        end
+
+        if line == 0 then
+            return "前"
+        elsif line == 1 then
+            return "中"
+        elsif line == 2 then
+            return "後"
+        end
+
+        return nil
+    end
 end

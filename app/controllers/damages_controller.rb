@@ -5,8 +5,8 @@ class DamagesController < ApplicationController
   # GET /damages
   def index
     param_set
-    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
-    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :party_data, :target_party_data, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development).search(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
     @statistics = Damage.notnil().includes(:act_type_name)
@@ -41,8 +41,11 @@ class DamagesController < ApplicationController
     reference_number_assign(params, "chain", "chain_form")
     reference_number_assign(params, "target_e_no", "target_e_no_form")
     reference_text_assign(params, "act_type_name_name", "act_type_form")
-    reference_number_assign(params, "element", "element_form")
+    reference_text_assign(params, "element_name_name", "element_form")
     reference_number_assign(params, "damage", "damage_form")
+    reference_number_assign(params, "party_num", "party_num_form")
+    reference_number_assign(params, "target_party_num", "target_party_num_form")
+
 
     reference_text_assign(params, "card_data_kind_name_name", "kind_form")
     reference_text_assign(params, "card_data_name", "effect_form")
@@ -69,9 +72,17 @@ class DamagesController < ApplicationController
     reference_number_assign(params, "target_characteristic_tec", "target_tec_form")
     reference_number_assign(params, "target_characteristic_eva", "target_eva_form")
     
-    reference_number_assign(params, "party_data_party_num", "party_num_form")
-    reference_number_assign(params, "target_party_data_party_num", "target_party_num_form")
     
+    params[:q]["line_eq_any"] ||= []
+    if params["line_front"]  == "on" then params[:q]["line_eq_any"].push(0) end
+    if params["line_middle"] == "on" then params[:q]["line_eq_any"].push(1) end
+    if params["line_back"]   == "on" then params[:q]["line_eq_any"].push(2) end
+
+    params[:q]["target_line_eq_any"] ||= []
+    if params["target_line_front"]  == "on" then params[:q]["target_line_eq_any"].push(0) end
+    if params["target_line_middle"] == "on" then params[:q]["target_line_eq_any"].push(1) end
+    if params["target_line_back"]   == "on" then params[:q]["target_line_eq_any"].push(2) end
+
     params[:q]["act_type_name_name_cont_any"] ||= []
     if !params["is_form"] then
         params["act_type_damage"]    = "on"
@@ -116,6 +127,14 @@ class DamagesController < ApplicationController
     @fp_form = params["fp_form"]
     @lpfp_form = params["lpfp_form"]
 
+    @line_front  = params["line_front"]
+    @line_middle = params["line_middle"]
+    @line_back   = params["line_back"]
+
+    @target_line_front  = params["target_line_front"]
+    @target_line_middle = params["target_line_middle"]
+    @target_line_back   = params["target_line_back"]
+
     @act_type_damage    = params["act_type_damage"]
     @act_type_fp_damage = params["act_type_fp_damage"]
     @act_type_lp_heal   = params["act_type_lp_heal"]
@@ -159,12 +178,14 @@ class DamagesController < ApplicationController
     @show_detail_battle_page = params["show_detail_battle_page"]
     @show_detail_parameter_development = params["show_detail_parameter_development"]
     @show_detail_characteristic = params["show_detail_characteristic"]
+    @show_detail_line = params["show_detail_line"]
     @show_detail_party = params["show_detail_party"]
     @show_detail_target = params["show_detail_target"]
-    @show_detail_target_parameter_development = params["show_detail_target_parameter_development"]
     @show_detail_target_characteristic = params["show_detail_target_characteristic"]
     @show_detail_damage_option = params["show_detail_damage_option"]
     @show_detail_dodge = params["show_detail_dodge"]
+    @show_detail_line = params["show_detail_line"]
+    @show_detail_element = params["show_detail_element"]
     @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /damages/1
