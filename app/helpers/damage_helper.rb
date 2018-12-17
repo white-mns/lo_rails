@@ -30,4 +30,40 @@ module DamageHelper
 
         return nil
     end
+
+    def showBufferLv(buffer)
+        if !buffer then 
+            return
+        end
+
+        if buffer.lv > 0 then
+            haml_concat "Lv"
+        end
+
+        haml_concat buffer.lv
+        return nil
+    end
+
+    def showReinforcing(buffer)
+        if !buffer || buffer.lv == 0 then 
+            return
+        end
+
+        haml_concat buffer.buffer.name.delete("フィールド")
+        haml_concat "Lv"
+        haml_concat buffer.lv
+
+        return nil
+    end
+
+    def showConversion(buffer)
+        if !buffer then 
+            return
+        end
+
+        haml_concat buffer.buffer.name.delete("フィールド")
+
+        return nil
+    end
+
 end

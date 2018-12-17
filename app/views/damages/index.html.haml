@@ -80,8 +80,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_battle_page, @show_detail_battle_page
           - act_icon(false)
-          = label_tag :show_detail_card, '　模擬戦名で絞り込む', class: "act_desc"
-          = label_tag :show_detail_card, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
+          = label_tag :show_detail_battle_page, '　模擬戦名で絞り込む', class: "act_desc"
+          = label_tag :show_detail_battle_page, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -91,10 +91,23 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
+          = hidden_field_tag :show_detail_turn, @show_detail_turn
+          - act_icon(false)
+          = label_tag :show_detail_turn, '　ターン数を表示', class: "act_desc"
+          = label_tag :show_detail_turn, '　ターン数を隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :turn_form, 'ターン数'
+        %td.formNumber{colspan: "3"}= text_field_tag :turn_form, @turn_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
           = hidden_field_tag :show_detail_target, @show_detail_target
           - act_icon(false)
-          = label_tag :show_detail_card, '　使用者で絞り込む', class: "act_desc"
-          = label_tag :show_detail_card, '　使用者で絞り込みを隠す', class: "act_desc closed"
+          = label_tag :show_detail_target, '　使用者で絞り込む', class: "act_desc"
+          = label_tag :show_detail_target, '　使用者で絞り込みを隠す', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -238,8 +251,9 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_damage_option, @show_detail_damage_option
           - act_icon(false)
-          = label_tag :show_detail_card, '　Criticalなどの有無を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　Criticalなどの有無を表示しない', class: "act_desc closed"
+          = label_tag :show_detail_card, '　ヒット時効果の有無を表示する', class: "act_desc"
+          = label_tag :show_detail_card, '　ヒット時効果の有無を表示しない', class: "act_desc closed"
+          %div.act_desc 　WeakPoint、Critical、Clean Hit、Vanish、Absorb
     %tbody.closed
       %tr
       %tr
@@ -285,6 +299,282 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
+          = hidden_field_tag :show_detail_abnormal, @show_detail_abnormal
+          - act_icon(false)
+          = label_tag :show_detail_abnormal, '　異常系状態変化を表示する', class: "act_desc"
+          = label_tag :show_detail_abnormal, '　異常系状態変化を表示しない', class: "act_desc closed"
+          %div.act_desc 　毒、麻痺、封殺、混乱、魅了
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :poison_lv_form, '毒Lv'
+        %td.formNum= text_field_tag :poison_lv_form, @poison_lv_form
+        %td= f.label :poison_value_form, '毒深度'
+        %td.formNum= text_field_tag :poison_value_form, @poison_value_form
+      %tr
+        %td.indent
+        %td= f.label :paralysis_lv_form, '麻痺Lv'
+        %td.formNum= text_field_tag :paralysis_lv_form, @paralysis_lv_form
+        %td= f.label :paralysis_value_form, '麻痺深度'
+        %td.formNum= text_field_tag :paralysis_value_form, @paralysis_value_form
+      %tr
+        %td.indent
+        %td= f.label :seal_lv_form, '封殺Lv'
+        %td.formNum= text_field_tag :seal_lv_form, @seal_lv_form
+        %td= f.label :seal_value_form, '封殺深度'
+        %td.formNum= text_field_tag :seal_value_form, @seal_value_form
+      %tr
+        %td.indent
+        %td= f.label :confusion_lv_form, '混乱Lv'
+        %td.formNum= text_field_tag :confusion_lv_form, @confusion_lv_form
+        %td= f.label :confusion_value_form, '混乱深度'
+        %td.formNum= text_field_tag :confusion_value_form, @confusion_value_form
+      %tr
+        %td.indent
+        %td= f.label :charm_lv_form, '魅了Lv'
+        %td.formNum= text_field_tag :charm_lv_form, @charm_lv_form
+        %td= f.label :charm_value_form, '魅了深度'
+        %td.formNum= text_field_tag :charm_value_form, @charm_value_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_buffer, @show_detail_buffer
+          - act_icon(false)
+          = label_tag :show_detail_buffer, '　能力系状態変化（強化・弱化）を表示する', class: "act_desc"
+          = label_tag :show_detail_buffer, '　能力系状態変化（強化・弱化）を表示しない', class: "act_desc closed"
+          %div.act_desc 　物理攻力、物理防御、事象威力、事象抵抗、命中率、回避率、必殺率、被必殺制御率
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :attack_buffer_lv_form, '物理攻力変化Lv'
+        %td.formNum= text_field_tag :attack_buffer_lv_form, @attack_buffer_lv_form
+        %td= f.label :attack_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :attack_buffer_value_form, @attack_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :attack_buffer_value_form, '物理攻力（物攻）'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_attack_buffer, @buff_attack_buffer, @buff_attack_buffer
+            = label_tag :buff_attack_buffer, '強化'
+            　
+            = check_box_tag :debuff_attack_buffer, @debuff_attack_buffer, @debuff_attack_buffer
+            = label_tag :debuff_attack_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_attack_buffer, @no_attack_buffer, @no_attack_buffer
+            = label_tag :no_attack_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :defence_buffer_lv_form, '物理防御変化Lv'
+        %td.formNum= text_field_tag :defence_buffer_lv_form, @defence_buffer_lv_form
+        %td= f.label :defence_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :defence_buffer_value_form, @defence_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :defence_buffer_value_form, '物理防御（物防）'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_defence_buffer, @buff_defence_buffer, @buff_defence_buffer
+            = label_tag :buff_defence_buffer, '強化'
+            　
+            = check_box_tag :debuff_defence_buffer, @debuff_defence_buffer, @debuff_defence_buffer
+            = label_tag :debuff_defence_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_defence_buffer, @no_defence_buffer, @no_defence_buffer
+            = label_tag :no_defence_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :magic_buffer_lv_form, '事象威力変化Lv'
+        %td.formNum= text_field_tag :magic_buffer_lv_form, @magic_buffer_lv_form
+        %td= f.label :magic_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :magic_buffer_value_form, @magic_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :magic_buffer_value_form, '事象威力（理力）'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_magic_buffer, @buff_magic_buffer, @buff_magic_buffer
+            = label_tag :buff_magic_buffer, '強化'
+            　
+            = check_box_tag :debuff_magic_buffer, @debuff_magic_buffer, @debuff_magic_buffer
+            = label_tag :debuff_magic_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_magic_buffer, @no_magic_buffer, @no_magic_buffer
+            = label_tag :no_magic_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :resist_buffer_lv_form, '事象抵抗変化Lv'
+        %td.formNum= text_field_tag :resist_buffer_lv_form, @resist_buffer_lv_form
+        %td= f.label :resist_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :resist_buffer_value_form, @resist_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :resist_buffer_value_form, '事象抵抗（抵抗）'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_resist_buffer, @buff_resist_buffer, @buff_resist_buffer
+            = label_tag :buff_resist_buffer, '強化'
+            　
+            = check_box_tag :debuff_resist_buffer, @debuff_resist_buffer, @debuff_resist_buffer
+            = label_tag :debuff_resist_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_resist_buffer, @no_resist_buffer, @no_resist_buffer
+            = label_tag :no_resist_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :hit_buffer_lv_form, '命中率変化Lv'
+        %td.formNum= text_field_tag :hit_buffer_lv_form, @hit_buffer_lv_form
+        %td= f.label :hit_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :hit_buffer_value_form, @hit_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :hit_buffer_value_form, '命中率'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_hit_buffer, @buff_hit_buffer, @buff_hit_buffer
+            = label_tag :buff_hit_buffer, '強化'
+            　
+            = check_box_tag :debuff_hit_buffer, @debuff_hit_buffer, @debuff_hit_buffer
+            = label_tag :debuff_hit_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_hit_buffer, @no_hit_buffer, @no_hit_buffer
+            = label_tag :no_hit_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :dodge_buffer_lv_form, '回避率変化Lv'
+        %td.formNum= text_field_tag :dodge_buffer_lv_form, @dodge_buffer_lv_form
+        %td= f.label :dodge_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :dodge_buffer_value_form, @dodge_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :dodge_buffer_value_form, '回避率'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_dodge_buffer, @buff_dodge_buffer, @buff_dodge_buffer
+            = label_tag :buff_dodge_buffer, '強化'
+            　
+            = check_box_tag :debuff_dodge_buffer, @debuff_dodge_buffer, @debuff_dodge_buffer
+            = label_tag :debuff_dodge_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_dodge_buffer, @no_dodge_buffer, @no_dodge_buffer
+            = label_tag :no_dodge_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :death_buffer_lv_form, '必殺率変化Lv'
+        %td.formNum= text_field_tag :death_buffer_lv_form, @death_buffer_lv_form
+        %td= f.label :death_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :death_buffer_value_form, @death_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :control_buffer_value_form, '必殺率'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_death_buffer, @buff_death_buffer, @buff_death_buffer
+            = label_tag :buff_death_buffer, '強化'
+            　
+            = check_box_tag :debuff_death_buffer, @debuff_death_buffer, @debuff_death_buffer
+            = label_tag :debuff_death_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_death_buffer, @no_death_buffer, @no_death_buffer
+            = label_tag :no_death_buffer, 'なし'
+      %tr
+        %td.indent
+        %td= f.label :control_buffer_lv_form, '被必殺制御率変化Lv'
+        %td.formNum= text_field_tag :control_buffer_lv_form, @control_buffer_lv_form
+        %td= f.label :control_buffer_value_form, '保持力'
+        %td.formNum= text_field_tag :control_buffer_value_form, @control_buffer_value_form
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :control_buffer_value_form, '被必殺制御率（制御）'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :buff_control_buffer, @buff_control_buffer, @buff_control_buffer
+            = label_tag :buff_control_buffer, '強化'
+            　
+            = check_box_tag :debuff_control_buffer, @debuff_control_buffer, @debuff_control_buffer
+            = label_tag :debuff_control_buffer, '弱化'
+          %span.input
+            = check_box_tag :no_control_buffer, @no_control_buffer, @no_control_buffer
+            = label_tag :no_control_buffer, 'なし'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_reinforcement, @show_detail_reinforcement
+          - act_icon(false)
+          = label_tag :show_detail_reinforcement, '　強化フィールドを表示する', class: "act_desc"
+          = label_tag :show_detail_reinforcement, '　強化フィールドを表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :reinforcement_lv_form, '強化フィールドLv'
+        %td.formNum= text_field_tag :reinforcement_lv_form, @reinforcement_lv_form
+        %td= f.label :reinforcement_name_form, '強化フィールド名'
+        %td.formText= text_field_tag :reinforcement_name_form, @reinforcement_name_form
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_reinforcement, @no_reinforcement, @no_reinforcement
+            = label_tag :no_reinforcement, '強化フィールドなし'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_conversion, @show_detail_conversion
+          - act_icon(false)
+          = label_tag :show_detail_conversion, '　変換フィールドを表示する', class: "act_desc"
+          = label_tag :show_detail_conversion, '　変換フィールドを表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :conversion_name_form, '変換フィールド名'
+        %td.formText{colspan: "3"}= text_field_tag :conversion_name_form, @conversion_name_form
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :is_conversion, @is_conversion, @is_conversion
+            = label_tag :is_conversion, '変換フィールドあり'
+          %span.input
+            = check_box_tag :no_conversion, @no_conversion, @no_conversion
+            = label_tag :no_conversion, '変換フィールドなし'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_target_type, @show_detail_target_type
+          - act_icon(false)
+          = label_tag :show_detail_target_type, '　味方対象・敵対象で絞り込む', class: "act_desc"
+          = label_tag :show_detail_target_type, '　味方対象・敵対象による絞り込みを表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :only_friend, @only_friend, @only_friend
+            = label_tag :only_friend, '味方対象のみ表示'
+          %span.input
+            = check_box_tag :only_enemy, @only_enemy, @only_enemy
+            = label_tag :only_enemy, '敵対象のみ表示'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
           = hidden_field_tag :show_detail_dodge, @show_detail_dodge
           - act_icon(false)
           = label_tag :show_detail_dodge, '　回避された攻撃を表示する', class: "act_desc"
@@ -311,37 +601,32 @@
 ヒット数：#{ @count }件
 %br
 %br
-%p
-  %span.example_select.example_toggle.pointer
-    = fa_icon "calculator"
-    　最大、平均、命中率など
-    - act_desc(false)
-#test.closed
-  %table.table.table-striped.table-bordered.table-hover
-    %thead
-      %th 行動
-      %th 回数
-      %th 合計
-      %th 最大
-      %th 最低
-      %th 平均
-      %th 命中
-      %th 被回避
-      %th 命中率
-      %th 回避率
-    %tbody
-      - @statistics.each do |statistic|
-        %tr
-          %td= statistic.act_type_name.name if statistic.act_type_name
-          %td= statistic.count
-          %td= statistic.sum
-          %td= statistic.max
-          %td= statistic.min
-          %td= statistic.avg.floor(1)
-          %td= statistic.hit
-          %td= statistic.dodge
-          %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
-          %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %th 行動
+    %th 回数
+    %th 合計
+    %th 最大
+    %th 最低
+    %th 平均
+    %th 命中
+    %th 被回避
+    %th 命中率
+    %th 回避率
+  %tbody
+    - @statistics.each do |statistic|
+      %tr
+        %td= statistic.act_type_name.name if statistic.act_type_name
+        %td= statistic.count
+        %td= statistic.sum
+        %td= statistic.max
+        %td= statistic.min
+        %td= statistic.avg.floor(1)
+        %td= statistic.hit
+        %td= statistic.dodge
+        %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
+        %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
 
 %table.table.table-striped.table-bordered.table-hover
   %thead
@@ -349,6 +634,8 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th.sep= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
+      - if @show_detail_turn == "1"
+        %th.sep= sort_link(@search, :turn, 'Turn', default_order: :desc)
       - if @show_detail_characteristic == "1"
         %th.sep= sort_link(@search, :characteristic_str, '腕力', default_order: :desc)
         %th= sort_link(@search, :characteristic_vit, '体力', default_order: :desc)
@@ -387,6 +674,25 @@
         %th= sort_link(@search, :is_clean, 'Clean', default_order: :desc)
         %th= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
         %th= sort_link(@search, :is_absorb, 'Absorb', default_order: :desc)
+      - if @show_detail_abnormal == "1"
+        %th.sep{colspan: "2"}= sort_link(@search, :poison_value, '毒', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :paralysis_value, '麻痺', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :seal_value, '封殺', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :confusion_value, '混乱', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :charm_value, '魅了', default_order: :desc)
+      - if @show_detail_buffer == "1"
+        %th.sep{colspan: "2"}= sort_link(@search, :attack_buffer_value, '物攻', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :defence_buffer_value, '物防', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :magic_buffer_value, '理力', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :resist_buffer_value, '抵抗', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :hit_buffer_value, '命中', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :dodge_buffer_value, '回避', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :death_buffer_value, '必殺', default_order: :desc)
+        %th{colspan: "2"}= sort_link(@search, :control_buffer_value, '制御', default_order: :desc)
+      - if @show_detail_reinforcement == "1"
+        %th.sep= sort_link(@search, :reinforcement_lv, '強化F', default_order: :desc)
+      - if @show_detail_conversion == "1"
+        %th.sep= sort_link(@search, :conversion_value, '変換F', default_order: :desc)
       %th.sep{colspan: "2"} 結果リンク
       %th{colspan: "2"} 模擬戦結果
   %tbody
@@ -395,6 +701,8 @@
         %td= damage.result_no
         %td.sep= p_name_text(damage.e_no, damage.p_name)
         %td.sep= damage.battle_page
+        - if @show_detail_turn == "1"
+          %td.sep= damage.turn
         - if @show_detail_characteristic == "1"
           %td.sep= damage.characteristic.str if damage.characteristic
           %td= damage.characteristic.vit if damage.characteristic
@@ -435,6 +743,38 @@
           %td= showPreDamage(damage.is_clean)
           %td= showPreDamage(damage.is_vanish)
           %td= showPreDamage(damage.is_absorb)
+        - if @show_detail_abnormal == "1"
+          %td.sep= showBufferLv(damage.poison)
+          %td= damage.poison.value if damage.poison
+          %td= showBufferLv(damage.paralysis)
+          %td= damage.paralysis.value if damage.paralysis
+          %td= showBufferLv(damage.seal)
+          %td= damage.seal.value if damage.seal
+          %td= showBufferLv(damage.confusion)
+          %td= damage.confusion.value if damage.confusion
+          %td= showBufferLv(damage.charm)
+          %td= damage.charm.value if damage.charm
+        - if @show_detail_buffer == "1"
+          %td.sep= showReinforcing(damage.attack_buffer)
+          %td= damage.attack_buffer.value if damage.attack_buffer
+          %td= showReinforcing(damage.defence_buffer)
+          %td= damage.defence_buffer.value if damage.defence_buffer
+          %td= showReinforcing(damage.magic_buffer)
+          %td= damage.magic_buffer.value if damage.magic_buffer
+          %td= showReinforcing(damage.resist_buffer)
+          %td= damage.resist_buffer.value if damage.resist_buffer
+          %td= showReinforcing(damage.hit_buffer)
+          %td= damage.hit_buffer.value if damage.hit_buffer
+          %td= showReinforcing(damage.dodge_buffer)
+          %td= damage.dodge_buffer.value if damage.dodge_buffer
+          %td= showReinforcing(damage.death_buffer)
+          %td= damage.death_buffer.value if damage.death_buffer
+          %td= showReinforcing(damage.control_buffer)
+          %td= damage.control_buffer.value if damage.control_buffer
+        - if @show_detail_reinforcement == "1"
+          %td.sep= showReinforcing(damage.reinforcement)
+        - if @show_detail_conversion == "1"
+          %td.sep= showConversion(damage.conversion)
         %td.sep= character_link(damage.e_no)
         %td= character_old_link(@latest_result, damage.e_no, damage.result_no)
         %td= battle_link(@latest_result, damage.battle_page, damage.result_no)
