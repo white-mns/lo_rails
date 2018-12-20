@@ -20,7 +20,30 @@ class ApplicationRecord < ActiveRecord::Base
       
       if range == 0 then range = 1 end
       
-      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; hash[floor.to_s.rjust(figure_length) + "～" + (floor+range).to_s.rjust(figure_length)] += 1 ; hash}.sort
+      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; hash[floor.to_s.rjust(figure_length) + "～" + (floor+range-1).to_s.rjust(figure_length)] += 1 ; hash}.sort
   }
 
+  scope :to_range_variable_min_graph, -> (column) {
+      max = self.pluck(column).max
+      min = self.pluck(column).min
+
+      if !max then return nil end
+
+      figure_length = max.to_s.length # 最大桁数の取得
+      
+      range = ((max - min) / 20).to_i
+      floor_num = (10 ** (range.to_s.length - 1))
+      range = (range / floor_num).to_i # 範囲の最上位桁の値を1,2,5のいずれかにする
+      range = range <= 2 ? range : 5
+      range = range * floor_num
+
+      if range == 0 then range = 1 end
+      
+      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range;
+                                        if range > 1 then
+                                            hash[floor.to_s.rjust(figure_length) + "～" + (floor+range-1).to_s.rjust(figure_length)] += 1
+                                        else
+                                            hash[floor.to_s.rjust(figure_length)] += 1;
+                                        end
+                                        hash}.sort  }
 end

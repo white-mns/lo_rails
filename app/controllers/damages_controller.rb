@@ -5,8 +5,8 @@ class DamagesController < ApplicationController
   # GET /damages
   def index
     param_set
-    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development, :poison, :paralysis, :seal, :confusion, :charm, [reinforcement: :buffer], [conversion: :buffer], [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer]).search(params[:q]).result.count()
-    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development, :poison, :paralysis, :seal, :confusion, :charm, [reinforcement: :buffer], [conversion: :buffer], [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer]).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).damage_includes().search(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).damage_includes().page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
 
@@ -310,6 +310,9 @@ class DamagesController < ApplicationController
     @no_reinforcement = params["no_reinforcement"]
     @is_conversion = params["is_conversion"]
     @no_conversion = params["no_conversion"]
+
+    @show_statistics = (!params["is_form"]) ? "on" : params["show_statistics"]
+    @show_graph = params["show_graph"]
 
     @show_detail_battle_page = params["show_detail_battle_page"]
     @show_detail_turn = params["show_detail_turn"]

@@ -56,4 +56,33 @@ class Damage < ApplicationRecord
             where("target_party != party")
         end
     }
+    
+    scope :damage_includes, ->() {
+        includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development, :poison, :paralysis, :seal, :confusion, :charm, [reinforcement: :buffer], [conversion: :buffer], [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer])
+    }
+
+    scope :to_damage_range_graph, -> (column) {
+        max = self.pluck(column).max
+        min = self.pluck(column).min
+        
+        if !max then return nil end
+        
+        figure_length = max.to_s.length # 桁数取得
+        
+        range = ((max - min) / 20).to_i
+        floor_num = (10 ** (range.to_s.length - 1))
+        range = (range / floor_num).to_i # 範囲の最上位桁の値を1,2,5のいずれかにする
+        range = range <= 2 ? range : 5
+        range = range * floor_num
+        
+        if range == 0 then range = 1 end
+        
+        pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range;
+                                        if range > 1 then
+                                            hash[floor.to_s.rjust(figure_length) + "～" + (floor+range-1).to_s.rjust(figure_length)] += 1
+                                        else
+                                            hash[floor.to_s.rjust(figure_length)] += 1;
+                                        end
+                                        hash}.sort
+    }
 end
