@@ -640,7 +640,7 @@
           %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
           %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
 - if @show_graph
-  = column_chart Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).search(params[:q]).result.to_range_variable_min_graph(:damage), ytitle:"ダメージ"
+  = column_chart Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).search(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"ダメージ", ytitle: "件数"
 %br
 
 %table.table.table-striped.table-bordered.table-hover
