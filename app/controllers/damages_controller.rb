@@ -155,17 +155,17 @@ class DamagesController < ApplicationController
     if params["target_line_middle"] == "on" then params[:q]["target_line_eq_any"].push(1) end
     if params["target_line_back"]   == "on" then params[:q]["target_line_eq_any"].push(2) end
 
-    params[:q]["act_type_name_name_cont_any"] = []
+    params[:q]["act_type_name_name_eq_any"] = []
     if !params["is_form"] then
         params["act_type_damage"]    = "on"
         params["act_type_fp_damage"] = "on"
         params["act_type_lp_heal"]   = "on"
         params["act_type_fp_heal"]   = "on"
     end
-    if params["act_type_damage"]     == "on" then params[:q]["act_type_name_name_cont_any"].push("ダメージ") end
-    if params["act_type_fp_damage"]  == "on" then params[:q]["act_type_name_name_cont_any"].push("FPダメージ") end
-    if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_name_name_cont_any"].push("LP回復") end
-    if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_name_name_cont_any"].push("FP回復") end
+    if params["act_type_damage"]     == "on" then params[:q]["act_type_name_name_eq_any"].push("ダメージ") end
+    if params["act_type_fp_damage"]  == "on" then params[:q]["act_type_name_name_eq_any"].push("FPダメージ") end
+    if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_name_name_eq_any"].push("LP回復") end
+    if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_name_name_eq_any"].push("FP回復") end
     
     if params["is_weak"]     == "on" then params[:q]["is_weak_eq"]     = 1 end
     if params["is_critical"] == "on" then params[:q]["is_critical_eq"] = 1 end
