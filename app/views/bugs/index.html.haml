@@ -11,7 +11,7 @@
     %p
       主導BUG：BUGの並び順で一番上のキャラクターを指します。つまりPTを編成したキャラクターです。
       %br
-      BUGの模擬戦勝数は最新結果のものを表示しています。最前線以外の侵攻Lvで出てくるBUGには過去の状態を模倣したものが含まれるため、侵攻Lvが低いBUGに対しては参考にならないと思われます。
+      BUGの模擬戦勝数は侵攻Lvに合わせた更新回のものを表示しています。侵攻Lv5のBUGの場合、Vol.5の勝敗を表示します。
     %p
       %span.example_select.example_toggle.pointer
         - help_icon
@@ -97,13 +97,6 @@
         %td.indent
         %td{colspan: "3"}
           %span.input
-            = check_box_tag :only_front, @only_front, @only_front
-            = label_tag :only_front, '侵攻Lvが更新回と同じ（各更新回の最も奥地で出現した）BUGのみ表示する'
-      %tr
-        %td.indent
-        %td.indent
-        %td{colspan: "3"}
-          %span.input
             = check_box_tag :show_unknown, @show_unknown, @show_unknown
             = label_tag :show_unknown, 'BUGの参照元Enoが分からない結果も表示する'
       %tr
@@ -145,7 +138,7 @@
             = p_name_text(bug.bug_e_no, bug.bug_name)
           - else
             = "BUG元照合失敗"
-        %td{style: "#{ bug_lv_border(bug) }" }= bug.lv
+        %td= bug.lv
         - if @show_detail_development == "1" || @show_detail_pre == "1" || @only_bug_reader == "on"
           %td.td-sign= "○" if bug.order == 0
         - if @show_detail_pre == "1"
