@@ -11,7 +11,7 @@ LastOrder#Aデータ小屋は[LastOrder#A 〜最終注文#A〜](http://ykamiya.c
 以下の環境での動作を確認しています  
   
 OS:CentOS release 6.5 (Final)  
-DB:MySQL 5.5
+DB:MySQL 8.0
 Ruby:2.5.0  
 Rails:5.2.1
 gcc:5.2.1
