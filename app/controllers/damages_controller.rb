@@ -136,15 +136,6 @@ class DamagesController < ApplicationController
     if params["debuff_control_buffer"]  == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("弱") end
     if params["no_control_buffer"]      == "on" then params[:q]["control_buffer_lv_blank"] = true end
 
-    reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
-    reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
-    reference_number_assign(params, "conversion_lv", "conversion_lv_form")
-    reference_text_assign(params, "conversion_buffer_name", "conversion_name_form")
-    
-    if params["no_reinforcement"]  == "on" then params[:q]["reinforcement_lv_blank"] = true end
-    if params["is_conversion"]  == "on" then params[:q]["conversion_lv_not_null"] = true end
-    if params["no_conversion"]  == "on" then params[:q]["conversion_lv_blank"] = true end
-
     params[:q]["line_eq_any"] = []
     if params["line_front"]  == "on" then params[:q]["line_eq_any"].push(0) end
     if params["line_middle"] == "on" then params[:q]["line_eq_any"].push(1) end
@@ -155,30 +146,50 @@ class DamagesController < ApplicationController
     if params["target_line_middle"] == "on" then params[:q]["target_line_eq_any"].push(1) end
     if params["target_line_back"]   == "on" then params[:q]["target_line_eq_any"].push(2) end
 
-    params[:q]["act_type_name_name_eq_any"] = []
+    params[:q]["act_type_eq_any"] = []
     if !params["is_form"] then
         params["act_type_damage"]    = "on"
         params["act_type_fp_damage"] = "on"
         params["act_type_lp_heal"]   = "on"
         params["act_type_fp_heal"]   = "on"
     end
-    if params["act_type_damage"]     == "on" then params[:q]["act_type_name_name_eq_any"].push("ダメージ") end
-    if params["act_type_fp_damage"]  == "on" then params[:q]["act_type_name_name_eq_any"].push("FPダメージ") end
-    if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_name_name_eq_any"].push("LP回復") end
-    if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_name_name_eq_any"].push("FP回復") end
+
+    proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
+    if params["act_type_damage"]     == "on" then params[:q]["act_type_eq_any"].push(proper_name["ダメージ"]) end
+    if params["act_type_fp_damage"]  == "on" then params[:q]["act_type_eq_any"].push(proper_name["FPダメージ"]) end
+    if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["LP回復"]) end
+    if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["FP回復"]) end
     
-    if params["is_weak"]     == "on" then params[:q]["is_weak_eq"]     = 1 end
-    if params["is_critical"] == "on" then params[:q]["is_critical_eq"] = 1 end
-    if params["is_clean"]    == "on" then params[:q]["is_clean_eq"]    = 1 end
-    if params["is_vanish"]   == "on" then params[:q]["is_vanish_eq"]   = 1 end
-    if params["is_absorb"]   == "on" then params[:q]["is_absorb_eq"]   = 1 end
+    if params["is_weak"]     == "on" then params[:q]["weak_value_gteq"]     = 1 end
+    if params["is_critical"] == "on" then params[:q]["critical_value_gteq"] = 1 end
+    if params["is_clean"]    == "on" then params[:q]["clean_value_gteq"]    = 1 end
+    if params["is_vanish"]   == "on" then params[:q]["vanish_value_gteq"]   = 1 end
+    if params["is_absorb"]   == "on" then params[:q]["absorb_value_gteq"]   = 1 end
+    if params["is_revenge"]   == "on" then params[:q]["revenge_value_gteq"]   = 1 end
     
-    if params["no_weak"]     == "on" then params[:q]["is_weak_eq"]     = 0 end
-    if params["no_critical"] == "on" then params[:q]["is_critical_eq"] = 0 end
-    if params["no_clean"]    == "on" then params[:q]["is_clean_eq"]    = 0 end
-    if params["no_vanish"]   == "on" then params[:q]["is_vanish_eq"]   = 0 end
-    if params["no_absorb"]   == "on" then params[:q]["is_absorb_eq"]   = 0 end
+    if params["no_weak"]     == "on" then params[:q]["weak_value_eq"]     = 0 end
+    if params["no_critical"] == "on" then params[:q]["critical_value_eq"] = 0 end
+    if params["no_clean"]    == "on" then params[:q]["clean_value_eq"]    = 0 end
+    if params["no_vanish"]   == "on" then params[:q]["vanish_value_eq"]   = 0 end
+    if params["no_absorb"]   == "on" then params[:q]["absorb_value_eq"]   = 0 end
+    if params["no_revenge"]   == "on" then params[:q]["revenge_value_eq"] = 0 end
+
+    reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
+    reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
+    if params["no_reinforcement"]  == "on" then params[:q]["reinforcement_lv_blank"] = true end
+
+    reference_number_assign(params, "conversion_lv", "conversion_lv_form")
+    reference_text_assign(params, "conversion_buffer_name", "conversion_name_form")
+    if params["is_conversion"]  == "on" then params[:q]["conversion_lv_not_null"] = true end
+    if params["no_conversion"]  == "on" then params[:q]["conversion_lv_blank"] = true end
+
+    reference_number_assign(params, "chain_power_value", "chain_power_value_form")
+    if params["no_chain_power"]  == "on" then params[:q]["chain_power_lv_blank"] = true end
     
+    if params["all_fp_damage"]  == "on" then params[:q]["all_fp_damage_value_not_null"] = true end
+    if params["all_lp_damage"]  == "on" then params[:q]["all_lp_damage_value_not_null"] = true end
+    if params["lpfp_damage"]    == "on" then params[:q]["lpfp_damage_value_not_null"]   = true end
+
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
@@ -218,12 +229,14 @@ class DamagesController < ApplicationController
     @is_clean = params["is_clean"]
     @is_vanish = params["is_vanish"]
     @is_absorb = params["is_absorb"]
+    @is_revenge = params["is_revenge"]
     
     @no_weak = params["no_weak"]
     @no_critical = params["no_critical"]
     @no_clean = params["no_clean"]
     @no_vanish = params["no_vanish"]
     @no_absorb = params["no_absorb"]
+    @no_revenge = params["no_revenge"]
     
     @only_dodge = params["only_dodge"]
 
@@ -311,6 +324,13 @@ class DamagesController < ApplicationController
     @is_conversion = params["is_conversion"]
     @no_conversion = params["no_conversion"]
 
+    @chain_power_value_form = params["chain_power_value_form"]
+    @no_chain_power = params["no_chain_power"]
+
+    @all_fp_damage = params["all_fp_damage"]
+    @all_lp_damage = params["all_lp_damage"]
+    @lpfp_damage = params["lpfp_damage"]
+
     @show_statistics = (!params["is_form"]) ? "on" : params["show_statistics"]
     @show_graph = params["show_graph"]
 
@@ -329,8 +349,10 @@ class DamagesController < ApplicationController
     @show_detail_abnormal = params["show_detail_abnormal"]
     @show_detail_buffer = params["show_detail_buffer"]
     @show_detail_reinforcement = params["show_detail_reinforcement"]
+    @show_detail_chain_power = params["show_detail_chain_power"]
     @show_detail_conversion = params["show_detail_conversion"]
     @show_detail_target_type = params["show_detail_target_type"]
+    @show_detail_fp_type = params["show_detail_fp_type"]
     @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /damages/1

@@ -15,6 +15,23 @@ module DamageHelper
         return nil
     end
 
+    def showExistBuffer(buffer)
+        if !buffer then 
+            return
+        end
+        if buffer.value > 0 then
+            haml_tag :span, class: "xl" do
+                haml_concat "○"
+            end
+        end
+        if buffer.value > 1 then
+            haml_concat buffer.value
+        end
+
+        return nil
+    end
+
+
     def showLine(line)
         if !line then 
             return

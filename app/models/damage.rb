@@ -1,7 +1,8 @@
 class Damage < ApplicationRecord
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
-    reinforcement = ProperName.where("name like '%強化フィールド'").pluck(:proper_id)
-    conversion  = ProperName.where("name like '%変換フィールド'").pluck(:proper_id)
+    reinforcement  = ProperName.where("name like '%強化フィールド'").pluck(:proper_id)
+    conversion     = ProperName.where("name like '%変換フィールド'").pluck(:proper_id)
+    chain_power    = ProperName.where("name = '鎖力'").pluck(:proper_id)
     attack_buffer  = ProperName.where("name like '物攻_'").pluck(:proper_id)
     defence_buffer = ProperName.where("name like '物防_'").pluck(:proper_id)
     magic_buffer   = ProperName.where("name like '理力_'").pluck(:proper_id)
@@ -10,6 +11,15 @@ class Damage < ApplicationRecord
     dodge_buffer   = ProperName.where("name like '回避_'").pluck(:proper_id)
     death_buffer   = ProperName.where("name like '必殺_'").pluck(:proper_id)
     control_buffer = ProperName.where("name like '制御_'").pluck(:proper_id)
+    all_fp_damage  = ProperName.where("name = '完全FP'").pluck(:proper_id)
+    all_lp_damage  = ProperName.where("name = '完全LP'").pluck(:proper_id)
+    lpfp_damage    = ProperName.where("name = '混合LPFP'").pluck(:proper_id)
+    weak           = ProperName.where("name = 'WeakPoint'").pluck(:proper_id)
+    critical       = ProperName.where("name = 'Critical'").pluck(:proper_id)
+    clean          = ProperName.where("name = 'Clean Hit'").pluck(:proper_id)
+    vanish         = ProperName.where("name = 'Vanish'").pluck(:proper_id)
+    absorb         = ProperName.where("name = 'Absorb'").pluck(:proper_id)
+    revenge        = ProperName.where("name = 'Revenge'").pluck(:proper_id)
 	belongs_to :p_name,	                      :foreign_key => [:e_no, :result_no, :generate_no],         :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 	belongs_to :target_p_name,                :foreign_key => [:target_e_no, :result_no, :generate_no],  :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 	belongs_to :characteristic,               :foreign_key => [:e_no, :result_no, :generate_no],         :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Characteristic'
@@ -31,6 +41,16 @@ class Damage < ApplicationRecord
 	belongs_to :control_buffer, -> { where(buffer_id: control_buffer)}, :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :reinforcement,  -> { where(buffer_id: reinforcement)},  :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :conversion,     -> { where(buffer_id: conversion)},     :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :chain_power,    -> { where(buffer_id: chain_power)},    :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :all_fp_damage,  -> { where(buffer_id: all_fp_damage)},  :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :all_lp_damage,  -> { where(buffer_id: all_lp_damage)},  :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :lpfp_damage,    -> { where(buffer_id: lpfp_damage)},    :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :weak,           -> { where(buffer_id: weak)},           :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :critical,       -> { where(buffer_id: critical)},       :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :clean,          -> { where(buffer_id: clean)},          :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :vanish,         -> { where(buffer_id: vanish)},         :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :absorb,         -> { where(buffer_id: absorb)},         :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :revenge,        -> { where(buffer_id: revenge)},        :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :card_data,      :foreign_key => :card_id,  :primary_key => :card_id,   :class_name => 'CardDatum'
 	belongs_to :act_type_name,  :foreign_key => :act_type, :primary_key => :proper_id, :class_name => 'ProperName'
 	belongs_to :element_name,   :foreign_key => :element,  :primary_key => :proper_id, :class_name => 'ProperName'
@@ -58,7 +78,7 @@ class Damage < ApplicationRecord
     }
     
     scope :damage_includes, ->() {
-        includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development, :poison, :paralysis, :seal, :confusion, :charm, [reinforcement: :buffer], [conversion: :buffer], [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer])
+        includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name], :characteristic, :target_characteristic, :parameter_development, :target_parameter_development, :poison, :paralysis, :seal, :confusion, :charm, [reinforcement: :buffer], [conversion: :buffer], [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer], [chain_power: :buffer], [all_fp_damage: :buffer], [all_lp_damage: :buffer], [lpfp_damage: :buffer])
     }
 
     scope :to_damage_range_graph, -> (column) {
