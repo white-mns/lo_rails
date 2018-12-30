@@ -4,6 +4,7 @@ class MissionNamesController < ApplicationController
 
   # GET /mission_names
   def index
+    placeholder_set
     param_set
     @count	= MissionName.search(params[:q]).result.count()
     @search	= MissionName.page(params[:page]).search(params[:q])

@@ -4,6 +4,7 @@ class FacilityDivisionDataController < ApplicationController
 
   # GET /facility_division_data
   def index
+    placeholder_set
     param_set
     @count	= FacilityDivisionDatum.includes(:detail_name, :major_name).search(params[:q]).result.count()
     @search	= FacilityDivisionDatum.includes(:detail_name, :major_name).page(params[:page]).search(params[:q])

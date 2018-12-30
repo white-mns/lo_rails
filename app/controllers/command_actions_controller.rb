@@ -4,6 +4,7 @@ class CommandActionsController < ApplicationController
 
   # GET /command_actions
   def index
+    placeholder_set
     param_set
     @count	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).search(params[:q]).result.count()
     @search	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).page(params[:page]).search(params[:q])

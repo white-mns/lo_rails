@@ -4,6 +4,7 @@ class FacilityUsesController < ApplicationController
 
   # GET /facility_uses
   def index
+    placeholder_set
     param_set
     @count	= FacilityUse.notnil().includes(:p_name, :facility_effect_name).search(params[:q]).result.count()
     @search	= FacilityUse.notnil().includes(:p_name, :facility_effect_name).page(params[:page]).search(params[:q])

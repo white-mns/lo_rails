@@ -4,6 +4,7 @@ class DevelopmentResultsController < ApplicationController
 
   # GET /development_results
   def index
+    placeholder_set
     param_set
     @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
     @search	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).page(params[:page]).search(params[:q])
@@ -15,6 +16,7 @@ class DevelopmentResultsController < ApplicationController
     if !params["is_form"] then
         params["bellicose_form"] ||= "4~"
     end
+    placeholder_set
     param_set
     win_per_set_group
 

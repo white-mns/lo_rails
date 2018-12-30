@@ -4,6 +4,7 @@ class DamagesController < ApplicationController
 
   # GET /damages
   def index
+    placeholder_set
     param_set
     @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).damage_includes().search(params[:q]).result.count()
     @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).damage_includes().page(params[:page]).search(params[:q])

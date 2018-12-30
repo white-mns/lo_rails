@@ -4,6 +4,7 @@ class CardUsePagesController < ApplicationController
 
   # GET /card_use_pages
   def index
+    placeholder_set
     param_set
     @count	= CardUsePage.notnil().search(params[:q]).result.count()
     @search	= CardUsePage.notnil().page(params[:page]).search(params[:q])

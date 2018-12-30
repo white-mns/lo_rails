@@ -4,6 +4,7 @@ class DropMinSubjectsController < ApplicationController
 
   # GET /drop_min_subjects
   def index
+    placeholder_set
     param_set
     @count	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result.count()
     @all	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result

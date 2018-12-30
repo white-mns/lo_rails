@@ -4,6 +4,7 @@ class CardDataController < ApplicationController
 
   # GET /card_data
   def index
+    placeholder_set
     param_set
     @count	= CardDatum.includes(:kind_name).search(params[:q]).result.count()
     @search	= CardDatum.includes(:kind_name).page(params[:page]).search(params[:q])

@@ -4,6 +4,7 @@ class ParameterDevelopmentsController < ApplicationController
 
   # GET /parameter_developments
   def index
+    placeholder_set
     param_set
     @count	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).search(params[:q]).result.count()
     @search	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).page(params[:page]).search(params[:q])

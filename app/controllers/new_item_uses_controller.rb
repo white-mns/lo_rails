@@ -4,6 +4,7 @@ class NewItemUsesController < ApplicationController
 
   # GET /new_item_uses
   def index
+    placeholder_set
     param_set
     @count	= NewItemUse.notnil().search(params[:q]).result.count()
     @search	= NewItemUse.notnil().page(params[:page]).search(params[:q])

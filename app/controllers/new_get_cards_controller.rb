@@ -4,6 +4,7 @@ class NewGetCardsController < ApplicationController
 
   # GET /new_get_cards
   def index
+    placeholder_set
     param_set
     @count	= NewGetCard.notnil().includes(:card_data).search(params[:q]).result.count()
     @search	= NewGetCard.notnil().includes(:card_data).page(params[:page]).search(params[:q])

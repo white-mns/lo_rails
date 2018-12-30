@@ -40,27 +40,27 @@
         %td= f.label :i_no_form, 'Ino'
         %td.formNum= text_field_tag :i_no_form, @i_no_form
         %td= f.label :name_form, 'アイテム名'
-        %td.formText= text_field_tag :name_form, @name_form
+        %td.formText= text_field_tag :name_form, @name_form, placeholder: @placeholder["Item"]
       %tr
         %td.indent
         %td= f.label :equip_form, '装備'
-        %td.formText{colspan: "3"}= text_field_tag :equip_form, @equip_form
+        %td.formText{colspan: "3"}= text_field_tag :equip_form, @equip_form, placeholder: "例）主力/防具"
       %tr
         %td.indent
         %td= f.label :kind_form, '種類'
-        %td.formText= text_field_tag :kind_form, @kind_form
+        %td.formText= text_field_tag :kind_form, @kind_form, placeholder: "例）武器/食物/移動"
         %td= f.label :effect_form, '効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
+        %td.formText= text_field_tag :effect_form, @effect_form, placeholder: "例）体調回復/確保"
       %tr
         %td.indent
         %td= f.label :lv_form, 'Lv'
-        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form
+        %td.formNum{colspan: "3"}= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :potency_form, '効力(数字)'
-        %td.formNum= text_field_tag :potency_form, @potency_form
+        %td.formNum= text_field_tag :potency_form, @potency_form, placeholder: @placeholder["Number"]
         %td= f.label :potency_str_form, '効力(文字)'
-        %td.formText= text_field_tag :potency_str_form, @potency_str_form
+        %td.formText= text_field_tag :potency_str_form, @potency_str_form, placeholder: "例）A/B/F"
       %tr
         %td.indent
         %td= f.label :precision_form, '精度'

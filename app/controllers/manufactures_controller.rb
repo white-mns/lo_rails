@@ -4,6 +4,7 @@ class ManufacturesController < ApplicationController
 
   # GET /manufactures
   def index
+    placeholder_set
     param_set
     @count	= Manufacture.notnil().includes(:p_name, :facility_effect_name, :kind_name, :effect_name).search(params[:q]).result.count()
     @search	= Manufacture.notnil().includes(:p_name, :facility_effect_name, :kind_name, :effect_name).page(params[:page]).search(params[:q])

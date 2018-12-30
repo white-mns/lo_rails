@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
 
   # GET /items
   def index
+    placeholder_set
     param_set
     @count	= Item.notnil().includes(:p_name, :equip_name, :kind_name, :effect_name, [detail: :major_name]).search(params[:q]).result.count()
     @search	= Item.notnil().includes(:p_name, :equip_name, :kind_name, :effect_name, [detail: :major_name]).page(params[:page]).search(params[:q])

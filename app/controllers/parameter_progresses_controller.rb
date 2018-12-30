@@ -4,6 +4,7 @@ class ParameterProgressesController < ApplicationController
 
   # GET /parameter_progresses
   def index
+    placeholder_set
     param_set
     @count	= ParameterProgress.notnil().includes(:p_name).search(params[:q]).result.count()
     @search	= ParameterProgress.notnil().includes(:p_name).page(params[:page]).search(params[:q])

@@ -38,9 +38,9 @@
       %tr
         %td  
         %td= f.label :facility_effect_form, '施設詳細区分'
-        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form
+        %td.formText= text_field_tag :facility_effect_form, @facility_effect_form, placeholder: "例）武器屋/定食屋"
         %td= f.label :facility_lv_form, '施設Lv'
-        %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form
+        %td.formNum= text_field_tag :facility_lv_form, @facility_lv_form, placeholder: @placeholder["Number"]
       %tr
         %td  
         %td= f.label :facility_e_no_form, '施設所有者ENo'

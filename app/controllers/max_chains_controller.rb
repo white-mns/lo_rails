@@ -4,6 +4,7 @@ class MaxChainsController < ApplicationController
 
   # GET /max_chains
   def index
+    placeholder_set
     param_set
     @count	= MaxChain.notnil().search(params[:q]).result.count()
     @search	= MaxChain.notnil().page(params[:page]).search(params[:q])

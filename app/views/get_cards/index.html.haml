@@ -62,9 +62,9 @@
       %tr
         %td.indent
         %td= f.label :effect_form, 'カード効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
+        %td.formText= text_field_tag :effect_form, @effect_form, placeholder: @placeholder["Card"]
         %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form
+        %td.formNum= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}

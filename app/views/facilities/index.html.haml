@@ -38,9 +38,9 @@
       %tr
         %td.indent
         %td= f.label :set_col_form, '設置マス列'
-        %td.formText= text_field_tag :set_col_form, @set_col_form
+        %td.formText= text_field_tag :set_col_form, @set_col_form, placeholder: "例）A/B/F"
         %td= f.label :set_lv_form, '設置マスLv'
-        %td.formNum= text_field_tag :set_lv_form, @set_lv_form
+        %td.formNum= text_field_tag :set_lv_form, @set_lv_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :name_form, '施設名'
@@ -52,13 +52,13 @@
       %tr
         %td.indent
         %td= f.label :division_form, '区分'
-        %td.formText{colspan: "3"}= text_field_tag :division_form, @division_form
+        %td.formText{colspan: "3"}= text_field_tag :division_form, @division_form, placeholder: "例）武器/休息"
       %tr
         %td.indent
         %td= f.label :detail_division_form, '詳細区分'
-        %td.formText= text_field_tag :detail_division_form, @detail_division_form
+        %td.formText= text_field_tag :detail_division_form, @detail_division_form, placeholder: "例）武器屋/定食屋"
         %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form
+        %td.formNum= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :value_form, '価値'

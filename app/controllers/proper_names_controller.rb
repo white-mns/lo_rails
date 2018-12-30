@@ -4,6 +4,7 @@ class ProperNamesController < ApplicationController
 
   # GET /proper_names
   def index
+    placeholder_set
     param_set
     @count	= ProperName.search(params[:q]).result.count()
     @search	= ProperName.page(params[:page]).search(params[:q])

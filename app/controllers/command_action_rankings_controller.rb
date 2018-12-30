@@ -4,6 +4,7 @@ class CommandActionRankingsController < ApplicationController
 
   # GET /command_action_rankings
   def index
+    placeholder_set
     param_set
     @count	= CommandActionRanking.notnil().includes([card_data: :kind_name]).search(params[:q]).result.count()
     @search	= CommandActionRanking.notnil().includes([card_data: :kind_name]).page(params[:page]).search(params[:q])
