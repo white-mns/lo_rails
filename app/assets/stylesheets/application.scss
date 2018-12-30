@@ -121,6 +121,11 @@ h2 {
 label {
     font-weight: bold;
 }
+
+::placeholder {
+    color: #ccc;
+}
+
 .card.top {
     background-color: $weak-color;
     border-color: $nav-well-border-color;

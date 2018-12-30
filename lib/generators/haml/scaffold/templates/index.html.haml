@@ -32,16 +32,16 @@
       %tr
         %td.indent
         %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td.formNum= text_field_tag :e_no_form, @e_no_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
         %td.indent
         %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
-        %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form
+        %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form, placeholder: @placeholder["Number"]
 <% end -%>
       %tr
         %td.indent
