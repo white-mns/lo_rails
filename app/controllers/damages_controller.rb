@@ -87,6 +87,12 @@ class DamagesController < ApplicationController
     reference_number_assign(params, "confusion_value", "confusion_value_form")
     reference_number_assign(params, "charm_value", "charm_value_form")
 
+    if params["no_poison"]    == "on" then params[:q]["poison_lv_blank"]    = true end
+    if params["no_paralysis"] == "on" then params[:q]["paralysis_lv_blank"] = true end
+    if params["no_seal"]      == "on" then params[:q]["seal_lv_blank"]      = true end
+    if params["no_confusion"] == "on" then params[:q]["confusion_lv_blank"] = true end
+    if params["no_charm"]     == "on" then params[:q]["charm_lv_blank"]     = true end
+
     reference_number_assign(params, "attack_buffer_lv", "attack_buffer_lv_form")
     reference_number_assign(params, "attack_buffer_value", "attack_buffer_value_form")
     reference_number_assign(params, "defence_buffer_lv", "defence_buffer_lv_form")
@@ -115,27 +121,27 @@ class DamagesController < ApplicationController
     if params["buff_attack_buffer"]    == "on" then params[:q]["attack_buffer_buffer_name_cont_any"].push("強") end
     if params["debuff_attack_buffer"]  == "on" then params[:q]["attack_buffer_buffer_name_cont_any"].push("弱") end
     if params["no_attack_buffer"]      == "on" then params[:q]["attack_buffer_lv_blank"] = true end
-    if params["buff_defence_buffer"]    == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_defence_buffer"]  == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_defence_buffer"]      == "on" then params[:q]["defence_buffer_lv_blank"] = true end
-    if params["buff_magic_buffer"]    == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_magic_buffer"]  == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_magic_buffer"]      == "on" then params[:q]["magic_buffer_lv_blank"] = true end
+    if params["buff_defence_buffer"]   == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_defence_buffer"] == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_defence_buffer"]     == "on" then params[:q]["defence_buffer_lv_blank"] = true end
+    if params["buff_magic_buffer"]     == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_magic_buffer"]   == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_magic_buffer"]       == "on" then params[:q]["magic_buffer_lv_blank"] = true end
     if params["buff_resist_buffer"]    == "on" then params[:q]["resist_buffer_buffer_name_cont_any"].push("強") end
     if params["debuff_resist_buffer"]  == "on" then params[:q]["resist_buffer_buffer_name_cont_any"].push("弱") end
     if params["no_resist_buffer"]      == "on" then params[:q]["resist_buffer_lv_blank"] = true end
-    if params["buff_hit_buffer"]    == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_hit_buffer"]  == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_hit_buffer"]      == "on" then params[:q]["hit_buffer_lv_blank"] = true end
-    if params["buff_dodge_buffer"]    == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_dodge_buffer"]  == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_dodge_buffer"]      == "on" then params[:q]["dodge_buffer_lv_blank"] = true end
-    if params["buff_death_buffer"]    == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_death_buffer"]  == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_death_buffer"]      == "on" then params[:q]["death_buffer_lv_blank"] = true end
-    if params["buff_control_buffer"]    == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_control_buffer"]  == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_control_buffer"]      == "on" then params[:q]["control_buffer_lv_blank"] = true end
+    if params["buff_hit_buffer"]       == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_hit_buffer"]     == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_hit_buffer"]         == "on" then params[:q]["hit_buffer_lv_blank"] = true end
+    if params["buff_dodge_buffer"]     == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_dodge_buffer"]   == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_dodge_buffer"]       == "on" then params[:q]["dodge_buffer_lv_blank"] = true end
+    if params["buff_death_buffer"]     == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_death_buffer"]   == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_death_buffer"]       == "on" then params[:q]["death_buffer_lv_blank"] = true end
+    if params["buff_control_buffer"]   == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("強") end
+    if params["debuff_control_buffer"] == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("弱") end
+    if params["no_control_buffer"]     == "on" then params[:q]["control_buffer_lv_blank"] = true end
 
     params[:q]["line_eq_any"] = []
     if params["line_front"]  == "on" then params[:q]["line_eq_any"].push(0) end
@@ -166,14 +172,14 @@ class DamagesController < ApplicationController
     if params["is_clean"]    == "on" then params[:q]["clean_value_gteq"]    = 1 end
     if params["is_vanish"]   == "on" then params[:q]["vanish_value_gteq"]   = 1 end
     if params["is_absorb"]   == "on" then params[:q]["absorb_value_gteq"]   = 1 end
-    if params["is_revenge"]   == "on" then params[:q]["revenge_value_gteq"]   = 1 end
+    if params["is_revenge"]  == "on" then params[:q]["revenge_value_gteq"]  = 1 end
     
     if params["no_weak"]     == "on" then params[:q]["weak_value_eq"]     = 0 end
     if params["no_critical"] == "on" then params[:q]["critical_value_eq"] = 0 end
     if params["no_clean"]    == "on" then params[:q]["clean_value_eq"]    = 0 end
     if params["no_vanish"]   == "on" then params[:q]["vanish_value_eq"]   = 0 end
     if params["no_absorb"]   == "on" then params[:q]["absorb_value_eq"]   = 0 end
-    if params["no_revenge"]   == "on" then params[:q]["revenge_value_eq"] = 0 end
+    if params["no_revenge"]  == "on" then params[:q]["revenge_value_eq"]  = 0 end
 
     reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
     reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
@@ -275,6 +281,11 @@ class DamagesController < ApplicationController
     @seal_value_form = params["seal_value_form"]
     @confusion_value_form = params["confusion_value_form"]
     @charm_value_form = params["charm_value_form"]
+    @no_poison = params["no_poison"]
+    @no_paralysis = params["no_paralysis"]
+    @no_seal = params["no_seal"]
+    @no_confusion = params["no_confusion"]
+    @no_charm = params["no_charm"]
 
     @attack_buffer_lv_form = params["attack_buffer_lv_form"]
     @attack_buffer_value_form = params["attack_buffer_value_form"]

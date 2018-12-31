@@ -216,16 +216,16 @@
           - else
             %th= sort_link(@search, ("subject_"+subject).to_sym,      subject_name, default_order: :desc)
       - if @show_detail_card == "1"
-        %th= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
-      %th= sort_link(@search, :card_data_name, '効果', default_order: :desc)
+        %th.sep= sort_link(@search, :card_data_kind_name_name, '種類', default_order: :desc)
+      %th.sep= sort_link(@search, :card_data_name, '効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
       - if @show_detail_card == "1"
-        %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
+        %th.sep= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
       - if @show_detail_training == "1"
-        %th= sort_link(@search, :training_training, '鍛錬', default_order: :desc)
+        %th.sep= sort_link(@search, :training_training, '鍛錬', default_order: :desc)
         %th= sort_link(@search, :speciality_pgws_name_id, '専門', default_order: :desc)
-      %th{colspan:"2"}
+      %th.sep{colspan:"2"}
         結果リンク
   %tbody
     - @get_cards.each do |get_card|
@@ -234,16 +234,16 @@
         %td= p_name_text(get_card.e_no, get_card.p_name)
         - render_subjects(get_card.subject, @subjects, params, @open, nil)
         - if @show_detail_card == "1"
-          %td= get_card.card_data.kind_name.name if get_card.card_data && get_card.card_data.kind_name
-        %td= get_card.card_data.name if get_card.card_data
+          %td.sep= get_card.card_data.kind_name.name if get_card.card_data && get_card.card_data.kind_name
+        %td.sep= get_card.card_data.name if get_card.card_data
         %td= get_card.card_data.lv if get_card.card_data
         - if @show_detail_card == "1"
-          %td= get_card.card_data.lp if get_card.card_data
+          %td.sep= get_card.card_data.lp if get_card.card_data
           %td= get_card.card_data.fp if get_card.card_data
         - if @show_detail_training == "1"
-          %td= show_trainings(get_card.training)
+          %td.sep= show_trainings(get_card.training)
           %td{style: "#{ speciality_style(get_card.training) }" }= show_specialities(get_card.speciality)
-        %td
+        %td.sep
           = character_link(get_card.e_no)
         %td
           = character_old_link(@latest_result, get_card.e_no, get_card.result_no)

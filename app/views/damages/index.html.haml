@@ -320,10 +320,24 @@
         %td.formNum= text_field_tag :poison_value_form, @poison_value_form
       %tr
         %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_poison, @no_poison, @no_poison
+            = label_tag :no_poison, '猛毒なし'
+      %tr
+        %td.indent
         %td= f.label :paralysis_lv_form, '麻痺Lv'
         %td.formNum= text_field_tag :paralysis_lv_form, @paralysis_lv_form
         %td= f.label :paralysis_value_form, '麻痺深度'
         %td.formNum= text_field_tag :paralysis_value_form, @paralysis_value_form
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_paralysis, @no_paralysis, @no_paralysis
+            = label_tag :no_paralysis, '麻痺なし'
       %tr
         %td.indent
         %td= f.label :seal_lv_form, '封殺Lv'
@@ -332,16 +346,37 @@
         %td.formNum= text_field_tag :seal_value_form, @seal_value_form
       %tr
         %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_seal, @no_seal, @no_seal
+            = label_tag :no_seal, '封印なし'
+      %tr
+        %td.indent
         %td= f.label :confusion_lv_form, '混乱Lv'
         %td.formNum= text_field_tag :confusion_lv_form, @confusion_lv_form
         %td= f.label :confusion_value_form, '混乱深度'
         %td.formNum= text_field_tag :confusion_value_form, @confusion_value_form
       %tr
         %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_confusion, @no_confusion, @no_confusion
+            = label_tag :no_confusion, '混乱なし'
+      %tr
+        %td.indent
         %td= f.label :charm_lv_form, '魅了Lv'
         %td.formNum= text_field_tag :charm_lv_form, @charm_lv_form
         %td= f.label :charm_value_form, '魅了深度'
         %td.formNum= text_field_tag :charm_value_form, @charm_value_form
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_charm, @no_charm, @no_charm
+            = label_tag :no_charm, '魅了なし'
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
