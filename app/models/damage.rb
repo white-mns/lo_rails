@@ -1,25 +1,31 @@
 class Damage < ApplicationRecord
+    def self.regexpProperName(proper_name, regexp)
+        proper_name.inject(Array.new(0)){ |array , a| if a[0] =~ /#{regexp}/ then array.push(a[1]) end; array }
+    end
+
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
-    reinforcement  = ProperName.where("name like '%強化フィールド'").pluck(:proper_id)
-    conversion     = ProperName.where("name like '%変換フィールド'").pluck(:proper_id)
-    chain_power    = ProperName.where("name = '鎖力'").pluck(:proper_id)
-    attack_buffer  = ProperName.where("name like '物攻_'").pluck(:proper_id)
-    defence_buffer = ProperName.where("name like '物防_'").pluck(:proper_id)
-    magic_buffer   = ProperName.where("name like '理力_'").pluck(:proper_id)
-    resist_buffer  = ProperName.where("name like '抵抗_'").pluck(:proper_id)
-    hit_buffer     = ProperName.where("name like '命中_'").pluck(:proper_id)
-    dodge_buffer   = ProperName.where("name like '回避_'").pluck(:proper_id)
-    death_buffer   = ProperName.where("name like '必殺_'").pluck(:proper_id)
-    control_buffer = ProperName.where("name like '制御_'").pluck(:proper_id)
-    all_fp_damage  = ProperName.where("name = '完全FP'").pluck(:proper_id)
-    all_lp_damage  = ProperName.where("name = '完全LP'").pluck(:proper_id)
-    lpfp_damage    = ProperName.where("name = '混合LPFP'").pluck(:proper_id)
-    weak           = ProperName.where("name = 'WeakPoint'").pluck(:proper_id)
-    critical       = ProperName.where("name = 'Critical'").pluck(:proper_id)
-    clean          = ProperName.where("name = 'Clean Hit'").pluck(:proper_id)
-    vanish         = ProperName.where("name = 'Vanish'").pluck(:proper_id)
-    absorb         = ProperName.where("name = 'Absorb'").pluck(:proper_id)
-    revenge        = ProperName.where("name = 'Revenge'").pluck(:proper_id)
+
+    reinforcement  = regexpProperName(proper_name, "\\A.{2,3}強化フィールド")
+    conversion     = regexpProperName(proper_name, "\\A.{2,3}変換フィールド")
+    chain_power    = proper_name["鎖力"]
+    attack_buffer  = regexpProperName(proper_name, "物攻.\\z")
+    defence_buffer = regexpProperName(proper_name, "物防.\\z")
+    magic_buffer   = regexpProperName(proper_name, "理力.\\z")
+    resist_buffer  = regexpProperName(proper_name, "抵抗.\\z")
+    hit_buffer     = regexpProperName(proper_name, "命中.\\z")
+    dodge_buffer   = regexpProperName(proper_name, "回避.\\z")
+    death_buffer   = regexpProperName(proper_name, "必殺.\\z")
+    control_buffer = regexpProperName(proper_name, "制御.\\z")
+    all_fp_damage  = proper_name["完全FP"]
+    all_lp_damage  = proper_name["完全LP"]
+    lpfp_damage    = proper_name["混合LPFP"]
+    weak           = proper_name["WeakPoint"]
+    critical       = proper_name["Critical"]
+    clean          = proper_name["Clean Hit"]
+    vanish         = proper_name["Vanish"]
+    absorb         = proper_name["Absorb"]
+    revenge        = proper_name["Revenge"]
+
 	belongs_to :p_name,	                      :foreign_key => [:e_no, :result_no, :generate_no],         :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 	belongs_to :target_p_name,                :foreign_key => [:target_e_no, :result_no, :generate_no],  :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 	belongs_to :characteristic,               :foreign_key => [:e_no, :result_no, :generate_no],         :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Characteristic'
