@@ -5,9 +5,6 @@ class Damage < ApplicationRecord
 
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
 
-    reinforcement  = regexpProperName(proper_name, "\\A.{2,3}強化フィールド")
-    conversion     = regexpProperName(proper_name, "\\A.{2,3}変換フィールド")
-    chain_power    = proper_name["鎖力"]
     attack_buffer  = regexpProperName(proper_name, "物攻.\\z")
     defence_buffer = regexpProperName(proper_name, "物防.\\z")
     magic_buffer   = regexpProperName(proper_name, "理力.\\z")
@@ -16,6 +13,9 @@ class Damage < ApplicationRecord
     dodge_buffer   = regexpProperName(proper_name, "回避.\\z")
     death_buffer   = regexpProperName(proper_name, "必殺.\\z")
     control_buffer = regexpProperName(proper_name, "制御.\\z")
+    reinforcement  = regexpProperName(proper_name, "\\A.{2,3}強化フィールド")
+    conversion     = regexpProperName(proper_name, "\\A.{2,3}変換フィールド")
+    chain_power    = proper_name["鎖力"]
     all_fp_damage  = proper_name["完全FP"]
     all_lp_damage  = proper_name["完全LP"]
     lpfp_damage    = proper_name["混合LPFP"]
@@ -83,14 +83,68 @@ class Damage < ApplicationRecord
         end
     }
     
-    scope :damage_includes, ->() {
-        includes(:p_name, :target_p_name, :act_type_name, [card_data: :kind_name],
-                 :characteristic, :target_characteristic, :parameter_development, :target_parameter_development,
-                 [poison: :buffer], [paralysis: :buffer], [seal: :buffer], [confusion: :buffer], [charm: :buffer],
-                 [weak: :buffer], [critical: :buffer], [clean: :buffer], [vanish: :buffer], [absorb: :buffer], [revenge: :buffer], 
-                 [reinforcement: :buffer], [conversion: :buffer], [chain_power: :buffer],
-                 [attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer],
-                 [all_fp_damage: :buffer], [all_lp_damage: :buffer], [lpfp_damage: :buffer])
+    scope :all_includes, ->(params) {
+        includes(:p_name, :act_type_name, [card_data: :kind_name]).
+        target_includes(params).
+        element_includes(params).
+        characteristic_includes(params).
+        target_characteristic_includes(params).
+        parameter_development_includes(params).
+        abnormal_includes(params).
+        damage_option_includes(params). 
+        buffer_includes(params).
+        reinforcement_includes(params).
+        conversion_includes(params).
+        chain_power_includes(params).
+        fp_type_includes(params)
+    }
+
+    scope :element_includes, ->(params) {
+        if params["show_detail_element"] then includes(:element_name) end
+    }
+
+    scope :target_includes, ->(params) {
+        if params["show_detail_target"] then includes(:target_p_name) end
+    }
+
+    scope :characteristic_includes, ->(params) {
+        if params["show_detail_characteristic"] then includes(:characteristic) end
+    }
+
+    scope :target_characteristic_includes, ->(params) {
+        if params["show_detail_target_characteristic"] then includes(:target_characteristic) end
+    }
+
+    scope :parameter_development_includes, ->(params) {
+        if params["show_detail_parameter_development"] then includes(:parameter_development, :target_parameter_development) end
+    }
+
+    scope :damage_option_includes, ->(params) {
+        if params["show_detail_damage_option"] then includes([weak: :buffer], [critical: :buffer], [clean: :buffer], [vanish: :buffer], [absorb: :buffer], [revenge: :buffer]) end
+    }
+
+    scope :abnormal_includes, ->(params) {
+        if params["show_detail_abnormal"] then includes([poison: :buffer], [paralysis: :buffer], [seal: :buffer], [confusion: :buffer], [charm: :buffer]) end
+    }
+
+    scope :buffer_includes, ->(params) {
+        if params["show_detail_buffer"] then includes([attack_buffer: :buffer], [defence_buffer: :buffer], [magic_buffer: :buffer], [resist_buffer: :buffer], [hit_buffer: :buffer], [dodge_buffer: :buffer], [death_buffer: :buffer], [control_buffer: :buffer]) end
+    }
+
+    scope :reinforcement_includes, ->(params) {
+        if params["show_detail_reinforcement"] then includes([reinforcement: :buffer]) end
+    }
+
+    scope :conversion_includes, ->(params) {
+        if params["show_detail_conversion"] then includes([conversion: :buffer]) end
+    }
+
+    scope :chain_power_includes, ->(params) {
+        if params["show_detail_chain_power"] then includes([chain_power: :buffer]) end
+    }
+
+    scope :fp_type_includes, ->(params) {
+        if params["show_detail_fp_type"] then includes([all_fp_damage: :buffer], [all_lp_damage: :buffer], [lpfp_damage: :buffer]) end
     }
 
     scope :to_damage_range_graph, -> (column) {

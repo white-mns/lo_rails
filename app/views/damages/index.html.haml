@@ -121,8 +121,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_target, @show_detail_target
           - act_icon(false)
-          = label_tag :show_detail_card, '　対象キャラクターを表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　対象キャラクターを表示しない', class: "act_desc closed"
+          = label_tag :show_detail_target, '　対象キャラクターを表示する', class: "act_desc"
+          = label_tag :show_detail_target, '　対象キャラクターを表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -136,8 +136,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_characteristic, @show_detail_characteristic
           - act_icon(false)
-          = label_tag :show_detail_card, '　使用者の特性(腕力など)を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　使用者の特性を表示しない', class: "act_desc closed"
+          = label_tag :show_detail_characteristic, '　使用者の特性(腕力など)を表示する', class: "act_desc"
+          = label_tag :show_detail_characteristic, '　使用者の特性を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -163,8 +163,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_target_characteristic, @show_detail_target_characteristic
           - act_icon(false)
-          = label_tag :show_detail_card, '　対象の特性(腕力など)を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　対象の特性を表示しない', class: "act_desc closed"
+          = label_tag :show_detail_target_characteristic, '　対象の特性(腕力など)を表示する', class: "act_desc"
+          = label_tag :show_detail_target_characteristic, '　対象の特性を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -205,8 +205,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_party, @show_detail_party
           - act_icon(false)
-          = label_tag :show_detail_card, '　発動時パーティ人数を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　発動時パーティ人数を表示しない', class: "act_desc closed"
+          = label_tag :show_detail_party, '　発動時パーティ人数を表示する', class: "act_desc"
+          = label_tag :show_detail_party, '　発動時パーティ人数を表示しない', class: "act_desc closed"
     %tbody.closed
       %tr
       %tr
@@ -251,8 +251,8 @@
         %td{colspan: "5"}
           = hidden_field_tag :show_detail_damage_option, @show_detail_damage_option
           - act_icon(false)
-          = label_tag :show_detail_card, '　ヒット時効果の有無を表示する', class: "act_desc"
-          = label_tag :show_detail_card, '　ヒット時効果の有無を表示しない', class: "act_desc closed"
+          = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示する', class: "act_desc"
+          = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示しない', class: "act_desc closed"
           %div.act_desc 　WeakPoint、Critical、Clean Hit、Vanish、Absorb
     %tbody.closed
       %tr
