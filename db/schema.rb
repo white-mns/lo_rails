@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_055555) do
+ActiveRecord::Schema.define(version: 2018_12_31_105449) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["order"], name: "index_bugs_on_order"
   end
 
-  create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "card_data", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "card_id"
     t.string "name"
     t.integer "lv"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["lp"], name: "index_card_data_on_lp"
     t.index ["lpfp"], name: "index_card_data_on_lpfp"
     t.index ["lv"], name: "index_card_data_on_lv"
-    t.index ["name"], name: "index_card_data_on_name"
+    t.index ["name"], name: "index_card_data_on_name", length: 191
   end
 
   create_table "card_use_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["success"], name: "index_card_users_on_success"
   end
 
-  create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_cards_on_card_id"
     t.index ["e_no", "s_no", "result_no", "generate_no"], name: "resultno_and_eno"
-    t.index ["name"], name: "index_cards_on_name"
+    t.index ["name"], name: "index_cards_on_name", length: 191
     t.index ["possession"], name: "index_cards_on_possession"
   end
 
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["battle_page", "act_id", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page_and_act_id"
+    t.index ["battle_page", "act_id", "result_no", "buffer_id", "e_no", "generate_no"], name: "resultno_and_battlepage_and_act_id_and_buffer_id", unique: true
     t.index ["buffer_id"], name: "index_damage_buffers_on_buffer_id"
     t.index ["lv"], name: "index_damage_buffers_on_lv"
     t.index ["value"], name: "index_damage_buffers_on_value"
@@ -204,6 +205,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["line"], name: "index_damages_on_line"
     t.index ["party"], name: "index_damages_on_party"
     t.index ["party_num"], name: "index_damages_on_party_num"
+    t.index ["result_no"], name: "index_damages_on_result_no"
     t.index ["target_e_no"], name: "index_damages_on_target_e_no"
     t.index ["target_line"], name: "index_damages_on_target_line"
     t.index ["target_party"], name: "index_damages_on_target_party"
@@ -299,7 +301,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["trick"], name: "index_drop_min_subjects_on_trick"
   end
 
-  create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -316,10 +318,10 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.datetime "updated_at", null: false
     t.index ["detail_division"], name: "index_facilities_on_detail_division"
     t.index ["division"], name: "index_facilities_on_division"
-    t.index ["e_no", "set_lv", "set_col", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["e_no", "set_lv", "set_col", "result_no", "generate_no"], name: "resultno_and_eno", length: { set_col: 191 }
     t.index ["holiday"], name: "index_facilities_on_holiday"
     t.index ["lv"], name: "index_facilities_on_lv"
-    t.index ["name"], name: "index_facilities_on_name"
+    t.index ["name"], name: "index_facilities_on_name", length: 191
     t.index ["period"], name: "index_facilities_on_period"
     t.index ["value"], name: "index_facilities_on_value"
   end
@@ -362,7 +364,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["usage"], name: "index_facility_uses_on_usage"
   end
 
-  create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -374,10 +376,10 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["card_id"], name: "index_get_cards_on_card_id"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["get_type"], name: "index_get_cards_on_get_type"
-    t.index ["name"], name: "index_get_cards_on_name"
+    t.index ["name"], name: "index_get_cards_on_name", length: 191
   end
 
-  create_table "item_uses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "item_uses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -388,11 +390,11 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.integer "recovery_lv"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["i_no"], name: "index_item_uses_on_i_no"
-    t.index ["name"], name: "index_item_uses_on_name"
+    t.index ["name"], name: "index_item_uses_on_name", length: 191
     t.index ["recovery_lv"], name: "index_item_uses_on_recovery_lv"
   end
 
-  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -412,13 +414,13 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["equip"], name: "index_items_on_equip"
     t.index ["kind"], name: "index_items_on_kind"
     t.index ["lv"], name: "index_items_on_lv"
-    t.index ["name"], name: "index_items_on_name"
+    t.index ["name"], name: "index_items_on_name", length: 191
     t.index ["potency"], name: "index_items_on_potency"
-    t.index ["potency_str"], name: "index_items_on_potency_str"
+    t.index ["potency_str"], name: "index_items_on_potency_str", length: 191
     t.index ["precision"], name: "index_items_on_precision"
   end
 
-  create_table "manufactures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "manufactures", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -444,8 +446,8 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["facility_e_no"], name: "index_manufactures_on_facility_e_no"
     t.index ["facility_effect"], name: "index_manufactures_on_facility_effect"
     t.index ["facility_lv"], name: "index_manufactures_on_facility_lv"
-    t.index ["facility_name"], name: "index_manufactures_on_facility_name"
-    t.index ["item_name"], name: "index_manufactures_on_item_name"
+    t.index ["facility_name"], name: "index_manufactures_on_facility_name", length: 191
+    t.index ["item_name"], name: "index_manufactures_on_item_name", length: 191
     t.index ["kind"], name: "index_manufactures_on_kind"
     t.index ["potency"], name: "index_manufactures_on_potency"
     t.index ["precision"], name: "index_manufactures_on_precision"
@@ -501,13 +503,13 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["target_id"], name: "index_meddling_targets_on_target_id"
   end
 
-  create_table "mission_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "mission_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "mission_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mission_id"], name: "index_mission_names_on_mission_id"
-    t.index ["name"], name: "index_mission_names_on_name"
+    t.index ["name"], name: "index_mission_names_on_name", length: 191
   end
 
   create_table "missions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -530,7 +532,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["status"], name: "index_missions_on_status"
   end
 
-  create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -703,7 +705,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["win"], name: "index_pre_wins_on_win"
   end
 
-  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "result_no"
     t.integer "generate_no"
     t.integer "e_no"
@@ -717,12 +719,12 @@ ActiveRecord::Schema.define(version: 2018_12_17_055555) do
     t.index ["tone"], name: "index_profiles_on_tone"
   end
 
-  create_table "proper_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "proper_names", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "proper_id"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_proper_names_on_name"
+    t.index ["name"], name: "index_proper_names_on_name", length: 191
     t.index ["proper_id"], name: "index_proper_names_on_proper_id"
   end
 
