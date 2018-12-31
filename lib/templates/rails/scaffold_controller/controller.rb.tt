@@ -9,6 +9,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>
   def index
+    placeholder_set
     param_set
     @count	= <%= class_name %>.notnil().includes(:p_name).search(params[:q]).result.count()
     @search	= <%= class_name %>.notnil().includes(:p_name).page(params[:page]).search(params[:q])

@@ -38,15 +38,15 @@
       %tr
         %td.indent
         %td= f.label :bellicose_form, '好戦度'
-        %td.formNum= text_field_tag :bellicose_form, @bellicose_form
+        %td.formNum= text_field_tag :bellicose_form, @bellicose_form, placeholder: "例）4~"
         %td= f.label :party_num_form, 'パーティ人数'
         %td.formNum= text_field_tag :party_num_form, @party_num_form
       %tr
         %td.indent
         %td= f.label :invation_col_form, '侵攻列'
-        %td.formText= text_field_tag :invation_col_form, @invation_col_form
+        %td.formText= text_field_tag :invation_col_form, @invation_col_form, placeholder: "例）A/B/F"
         %td= f.label :invation_lv_form, '侵攻Lv'
-        %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form
+        %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :day_form, 'Day'

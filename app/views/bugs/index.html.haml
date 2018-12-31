@@ -36,9 +36,9 @@
       %tr
         %td.indent
         %td= f.label :bug_e_no_form, 'BUGEno'
-        %td.formNum= text_field_tag :bug_e_no_form, @bug_e_no_form
+        %td.formNum= text_field_tag :bug_e_no_form, @bug_e_no_form, placeholder: @placeholder["Number"]
         %td= f.label :p_name_form, 'BUGキャラクター名'
-        %td.formText= text_field_tag :bug_name_form, @bug_name_form
+        %td.formText= text_field_tag :bug_name_form, @bug_name_form, placeholder: "例）BUG/貴方"
       %tr
         %td.indent
         %td= f.label :lv_form, 'BugLv'
@@ -64,9 +64,9 @@
       %tr.sep
         %td.indent
         %td= f.label :e_no_form, '開拓Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
+        %td.formNum= text_field_tag :e_no_form, @e_no_form, placeholder: @placeholder["Number"]
         %td= f.label :p_name_form, '開拓キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
+        %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}

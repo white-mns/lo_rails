@@ -33,9 +33,9 @@
       %tr.sep
         %td.indent
         %td= f.label :effect_form, 'カード効果'
-        %td.formText= text_field_tag :effect_form, @effect_form
+        %td.formText= text_field_tag :effect_form, @effect_form, placeholder: @placeholder["Card"]
         %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form
+        %td.formNum= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :chain_form, 'Chain'
@@ -276,6 +276,9 @@
           %span.input
             = check_box_tag :is_absorb, @is_absorb, @is_absorb
             = label_tag :is_absorb, 'Absorb(吸○○の効果)'
+          %span.input
+            = check_box_tag :is_revenge, @is_revenge, @is_revenge
+            = label_tag :is_revenge, 'Revenge(応○○の効果)'
       %tr
         %td.indent
         %td= f.label :act_type_form, 'ヒット時効果（除外）'
@@ -296,6 +299,9 @@
           %span.input
             = check_box_tag :no_absorb, @no_absorb, @no_absorb
             = label_tag :no_absorb, '× Absorb(吸○○の効果)'
+          %span.input
+            = check_box_tag :no_revenge, @no_revenge, @no_revenge
+            = label_tag :no_revenge, '× Revenge(応○○の効果)'
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -556,6 +562,49 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
+          = hidden_field_tag :show_detail_chain_power, @show_detail_chain_power
+          - act_icon(false)
+          = label_tag :show_detail_chain_power, '　鎖力の効果を表示する', class: "act_desc"
+          = label_tag :show_detail_chain_power, '　鎖力の効果を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :chain_power_value_form, '鎖力強化率'
+        %td.formNum{colspan: "3"}= text_field_tag :chain_power_value_form, @chain_power_value_form
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :no_chain_power, @no_chain_power, @no_chain_power
+            = label_tag :no_chain_power, '鎖力なし'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_fp_type, @show_detail_fp_type
+          - act_icon(false)
+          = label_tag :show_detail_fp_type, '　FPダメージのLPダメージ変換の有無を表示する', class: "act_desc"
+          = label_tag :show_detail_fp_type, '　FPダメージのLPダメージ変換の有無を表示しない', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :all_fp_damage, @all_fp_damage, @all_fp_damage
+            = label_tag :all_fp_damage, '完全FPダメージ'
+          %span.input
+            = check_box_tag :all_lp_damage, @all_lp_damage, @all_lp_damage
+            = label_tag :all_lp_damage, '完全LPダメージ'
+          %span.input
+            = check_box_tag :lpfp_damage, @lpfp_damage, @lpfp_damage
+            = label_tag :lpfp_damage, 'FP+LPダメージ'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
           = hidden_field_tag :show_detail_target_type, @show_detail_target_type
           - act_icon(false)
           = label_tag :show_detail_target_type, '　味方対象・敵対象で絞り込む', class: "act_desc"
@@ -689,6 +738,7 @@
         %th= sort_link(@search, :is_clean, 'Clean', default_order: :desc)
         %th= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
         %th= sort_link(@search, :is_absorb, 'Absorb', default_order: :desc)
+        %th= sort_link(@search, :revenge_value, 'Revenge', default_order: :desc)
       - if @show_detail_abnormal == "1"
         %th.sep{colspan: "2"}= sort_link(@search, :poison_value, '毒', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :paralysis_value, '麻痺', default_order: :desc)
@@ -708,6 +758,12 @@
         %th.sep= sort_link(@search, :reinforcement_lv, '強化F', default_order: :desc)
       - if @show_detail_conversion == "1"
         %th.sep= sort_link(@search, :conversion_value, '変換F', default_order: :desc)
+      - if @show_detail_chain_power == "1"
+        %th.sep= sort_link(@search, :chain_power_value, '鎖力', default_order: :desc)
+      - if @show_detail_fp_type == "1"
+        %th.sep= sort_link(@search, :all_fp_damage_value, '完全FP', default_order: :desc)
+        %th= sort_link(@search, :all_lp_damage_value, '完全LP', default_order: :desc)
+        %th= sort_link(@search, :lpfp_damage_value, 'FPLP', default_order: :desc)
       %th.sep{colspan: "2"} 結果リンク
       %th{colspan: "2"} 模擬戦結果
   %tbody
@@ -753,11 +809,12 @@
           = damage.damage if damage.damage >= 0
           = "回避" if damage.damage < 0
         - if @show_detail_damage_option == "1"
-          %td.sep= showPreDamage(damage.is_weak)
-          %td= showPreDamage(damage.is_critical)
-          %td= showPreDamage(damage.is_clean)
-          %td= showPreDamage(damage.is_vanish)
-          %td= showPreDamage(damage.is_absorb)
+          %td.sep= showExistBuffer(damage.weak)
+          %td= showExistBuffer(damage.critical)
+          %td= showExistBuffer(damage.clean)
+          %td= showExistBuffer(damage.vanish)
+          %td= showExistBuffer(damage.absorb)
+          %td= showExistBuffer(damage.revenge)
         - if @show_detail_abnormal == "1"
           %td.sep= showBufferLv(damage.poison)
           %td= damage.poison.value if damage.poison
@@ -790,6 +847,12 @@
           %td.sep= showReinforcing(damage.reinforcement)
         - if @show_detail_conversion == "1"
           %td.sep= showConversion(damage.conversion)
+        - if @show_detail_chain_power == "1"
+          %td.sep= sprintf("%d％", damage.chain_power.value) if damage.chain_power
+        - if @show_detail_fp_type == "1"
+          %td.sep= showExistBuffer(damage.all_fp_damage)
+          %td= showExistBuffer(damage.all_lp_damage)
+          %td= showExistBuffer(damage.lpfp_damage)
         %td.sep= character_link(damage.e_no)
         %td= character_old_link(@latest_result, damage.e_no, damage.result_no)
         %td= battle_link(@latest_result, damage.battle_page, damage.result_no)

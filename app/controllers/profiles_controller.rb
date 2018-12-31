@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles
   def index
+    placeholder_set
     param_set
     @count	= Profile.notnil().includes(:p_name, :tone_name).search(params[:q]).result.count()
     @search	= Profile.notnil().includes(:p_name, :tone_name).page(params[:page]).search(params[:q])

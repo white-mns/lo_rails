@@ -76,6 +76,23 @@
   .card-body
     %h2 更新履歴
     %ul
+      %li 2018/12/31
+      %ul
+        %li
+          = link_to "獲得カード＋学科一覧", drop_subjects_path
+          で鍛錬学科・専門学科を表示できるように
+        %li
+          = link_to "ダメージ・回復一覧", damages_path
+          に以下の要素を追加。
+          %ul
+            %li
+              FPダメージのLPダメージ変換時に、Criticalや攻撃属性の情報を引き継ぐように
+            %li
+              FPダメージがLPダメージに変換されたかどうかで絞り込み
+            %li
+              鎖力強化率の表示
+            %li
+              Revenge(応○○の効果)の表示
       %li 2018/12/24
       %ul
         %li

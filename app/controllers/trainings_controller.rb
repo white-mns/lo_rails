@@ -4,6 +4,7 @@ class TrainingsController < ApplicationController
 
   # GET /trainings
   def index
+    placeholder_set
     param_set
     @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
     @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
@@ -25,6 +26,7 @@ class TrainingsController < ApplicationController
 
   # GET /training/graph
   def graph
+    placeholder_set
     param_set
     @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
     @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])

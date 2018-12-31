@@ -172,6 +172,23 @@
         %td.formNum= text_field_tag :lp_form, @lp_form
         %td= f.label :fp_form, 'FP'
         %td.formNum= text_field_tag :fp_form, @fp_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_training, @show_detail_training
+          - act_icon(false)
+          = label_tag :show_detail_training, '　鍛錬・専門を表示する', class: "act_desc"
+          = label_tag :show_detail_training, '　鍛錬・専門を表示しない', class: "act_desc closed"
+          %div.act_desc 　種類(発動タイミング)、LP、FP
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :training_form, '鍛錬'
+        %td.formNum= text_field_tag :training_form, @training_form
+        %td= f.label :speciality_form, '専門'
+        %td.formNum= text_field_tag :speciality_form, @speciality_form
+
     %tbody
       %tr
         %td.indent
@@ -205,6 +222,9 @@
       - if @show_detail_card == "1"
         %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
+      - if @show_detail_training == "1"
+        %th= sort_link(@search, :training_training, '鍛錬', default_order: :desc)
+        %th= sort_link(@search, :speciality_pgws_name_id, '専門', default_order: :desc)
       %th{colspan:"2"}
         結果リンク
   %tbody
@@ -220,6 +240,9 @@
         - if @show_detail_card == "1"
           %td= get_card.card_data.lp if get_card.card_data
           %td= get_card.card_data.fp if get_card.card_data
+        - if @show_detail_training == "1"
+          %td= show_trainings(get_card.training)
+          %td{style: "#{ speciality_style(get_card.training) }" }= show_specialities(get_card.speciality)
         %td
           = character_link(get_card.e_no)
         %td

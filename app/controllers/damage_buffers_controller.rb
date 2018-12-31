@@ -4,6 +4,7 @@ class DamageBuffersController < ApplicationController
 
   # GET /damage_buffers
   def index
+    placeholder_set
     param_set
     @count	= DamageBuffer.notnil().includes(:p_name).search(params[:q]).result.count()
     @search	= DamageBuffer.notnil().includes(:p_name).page(params[:page]).search(params[:q])

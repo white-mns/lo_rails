@@ -4,6 +4,7 @@ class NamesController < ApplicationController
 
   # GET /names
   def index
+    placeholder_set
     param_set
     @count	= Name.notnil().search(params[:q]).result.count()
     @search	= Name.notnil().page(params[:page]).search(params[:q])

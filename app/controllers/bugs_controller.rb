@@ -4,6 +4,7 @@ class BugsController < ApplicationController
 
   # GET /bugs
   def index
+    placeholder_set
     param_set
     @count	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
     @search	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
@@ -13,6 +14,7 @@ class BugsController < ApplicationController
 
   # GET /effect_pre
   def effect_pre
+    placeholder_set
     param_set
     group_set
     @count	= Bug.notnil().where("bugs.result_no = lv").includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()

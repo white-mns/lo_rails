@@ -4,6 +4,7 @@ class CardUsersController < ApplicationController
 
   # GET /card_users
   def index
+    placeholder_set
     param_set
     @count	= CardUser.notnil().includes(:p_name).detail_group_count(params)
     @search	= CardUser.notnil().includes(:p_name).detail_group(params).page(params[:page]).search(params[:q])

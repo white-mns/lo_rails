@@ -4,6 +4,7 @@ class MeddlingSuccessRatesController < ApplicationController
 
   # GET /meddling_success_rates
   def index
+    placeholder_set
     param_set
     @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).search(params[:q]).result.count()
     @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).page(params[:page]).search(params[:q])

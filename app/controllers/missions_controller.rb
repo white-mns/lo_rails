@@ -4,6 +4,7 @@ class MissionsController < ApplicationController
 
   # GET /missions
   def index
+    placeholder_set
     param_set
     @count	= Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
     @search	= Mission.notnil().includes(:p_name, :mission).page(params[:page]).search(params[:q])
@@ -13,6 +14,7 @@ class MissionsController < ApplicationController
 
   # GET /mission/statistics
   def statistics
+    placeholder_set
     param_set
     @count	 = Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
     @search	 = Mission.notnil().includes(:p_name, :mission)

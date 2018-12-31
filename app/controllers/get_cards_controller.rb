@@ -4,6 +4,7 @@ class GetCardsController < ApplicationController
 
   # GET /get_cards
   def index
+    placeholder_set
     param_set
     @count	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
     @all	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result
@@ -15,9 +16,9 @@ class GetCardsController < ApplicationController
   def drop_subjects
     param_set
     params[:q]["get_type_eq_any"]=[2] 
-    @count	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result.count()
-    @all	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).search(params[:q]).result
-    @search	= GetCard.notnil().includes(:p_name, :subject, card_data: :kind_name).page(params[:page]).search(params[:q])
+    @all	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name]).search(params[:q]).result
+    @count	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).search(params[:q]).result.count()
+    @search	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
     
@@ -76,6 +77,9 @@ class GetCardsController < ApplicationController
     reference_number_assign(params, "subject_curse", "curse_form")
     reference_number_assign(params, "subject_illusion", "illusion_form")
     reference_number_assign(params, "subject_trick", "trick_form")
+
+    reference_text_assign(params, "training_training_name_name", "training_form")
+    reference_text_assign(params, "speciality_pgws_name_name", "speciality_form")
     
     params[:q]["get_type_eq_any"] ||= []
     if params["is_get_type_failed"] == "on" then params[:q]["get_type_eq_any"].push(0) end
@@ -125,6 +129,9 @@ class GetCardsController < ApplicationController
     @curse_form = params["curse_form"]
     @illusion_form = params["illusion_form"]
     @trick_form = params["trick_form"]
+
+    @training_form = params["training_form"]
+    @speciality_form = params["speciality_form"]
     
     @is_get_type_failed  = params["is_get_type_failed"]
     @is_get_type_create  = params["is_get_type_create"]
@@ -148,6 +155,7 @@ class GetCardsController < ApplicationController
     @show_detail_e_no = params["show_detail_e_no"]
     @show_detail_s_no = params["show_detail_s_no"]
     @show_detail_card = params["show_detail_card"]
+    @show_detail_training = params["show_detail_training"]
 
   end
 

@@ -40,9 +40,9 @@
       %tr
         %td.indent
         %td= f.label :slash_form, '斬術'
-        %td.formNum= text_field_tag :slash_form, @slash_form
+        %td.formNum= text_field_tag :slash_form, @slash_form, placeholder: @placeholder["Number"]
         %td= f.label :fire_form, '火術'
-        %td.formNum= text_field_tag :fire_form, @fire_form
+        %td.formNum= text_field_tag :fire_form, @fire_form, placeholder: @placeholder["Number"]
       %tr
         %td.indent
         %td= f.label :thrust_form, '突術'

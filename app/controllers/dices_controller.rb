@@ -4,6 +4,7 @@ class DicesController < ApplicationController
 
   # GET /dices
   def index
+    placeholder_set
     param_set
     @count	= Dice.notnil().includes(:p_name).search(params[:q]).result.count()
     @search	= Dice.notnil().includes(:p_name).page(params[:page]).search(params[:q])

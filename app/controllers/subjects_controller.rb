@@ -4,6 +4,7 @@ class SubjectsController < ApplicationController
 
   # GET /subjects
   def index
+    placeholder_set
     param_set
     @count	= Subject.notnil().includes(:p_name).search(params[:q]).result.count()
     @search	= Subject.notnil().includes(:p_name).page(params[:page]).search(params[:q])
