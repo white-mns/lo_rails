@@ -198,6 +198,7 @@ class DamagesController < ApplicationController
     if params["lpfp_damage"]    == "on" then params[:q]["lpfp_damage_value_not_null"]   = true end
 
     @p_name_form = params["p_name_form"]
+    @target_p_name_form = params["target_p_name_form"]
     @result_no_form = params["result_no_form"]
     @generate_no_form = params["generate_no_form"]
     @battle_page_form = params["battle_page_form"]
