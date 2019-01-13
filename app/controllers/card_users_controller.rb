@@ -45,7 +45,7 @@ class CardUsersController < ApplicationController
     
     params[:q]["success_eq_any"] ||= []
     if params["is_success"]  == "on" then params[:q]["success_eq_any"].push(1) end
-    if params["not_success"] == "on" then params[:q]["success_eq_any"].push(-1) end
+    if params["not_success"] == "on" then params[:q]["success_eq_any"].push(0) end
 
     @p_name_form = params["p_name_form"]
     @result_no_form = params["result_no_form"]
