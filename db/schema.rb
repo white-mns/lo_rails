@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_31_105449) do
+ActiveRecord::Schema.define(version: 2019_01_15_142713) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -68,10 +68,13 @@ ActiveRecord::Schema.define(version: 2018_12_31_105449) do
     t.integer "control"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "turn"
     t.index ["battle_page", "party", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
     t.index ["card_id"], name: "index_card_users_on_card_id"
     t.index ["control"], name: "index_card_users_on_control"
+    t.index ["result_no", "e_no"], name: "resultno"
     t.index ["success"], name: "index_card_users_on_success"
+    t.index ["turn"], name: "index_card_users_on_turn"
   end
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -161,6 +164,7 @@ ActiveRecord::Schema.define(version: 2018_12_31_105449) do
     t.index ["battle_page", "act_id", "result_no", "buffer_id", "e_no", "generate_no"], name: "resultno_and_battlepage_and_act_id_and_buffer_id", unique: true
     t.index ["buffer_id"], name: "index_damage_buffers_on_buffer_id"
     t.index ["lv"], name: "index_damage_buffers_on_lv"
+    t.index ["result_no"], name: "index_damage_buffers_on_result_no"
     t.index ["value"], name: "index_damage_buffers_on_value"
   end
 
