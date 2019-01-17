@@ -75,288 +75,301 @@
 .card.top
   .card-body
     %h2 更新履歴
-    %ul
-      %li 2019/1/13
+    %div
       %ul
-        %li
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、【混迷Lv1】の取得条件を初期化(Vol.7から再計算)
-        %li
-          = link_to "カード発動者一覧", card_users_path
-          において、制御に失敗した結果が検索できなかった不具合を修正
-      %li 2019/1/2
+        %li 2019/1/17
+        %ul
+          %li
+            = link_to "干渉効果対象一覧", meddling_targets_path
+            の発動結果一覧のリンク先について、キャラクターを指定していない（全体）ときに適切な検索結果に飛ぶように修正
+        %li 2019/1/13
+        %ul
+          %li
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、【混迷Lv1】の取得条件を初期化(Vol.7から再計算)
+          %li
+            = link_to "カード発動者一覧", card_users_path
+            において、制御に失敗した結果が検索できなかった不具合を修正
+        %li 2019/1/2
+        %ul
+          %li
+            = link_to "作製結果一覧", manufactures_path
+            において、作製時に送品された結果を取得できていなかった不具合を修正
+        %li 2018/12/31
+        %ul
+          %li
+            = link_to "獲得カード＋学科一覧", drop_subjects_path
+            で鍛錬学科・専門学科を表示できるように
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            に以下の要素を追加。
+            %ul
+              %li
+                FPダメージのLPダメージ変換時に、Criticalや攻撃属性の情報を引き継ぐように
+              %li
+                FPダメージがLPダメージに変換されたかどうかで絞り込み
+              %li
+                鎖力強化率の表示
+              %li
+                Revenge(応○○の効果)の表示
+    %p
+      %span.example_select.example_toggle.pointer
+        = fa_icon "history"
+        もっと古い履歴
+        - act_desc(false)
+    .closed
       %ul
-        %li
-          = link_to "作製結果一覧", manufactures_path
-          において、作製時に送品された結果を取得できていなかった不具合を修正
-      %li 2018/12/31
-      %ul
-        %li
-          = link_to "獲得カード＋学科一覧", drop_subjects_path
-          で鍛錬学科・専門学科を表示できるように
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          に以下の要素を追加。
-          %ul
-            %li
-              FPダメージのLPダメージ変換時に、Criticalや攻撃属性の情報を引き継ぐように
-            %li
-              FPダメージがLPダメージに変換されたかどうかで絞り込み
-            %li
-              鎖力強化率の表示
-            %li
-              Revenge(応○○の効果)の表示
-      %li 2018/12/24
-      %ul
-        %li
-          🎄🎁🎄🎁
-          絵文字入りの文字列に対応
-          🎅🦌🎅🦌
-      %li 2018/12/23
-      %ul
-        %li
-          = link_to "BUG一覧", bugs_path
-          において、以下の機能を変更
-          %ul
-            %li
-              BUGの模擬戦勝敗は侵攻Lvと同じ数値の更新回のものを表示するように
-            %li
-              「侵攻Lvが更新回と同じ（各更新回の最も奥地で出現した）BUGのみ表示する」チェックボックスを削除（上記変更に伴い低い侵攻レベルでも適切な模擬戦結果が表示できるようになったため）
-      %li 2018/12/21
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          に効果量のグラフ表示機能を追加
-      %li 2018/12/19
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          でアタッカが複数発動したとき、正しくアタッカ名を取得できない不具合を修正
-      %li 2018/12/17
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          に以下の要素を追加。
-          %ul
-            %li
-              絞り込んだデータからの統計値。
-            %li
-              ターン数、通常攻撃、反撃、アタッカ、カウンタ、回避された攻撃。
-            %li
-              多重Critical、多重WeakPoint、多重Clean Hit。
-            %li
-              状態異常、変換強化フィールド
-            %li
-              開始時時点のPT人数を廃止し、発動時点のPT人数と隊列を表示。
-            %li
-              対象が味方か敵かで絞り込み（自傷ダメージの絞り込みなど）
-      %li 2018/12/15
-      %ul
-        %li
-          = link_to "Cond変化一覧", conditions_path
-          を公開。
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          に表示するRankを開拓戦後のものから開拓戦直前（＝前回）のものに修正。
-      %li 2018/12/10
-      %ul
-        %li
-          = link_to "BUG一覧", bugs_path
-          で開拓者の好戦度、PT人数、また、主導BUG、主導BUGの模擬戦勝数を表示できるように。
-      %li 2018/12/6
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          で使用者・対象のRankを表示・検索できるように。
-        %li
-          = link_to "干渉効果対象一覧", meddling_targets_path
-          にカード発動者一覧へのリンクを追加。
-      %li 2018/12/4
-      %ul
-        %li
-          = link_to "全取得カード一覧", get_cards_path
-          、
-          = link_to "獲得カード＋学科一覧", drop_subjects_path
-          、
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、カードの種類（発動タイミング）、LP、FPを表示できるように変更。
-        %li
-          = link_to "所持カード一覧", cards_path
-          の検索フォームにおいて所有、種類（発動タイミング）の絞り込みをテキスト入力からチェックボックスに変更。
-          %br
-          また、初期表示項目を変更（キャラクター名など重要でない項目の検索フォームは閉じておくように）。
-      %li 2018/12/3
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          において、ヒット時効果の除外が上手く動いていなかった不具合を修正
-      %li 2018/12/2
-      %ul
-        %li
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、
-          %ul
-            %li
-              【追混乱Lv1】【対混乱Lv1】【除〇〇Lv1】【即除〇〇Lv1】の取得条件を初期化(Vol.5から再計算)
-            %li
-              【増生命】【増精神】【追封殺Lv1】【対封殺Lv1】の取得条件を初期化(Vol.6から再計算)
-            %li
-              【抵抗減弱】【全抵抗減弱】【全付着〇〇】【鎖断】の取得条件を初期化(Vol.8から再計算)
-      %li 2018/11/24
-      %ul
-        %li
-          = link_to "カード発動結果一覧", card_use_pages_path
-          において、カードが沢山使われてる場合に全て表示できていなかった不具合を修正
-      %li 2018/11/11
-      %ul
-        %li
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、【全連続】の取得条件を初期化(Vol.6再更新結果のものから再計算)
-      %li 2018/11/10
-      %ul
-        %li
-          = link_to "干渉効果成功率一覧", meddling_success_rates_path
-          、
-          = link_to "干渉効果対象一覧", meddling_targets_path
-          の取得対象に確変、複製、転写、奪取、鎖奪を追加。
-      %li 2018/11/6
-      %ul
-        %li
-          = link_to "ダメージ・回復一覧", damages_path
-          を公開。
-      %li 2018/11/2
-      %ul
-        %li
-          = link_to "BUG一覧", bugs_path
-          において、キャラクターを作り直していた場合に新しい方のEnoを取得するように修正。
-      %li 2018/11/1
-      %ul
-        %li
-          = link_to "学科から獲得カードを探す", drop_min_subject_select_path
-          において、「影響しない学科は○○」のチェックを入れていると、2ページ目以降が正しく表示されない不具合を修正。
-          %br
-          = link_to "学科から獲得カードを探す", drop_min_subject_select_path
-          において、「チェックした学科以外が必要なカードは除外」のチェックボックスを廃止し、代わりに「複数の学科を選択した時の絞り込み方」の項目を追加。
-          %br
-          %span{style: "font-size:80%;"}
-            　※これまでの「チェックした学科以外が必要なカードは除外」は「チェックした学科の組み合わせで獲得できるカード」と同じ挙動をします。
+        %li 2018/12/24
+        %ul
+          %li
+            🎄🎁🎄🎁
+            絵文字入りの文字列に対応
+            🎅🦌🎅🦌
+        %li 2018/12/23
+        %ul
+          %li
+            = link_to "BUG一覧", bugs_path
+            において、以下の機能を変更
+            %ul
+              %li
+                BUGの模擬戦勝敗は侵攻Lvと同じ数値の更新回のものを表示するように
+              %li
+                「侵攻Lvが更新回と同じ（各更新回の最も奥地で出現した）BUGのみ表示する」チェックボックスを削除（上記変更に伴い低い侵攻レベルでも適切な模擬戦結果が表示できるようになったため）
+        %li 2018/12/21
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            に効果量のグラフ表示機能を追加
+        %li 2018/12/19
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            でアタッカが複数発動したとき、正しくアタッカ名を取得できない不具合を修正
+        %li 2018/12/17
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            に以下の要素を追加。
+            %ul
+              %li
+                絞り込んだデータからの統計値。
+              %li
+                ターン数、通常攻撃、反撃、アタッカ、カウンタ、回避された攻撃。
+              %li
+                多重Critical、多重WeakPoint、多重Clean Hit。
+              %li
+                状態異常、変換強化フィールド
+              %li
+                開始時時点のPT人数を廃止し、発動時点のPT人数と隊列を表示。
+              %li
+                対象が味方か敵かで絞り込み（自傷ダメージの絞り込みなど）
+        %li 2018/12/15
+        %ul
+          %li
+            = link_to "Cond変化一覧", conditions_path
+            を公開。
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            に表示するRankを開拓戦後のものから開拓戦直前（＝前回）のものに修正。
+        %li 2018/12/10
+        %ul
+          %li
+            = link_to "BUG一覧", bugs_path
+            で開拓者の好戦度、PT人数、また、主導BUG、主導BUGの模擬戦勝数を表示できるように。
+        %li 2018/12/6
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            で使用者・対象のRankを表示・検索できるように。
+          %li
+            = link_to "干渉効果対象一覧", meddling_targets_path
+            にカード発動者一覧へのリンクを追加。
+        %li 2018/12/4
+        %ul
+          %li
+            = link_to "全取得カード一覧", get_cards_path
+            、
+            = link_to "獲得カード＋学科一覧", drop_subjects_path
+            、
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、カードの種類（発動タイミング）、LP、FPを表示できるように変更。
+          %li
+            = link_to "所持カード一覧", cards_path
+            の検索フォームにおいて所有、種類（発動タイミング）の絞り込みをテキスト入力からチェックボックスに変更。
             %br
-            　また、一つの学科を選択しているときは、どちらを選んでも「チェックした学科以外が必要なカードは除外」と同じ結果になります。
-      %li 2018/10/29
-      %ul
-        %li
-          Vol.4特有の過去結果URLに対応
-      %li 2018/10/23
-      %ul
-        %li
-          = link_to "BUG一覧", bugs_path
-          を公開。
-        %li
-          所持施設一覧を
-          = link_to "設置施設一覧", facilities_path
-          に改名。
-      %li 2018/10/18
-      %ul
-        %li
-          = link_to "カード対戦設定一覧", command_actions_path
-          、
-          = link_to "カード設定枚数ランキング", command_action_rankings_path
-          を公開。
-      %li 2018/10/14
-      %ul
-        %li
-          = link_to "施設利用一覧", facility_uses_path
-          、
-          = link_to "作製結果一覧", manufactures_path
-          を公開。
-      %li 2018/10/13
-      %ul
-        %li
-          = link_to "受給ミッション達成率", mission_statistics_path
-          、
-          = link_to "受給ミッション一覧", missions_path
-          を公開。
-        %li
-          = link_to "開拓戦勝率", development_result_win_per_path
-          、
-          = link_to "開拓戦勝敗一覧", development_results_path
-          において、敗北結果が正しく取得できていなかった不具合を修正
-      %li 2018/10/10
-      %ul
-        %li
-          = link_to "鍛錬遷移グラフ", training_history_path
-          を公開。
-      %li 2018/10/6
-      %ul
-        %li
-          = link_to "干渉効果成功率一覧", meddling_success_rates_path
-          、
-          = link_to "干渉効果対象一覧", meddling_targets_path
-          を公開。
-        %li
-          = link_to "カード発動者一覧", card_users_path
-          、
-          = link_to "カード発動結果一覧", card_use_pages_path
-          において、アイテムの効果も取得するように変更
-        %li
-          = link_to "カード発動者一覧", card_users_path
-          において、制御に失敗した結果を取得できていなかった不具合を修正。
-      %li 2018/9/30
-      %ul
-        %li
-          = link_to "使用アイテム一覧", item_uses_path
-          、
-          = link_to "新出使用アイテム一覧", new_item_uses_path
-          を公開
-      %li 2018/9/22
-      %ul
-        %li
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、Vol.1の情報を引き継いでいなかった不具合を修正
-      %li 2018/9/13
-      %ul
-        %li
-          = link_to "鍛錬一覧", trainings_path
-          、
-          = link_to "鍛錬グラフ", training_graph_path
-          を公開
-      %li 2018/9/12
-      %ul
-        %li
-          = link_to "所持アイテム一覧", items_path
-          に施設区分の表示・検索機能
-      %li 2018/9/11
-      %ul
-        %li
-          = link_to "新出取得カード一覧", new_get_cards_path
-          、
-          = link_to "新出発動カード一覧", new_card_uses_path
-          を公開
-      %li 2018/9/10
-      %ul
-        %li
-          = link_to "カード発動者一覧", card_users_path
-          、
-          = link_to "カード発動結果一覧", card_use_pages_path
-          、
-          = link_to "最大連鎖数ランキング", max_chains_path
-          を公開
-      %li 2018/9/9
-      %ul
-        %li
-          = link_to "所持施設一覧", facilities_path
-          、
-          = link_to "開拓戦勝率", development_result_win_per_path
-          、
-          = link_to "開拓戦勝敗一覧", development_results_path
-          を公開
-      %li 2018/9/8
-      %ul
-        %li 
-          = link_to "獲得カード＋学科一覧", drop_subjects_path
-          、
-          = link_to "推定カード獲得条件一覧", drop_min_subjects_path
-          において、学科の値が0のときは文字色を薄く表示するように。
-      %li 2018/9/8
-      %ul
-        %li サイト公開
+            また、初期表示項目を変更（キャラクター名など重要でない項目の検索フォームは閉じておくように）。
+        %li 2018/12/3
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            において、ヒット時効果の除外が上手く動いていなかった不具合を修正
+        %li 2018/12/2
+        %ul
+          %li
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、
+            %ul
+              %li
+                【追混乱Lv1】【対混乱Lv1】【除〇〇Lv1】【即除〇〇Lv1】の取得条件を初期化(Vol.5から再計算)
+              %li
+                【増生命】【増精神】【追封殺Lv1】【対封殺Lv1】の取得条件を初期化(Vol.6から再計算)
+              %li
+                【抵抗減弱】【全抵抗減弱】【全付着〇〇】【鎖断】の取得条件を初期化(Vol.8から再計算)
+        %li 2018/11/24
+        %ul
+          %li
+            = link_to "カード発動結果一覧", card_use_pages_path
+            において、カードが沢山使われてる場合に全て表示できていなかった不具合を修正
+        %li 2018/11/11
+        %ul
+          %li
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、【全連続】の取得条件を初期化(Vol.6再更新結果のものから再計算)
+        %li 2018/11/10
+        %ul
+          %li
+            = link_to "干渉効果成功率一覧", meddling_success_rates_path
+            、
+            = link_to "干渉効果対象一覧", meddling_targets_path
+            の取得対象に確変、複製、転写、奪取、鎖奪を追加。
+        %li 2018/11/6
+        %ul
+          %li
+            = link_to "ダメージ・回復一覧", damages_path
+            を公開。
+        %li 2018/11/2
+        %ul
+          %li
+            = link_to "BUG一覧", bugs_path
+            において、キャラクターを作り直していた場合に新しい方のEnoを取得するように修正。
+        %li 2018/11/1
+        %ul
+          %li
+            = link_to "学科から獲得カードを探す", drop_min_subject_select_path
+            において、「影響しない学科は○○」のチェックを入れていると、2ページ目以降が正しく表示されない不具合を修正。
+            %br
+            = link_to "学科から獲得カードを探す", drop_min_subject_select_path
+            において、「チェックした学科以外が必要なカードは除外」のチェックボックスを廃止し、代わりに「複数の学科を選択した時の絞り込み方」の項目を追加。
+            %br
+            %span{style: "font-size:80%;"}
+              　※これまでの「チェックした学科以外が必要なカードは除外」は「チェックした学科の組み合わせで獲得できるカード」と同じ挙動をします。
+              %br
+              　また、一つの学科を選択しているときは、どちらを選んでも「チェックした学科以外が必要なカードは除外」と同じ結果になります。
+        %li 2018/10/29
+        %ul
+          %li
+            Vol.4特有の過去結果URLに対応
+        %li 2018/10/23
+        %ul
+          %li
+            = link_to "BUG一覧", bugs_path
+            を公開。
+          %li
+            所持施設一覧を
+            = link_to "設置施設一覧", facilities_path
+            に改名。
+        %li 2018/10/18
+        %ul
+          %li
+            = link_to "カード対戦設定一覧", command_actions_path
+            、
+            = link_to "カード設定枚数ランキング", command_action_rankings_path
+            を公開。
+        %li 2018/10/14
+        %ul
+          %li
+            = link_to "施設利用一覧", facility_uses_path
+            、
+            = link_to "作製結果一覧", manufactures_path
+            を公開。
+        %li 2018/10/13
+        %ul
+          %li
+            = link_to "受給ミッション達成率", mission_statistics_path
+            、
+            = link_to "受給ミッション一覧", missions_path
+            を公開。
+          %li
+            = link_to "開拓戦勝率", development_result_win_per_path
+            、
+            = link_to "開拓戦勝敗一覧", development_results_path
+            において、敗北結果が正しく取得できていなかった不具合を修正
+        %li 2018/10/10
+        %ul
+          %li
+            = link_to "鍛錬遷移グラフ", training_history_path
+            を公開。
+        %li 2018/10/6
+        %ul
+          %li
+            = link_to "干渉効果成功率一覧", meddling_success_rates_path
+            、
+            = link_to "干渉効果対象一覧", meddling_targets_path
+            を公開。
+          %li
+            = link_to "カード発動者一覧", card_users_path
+            、
+            = link_to "カード発動結果一覧", card_use_pages_path
+            において、アイテムの効果も取得するように変更
+          %li
+            = link_to "カード発動者一覧", card_users_path
+            において、制御に失敗した結果を取得できていなかった不具合を修正。
+        %li 2018/9/30
+        %ul
+          %li
+            = link_to "使用アイテム一覧", item_uses_path
+            、
+            = link_to "新出使用アイテム一覧", new_item_uses_path
+            を公開
+        %li 2018/9/22
+        %ul
+          %li
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、Vol.1の情報を引き継いでいなかった不具合を修正
+        %li 2018/9/13
+        %ul
+          %li
+            = link_to "鍛錬一覧", trainings_path
+            、
+            = link_to "鍛錬グラフ", training_graph_path
+            を公開
+        %li 2018/9/12
+        %ul
+          %li
+            = link_to "所持アイテム一覧", items_path
+            に施設区分の表示・検索機能
+        %li 2018/9/11
+        %ul
+          %li
+            = link_to "新出取得カード一覧", new_get_cards_path
+            、
+            = link_to "新出発動カード一覧", new_card_uses_path
+            を公開
+        %li 2018/9/10
+        %ul
+          %li
+            = link_to "カード発動者一覧", card_users_path
+            、
+            = link_to "カード発動結果一覧", card_use_pages_path
+            、
+            = link_to "最大連鎖数ランキング", max_chains_path
+            を公開
+        %li 2018/9/9
+        %ul
+          %li
+            = link_to "所持施設一覧", facilities_path
+            、
+            = link_to "開拓戦勝率", development_result_win_per_path
+            、
+            = link_to "開拓戦勝敗一覧", development_results_path
+            を公開
+        %li 2018/9/8
+        %ul
+          %li 
+            = link_to "獲得カード＋学科一覧", drop_subjects_path
+            、
+            = link_to "推定カード獲得条件一覧", drop_min_subjects_path
+            において、学科の値が0のときは文字色を薄く表示するように。
+        %li 2018/9/8
+        %ul
+          %li サイト公開
