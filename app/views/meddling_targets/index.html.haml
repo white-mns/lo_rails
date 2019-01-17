@@ -176,5 +176,5 @@
         %td= character_link(meddling_target.e_no)
         %td= character_old_link(@latest_result, meddling_target.e_no, meddling_target.result_no)
         %td
-          = link_to "発動結果一覧", card_users_path + "?result_no_form=" + sprintf("%d", meddling_target.result_no) + "&e_no_form=" + sprintf("%d", meddling_target.e_no) + "&effect_form=\"" + meddling_target.card_data.name + "\"&lv_form=" + sprintf("%d", meddling_target.card_data.lv) + "&pre_detail_open=on"
+          = meddling_target_link(meddling_target.result_no, meddling_target.e_no, meddling_target.card_data)
 = paginate(@meddling_targets)
