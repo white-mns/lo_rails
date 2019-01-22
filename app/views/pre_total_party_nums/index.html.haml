@@ -1,0 +1,145 @@
+- @page_title = "模擬戦召集PT数一覧"
+%h1= @page_title
+
+.card.desc
+  .card-header
+    - act_icon(true)
+    検索仕様
+    - act_desc(true)
+  .card-body
+    = render "layouts/base_desc"
+    %p
+      %span.example_select.example_toggle.pointer
+        - help_icon
+        入力例
+        - act_desc(false)
+    #example.closed
+      = render "layouts/input_desc"
+= search_form_for @search do |f|
+  %table.search_toggle.table.table-striped.table-bordered.table-hover
+    %tbody.pointer
+      %tr
+        %td{colspan: "5"}
+          - act_icon(true)
+          絞り込み検索
+          - act_desc(true)
+    %tbody
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :result_no_form, '更新回'
+        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+      %tr
+        %td.indent
+        %td= f.label :e_no_form, 'Eno'
+        %td.formNum= text_field_tag :e_no_form, @e_no_form, placeholder: @placeholder["Number"]
+      %tr
+        %td.indent
+        %td= f.label :p_name_form, 'キャラクター名'
+        %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
+      %tr
+        %td.indent
+        %td= f.label :act_type_form, '集計方式'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :count_10, @count_10, @count_10
+            = label_tag :count_10, '0勝'
+            　
+            = check_box_tag :count_11, @count_11, @count_11
+            = label_tag :count_11, '1勝'
+            　
+            = check_box_tag :count_12, @count_12, @count_12
+            = label_tag :count_12, '2勝'
+            　
+            = check_box_tag :count_13, @count_13, @count_13
+            = label_tag :count_13, '3勝'
+          %br
+          %span.input
+            = check_box_tag :count_20, @count_20, @count_20
+            = label_tag :count_20, '0勝以上'
+            　
+            = check_box_tag :count_21, @count_21, @count_21
+            = label_tag :count_21, '1勝以上'
+          %span.input
+            = check_box_tag :count_22, @count_22, @count_22
+            = label_tag :count_22, '2勝以上'
+            　
+            = check_box_tag :count_23, @count_23, @count_23
+            = label_tag :count_23, '3勝以上'
+          %br
+          %span.input
+            = check_box_tag :count_110, @count_110, @count_110
+            = label_tag :count_110, '0勝(累計)'
+            　
+            = check_box_tag :count_111, @count_111, @count_111
+            = label_tag :count_111, '1勝(累計)'
+          %span.input
+            = check_box_tag :count_112, @count_112, @count_112
+            = label_tag :count_112, '2勝(累計)'
+            　
+            = check_box_tag :count_113, @count_113, @count_113
+            = label_tag :count_113, '3勝(累計)'
+          %br
+          %span.input
+            = check_box_tag :count_120, @count_120, @count_120
+            = label_tag :count_120, '0勝以上(累計)'
+            　
+            = check_box_tag :count_121, @count_121, @count_121
+            = label_tag :count_121, '1勝以上(累計)'
+          %span.input
+            = check_box_tag :count_122, @count_122, @count_122
+            = label_tag :count_122, '2勝以上(累計)'
+            　
+            = check_box_tag :count_123, @count_123, @count_123
+            = label_tag :count_123, '3勝以上(累計)'
+      %tr
+        %td.indent
+        %td= f.label :party_num_form, 'パーティ数'
+        %td.formNum= text_field_tag :party_num_form, @party_num_form, placeholder: @placeholder["Number"]
+      %tr
+        %td.indent
+        %td.indent= hidden_field_tag :is_form, 1
+        %td{colspan: "3"}
+          - search_submit_button
+
+
+= paginate(@pre_total_party_nums)
+%br
+ヒット数：#{ @count }件
+%br
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
+      %th= sort_link(@search, :count_type, '集計方式', default_order: :desc)
+      %th= sort_link(@search, :party_num, 'PT数', default_order: :desc)
+      %th{colspan: "2"} 結果リンク
+  %tbody
+    - @pre_total_party_nums.each do |pre_total_party_num|
+      %tr
+        %td= pre_total_party_num.result_no
+        %td= p_name_text(pre_total_party_num.e_no, pre_total_party_num.p_name)
+        %td
+          = "0勝" if pre_total_party_num.count_type == 10
+          = "1勝" if pre_total_party_num.count_type == 11
+          = "2勝" if pre_total_party_num.count_type == 12
+          = "3勝" if pre_total_party_num.count_type == 13
+          = "0勝以上" if pre_total_party_num.count_type == 20
+          = "1勝以上" if pre_total_party_num.count_type == 21
+          = "2勝以上" if pre_total_party_num.count_type == 22
+          = "3勝以上" if pre_total_party_num.count_type == 23
+          = "累計0勝" if pre_total_party_num.count_type == 110
+          = "累計1勝" if pre_total_party_num.count_type == 111
+          = "累計2勝" if pre_total_party_num.count_type == 112
+          = "累計3勝" if pre_total_party_num.count_type == 113
+          = "累計0勝以上" if pre_total_party_num.count_type == 120
+          = "累計1勝以上" if pre_total_party_num.count_type == 121
+          = "累計2勝以上" if pre_total_party_num.count_type == 122
+          = "累計3勝以上" if pre_total_party_num.count_type == 123
+        %td= pre_total_party_num.party_num
+        %td= character_link(pre_total_party_num.e_no)
+        %td= character_old_link(@latest_result, pre_total_party_num.e_no, pre_total_party_num.result_no)
+= paginate(@pre_total_party_nums)
