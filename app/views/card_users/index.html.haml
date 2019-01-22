@@ -37,12 +37,6 @@
         %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
       %tr
         %td.indent
-        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
-        %td.formText= text_field_tag :battle_page_form, @battle_page_form
-        %td= f.label :party_form, '所属パーティ'
-        %td.formNum= text_field_tag :party_form, @party_form
-      %tr
-        %td.indent
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form, placeholder: @placeholder["Card"]
         %td= f.label :lv_form, 'Lv'
@@ -58,6 +52,22 @@
           = label_tag :not_success, '失敗'
         %td= f.label :control_form, '制御率'
         %td.formNum{colspan: "3"}= text_field_tag :control_form, @control_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_battle_page, @show_battle_page
+          - act_icon(false)
+          = label_tag :show_battle_page, '　模擬戦名・所属パーティで絞り込む', class: "act_desc"
+          = label_tag :show_battle_page, '　模擬戦名・所属パーティでの絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
+        %td.formText= text_field_tag :battle_page_form, @battle_page_form
+        %td= f.label :party_form, '所属パーティ'
+        %td.formNum= text_field_tag :party_form, @party_form
+    %tbody
       %tr
         %td.indent
         %td.indent
@@ -92,11 +102,9 @@
       - if @pre_detail_open == "on"
         %th= sort_link(@search, :success, '成功', default_order: :desc)
       %th= sort_link(@search, :control, '制御率', default_order: :desc)
-      %th  戦闘設定
-      %th{colspan:"2"}
-        個人結果
-      %th{colspan:"2"}
-        模擬戦結果
+      %th{colspan:"2"} 戦闘設定
+      %th{colspan:"2"} 個人結果
+      %th{colspan:"2"} 模擬戦結果
   %tbody
     - @card_users.each do |card_user|
       %tr
@@ -112,6 +120,7 @@
           %td= "成功" if card_user.success == 1
         %td= card_user.control if card_user.control > 0
         %td= character_command_link(card_user.e_no)
+        %td= character_command_old_link(@latest_result, card_user.e_no, card_user.result_no)
         %td= character_link(card_user.e_no)
         %td= character_old_link(@latest_result, card_user.e_no, card_user.result_no)
         %td

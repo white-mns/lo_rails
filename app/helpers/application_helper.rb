@@ -36,6 +36,14 @@ module ApplicationHelper
         link_to " 最新設定", "http://ykamiya.ciao.jp/cgi-bin/command.cgi?En_input="+file_name, :target => "_blank"
     end
     
+    def character_command_old_link(latest_result_no, e_no, result_no)
+        if e_no      <= 0 then return end
+        if result_no <= 5 then return end
+        result_no_text = (result_no != latest_result_no) ? sprintf("%d",result_no) : "";
+        file_name = sprintf("%d",e_no)
+        link_to " 更新時設定", "http://ykamiya.ciao.jp/result"+result_no_text+"/result_com/result_com"+file_name+".html", :target => "_blank"
+    end
+    
     def battle_link(latest_result_no, battle_page, result_no)
         if result_no != latest_result_no then return end
 

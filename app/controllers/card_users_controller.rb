@@ -6,15 +6,19 @@ class CardUsersController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= CardUser.notnil().includes(:p_name).group_e_no().group_battle_page(params).group_card(params).search(params[:q]).result.count().keys().size()
-    @search	= CardUser.notnil().includes(:p_name).group_e_no().group_battle_page(params).group_card(params).page(params[:page]).search(params[:q])
+    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).search(params[:q]).result.count().keys().size()
+    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @card_users	= @search.result.per(50)
   end
 
   # GET /card_users
   def sum
-    index
+    placeholder_set
+    param_set
+    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).search(params[:q]).result.count().keys().size()
+    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).having_order(params).page(params[:page]).search(params[:q])
+    @card_users	= @search.result.per(50)
   end
 
   # GET /card_users
@@ -30,6 +34,16 @@ class CardUsersController < ApplicationController
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
+
+    if action_name != "index" then
+        params["is_success"] = "on"
+    end
+
+    if !params["is_form"] && action_name != "index" then
+        params["is_success"]       = "on"
+        params["group_card_name"]  = "on"
+        params["pre_gt0_form"]   ||= "1~"
+    end
     
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
@@ -42,6 +56,11 @@ class CardUsersController < ApplicationController
     reference_number_assign(params, "control", "control_form")
     reference_text_assign(params, "card_data_name", "effect_form")
     reference_number_assign(params, "card_data_lv", "lv_form")
+
+    reference_number_assign(params, "pre_gt0_party_num", "pre_gt0_form")
+    reference_number_assign(params, "pre_gt1_party_num", "pre_gt1_form")
+    reference_number_assign(params, "pre_gt2_party_num", "pre_gt2_form")
+    reference_number_assign(params, "pre_gt3_party_num", "pre_gt3_form")
     
     params[:q]["success_eq_any"] ||= []
     if params["is_success"]  == "on" then params[:q]["success_eq_any"].push(1) end
@@ -66,7 +85,17 @@ class CardUsersController < ApplicationController
         @not_success = "on"
     end
 
+    @pre_gt0_form = params["pre_gt0_form"]
+    @pre_gt1_form = params["pre_gt1_form"]
+    @pre_gt2_form = params["pre_gt2_form"]
+    @pre_gt3_form = params["pre_gt3_form"]
+
     @pre_detail_open = params["pre_detail_open"]
+    @group_card_name = params["group_card_name"]
+    @group_turn = params["group_turn"]
+    @show_user_num = params["show_user_num"]
+    @show_pre_party_num = params["show_pre_party_num"]
+    @show_battle_page = params["show_battle_page"]
   end
   # Get /card_users/1
   #def show
