@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_15_142713) do
+ActiveRecord::Schema.define(version: 2019_01_22_030120) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -690,6 +690,21 @@ ActiveRecord::Schema.define(version: 2019_01_15_142713) do
     t.index ["invation_lv"], name: "index_places_on_invation_lv"
     t.index ["return_col"], name: "index_places_on_return_col"
     t.index ["return_lv"], name: "index_places_on_return_lv"
+  end
+
+  create_table "pre_total_party_nums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.integer "count_type"
+    t.integer "party_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["count_type"], name: "index_pre_total_party_nums_on_count_type"
+    t.index ["e_no"], name: "index_pre_total_party_nums_on_e_no"
+    t.index ["party_num"], name: "index_pre_total_party_nums_on_party_num"
+    t.index ["result_no", "count_type", "e_no"], name: "resultno_counttype"
+    t.index ["result_no", "e_no", "count_type"], name: "resultno_eno"
   end
 
   create_table "pre_wins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

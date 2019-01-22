@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  count_type: 1
+  party_num: 1
+
+two:
+  result_no: 1
+  generate_no: 1
+  e_no: 1
+  count_type: 1
+  party_num: 1
