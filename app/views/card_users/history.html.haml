@@ -1,4 +1,4 @@
-- @page_title = "カード発動者一覧"
+- @page_title = "カード発動回数遷移グラフ"
 %h1= @page_title
 
 .card.desc
@@ -9,13 +9,15 @@
   .card-body
     = render "layouts/base_desc"
     %p
+      ※発動回数のカウントには制御に失敗したものも含みます。
+    %p
       %span.example_select.example_toggle.pointer
         - help_icon
         入力例
         - act_desc(false)
     #example.closed
       = render "layouts/input_desc"
-= search_form_for @search do |f|
+= search_form_for @search, url: card_user_history_path do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
@@ -37,86 +39,76 @@
         %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
       %tr
         %td.indent
-        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
-        %td.formText= text_field_tag :battle_page_form, @battle_page_form
-        %td= f.label :party_form, '所属パーティ'
-        %td.formNum= text_field_tag :party_form, @party_form
-      %tr
-        %td.indent
         %td= f.label :effect_form, '効果'
         %td.formText= text_field_tag :effect_form, @effect_form, placeholder: @placeholder["Card"]
         %td= f.label :lv_form, 'Lv'
         %td.formNum= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_old_top, @show_old_top
+          = hidden_field_tag :base_first, @base_first
+          - act_icon(false)
+          = label_tag :show_old_top, '　過去の発動回数上位カードで絞り込む', class: "act_desc"
+          = label_tag :show_old_top, '　過去の発動回数上位カードで絞り込まない', class: "act_desc closed"
+    %tbody
+      %tr
       %tr
         %td.indent
-        %td= f.label :success_form, '発動成功'
-        %td.formNum
-          = check_box_tag :is_success, @is_success, @is_success
-          = label_tag :is_success, '成功'
-          　　
-          = check_box_tag :not_success, @not_success, @not_success
-          = label_tag :not_success, '失敗'
-        %td= f.label :control_form, '制御率'
-        %td.formNum{colspan: "3"}= text_field_tag :control_form, @control_form
+        %td= f.label :pre_gt0_form, '絞り込み'
+        %td.formNum{colspan: "5"}
+          Vol.
+          = text_field_tag :old_rank_vol, @old_rank_vol
+          時点の
+      %tr
+        %td.indent
+        %td.indent
+        %td{colspan: "5"}
+          上位
+          = text_field_tag :old_rank_num, @old_rank_num
+          種類
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_pre_party_num, @show_pre_party_num
+          - act_icon(false)
+          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数で絞り込む', class: "act_desc"
+          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数での絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :pre_gt0_form, '0勝以上'
+        %td.formNum= text_field_tag :pre_gt0_form, @pre_gt0_form
+        %td= f.label :pre_gt1_form, '1勝以上'
+        %td.formNum= text_field_tag :pre_gt1_form, @pre_gt1_form
+      %tr
+        %td.indent
+        %td= f.label :pre_gt2_form, '2勝以上'
+        %td.formNum= text_field_tag :pre_gt2_form, @pre_gt2_form
+        %td= f.label :pre_gt3_form, '3勝以上'
+        %td.formNum= text_field_tag :pre_gt3_form, @pre_gt3_form
+    %tbody
       %tr
         %td.indent
         %td.indent
         %td{colspan: "3"}
           %span.input
-            = check_box_tag :pre_detail_open, @pre_detail_open, @pre_detail_open
-            = label_tag :pre_detail_open, '模擬戦ごとの情報・リンクも表示する'
+            = check_box_tag :group_card_name, @group_card_name, @group_card_name
+            = label_tag :group_card_name, 'カード名のみで集計する（Lvは無視する）'
       %tr
         %td.indent
-        %td.indent= hidden_field_tag :is_form, 1
+        %td.indent
+          = hidden_field_tag :is_form, 1
+          = hidden_field_tag :is_success, "on"
         %td{colspan: "3"}
           - search_submit_button
 
+%h3 発動回数
+= line_chart @select.search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"発動回数"
 
-= paginate(@card_users)
-%br
-ヒット数：#{ @count }件
-%br
-%br
+%h3 使用人数
+= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.e_no").group_card(params).search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"発動回数"
 
-%table.table.table-striped.table-bordered.table-hover
-  %thead
-    %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      - if @pre_detail_open == "on"
-        %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
-      - if @pre_detail_open == "on"
-        %th= sort_link(@search, :party, '所属PT', default_order: :desc)
-      %th= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
-      %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
-      - if @pre_detail_open == "on"
-        %th= sort_link(@search, :success, '成功', default_order: :desc)
-      %th= sort_link(@search, :control, '制御率', default_order: :desc)
-      %th{colspan:"2"} 戦闘設定
-      %th{colspan:"2"} 個人結果
-      %th{colspan:"2"} 模擬戦結果
-  %tbody
-    - @card_users.each do |card_user|
-      %tr
-        %td= card_user.result_no
-        %td= p_name_text(card_user.e_no, card_user.p_name)
-        - if @pre_detail_open == "on"
-          %td= card_user.battle_page
-        - if @pre_detail_open == "on"
-          %td= card_user.party
-        %td= card_user.card_data.name if card_user.card_data
-        %td= card_user.card_data.lv if card_user.card_data
-        - if @pre_detail_open == "on"
-          %td= "成功" if card_user.success == 1
-        %td= card_user.control if card_user.control > 0
-        %td= character_command_link(card_user.e_no)
-        %td= character_command_old_link(@latest_result, card_user.e_no, card_user.result_no)
-        %td= character_link(card_user.e_no)
-        %td= character_old_link(@latest_result, card_user.e_no, card_user.result_no)
-        %td
-          - if @pre_detail_open == "on"
-            = battle_link(@latest_result, card_user.battle_page, card_user.result_no)
-        %td
-          - if @pre_detail_open == "on"
-            = battle_old_link(@latest_result, card_user.battle_page, card_user.result_no)
-= paginate(@card_users)
+%h3 使用PT数
+= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.party").group_card(params).search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"発動回数"

@@ -45,6 +45,35 @@ class CardUser < ApplicationRecord
         nil
     }
 
+    scope :where_old_top, ->(latest_result, show_old_top, params) {
+        if show_old_top == "1" then
+                sprit_params = params["old_rank_vol"].split("/")
+                card_names  = Array.new
+                sprit_params.each do |split_param|
+                    if split_param.include?("~") then
+                        old_rank_vols = split_param.split("~")
+                        old_rank_vols[0] = old_rank_vols[0].to_i
+                        old_rank_vols[1] = old_rank_vols[1].to_i
+
+                        if old_rank_vols[0] == "" || old_rank_vols[0].to_i < 1 then
+                            old_rank_vols[0] = 1
+                        end
+                        if old_rank_vols[1] == "" || old_rank_vols[1].to_i > latest_result then
+                            old_rank_vols[1] = latest_result
+                        end
+               
+                        for result_no in old_rank_vols[0]..old_rank_vols[1] do
+                            card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: result_no).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                        end
+                    else
+                        card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: split_param.to_i).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                    end
+                end
+
+            where("card_data.name IN (?)", card_names.flatten)
+        end
+    }
+
     scope :for_graph_select, ->(action_name, params) {
         if action_name != "index" then
             select("*").
@@ -89,4 +118,18 @@ class CardUser < ApplicationRecord
         includes(:card_data).group(:card_id)
       end
     }
+
+    scope :to_card_user_history_graph, ->(params, column) {
+        card_name = Hash[*CardDatum.pluck(:card_id, :name).flatten]
+        card_lv = Hash[*CardDatum.pluck(:card_id, :lv).flatten]
+        
+        self.pluck(:result_no, column).inject(Hash.new(0)){|hash, a| 
+            if params["group_card_name"] == "on" then
+                hash[ [card_name[a[1]], a[0]] ] += 1;
+            else
+                hash[ [card_name[a[1]] + sprintf(" Lv%d", card_lv[a[1]]), a[0]] ] += 1;
+            end
+            hash}
+    }
+
 end

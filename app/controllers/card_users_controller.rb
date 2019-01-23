@@ -23,8 +23,10 @@ class CardUsersController < ApplicationController
 
   # GET /card_users
   def history
-    index
-    @card_users	= @search.result
+    placeholder_set
+    param_set
+    @select	= CardUser.notnil().pre_includes(params).joins(:card_data).where_old_top(@latest_result, @show_old_top, params).for_graph_select(action_name, params)
+    @search	= @select.search(params[:q])
   end
 
   def param_set
@@ -35,14 +37,16 @@ class CardUsersController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
 
-    if action_name != "index" then
-        params["is_success"] = "on"
-    end
-
     if !params["is_form"] && action_name != "index" then
-        params["is_success"]       = "on"
         params["group_card_name"]  = "on"
         params["pre_gt0_form"]   ||= "1~"
+    end
+
+    if !params["is_form"] && action_name == "history" then
+        params["result_no_form"] = sprintf('1~%d',@latest_result)
+        params["old_rank_vol"] = sprintf('%d',@latest_result - 1)+"~"+sprintf('%d',@latest_result)
+        params["old_rank_num"] = 10
+        params["effect_form"]  = "-\"治癒\" -\"個別御替\" -\"休息\""
     end
     
     reference_text_assign(params, "p_name_name", "p_name_form")
@@ -90,12 +94,17 @@ class CardUsersController < ApplicationController
     @pre_gt2_form = params["pre_gt2_form"]
     @pre_gt3_form = params["pre_gt3_form"]
 
+    @old_rank_vol = params["old_rank_vol"]
+    @old_rank_num = params["old_rank_num"]
+
     @pre_detail_open = params["pre_detail_open"]
     @group_card_name = params["group_card_name"]
     @group_turn = params["group_turn"]
     @show_user_num = params["show_user_num"]
     @show_pre_party_num = params["show_pre_party_num"]
+    @show_old_top = (!params["is_form"]) ? "1" : params["show_old_top"]
     @show_battle_page = params["show_battle_page"]
+    @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # Get /card_users/1
   #def show
