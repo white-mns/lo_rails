@@ -174,12 +174,12 @@ class DamagesController < ApplicationController
     if params["is_absorb"]   == "on" then params[:q]["absorb_value_gteq"]   = 1 end
     if params["is_revenge"]  == "on" then params[:q]["revenge_value_gteq"]  = 1 end
     
-    if params["no_weak"]     == "on" then params[:q]["weak_value_eq"]     = 0 end
-    if params["no_critical"] == "on" then params[:q]["critical_value_eq"] = 0 end
-    if params["no_clean"]    == "on" then params[:q]["clean_value_eq"]    = 0 end
-    if params["no_vanish"]   == "on" then params[:q]["vanish_value_eq"]   = 0 end
-    if params["no_absorb"]   == "on" then params[:q]["absorb_value_eq"]   = 0 end
-    if params["no_revenge"]  == "on" then params[:q]["revenge_value_eq"]  = 0 end
+    if params["no_weak"]     == "on" then params[:q]["weak_value_blank"]     = true end
+    if params["no_critical"] == "on" then params[:q]["critical_value_blank"] = true end
+    if params["no_clean"]    == "on" then params[:q]["clean_value_blank"]    = true end
+    if params["no_vanish"]   == "on" then params[:q]["vanish_value_blank"]   = true end
+    if params["no_absorb"]   == "on" then params[:q]["absorb_value_blank"]   = true end
+    if params["no_revenge"]  == "on" then params[:q]["revenge_value_blank"]  = true end
 
     reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
     reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
