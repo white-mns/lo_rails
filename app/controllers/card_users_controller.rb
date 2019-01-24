@@ -27,6 +27,9 @@ class CardUsersController < ApplicationController
     param_set
     @select	= CardUser.notnil().pre_includes(params).joins(:card_data).where_old_top(@latest_result, @show_old_top, params).for_graph_select(action_name, params)
     @search	= @select.search(params[:q])
+    @library_param = {
+        interpolateNulls: true
+    }
   end
 
   def param_set
