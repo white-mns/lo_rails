@@ -48,7 +48,16 @@ class CardUser < ApplicationRecord
     scope :where_old_top, ->(latest_result, show_old_top, params) {
         if show_old_top == "1" then
                 sprit_params = params["old_rank_vol"].split("/")
-                card_names  = Array.new
+                card_names  = []
+
+                params_copy = {}
+                params_copy[:q] = {}
+                params[:q].each do |key, value|
+                    if key.include?("pre_gt") then
+                        params_copy[:q][key] = value
+                    end
+                end
+               
                 sprit_params.each do |split_param|
                     if split_param.include?("~") then
                         old_rank_vols = split_param.split("~")
@@ -61,12 +70,12 @@ class CardUser < ApplicationRecord
                         if old_rank_vols[1] == "" || old_rank_vols[1].to_i > latest_result then
                             old_rank_vols[1] = latest_result
                         end
-               
+
                         for result_no in old_rank_vols[0]..old_rank_vols[1] do
-                            card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: result_no).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                            card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: result_no).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).search(params_copy[:q]).result.pluck("card_data.name", "COUNT(*) as count").flatten].keys
                         end
                     else
-                        card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: split_param.to_i).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                        card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: split_param.to_i).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).search(params_copy[:q]).result.pluck("card_data.name", "COUNT(*) as count").flatten].keys
                     end
                 end
 
