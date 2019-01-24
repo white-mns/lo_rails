@@ -53,7 +53,7 @@ class CardUser < ApplicationRecord
                 params_copy = {}
                 params_copy[:q] = {}
                 params[:q].each do |key, value|
-                    if key.include?("pre_gt") then
+                    if key.include?("pre_gt") || key.include?("card") || key.include?("e_no") || key.include?("p_name") then
                         params_copy[:q][key] = value
                     end
                 end

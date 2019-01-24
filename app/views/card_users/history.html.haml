@@ -50,6 +50,27 @@
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
+          = hidden_field_tag :show_pre_party_num, @show_pre_party_num
+          - act_icon(false)
+          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数で絞り込む', class: "act_desc"
+          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数での絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :pre_gt0_form, '0勝以上'
+        %td.formNum= text_field_tag :pre_gt0_form, @pre_gt0_form
+        %td= f.label :pre_gt1_form, '1勝以上'
+        %td.formNum= text_field_tag :pre_gt1_form, @pre_gt1_form
+      %tr
+        %td.indent
+        %td= f.label :pre_gt2_form, '2勝以上'
+        %td.formNum= text_field_tag :pre_gt2_form, @pre_gt2_form
+        %td= f.label :pre_gt3_form, '3勝以上'
+        %td.formNum= text_field_tag :pre_gt3_form, @pre_gt3_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
           = hidden_field_tag :show_old_top, @show_old_top
           = hidden_field_tag :base_first, @base_first
           - act_icon(false)
@@ -71,27 +92,7 @@
           上位
           = text_field_tag :old_rank_num, @old_rank_num
           種類
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_pre_party_num, @show_pre_party_num
-          - act_icon(false)
-          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数で絞り込む', class: "act_desc"
-          = label_tag :show_pre_party_num, '　使用者の模擬戦出現回数での絞り込みを隠す', class: "act_desc closed"
-    %tbody.closed
-      %tr
-      %tr
-        %td.indent
-        %td= f.label :pre_gt0_form, '0勝以上'
-        %td.formNum= text_field_tag :pre_gt0_form, @pre_gt0_form
-        %td= f.label :pre_gt1_form, '1勝以上'
-        %td.formNum= text_field_tag :pre_gt1_form, @pre_gt1_form
-      %tr
-        %td.indent
-        %td= f.label :pre_gt2_form, '2勝以上'
-        %td.formNum= text_field_tag :pre_gt2_form, @pre_gt2_form
-        %td= f.label :pre_gt3_form, '3勝以上'
-        %td.formNum= text_field_tag :pre_gt3_form, @pre_gt3_form
+
     %tbody
       %tr
         %td.indent
