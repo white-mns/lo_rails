@@ -57,6 +57,7 @@ class CardUsersController < ApplicationController
     reference_number_assign(params, "generate_no", "generate_no_form")
     reference_text_assign(params, "battle_page", "battle_page_form")
     reference_number_assign(params, "e_no", "e_no_form")
+    reference_number_assign(params, "turn", "turn")
     reference_number_assign(params, "party", "party_form")
     reference_number_assign(params, "card_id", "card_id_form")
     reference_number_assign(params, "success", "success_form")
@@ -78,6 +79,7 @@ class CardUsersController < ApplicationController
     @generate_no_form = params["generate_no_form"]
     @battle_page_form = params["battle_page_form"]
     @e_no_form = params["e_no_form"]
+    @turn = params["turn"]
     @party_form = params["party_form"]
     @card_id_form = params["card_id_form"]
     @success_form = params["success_form"]
@@ -101,6 +103,7 @@ class CardUsersController < ApplicationController
     @old_rank_num = params["old_rank_num"]
 
     @pre_detail_open = params["pre_detail_open"]
+    @turn_open = params["turn_open"]
     @group_card_name = params["group_card_name"]
     @group_turn = params["group_turn"]
     @show_user_num = params["show_user_num"]

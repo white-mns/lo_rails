@@ -25,6 +25,8 @@ class Damage < ApplicationRecord
     vanish         = proper_name["Vanish"]
     absorb         = proper_name["Absorb"]
     revenge        = proper_name["Revenge"]
+    time_penalty   = proper_name["Time Penalty"]
+    to_the_fallen  = proper_name["To the Fallen"]
 
 	belongs_to :p_name,	                      :foreign_key => [:e_no, :result_no, :generate_no],         :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
 	belongs_to :target_p_name,                :foreign_key => [:target_e_no, :result_no, :generate_no],  :primary_key => [:e_no, :result_no, :generate_no], :class_name => 'Name'
@@ -57,6 +59,8 @@ class Damage < ApplicationRecord
 	belongs_to :vanish,         -> { where(buffer_id: vanish)},            :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :absorb,         -> { where(buffer_id: absorb)},            :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :revenge,        -> { where(buffer_id: revenge)},           :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :time_penalty,   -> { where(buffer_id: time_penalty)},      :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
+	belongs_to :to_the_fallen,  -> { where(buffer_id: to_the_fallen)},     :foreign_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :primary_key => [:battle_page, :act_id, :e_no, :result_no, :generate_no], :class_name => 'DamageBuffer'
 	belongs_to :card_data,      :foreign_key => :card_id,  :primary_key => :card_id,   :class_name => 'CardDatum'
 	belongs_to :act_type_name,  :foreign_key => :act_type, :primary_key => :proper_id, :class_name => 'ProperName'
 	belongs_to :element_name,   :foreign_key => :element,  :primary_key => :proper_id, :class_name => 'ProperName'
