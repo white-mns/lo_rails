@@ -67,6 +67,19 @@
         %td.formText= text_field_tag :battle_page_form, @battle_page_form
         %td= f.label :party_form, '所属パーティ'
         %td.formNum= text_field_tag :party_form, @party_form
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_turn, @show_turn
+          - act_icon(false)
+          = label_tag :show_battle_page, '　発動Turnで絞り込む', class: "act_desc"
+          = label_tag :show_battle_page, '　発動Turnでの絞り込みを隠す', class: "act_desc closed"
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :turn, 'Turn'
+        %td.formNum{colspan: "3"}= text_field_tag :turn, @turn
     %tbody
       %tr
         %td.indent
@@ -75,6 +88,13 @@
           %span.input
             = check_box_tag :pre_detail_open, @pre_detail_open, @pre_detail_open
             = label_tag :pre_detail_open, '模擬戦ごとの情報・リンクも表示する'
+      %tr
+        %td.indent
+        %td.indent
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :turn_open, @turn_open, @turn_open
+            = label_tag :turn_open, '発動Turnを表示する'
       %tr
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -95,8 +115,9 @@
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       - if @pre_detail_open == "on"
         %th= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
-      - if @pre_detail_open == "on"
         %th= sort_link(@search, :party, '所属PT', default_order: :desc)
+      - if @turn_open == "on"
+        %th= sort_link(@search, :turn, 'Turn', default_order: :desc)
       %th= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
       - if @pre_detail_open == "on"
@@ -112,8 +133,9 @@
         %td= p_name_text(card_user.e_no, card_user.p_name)
         - if @pre_detail_open == "on"
           %td= card_user.battle_page
-        - if @pre_detail_open == "on"
           %td= card_user.party
+        - if @turn_open == "on"
+          %td= card_user.turn
         %td= card_user.card_data.name if card_user.card_data
         %td= card_user.card_data.lv if card_user.card_data
         - if @pre_detail_open == "on"

@@ -105,7 +105,7 @@ class CardUser < ApplicationRecord
     }
 
     scope :group_turn, ->(params) {
-        if params["group_turn"] then
+        if params["group_turn"] == "on" || params["turn_open"] == "on" then
             group(:turn)
         end
     }
