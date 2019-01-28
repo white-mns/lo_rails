@@ -167,19 +167,23 @@ class DamagesController < ApplicationController
     if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["LP回復"]) end
     if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["FP回復"]) end
     
-    if params["is_weak"]     == "on" then params[:q]["weak_value_gteq"]     = 1 end
-    if params["is_critical"] == "on" then params[:q]["critical_value_gteq"] = 1 end
-    if params["is_clean"]    == "on" then params[:q]["clean_value_gteq"]    = 1 end
-    if params["is_vanish"]   == "on" then params[:q]["vanish_value_gteq"]   = 1 end
-    if params["is_absorb"]   == "on" then params[:q]["absorb_value_gteq"]   = 1 end
-    if params["is_revenge"]  == "on" then params[:q]["revenge_value_gteq"]  = 1 end
+    if params["is_weak"]           == "on" then params[:q]["weak_value_gteq"]           = 1 end
+    if params["is_critical"]       == "on" then params[:q]["critical_value_gteq"]       = 1 end
+    if params["is_clean"]          == "on" then params[:q]["clean_value_gteq"]          = 1 end
+    if params["is_vanish"]         == "on" then params[:q]["vanish_value_gteq"]         = 1 end
+    if params["is_absorb"]         == "on" then params[:q]["absorb_value_gteq"]         = 1 end
+    if params["is_revenge"]        == "on" then params[:q]["revenge_value_gteq"]        = 1 end
+    if params["is_time_penalty"]   == "on" then params[:q]["time_penalty_value_gteq"]   = 1 end
+    if params["is_to_the_fallen"]  == "on" then params[:q]["to_the_fallen_value_gteq"]  = 1 end
     
-    if params["no_weak"]     == "on" then params[:q]["weak_value_blank"]     = true end
-    if params["no_critical"] == "on" then params[:q]["critical_value_blank"] = true end
-    if params["no_clean"]    == "on" then params[:q]["clean_value_blank"]    = true end
-    if params["no_vanish"]   == "on" then params[:q]["vanish_value_blank"]   = true end
-    if params["no_absorb"]   == "on" then params[:q]["absorb_value_blank"]   = true end
-    if params["no_revenge"]  == "on" then params[:q]["revenge_value_blank"]  = true end
+    if params["no_weak"]           == "on" then params[:q]["weak_value_blank"]           = true end
+    if params["no_critical"]       == "on" then params[:q]["critical_value_blank"]       = true end
+    if params["no_clean"]          == "on" then params[:q]["clean_value_blank"]          = true end
+    if params["no_vanish"]         == "on" then params[:q]["vanish_value_blank"]         = true end
+    if params["no_absorb"]         == "on" then params[:q]["absorb_value_blank"]         = true end
+    if params["no_revenge"]        == "on" then params[:q]["revenge_value_blank"]        = true end
+    if params["no_time_penalty"]   == "on" then params[:q]["time_penalty_value_blank"]   = true end
+    if params["no_to_the_fallen"]  == "on" then params[:q]["to_the_fallen_value_blank"]  = true end
 
     reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
     reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
@@ -238,6 +242,8 @@ class DamagesController < ApplicationController
     @is_vanish = params["is_vanish"]
     @is_absorb = params["is_absorb"]
     @is_revenge = params["is_revenge"]
+    @is_time_penalty = params["is_time_penalty"]
+    @is_to_the_fallen = params["is_to_the_fallen"]
     
     @no_weak = params["no_weak"]
     @no_critical = params["no_critical"]
@@ -245,6 +251,8 @@ class DamagesController < ApplicationController
     @no_vanish = params["no_vanish"]
     @no_absorb = params["no_absorb"]
     @no_revenge = params["no_revenge"]
+    @no_time_penalty = params["no_time_penalty"]
+    @no_to_the_fallen = params["no_to_the_fallen"]
     
     @only_dodge = params["only_dodge"]
 
@@ -356,6 +364,7 @@ class DamagesController < ApplicationController
     @show_detail_target = params["show_detail_target"]
     @show_detail_target_characteristic = params["show_detail_target_characteristic"]
     @show_detail_damage_option = params["show_detail_damage_option"]
+    @show_detail_card_option = params["show_detail_card_option"]
     @show_detail_dodge = params["show_detail_dodge"]
     @show_detail_line = params["show_detail_line"]
     @show_detail_element = params["show_detail_element"]

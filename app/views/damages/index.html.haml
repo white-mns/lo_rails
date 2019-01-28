@@ -253,7 +253,7 @@
           - act_icon(false)
           = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示する', class: "act_desc"
           = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示しない', class: "act_desc closed"
-          %div.act_desc 　WeakPoint、Critical、Clean Hit、Vanish、Absorb
+          %div.act_desc 　WeakPoint、Critical、Clean Hit
     %tbody.closed
       %tr
       %tr
@@ -269,16 +269,6 @@
           %span.input
             = check_box_tag :is_clean, @is_clean, @is_clean
             = label_tag :is_clean, 'Clean Hit'
-          %br
-          %span.input
-            = check_box_tag :is_vanish, @is_vanish, @is_vanish
-            = label_tag :is_vanish, 'Vanish(耐○○の効果) '
-          %span.input
-            = check_box_tag :is_absorb, @is_absorb, @is_absorb
-            = label_tag :is_absorb, 'Absorb(吸○○の効果)'
-          %span.input
-            = check_box_tag :is_revenge, @is_revenge, @is_revenge
-            = label_tag :is_revenge, 'Revenge(応○○の効果)'
       %tr
         %td.indent
         %td= f.label :act_type_form, 'ヒット時効果（除外）'
@@ -292,7 +282,40 @@
           %span.input
             = check_box_tag :no_clean, @no_clean, @no_clean
             = label_tag :no_clean, '× Clean Hit'
+    %tbody.tbody_toggle.pointer
+      %tr
+        %td{colspan: "5"}
+          = hidden_field_tag :show_detail_card_option, @show_detail_card_option
+          - act_icon(false)
+          = label_tag :show_detail_card_option, '　カード効果の有無を表示する', class: "act_desc"
+          = label_tag :show_detail_card_option, '　カード効果の有無を表示しない', class: "act_desc closed"
+          %div.act_desc 　Vanish、Absorb、Revenge、Time Penalty、To the Fallen
+    %tbody.closed
+      %tr
+      %tr
+        %td.indent
+        %td= f.label :act_type_form, 'ヒット時効果'
+        %td{colspan: "3"}
+          %span.input
+            = check_box_tag :is_vanish, @is_vanish, @is_vanish
+            = label_tag :is_vanish, 'Vanish(耐○○の効果) '
+          %span.input
+            = check_box_tag :is_absorb, @is_absorb, @is_absorb
+            = label_tag :is_absorb, 'Absorb(吸○○の効果)'
+          %span.input
+            = check_box_tag :is_revenge, @is_revenge, @is_revenge
+            = label_tag :is_revenge, 'Revenge(応○○の効果)'
           %br
+          %span.input
+            = check_box_tag :is_time_penalty, @is_time_penalty, @is_time_penalty
+            = label_tag :is_time_penalty, 'Time Penalty(時傷○○の効果)'
+          %span.input
+            = check_box_tag :is_to_the_fallen, @is_to_the_fallen, @is_to_the_fallen
+            = label_tag :is_to_the_fallen, 'To the Fallen(命傷○○の効果)'
+      %tr
+        %td.indent
+        %td= f.label :act_type_form, 'ヒット時効果（除外）'
+        %td{colspan: "3"}
           %span.input
             = check_box_tag :no_vanish, @no_vanish, @no_vanish
             = label_tag :no_vanish, '× Vanish(耐○○の効果) '
@@ -302,6 +325,13 @@
           %span.input
             = check_box_tag :no_revenge, @no_revenge, @no_revenge
             = label_tag :no_revenge, '× Revenge(応○○の効果)'
+          %br
+          %span.input
+            = check_box_tag :no_time_penalty, @no_time_penalty, @no_time_penalty
+            = label_tag :no_time_penalty, '× Time Penalty(時傷○○の効果)'
+          %span.input
+            = check_box_tag :no_to_the_fallen, @no_to_the_fallen, @no_to_the_fallen
+            = label_tag :no_to_the_fallen, '× To the Fallen(命傷○○の効果)'
     %tbody.tbody_toggle.pointer
       %tr
         %td{colspan: "5"}
@@ -691,7 +721,6 @@
         %td{colspan: "3"}
           - search_submit_button
 
-= paginate(@damages)
 %br
 ヒット数：#{ @count }件
 %br
@@ -727,6 +756,8 @@
   = column_chart Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).search(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"効果量", ytitle: "件数"
 %br
 
+= paginate(@damages)
+%br
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
@@ -771,9 +802,12 @@
         %th.sep= sort_link(@search, :is_weak, 'Weak', default_order: :desc)
         %th= sort_link(@search, :is_critical, 'Critical', default_order: :desc)
         %th= sort_link(@search, :is_clean, 'Clean', default_order: :desc)
+      - if @show_detail_card_option == "1"
         %th= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
         %th= sort_link(@search, :is_absorb, 'Absorb', default_order: :desc)
         %th= sort_link(@search, :revenge_value, 'Revenge', default_order: :desc)
+        %th= sort_link(@search, :time_penalty_value, 'Time', default_order: :desc)
+        %th= sort_link(@search, :to_the_fallen_value, 'Fallen', default_order: :desc)
       - if @show_detail_abnormal == "1"
         %th.sep{colspan: "2"}= sort_link(@search, :poison_value, '毒', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :paralysis_value, '麻痺', default_order: :desc)
@@ -847,9 +881,12 @@
           %td.sep= showExistBuffer(damage.weak)
           %td= showExistBuffer(damage.critical)
           %td= showExistBuffer(damage.clean)
+        - if @show_detail_card_option == "1"
           %td= showExistBuffer(damage.vanish)
           %td= showExistBuffer(damage.absorb)
           %td= showExistBuffer(damage.revenge)
+          %td= showExistBuffer(damage.time_penalty)
+          %td= showExistBuffer(damage.to_the_fallen)
         - if @show_detail_abnormal == "1"
           %td.sep= showBufferLv(damage.poison)
           %td= damage.poison.value if damage.poison
