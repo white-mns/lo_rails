@@ -747,7 +747,7 @@
           %td= statistic.sum
           %td= statistic.max
           %td= statistic.min
-          %td= statistic.avg.floor(1)
+          %td= statistic.avg.floor(1) if statistic.avg
           %td= statistic.hit
           %td= statistic.dodge
           %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
