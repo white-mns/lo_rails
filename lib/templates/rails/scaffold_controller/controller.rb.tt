@@ -18,21 +18,18 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def param_set
+    @form_params = {}
+
     @latest_result = Name.maximum('result_no')
-    
+
     params_clean(params)
     if !params["is_form"] then
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
-    
-    reference_text_assign(params, "p_name_name", "p_name_form")
+
+    params_to_form(params, @form_params, column_name: "p_name_name", params_name: "p_name_form", type: "text")
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
-    reference_number_assign(params, "<%= attribute.name %>", "<%= attribute.name %>_form")
-<% end -%>
-    
-    @p_name_form = params["p_name_form"]
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-    @<%= attribute.name %>_form = params["<%= attribute.name %>_form"]
+    params_to_form(params, @form_params, column_name: "<%= attribute.name %>", params_name: "<%= attribute.name %>_form", type: "number")
 <% end -%>
   end
   # GET <%= route_url %>/1
