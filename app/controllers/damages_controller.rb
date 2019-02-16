@@ -6,8 +6,8 @@ class DamagesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).all_includes(params).search(params[:q]).result.count()
-    @search	= Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).all_includes(params).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).search(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).page(params[:page]).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
 
@@ -28,6 +28,8 @@ class DamagesController < ApplicationController
   end
 
   def param_set
+    @form_params = {}
+
     @latest_result = Name.maximum('result_no')
     
     params_clean(params)
@@ -35,346 +37,194 @@ class DamagesController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
-    reference_text_assign(params, "p_name_name", "p_name_form")
-    reference_text_assign(params, "target_p_name_name", "target_p_name_form")
-    reference_number_assign(params, "result_no", "result_no_form")
-    reference_number_assign(params, "generate_no", "generate_no_form")
-    reference_number_assign(params, "battle_page", "battle_page_form")
-    reference_number_assign(params, "e_no", "e_no_form")
-    reference_number_assign(params, "card_id", "card_id_form")
-    reference_number_assign(params, "chain", "chain_form")
-    reference_number_assign(params, "target_e_no", "target_e_no_form")
-    reference_text_assign(params, "act_type_name_name", "act_type_form")
-    reference_text_assign(params, "element_name_name", "element_form")
-    reference_number_assign(params, "damage", "damage_form")
-    reference_number_assign(params, "party_num", "party_num_form")
-    reference_number_assign(params, "target_party_num", "target_party_num_form")
-    reference_number_assign(params, "turn", "turn_form")
+    params_to_form(params, @form_params, column_name: "p_name_name", params_name: "p_name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "target_p_name_name", params_name: "target_p_name_form", type: "text")
+    params_to_form(params, @form_params, column_name: "result_no", params_name: "result_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "generate_no", params_name: "generate_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "battle_page", params_name: "battle_page_form", type: "text")
+    params_to_form(params, @form_params, column_name: "e_no", params_name: "e_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "card_id", params_name: "card_id_form", type: "number")
+    params_to_form(params, @form_params, column_name: "chain", params_name: "chain_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_e_no", params_name: "target_e_no_form", type: "number")
+    params_to_form(params, @form_params, column_name: "element_name_name", params_name: "element_form", type: "text")
+    params_to_form(params, @form_params, column_name: "damage", params_name: "damage_form", type: "number")
+    params_to_form(params, @form_params, column_name: "party_num",        params_name: "party_num_form",        type: "number")
+    params_to_form(params, @form_params, column_name: "target_party_num", params_name: "target_party_num_form", type: "number")
+    params_to_form(params, @form_params, column_name: "turn", params_name: "turn_form", type: "number")
 
-    reference_text_assign(params, "card_data_kind_name_name", "kind_form")
-    reference_text_assign(params, "card_data_name", "effect_form")
-    reference_number_assign(params, "card_data_lv", "lv_form")
-    reference_number_assign(params, "card_data_lp", "lp_form")
-    reference_number_assign(params, "card_data_fp", "fp_form")
-    reference_number_assign(params, "card_data_lpfp", "lp_fp_form")
+    params_to_form(params, @form_params, column_name: "card_data_kind_name_name", params_name: "kind_form",   type: "text")
+    params_to_form(params, @form_params, column_name: "card_data_name",           params_name: "effect_form", type: "text")
+    params_to_form(params, @form_params, column_name: "card_data_lv",             params_name: "lv_form",     type: "number")
+    params_to_form(params, @form_params, column_name: "card_data_lp",             params_name: "lp_form",     type: "number")
+    params_to_form(params, @form_params, column_name: "card_data_fp",             params_name: "fp_form",     type: "number")
+    params_to_form(params, @form_params, column_name: "card_data_lpfp",           params_name: "lp_fp_form",  type: "number")
     
-    reference_number_assign(params, "parameter_development_rank", "rank_form")
+    params_to_form(params, @form_params, column_name: "parameter_development_rank", params_name: "rank_form", type: "number")
 
-    reference_number_assign(params, "characteristic_str", "str_form")
-    reference_number_assign(params, "characteristic_vit", "vit_form")
-    reference_number_assign(params, "characteristic_int", "int_form")
-    reference_number_assign(params, "characteristic_mnd", "mnd_form")
-    reference_number_assign(params, "characteristic_tec", "tec_form")
-    reference_number_assign(params, "characteristic_eva", "eva_form")
+    params_to_form(params, @form_params, column_name: "characteristic_str", params_name: "str_form", type: "number")
+    params_to_form(params, @form_params, column_name: "characteristic_vit", params_name: "vit_form", type: "number")
+    params_to_form(params, @form_params, column_name: "characteristic_int", params_name: "int_form", type: "number")
+    params_to_form(params, @form_params, column_name: "characteristic_mnd", params_name: "mnd_form", type: "number")
+    params_to_form(params, @form_params, column_name: "characteristic_tec", params_name: "tec_form", type: "number")
+    params_to_form(params, @form_params, column_name: "characteristic_eva", params_name: "eva_form", type: "number")
     
-    reference_number_assign(params, "target_parameter_development_rank", "target_rank_form")
+    params_to_form(params, @form_params, column_name: "target_parameter_development_rank", params_name: "target_rank_form", type: "number")
 
-    reference_number_assign(params, "target_characteristic_str", "target_str_form")
-    reference_number_assign(params, "target_characteristic_vit", "target_vit_form")
-    reference_number_assign(params, "target_characteristic_int", "target_int_form")
-    reference_number_assign(params, "target_characteristic_mnd", "target_mnd_form")
-    reference_number_assign(params, "target_characteristic_tec", "target_tec_form")
-    reference_number_assign(params, "target_characteristic_eva", "target_eva_form")
+    params_to_form(params, @form_params, column_name: "target_characteristic_str", params_name: "target_str_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_characteristic_vit", params_name: "target_vit_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_characteristic_int", params_name: "target_int_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_characteristic_mnd", params_name: "target_mnd_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_characteristic_tec", params_name: "target_tec_form", type: "number")
+    params_to_form(params, @form_params, column_name: "target_characteristic_eva", params_name: "target_eva_form", type: "number")
     
-    reference_number_assign(params, "poison_lv", "poison_lv_form")
-    reference_number_assign(params, "paralysis_lv", "paralysis_lv_form")
-    reference_number_assign(params, "seal_lv", "seal_lv_form")
-    reference_number_assign(params, "confusion_lv", "confusion_lv_form")
-    reference_number_assign(params, "charm_lv", "charm_lv_form")
-    reference_number_assign(params, "poison_value", "poison_value_form")
-    reference_number_assign(params, "paralysis_value", "paralysis_value_form")
-    reference_number_assign(params, "seal_value", "seal_value_form")
-    reference_number_assign(params, "confusion_value", "confusion_value_form")
-    reference_number_assign(params, "charm_value", "charm_value_form")
+    params_to_form(params, @form_params, column_name: "poison_lv", params_name: "poison_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "poison_value", params_name: "poison_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "paralysis_lv", params_name: "paralysis_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "paralysis_value", params_name: "paralysis_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "seal_lv", params_name: "seal_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "seal_value", params_name: "seal_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "confusion_lv", params_name: "confusion_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "confusion_value", params_name: "confusion_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "charm_lv", params_name: "charm_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "charm_value", params_name: "charm_value_form", type: "number")
 
-    if params["no_poison"]    == "on" then params[:q]["poison_lv_blank"]    = true end
-    if params["no_paralysis"] == "on" then params[:q]["paralysis_lv_blank"] = true end
-    if params["no_seal"]      == "on" then params[:q]["seal_lv_blank"]      = true end
-    if params["no_confusion"] == "on" then params[:q]["confusion_lv_blank"] = true end
-    if params["no_charm"]     == "on" then params[:q]["charm_lv_blank"]     = true end
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_poison", query_name:"poison_lv_blank",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_paralysis", query_name:"paralysis_lv_blank",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_seal", query_name:"seal_lv_blank",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_confusion", query_name:"confusion_lv_blank",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_charm", query_name:"charm_lv_blank",  value: true})
 
-    reference_number_assign(params, "attack_buffer_lv", "attack_buffer_lv_form")
-    reference_number_assign(params, "attack_buffer_value", "attack_buffer_value_form")
-    reference_number_assign(params, "defence_buffer_lv", "defence_buffer_lv_form")
-    reference_number_assign(params, "defence_buffer_value", "defence_buffer_value_form")
-    reference_number_assign(params, "magic_buffer_lv", "magic_buffer_lv_form")
-    reference_number_assign(params, "magic_buffer_value", "magic_buffer_value_form")
-    reference_number_assign(params, "resist_buffer_lv", "resist_buffer_lv_form")
-    reference_number_assign(params, "resist_buffer_value", "resist_buffer_value_form")
-    reference_number_assign(params, "hit_buffer_lv", "hit_buffer_lv_form")
-    reference_number_assign(params, "hit_buffer_value", "hit_buffer_value_form")
-    reference_number_assign(params, "dodge_buffer_lv", "dodge_buffer_lv_form")
-    reference_number_assign(params, "dodge_buffer_value", "dodge_buffer_value_form")
-    reference_number_assign(params, "death_buffer_lv", "death_buffer_lv_form")
-    reference_number_assign(params, "death_buffer_value", "death_buffer_value_form")
-    reference_number_assign(params, "control_buffer_lv", "control_buffer_lv_form")
-    reference_number_assign(params, "control_buffer_value", "control_buffer_value_form")
+    params_to_form(params, @form_params, column_name: "attack_buffer_lv", params_name: "attack_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "attack_buffer_value", params_name: "attack_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "defence_buffer_lv", params_name: "defence_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "defence_buffer_value", params_name: "defence_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "magic_buffer_lv", params_name: "magic_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "magic_buffer_value", params_name: "magic_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "resist_buffer_lv", params_name: "resist_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "resist_buffer_value", params_name: "resist_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "hit_buffer_lv", params_name: "hit_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "hit_buffer_value", params_name: "hit_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "dodge_buffer_lv", params_name: "dodge_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "dodge_buffer_value", params_name: "dodge_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "death_buffer_lv", params_name: "death_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "death_buffer_value", params_name: "death_buffer_value_form", type: "number")
+    params_to_form(params, @form_params, column_name: "control_buffer_lv", params_name: "control_buffer_lv_form", type: "number")
+    params_to_form(params, @form_params, column_name: "control_buffer_value", params_name: "control_buffer_value_form", type: "number")
 
-    params[:q]["attack_buffer_buffer_name_cont_any"] = []
-    params[:q]["defence_buffer_buffer_name_cont_any"] = []
-    params[:q]["magic_buffer_buffer_name_cont_any"] = []
-    params[:q]["resist_buffer_buffer_name_cont_any"] = []
-    params[:q]["hit_buffer_buffer_name_cont_any"] = []
-    params[:q]["dodge_buffer_buffer_name_cont_any"] = []
-    params[:q]["death_buffer_buffer_name_cont_any"] = []
-    params[:q]["control_buffer_buffer_name_cont_any"] = []
-    if params["buff_attack_buffer"]    == "on" then params[:q]["attack_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_attack_buffer"]  == "on" then params[:q]["attack_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_attack_buffer"]      == "on" then params[:q]["attack_buffer_lv_blank"] = true end
-    if params["buff_defence_buffer"]   == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_defence_buffer"] == "on" then params[:q]["defence_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_defence_buffer"]     == "on" then params[:q]["defence_buffer_lv_blank"] = true end
-    if params["buff_magic_buffer"]     == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_magic_buffer"]   == "on" then params[:q]["magic_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_magic_buffer"]       == "on" then params[:q]["magic_buffer_lv_blank"] = true end
-    if params["buff_resist_buffer"]    == "on" then params[:q]["resist_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_resist_buffer"]  == "on" then params[:q]["resist_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_resist_buffer"]      == "on" then params[:q]["resist_buffer_lv_blank"] = true end
-    if params["buff_hit_buffer"]       == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_hit_buffer"]     == "on" then params[:q]["hit_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_hit_buffer"]         == "on" then params[:q]["hit_buffer_lv_blank"] = true end
-    if params["buff_dodge_buffer"]     == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_dodge_buffer"]   == "on" then params[:q]["dodge_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_dodge_buffer"]       == "on" then params[:q]["dodge_buffer_lv_blank"] = true end
-    if params["buff_death_buffer"]     == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_death_buffer"]   == "on" then params[:q]["death_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_death_buffer"]       == "on" then params[:q]["death_buffer_lv_blank"] = true end
-    if params["buff_control_buffer"]   == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("強") end
-    if params["debuff_control_buffer"] == "on" then params[:q]["control_buffer_buffer_name_cont_any"].push("弱") end
-    if params["no_control_buffer"]     == "on" then params[:q]["control_buffer_lv_blank"] = true end
+    checkbox_params_set_query_any(params, @form_params, query_name: "attack_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_attack_buffer",   value: "強"},
+                                          {params_name: "debuff_attack_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_attack_buffer", query_name:"attack_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "defence_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_defence_buffer",   value: "強"},
+                                          {params_name: "debuff_defence_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_defence_buffer", query_name:"defence_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "magic_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_magic_buffer",   value: "強"},
+                                          {params_name: "debuff_magic_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_magic_buffer", query_name:"magic_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "resist_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_resist_buffer",   value: "強"},
+                                          {params_name: "debuff_resist_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_resist_buffer", query_name:"resist_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "hit_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_hit_buffer",   value: "強"},
+                                          {params_name: "debuff_hit_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_hit_buffer", query_name:"hit_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "dodge_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_dodge_buffer",   value: "強"},
+                                          {params_name: "debuff_dodge_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_dodge_buffer", query_name:"dodge_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "death_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_death_buffer",   value: "強"},
+                                          {params_name: "debuff_death_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_death_buffer", query_name:"death_buffer_lv_blank",  value: true})
+    checkbox_params_set_query_any(params, @form_params, query_name: "control_buffer_buffer_name_cont_any",
+                             checkboxes: [{params_name: "buff_control_buffer",   value: "強"},
+                                          {params_name: "debuff_control_buffer", value: "弱"}])
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_control_buffer", query_name:"control_buffer_lv_blank",  value: true})
 
-    params[:q]["line_eq_any"] = []
-    if params["line_front"]  == "on" then params[:q]["line_eq_any"].push(0) end
-    if params["line_middle"] == "on" then params[:q]["line_eq_any"].push(1) end
-    if params["line_back"]   == "on" then params[:q]["line_eq_any"].push(2) end
+    checkbox_params_set_query_any(params, @form_params, query_name: "line_eq_any",
+                             checkboxes: [{params_name: "line_front",  value: 0},
+                                          {params_name: "line_middle", value: 1},
+                                          {params_name: "line_back",   value: 2}])
 
-    params[:q]["target_line_eq_any"] = []
-    if params["target_line_front"]  == "on" then params[:q]["target_line_eq_any"].push(0) end
-    if params["target_line_middle"] == "on" then params[:q]["target_line_eq_any"].push(1) end
-    if params["target_line_back"]   == "on" then params[:q]["target_line_eq_any"].push(2) end
-
-    params[:q]["act_type_eq_any"] = []
-    if !params["is_form"] then
-        params["act_type_damage"]    = "on"
-        params["act_type_fp_damage"] = "on"
-        params["act_type_lp_heal"]   = "on"
-        params["act_type_fp_heal"]   = "on"
-    end
+    checkbox_params_set_query_any(params, @form_params, query_name: "target_line_eq_any",
+                             checkboxes: [{params_name: "target_line_front",  value: 0},
+                                          {params_name: "target_line_middle", value: 1},
+                                          {params_name: "target_line_back",   value: 2}])
 
     proper_name = ProperName.pluck(:name, :proper_id).inject(Hash.new(0)){|hash, a| hash[a[0]] = a[1] ; hash}
-    if params["act_type_damage"]     == "on" then params[:q]["act_type_eq_any"].push(proper_name["ダメージ"]) end
-    if params["act_type_fp_damage"]  == "on" then params[:q]["act_type_eq_any"].push(proper_name["FPダメージ"]) end
-    if params["act_type_lp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["LP回復"]) end
-    if params["act_type_fp_heal"]    == "on" then params[:q]["act_type_eq_any"].push(proper_name["FP回復"]) end
+    checkbox_params_set_query_any(params, @form_params, query_name: "act_type_eq_any",
+                             checkboxes: [{params_name: "act_type_damage",     value: proper_name["ダメージ"],   first_checked: true},
+                                          {params_name: "act_type_fp_damage",  value: proper_name["FPダメージ"], first_checked: true},
+                                          {params_name: "act_type_lp_heal",    value: proper_name["LP回復"],     first_checked: true},
+                                          {params_name: "act_type_fp_heal",    value: proper_name["FP回復"],     first_checked: true}])
+   
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_weak",     query_name:"weak_value_gteq",     value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_critical", query_name:"critical_value_gteq", value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_clean",    query_name:"clean_value_gteq",    value: 1})
+
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_weak",     query_name:"weak_value_blank",     value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_critical", query_name:"critical_value_blank", value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_clean",    query_name:"clean_value_blank",    value: true})
+
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_vanish",        query_name:"vanish_value_gteq",        value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_absorb",        query_name:"absorb_value_gteq",        value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_revenge",       query_name:"revenge_value_gteq",       value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_time_penalty",  query_name:"time_penalty_value_gteq",  value: 1})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_to_the_fallen", query_name:"to_the_fallen_value_gteq", value: 1})
+
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_vanish",        query_name:"vanish_value_blank",        value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_absorb",        query_name:"absorb_value_blank",        value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_revenge",       query_name:"revenge_value_blank",       value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_time_penalty",  query_name:"time_penalty_value_blank",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_to_the_fallen", query_name:"to_the_fallen_value_blank", value: true})
+
+    params_to_form(params, @form_params, column_name: "reinforcement_lv",          params_name: "reinforcement_lv_form",   type: "number")
+    params_to_form(params, @form_params, column_name: "reinforcement_buffer_name", params_name: "reinforcement_name_form", type: "text")
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_reinforcement", query_name:"reinforcement_lv_blank",  value: true})
+
+    params_to_form(params, @form_params, column_name: "conversion_lv",          params_name: "conversion_lv_form",   type: "number")
+    params_to_form(params, @form_params, column_name: "conversion_buffer_name", params_name: "conversion_name_form", type: "text")
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "is_conversion", query_name:"conversion_lv_not_null",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_conversion", query_name:"conversion_lv_blank",  value: true})
+
+    params_to_form(params, @form_params, column_name: "chain_power_value", params_name: "chain_power_value_form", type: "number")
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "no_chain_power", query_name:"chain_power_lv_blank",  value: true})
     
-    if params["is_weak"]           == "on" then params[:q]["weak_value_gteq"]           = 1 end
-    if params["is_critical"]       == "on" then params[:q]["critical_value_gteq"]       = 1 end
-    if params["is_clean"]          == "on" then params[:q]["clean_value_gteq"]          = 1 end
-    if params["is_vanish"]         == "on" then params[:q]["vanish_value_gteq"]         = 1 end
-    if params["is_absorb"]         == "on" then params[:q]["absorb_value_gteq"]         = 1 end
-    if params["is_revenge"]        == "on" then params[:q]["revenge_value_gteq"]        = 1 end
-    if params["is_time_penalty"]   == "on" then params[:q]["time_penalty_value_gteq"]   = 1 end
-    if params["is_to_the_fallen"]  == "on" then params[:q]["to_the_fallen_value_gteq"]  = 1 end
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "all_fp_damage", query_name:"all_fp_damage_value_not_null",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "all_lp_damage", query_name:"all_lp_damage_value_not_null",  value: true})
+    checkbox_params_set_query_single(params, @form_params, checkbox: {params_name: "lpfp_damage",   query_name:"lpfp_damage_value_not_null",    value: true})
+
+    @form_params["only_friend"] = params["only_friend"]
+    @form_params["only_enemy"] = params["only_enemy"]
+
+    @form_params["only_dodge"] = params["only_dodge"]
     
-    if params["no_weak"]           == "on" then params[:q]["weak_value_blank"]           = true end
-    if params["no_critical"]       == "on" then params[:q]["critical_value_blank"]       = true end
-    if params["no_clean"]          == "on" then params[:q]["clean_value_blank"]          = true end
-    if params["no_vanish"]         == "on" then params[:q]["vanish_value_blank"]         = true end
-    if params["no_absorb"]         == "on" then params[:q]["absorb_value_blank"]         = true end
-    if params["no_revenge"]        == "on" then params[:q]["revenge_value_blank"]        = true end
-    if params["no_time_penalty"]   == "on" then params[:q]["time_penalty_value_blank"]   = true end
-    if params["no_to_the_fallen"]  == "on" then params[:q]["to_the_fallen_value_blank"]  = true end
+    @form_params["show_statistics"] = (!params["is_form"]) ? "on" : params["show_statistics"]
+    @form_params["show_graph"] = params["show_graph"]
 
-    reference_number_assign(params, "reinforcement_lv", "reinforcement_lv_form")
-    reference_text_assign(params, "reinforcement_buffer_name", "reinforcement_name_form")
-    if params["no_reinforcement"]  == "on" then params[:q]["reinforcement_lv_blank"] = true end
-
-    reference_number_assign(params, "conversion_lv", "conversion_lv_form")
-    reference_text_assign(params, "conversion_buffer_name", "conversion_name_form")
-    if params["is_conversion"]  == "on" then params[:q]["conversion_lv_not_null"] = true end
-    if params["no_conversion"]  == "on" then params[:q]["conversion_lv_blank"] = true end
-
-    reference_number_assign(params, "chain_power_value", "chain_power_value_form")
-    if params["no_chain_power"]  == "on" then params[:q]["chain_power_lv_blank"] = true end
-    
-    if params["all_fp_damage"]  == "on" then params[:q]["all_fp_damage_value_not_null"] = true end
-    if params["all_lp_damage"]  == "on" then params[:q]["all_lp_damage_value_not_null"] = true end
-    if params["lpfp_damage"]    == "on" then params[:q]["lpfp_damage_value_not_null"]   = true end
-
-    @p_name_form = params["p_name_form"]
-    @target_p_name_form = params["target_p_name_form"]
-    @result_no_form = params["result_no_form"]
-    @generate_no_form = params["generate_no_form"]
-    @battle_page_form = params["battle_page_form"]
-    @e_no_form = params["e_no_form"]
-    @card_id_form = params["card_id_form"]
-    @chain_form = params["chain_form"]
-    @target_e_no_form = params["target_e_no_form"]
-    @act_type_form = params["act_type_form"]
-    @element_form = params["element_form"]
-    @damage_form = params["damage_form"]
-    @turn_form = params["turn_form"]
-
-    @possession_form = params["possession_form"]
-    @kind_form = params["kind_form"]
-    @effect_form = params["effect_form"]
-    @lv_form = params["lv_form"]
-    @lp_form = params["lp_form"]
-    @fp_form = params["fp_form"]
-    @lpfp_form = params["lpfp_form"]
-
-    @line_front  = params["line_front"]
-    @line_middle = params["line_middle"]
-    @line_back   = params["line_back"]
-
-    @target_line_front  = params["target_line_front"]
-    @target_line_middle = params["target_line_middle"]
-    @target_line_back   = params["target_line_back"]
-
-    @act_type_damage    = params["act_type_damage"]
-    @act_type_fp_damage = params["act_type_fp_damage"]
-    @act_type_lp_heal   = params["act_type_lp_heal"]
-    @act_type_fp_heal   = params["act_type_fp_heal"]
-    
-    @is_weak = params["is_weak"]
-    @is_critical = params["is_critical"]
-    @is_clean = params["is_clean"]
-    @is_vanish = params["is_vanish"]
-    @is_absorb = params["is_absorb"]
-    @is_revenge = params["is_revenge"]
-    @is_time_penalty = params["is_time_penalty"]
-    @is_to_the_fallen = params["is_to_the_fallen"]
-    
-    @no_weak = params["no_weak"]
-    @no_critical = params["no_critical"]
-    @no_clean = params["no_clean"]
-    @no_vanish = params["no_vanish"]
-    @no_absorb = params["no_absorb"]
-    @no_revenge = params["no_revenge"]
-    @no_time_penalty = params["no_time_penalty"]
-    @no_to_the_fallen = params["no_to_the_fallen"]
-    
-    @only_dodge = params["only_dodge"]
-
-    @only_friend = params["only_friend"]
-    @only_enemy = params["only_enemy"]
-    
-    @rank_form = params["rank_form"]
-
-    @str_form = params["str_form"]
-    @vit_form = params["vit_form"]
-    @int_form = params["int_form"]
-    @mnd_form = params["mnd_form"]
-    @tec_form = params["tec_form"]
-    @eva_form = params["eva_form"]
-
-    @target_rank_form = params["target_rank_form"]
-
-    @target_str_form = params["target_str_form"]
-    @target_vit_form = params["target_vit_form"]
-    @target_int_form = params["target_int_form"]
-    @target_mnd_form = params["target_mnd_form"]
-    @target_tec_form = params["target_tec_form"]
-    @target_eva_form = params["target_eva_form"]
-    
-    @party_num_form = params["party_num_form"]
-    @target_party_num_form = params["target_party_num_form"]
-
-    @poison_lv_form = params["poison_lv_form"]
-    @paralysis_lv_form = params["paralysis_lv_form"]
-    @seal_lv_form = params["seal_lv_form"]
-    @confusion_lv_form = params["confusion_lv_form"]
-    @charm_lv_form = params["charm_lv_form"]
-    @poison_value_form = params["poison_value_form"]
-    @paralysis_value_form = params["paralysis_value_form"]
-    @seal_value_form = params["seal_value_form"]
-    @confusion_value_form = params["confusion_value_form"]
-    @charm_value_form = params["charm_value_form"]
-    @no_poison = params["no_poison"]
-    @no_paralysis = params["no_paralysis"]
-    @no_seal = params["no_seal"]
-    @no_confusion = params["no_confusion"]
-    @no_charm = params["no_charm"]
-
-    @attack_buffer_lv_form = params["attack_buffer_lv_form"]
-    @attack_buffer_value_form = params["attack_buffer_value_form"]
-    @buff_attack_buffer = params["buff_attack_buffer"]
-    @debuff_attack_buffer = params["debuff_attack_buffer"]
-    @no_attack_buffer = params["no_attack_buffer"]
-    @defence_buffer_lv_form = params["defence_buffer_lv_form"]
-    @defence_buffer_value_form = params["defence_buffer_value_form"]
-    @buff_defence_buffer = params["buff_defence_buffer"]
-    @debuff_defence_buffer = params["debuff_defence_buffer"]
-    @no_defence_buffer = params["no_defence_buffer"]
-    @magic_buffer_lv_form = params["magic_buffer_lv_form"]
-    @magic_buffer_value_form = params["magic_buffer_value_form"]
-    @buff_magic_buffer = params["buff_magic_buffer"]
-    @debuff_magic_buffer = params["debuff_magic_buffer"]
-    @no_magic_buffer = params["no_magic_buffer"]
-    @resist_buffer_lv_form = params["resist_buffer_lv_form"]
-    @resist_buffer_value_form = params["resist_buffer_value_form"]
-    @buff_resist_buffer = params["buff_resist_buffer"]
-    @debuff_resist_buffer = params["debuff_resist_buffer"]
-    @no_resist_buffer = params["no_resist_buffer"]
-    @hit_buffer_lv_form = params["hit_buffer_lv_form"]
-    @hit_buffer_value_form = params["hit_buffer_value_form"]
-    @buff_hit_buffer = params["buff_hit_buffer"]
-    @debuff_hit_buffer = params["debuff_hit_buffer"]
-    @no_hit_buffer = params["no_hit_buffer"]
-    @dodge_buffer_lv_form = params["dodge_buffer_lv_form"]
-    @dodge_buffer_value_form = params["dodge_buffer_value_form"]
-    @buff_dodge_buffer = params["buff_dodge_buffer"]
-    @debuff_dodge_buffer = params["debuff_dodge_buffer"]
-    @no_dodge_buffer = params["no_dodge_buffer"]
-    @death_buffer_lv_form = params["death_buffer_lv_form"]
-    @death_buffer_value_form = params["death_buffer_value_form"]
-    @buff_death_buffer = params["buff_death_buffer"]
-    @debuff_death_buffer = params["debuff_death_buffer"]
-    @no_death_buffer = params["no_death_buffer"]
-    @control_buffer_lv_form = params["control_buffer_lv_form"]
-    @control_buffer_value_form = params["control_buffer_value_form"]
-    @buff_control_buffer = params["buff_control_buffer"]
-    @debuff_control_buffer = params["debuff_control_buffer"]
-    @no_control_buffer = params["no_control_buffer"]
-
-    @reinforcement_lv_form = params["reinforcement_lv_form"]
-    @reinforcement_name_form = params["reinforcement_name_form"]
-    @conversion_lv_form = params["conversion_lv_form"]
-    @conversion_name_form = params["conversion_name_form"]
-    @no_reinforcement = params["no_reinforcement"]
-    @is_conversion = params["is_conversion"]
-    @no_conversion = params["no_conversion"]
-
-    @chain_power_value_form = params["chain_power_value_form"]
-    @no_chain_power = params["no_chain_power"]
-
-    @all_fp_damage = params["all_fp_damage"]
-    @all_lp_damage = params["all_lp_damage"]
-    @lpfp_damage = params["lpfp_damage"]
-
-    @show_statistics = (!params["is_form"]) ? "on" : params["show_statistics"]
-    @show_graph = params["show_graph"]
-
-    @show_detail_battle_page = params["show_detail_battle_page"]
-    @show_detail_turn = params["show_detail_turn"]
-    @show_detail_parameter_development = params["show_detail_parameter_development"]
-    @show_detail_characteristic = params["show_detail_characteristic"]
-    @show_detail_line = params["show_detail_line"]
-    @show_detail_party = params["show_detail_party"]
-    @show_detail_target = params["show_detail_target"]
-    @show_detail_target_characteristic = params["show_detail_target_characteristic"]
-    @show_detail_damage_option = params["show_detail_damage_option"]
-    @show_detail_card_option = params["show_detail_card_option"]
-    @show_detail_dodge = params["show_detail_dodge"]
-    @show_detail_line = params["show_detail_line"]
-    @show_detail_element = params["show_detail_element"]
-    @show_detail_abnormal = params["show_detail_abnormal"]
-    @show_detail_buffer = params["show_detail_buffer"]
-    @show_detail_reinforcement = params["show_detail_reinforcement"]
-    @show_detail_chain_power = params["show_detail_chain_power"]
-    @show_detail_conversion = params["show_detail_conversion"]
-    @show_detail_target_type = params["show_detail_target_type"]
-    @show_detail_fp_type = params["show_detail_fp_type"]
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_battle_page")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_turn")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_parameter_development")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_characteristic")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_line")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_party")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_user")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_target")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_target_characteristic")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_damage_option")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_card_option")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_element")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_abnormal")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_buffer")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_reinforcement")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_conversion")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_chain_power")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_target_type")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_fp_type")
+    toggle_params_to_variable(params, @form_params, params_name: "show_detail_dodge")
     @base_first    = (!params["is_form"]) ? "1" : "0"
   end
   # GET /damages/1

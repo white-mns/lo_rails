@@ -23,697 +23,423 @@
           - act_icon(true)
           絞り込み検索
           - act_desc(true)
+    
+    - #==========================================================================================================================
     %tbody
       %tr
       %tr
         %td.indent.indent
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "更新回", params_name: "result_no_form", placeholder: "Number", colspan: 3)
     %tbody
       %tr.sep
         %td.indent
-        %td= f.label :effect_form, 'カード効果'
-        %td.formText= text_field_tag :effect_form, @effect_form, placeholder: @placeholder["Card"]
-        %td= f.label :lv_form, 'Lv'
-        %td.formNum= text_field_tag :lv_form, @lv_form, placeholder: @placeholder["Number"]
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "カード効果", params_name: "effect_form", placeholder: "Card")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "Lv", params_name: "lv_form", placeholder: "Number")
       %tr
         %td.indent
-        %td= f.label :chain_form, 'Chain'
-        %td.formNum{colspan: "3"}= text_field_tag :chain_form, @chain_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "Chain", params_name: "chain_form", colspan: 3)
     %tbody
       %tr.sep
         %td.indent
-        %td= f.label :act_type_form, '行動種別'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :act_type_damage, @act_type_damage, @act_type_damage
-            = label_tag :act_type_damage, 'ダメージ'
-          %span.input
-            = check_box_tag :act_type_fp_damage, @act_type_fp_damage, @act_type_fp_damage
-            = label_tag :act_type_fp_damage, 'FPダメージ'
-          %br
-          %span.input
-            = check_box_tag :act_type_lp_heal, @act_type_lp_heal, @act_type_lp_heal
-            = label_tag :act_type_lp_heal, 'LP回復'
-          %span.input
-            = check_box_tag :act_type_fp_heal, @act_type_fp_heal, @act_type_fp_heal
-            = label_tag :act_type_fp_heal, 'FP回復'
+        - td_form(f, @form_params, @placeholder,                         label: "行動種別", params_name: "act_type_form", colspan: 3,
+                    checkboxes: [{label: "ダメージ",   params_name: "act_type_damage",    class_name: "after_space mobile_br"},
+                                 {label: "FPダメージ", params_name: "act_type_fp_damage", class_name: "after_space mobile_br", br: true},
+                                 {label: "LP回復",     params_name: "act_type_lp_heal",   class_name: "after_space mobile_br"},
+                                 {label: "FP回復",     params_name: "act_type_fp_heal",   class_name: "after_space mobile_br"}])
       %tr
         %td.indent
-        %td= f.label :damage_form, '効果量'
-        %td.formNum{colspan: "3"}= text_field_tag :damage_form, @damage_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_element, @show_detail_element
-          - act_icon(false)
-          = label_tag :show_detail_element, '　攻撃属性を表示する', class: "act_desc"
-          = label_tag :show_detail_element, '　攻撃属性を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "効果量", params_name: "damage_form", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_element", base_first: false,
+                    label: {open: "攻撃属性を表示する", close: "攻撃属性を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :element_form, '属性'
-        %td.formText{colspan: "3"}= text_field_tag :element_form, @element_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_battle_page, @show_detail_battle_page
-          - act_icon(false)
-          = label_tag :show_detail_battle_page, '　模擬戦名で絞り込む', class: "act_desc"
-          = label_tag :show_detail_battle_page, '　模擬戦名で絞り込みを隠す', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "属性", params_name: "element_form", colspan: 3)
+    
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_battle_page", base_first: false,
+                    label: {open: "模擬戦名で絞り込む", close: "模擬戦名で絞り込みを隠す"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :battle_page_form, '模擬戦名　(X VS X)'
-        %td.formText{colspan: "3"}= text_field_tag :battle_page_form, @battle_page_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_turn, @show_detail_turn
-          - act_icon(false)
-          = label_tag :show_detail_turn, '　ターン数を表示', class: "act_desc"
-          = label_tag :show_detail_turn, '　ターン数を隠す', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "模擬戦名", params_name: "battle_page_form", placeholder: "BattlePage", colspan:3)
+    
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_turn", base_first: false,
+                    label: {open: "ターン数を表示する", close: "ターン数を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :turn_form, 'ターン数'
-        %td.formNumber{colspan: "3"}= text_field_tag :turn_form, @turn_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target, @show_detail_target
-          - act_icon(false)
-          = label_tag :show_detail_target, '　使用者で絞り込む', class: "act_desc"
-          = label_tag :show_detail_target, '　使用者で絞り込みを隠す', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "ターン数", params_name: "turn_form", colspan: 3)
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_user", base_first: false,
+                    label: {open: "使用者で絞り込む", close: "使用者で絞り込みを隠す"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target, @show_detail_target
-          - act_icon(false)
-          = label_tag :show_detail_target, '　対象キャラクターを表示する', class: "act_desc"
-          = label_tag :show_detail_target, '　対象キャラクターを表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Eno", params_name: "e_no_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "p_name_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_target", base_first: false,
+                    label: {open: "対象キャラクターを表示する", close: "対象キャラクターを表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :target_e_no_form, '対象Eno'
-        %td.formNum= text_field_tag :target_e_no_form, @target_e_no_form
-        %td= f.label :target_p_name_form, '対象キャラクター名'
-        %td.formText= text_field_tag :target_p_name_form, @target_p_name_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_characteristic, @show_detail_characteristic
-          - act_icon(false)
-          = label_tag :show_detail_characteristic, '　使用者の特性(腕力など)を表示する', class: "act_desc"
-          = label_tag :show_detail_characteristic, '　使用者の特性を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "対象Eno", params_name: "target_e_no_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "対象キャラクター名", params_name: "target_p_name_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_characteristic", base_first: false,
+                    label: {open: "使用者の特性を表示する", close: "使用者の特性を表示しない"},
+                    act_desc: "腕力、体力、理力、精神、器用、敏捷")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :str_form, '腕力'
-        %td.formNum= text_field_tag :str_form, @str_form
-        %td= f.label :vit_form, '体力'
-        %td.formNum= text_field_tag :vit_form, @vit_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "腕力", params_name: "str_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "体力", params_name: "vit_form")
       %tr
         %td.indent
-        %td= f.label :int_form, '理力'
-        %td.formNum= text_field_tag :int_form, @int_form
-        %td= f.label :mnd_form, '精神'
-        %td.formNum= text_field_tag :mnd_form, @mnd_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "理力", params_name: "int_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "精神", params_name: "mnd_form")
       %tr
         %td.indent
-        %td= f.label :tec_form, '器用'
-        %td.formNum= text_field_tag :tec_form, @tec_form
-        %td= f.label :eva_form, '敏捷'
-        %td.formNum= text_field_tag :eva_form, @eva_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target_characteristic, @show_detail_target_characteristic
-          - act_icon(false)
-          = label_tag :show_detail_target_characteristic, '　対象の特性(腕力など)を表示する', class: "act_desc"
-          = label_tag :show_detail_target_characteristic, '　対象の特性を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "器用", params_name: "tec_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "敏捷", params_name: "eva_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_target_characteristic", base_first: false,
+                    label: {open: "対象の特性を表示する", close: "対象の特性を表示しない"},
+                    act_desc: "腕力、体力、理力、精神、器用、敏捷")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :target_str_form, '腕力'
-        %td.formNum= text_field_tag :target_str_form, @target_str_form
-        %td= f.label :target_vit_form, '体力'
-        %td.formNum= text_field_tag :target_vit_form, @target_vit_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "腕力", params_name: "target_str_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "体力", params_name: "target_vit_form")
       %tr
         %td.indent
-        %td= f.label :target_int_form, '理力'
-        %td.formNum= text_field_tag :target_int_form, @target_int_form
-        %td= f.label :target_mnd_form, '精神'
-        %td.formNum= text_field_tag :target_mnd_form, @target_mnd_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "理力", params_name: "target_int_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "精神", params_name: "target_mnd_form")
       %tr
         %td.indent
-        %td= f.label :target_tec_form, '器用'
-        %td.formNum= text_field_tag :target_tec_form, @target_tec_form
-        %td= f.label :target_eva_form, '敏捷'
-        %td.formNum= text_field_tag :target_eva_form, @target_eva_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_parameter_development, @show_detail_parameter_development
-          - act_icon(false)
-          = label_tag :show_detail_parameter_development, '　発動者・対象のRankを表示する', class: "act_desc"
-          = label_tag :show_detail_parameter_development, '　Rankを表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "器用", params_name: "target_tec_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "敏捷", params_name: "target_eva_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_parameter_development", base_first: false,
+                    label: {open: "発動者・対象のRankを表示する", close: "Rankを表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :rank_form, '発動者Rank'
-        %td.formNum= text_field_tag :rank_form, @rank_form
-        %td= f.label :target_rank_form, '対象Rank'
-        %td.formNum= text_field_tag :target_rank_form, @target_rank_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_party, @show_detail_party
-          - act_icon(false)
-          = label_tag :show_detail_party, '　発動時パーティ人数を表示する', class: "act_desc"
-          = label_tag :show_detail_party, '　発動時パーティ人数を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "発動者Rank", params_name: "rank_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "対象Rank", params_name: "target_rank_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_party", base_first: false,
+                    label: {open: "発動時パーティ人数を表示する", close: "発動時パーティ人数を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :party_num_form, '使用者パーティ人数'
-        %td.formNum= text_field_tag :party_num_form, @party_num_form
-        %td= f.label :party_num_form, '対象パーティ人数'
-        %td.formNum= text_field_tag :target_party_num_form, @target_party_num_form
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_line, @show_detail_line
-          - act_icon(false)
-          = label_tag :show_detail_line, '　発動者・対象の隊列を表示する', class: "act_desc"
-          = label_tag :show_detail_line, '　隊列を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "発動者パーティ人数", params_name: "party_num_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "対象パーティ人数", params_name: "target_party_num_form")
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_line", base_first: false,
+                    label: {open: "発動者・対象の隊列を表示する", close: "隊列を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :rank_form, '隊列'
-        %td
-          = check_box_tag :line_front, @line_front, @line_front
-          = label_tag :line_front, '前'
-          　
-          = check_box_tag :line_middle, @line_middle, @line_middle
-          = label_tag :line_middle, '中'
-          　
-          = check_box_tag :line_back, @line_back, @line_back
-          = label_tag :line_back, '後'
-        %td= f.label :target_rank_form, '対象隊列'
-        %td
-          = check_box_tag :target_line_front, @target_line_front, @target_line_front
-          = label_tag :target_line_front, '前'
-          　
-          = check_box_tag :target_line_middle, @target_line_middle, @target_line_middle
-          = label_tag :target_line_middle, '中'
-          　
-          = check_box_tag :target_line_back, @target_line_back, @target_line_back
-          = label_tag :target_line_back, '後'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_damage_option, @show_detail_damage_option
-          - act_icon(false)
-          = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示する', class: "act_desc"
-          = label_tag :show_detail_damage_option, '　ヒット時効果の有無を表示しない', class: "act_desc closed"
-          %div.act_desc 　WeakPoint、Critical、Clean Hit
+        - td_form(f, @form_params, @placeholder, label: "隊列", params_name: "act_type_form",
+                    checkboxes: [{label: "前", params_name: "line_front",  class_name: "after_space"},
+                                 {label: "中", params_name: "line_middle", class_name: "after_space"},
+                                 {label: "後", params_name: "line_back",   class_name: "after_space"}])
+        - td_form(f, @form_params, @placeholder, label: "対象隊列", params_name: "act_type_form",
+                    checkboxes: [{label: "前", params_name: "target_line_front",  class_name: "after_space"},
+                                 {label: "中", params_name: "target_line_middle", class_name: "after_space"},
+                                 {label: "後", params_name: "target_line_back",   class_name: "after_space"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_damage_option", base_first: false,
+                    label: {open: "ヒット時効果の有無を表示する", close: "ヒット時効果の有無を表示しない"},
+                    act_desc: "　WeakPoint、Critical、Clean Hit")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :act_type_form, 'ヒット時効果'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :is_weak, @is_weak, @is_weak
-            = label_tag :is_weak, 'WeakPoint'
-          %span.input
-            = check_box_tag :is_critical, @is_critical, @is_critical
-            = label_tag :is_critical, 'Critical'
-          %span.input
-            = check_box_tag :is_clean, @is_clean, @is_clean
-            = label_tag :is_clean, 'Clean Hit'
+        - td_form(f, @form_params, @placeholder, label: "ヒット時効果", params_name: "act_type_form", colspan: 3,
+                    checkboxes: [{label: "WeakPoint", params_name: "is_weak",     class_name: "after_space mobile_br"},
+                                 {label: "Critical",  params_name: "is_critical", class_name: "after_space mobile_br"},
+                                 {label: "Clean Hit", params_name: "is_clean",    class_name: "after_space mobile_br"}])
       %tr
         %td.indent
-        %td= f.label :act_type_form, 'ヒット時効果（除外）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_weak, @no_weak, @no_weak
-            = label_tag :no_weak, '× WeakPoint'
-          %span.input
-            = check_box_tag :no_critical, @no_critical, @no_critical
-            = label_tag :no_critical, '× Critical'
-          %span.input
-            = check_box_tag :no_clean, @no_clean, @no_clean
-            = label_tag :no_clean, '× Clean Hit'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_card_option, @show_detail_card_option
-          - act_icon(false)
-          = label_tag :show_detail_card_option, '　カード効果の有無を表示する', class: "act_desc"
-          = label_tag :show_detail_card_option, '　カード効果の有無を表示しない', class: "act_desc closed"
-          %div.act_desc 　Vanish、Absorb、Revenge、Time Penalty、To the Fallen
+        - td_form(f, @form_params, @placeholder, label: "ヒット時効果（除外）", params_name: "act_type_form", colspan: 3,
+                    checkboxes: [{label: "× WeakPoint", params_name: "no_weak",     class_name: "after_space mobile_br"},
+                                 {label: "× Critical",  params_name: "no_critical", class_name: "after_space mobile_br"},
+                                 {label: "× Clean Hit", params_name: "no_clean",    class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_card_option", base_first: false,
+                    label: {open: "カード効果の有無を表示する", close: "カード効果の有無を表示しない"},
+                    act_desc: "Vanish、Absorb、Revenge、Time Penalty、To the Fallen")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :act_type_form, 'ヒット時効果'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :is_vanish, @is_vanish, @is_vanish
-            = label_tag :is_vanish, 'Vanish(耐○○の効果) '
-          %span.input
-            = check_box_tag :is_absorb, @is_absorb, @is_absorb
-            = label_tag :is_absorb, 'Absorb(吸○○の効果)'
-          %span.input
-            = check_box_tag :is_revenge, @is_revenge, @is_revenge
-            = label_tag :is_revenge, 'Revenge(応○○の効果)'
-          %br
-          %span.input
-            = check_box_tag :is_time_penalty, @is_time_penalty, @is_time_penalty
-            = label_tag :is_time_penalty, 'Time Penalty(時傷○○の効果)'
-          %span.input
-            = check_box_tag :is_to_the_fallen, @is_to_the_fallen, @is_to_the_fallen
-            = label_tag :is_to_the_fallen, 'To the Fallen(命傷○○の効果)'
+        - td_form(f, @form_params, @placeholder, label: "カード効果", params_name: "act_type_form", colspan: 3,
+                    checkboxes: [{label: "Vanish(耐○○の効果)",          params_name: "is_vanish",        class_name: "after_space mobile_br"},
+                                 {label: "Absorb(吸○○の効果)",          params_name: "is_absorb",        class_name: "after_space mobile_br"},
+                                 {label: "Revenge(応○○の効果)",         params_name: "is_revenge",       class_name: "after_space mobile_br", br: true},
+                                 {label: "Time Penalty(時傷○○の効果)",  params_name: "is_time_penalty",  class_name: "after_space mobile_br"},
+                                 {label: "To the Fallen(命傷○○の効果)", params_name: "is_to_the_fallen", class_name: "after_space mobile_br"}])
       %tr
         %td.indent
-        %td= f.label :act_type_form, 'ヒット時効果（除外）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_vanish, @no_vanish, @no_vanish
-            = label_tag :no_vanish, '× Vanish(耐○○の効果) '
-          %span.input
-            = check_box_tag :no_absorb, @no_absorb, @no_absorb
-            = label_tag :no_absorb, '× Absorb(吸○○の効果)'
-          %span.input
-            = check_box_tag :no_revenge, @no_revenge, @no_revenge
-            = label_tag :no_revenge, '× Revenge(応○○の効果)'
-          %br
-          %span.input
-            = check_box_tag :no_time_penalty, @no_time_penalty, @no_time_penalty
-            = label_tag :no_time_penalty, '× Time Penalty(時傷○○の効果)'
-          %span.input
-            = check_box_tag :no_to_the_fallen, @no_to_the_fallen, @no_to_the_fallen
-            = label_tag :no_to_the_fallen, '× To the Fallen(命傷○○の効果)'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_abnormal, @show_detail_abnormal
-          - act_icon(false)
-          = label_tag :show_detail_abnormal, '　異常系状態変化を表示する', class: "act_desc"
-          = label_tag :show_detail_abnormal, '　異常系状態変化を表示しない', class: "act_desc closed"
-          %div.act_desc 　毒、麻痺、封殺、混乱、魅了
+        - td_form(f, @form_params, @placeholder, label: "カード効果（除外）", params_name: "act_type_form", colspan: 3,
+                    checkboxes: [{label: "× Vanish(耐○○の効果)",          params_name: "no_vanish",        class_name: "after_space mobile_br"},
+                                 {label: "× Absorb(吸○○の効果)",          params_name: "no_absorb",        class_name: "after_space mobile_br"},
+                                 {label: "× Revenge(応○○の効果)",         params_name: "no_revenge",       class_name: "after_space mobile_br", br: true},
+                                 {label: "× Time Penalty(時傷○○の効果)",  params_name: "no_time_penalty",  class_name: "after_space mobile_br"},
+                                 {label: "× To the Fallen(命傷○○の効果)", params_name: "no_to_the_fallen", class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_abnormal", base_first: false,
+                    label: {open: "異常系状態変化を表示する", close: "異常系状態変化を表示しない"},
+                    act_desc: "毒、麻痺、封殺、混乱、魅了")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :poison_lv_form, '毒Lv'
-        %td.formNum= text_field_tag :poison_lv_form, @poison_lv_form
-        %td= f.label :poison_value_form, '毒深度'
-        %td.formNum= text_field_tag :poison_value_form, @poison_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "猛毒Lv",   params_name: "poison_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "猛毒深度", params_name: "poison_value_form")
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_poison, @no_poison, @no_poison
-            = label_tag :no_poison, '猛毒なし'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "猛毒なし", params_name: "no_poison"}])
       %tr
         %td.indent
-        %td= f.label :paralysis_lv_form, '麻痺Lv'
-        %td.formNum= text_field_tag :paralysis_lv_form, @paralysis_lv_form
-        %td= f.label :paralysis_value_form, '麻痺深度'
-        %td.formNum= text_field_tag :paralysis_value_form, @paralysis_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "麻痺Lv",   params_name: "paralysis_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "麻痺深度", params_name: "paralysis_value_form")
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_paralysis, @no_paralysis, @no_paralysis
-            = label_tag :no_paralysis, '麻痺なし'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "麻痺なし", params_name: "no_paralysis"}])
       %tr
         %td.indent
-        %td= f.label :seal_lv_form, '封殺Lv'
-        %td.formNum= text_field_tag :seal_lv_form, @seal_lv_form
-        %td= f.label :seal_value_form, '封殺深度'
-        %td.formNum= text_field_tag :seal_value_form, @seal_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "封殺Lv",   params_name: "seal_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "封殺深度", params_name: "seal_value_form")
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_seal, @no_seal, @no_seal
-            = label_tag :no_seal, '封印なし'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "封殺なし", params_name: "no_seal"}])
       %tr
         %td.indent
-        %td= f.label :confusion_lv_form, '混乱Lv'
-        %td.formNum= text_field_tag :confusion_lv_form, @confusion_lv_form
-        %td= f.label :confusion_value_form, '混乱深度'
-        %td.formNum= text_field_tag :confusion_value_form, @confusion_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "混乱Lv",   params_name: "confusion_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "混乱深度", params_name: "confusion_value_form")
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_confusion, @no_confusion, @no_confusion
-            = label_tag :no_confusion, '混乱なし'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "混乱なし", params_name: "no_confusion"}])
       %tr
         %td.indent
-        %td= f.label :charm_lv_form, '魅了Lv'
-        %td.formNum= text_field_tag :charm_lv_form, @charm_lv_form
-        %td= f.label :charm_value_form, '魅了深度'
-        %td.formNum= text_field_tag :charm_value_form, @charm_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "魅了Lv",   params_name: "charm_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "魅了深度", params_name: "charm_value_form")
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_charm, @no_charm, @no_charm
-            = label_tag :no_charm, '魅了なし'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_buffer, @show_detail_buffer
-          - act_icon(false)
-          = label_tag :show_detail_buffer, '　能力系状態変化（強化・弱化）を表示する', class: "act_desc"
-          = label_tag :show_detail_buffer, '　能力系状態変化（強化・弱化）を表示しない', class: "act_desc closed"
-          %div.act_desc 　物理攻力、物理防御、事象威力、事象抵抗、命中率、回避率、必殺率、被必殺制御率
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "魅了なし", params_name: "no_charm"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_buffer", base_first: false,
+                    label: {open: "能力系状態変化（強化・弱化）を表示する", close: "能力系状態変化（強化・弱化）を表示しない"},
+                    act_desc: "物理攻力、物理防御、事象威力、事象抵抗、命中率、回避率、必殺率、被必殺制御率")
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :attack_buffer_lv_form, '物理攻力変化Lv'
-        %td.formNum= text_field_tag :attack_buffer_lv_form, @attack_buffer_lv_form
-        %td= f.label :attack_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :attack_buffer_value_form, @attack_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "物理攻力変化Lv", params_name: "attack_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "attack_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :attack_buffer_value_form, '物理攻力（物攻）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_attack_buffer, @buff_attack_buffer, @buff_attack_buffer
-            = label_tag :buff_attack_buffer, '強化'
-            　
-            = check_box_tag :debuff_attack_buffer, @debuff_attack_buffer, @debuff_attack_buffer
-            = label_tag :debuff_attack_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_attack_buffer, @no_attack_buffer, @no_attack_buffer
-            = label_tag :no_attack_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "物理攻力（物攻）", params_name: "attack_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_attack_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_attack_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_attack_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :defence_buffer_lv_form, '物理防御変化Lv'
-        %td.formNum= text_field_tag :defence_buffer_lv_form, @defence_buffer_lv_form
-        %td= f.label :defence_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :defence_buffer_value_form, @defence_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "物理防御変化Lv", params_name: "defence_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "defence_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :defence_buffer_value_form, '物理防御（物防）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_defence_buffer, @buff_defence_buffer, @buff_defence_buffer
-            = label_tag :buff_defence_buffer, '強化'
-            　
-            = check_box_tag :debuff_defence_buffer, @debuff_defence_buffer, @debuff_defence_buffer
-            = label_tag :debuff_defence_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_defence_buffer, @no_defence_buffer, @no_defence_buffer
-            = label_tag :no_defence_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "物理防御（物防）", params_name: "defence_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_defence_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_defence_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_defence_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :magic_buffer_lv_form, '事象威力変化Lv'
-        %td.formNum= text_field_tag :magic_buffer_lv_form, @magic_buffer_lv_form
-        %td= f.label :magic_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :magic_buffer_value_form, @magic_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "事象威力変化Lv", params_name: "magic_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "magic_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :magic_buffer_value_form, '事象威力（理力）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_magic_buffer, @buff_magic_buffer, @buff_magic_buffer
-            = label_tag :buff_magic_buffer, '強化'
-            　
-            = check_box_tag :debuff_magic_buffer, @debuff_magic_buffer, @debuff_magic_buffer
-            = label_tag :debuff_magic_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_magic_buffer, @no_magic_buffer, @no_magic_buffer
-            = label_tag :no_magic_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "事象威力（理力）", params_name: "magic_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_magic_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_magic_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_magic_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :resist_buffer_lv_form, '事象抵抗変化Lv'
-        %td.formNum= text_field_tag :resist_buffer_lv_form, @resist_buffer_lv_form
-        %td= f.label :resist_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :resist_buffer_value_form, @resist_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "事象抵抗変化Lv", params_name: "resist_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "resist_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :resist_buffer_value_form, '事象抵抗（抵抗）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_resist_buffer, @buff_resist_buffer, @buff_resist_buffer
-            = label_tag :buff_resist_buffer, '強化'
-            　
-            = check_box_tag :debuff_resist_buffer, @debuff_resist_buffer, @debuff_resist_buffer
-            = label_tag :debuff_resist_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_resist_buffer, @no_resist_buffer, @no_resist_buffer
-            = label_tag :no_resist_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "事象抵抗（抵抗）", params_name: "resist_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_resist_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_resist_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_resist_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :hit_buffer_lv_form, '命中率変化Lv'
-        %td.formNum= text_field_tag :hit_buffer_lv_form, @hit_buffer_lv_form
-        %td= f.label :hit_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :hit_buffer_value_form, @hit_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "命中率変化Lv", params_name: "hit_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "hit_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :hit_buffer_value_form, '命中率'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_hit_buffer, @buff_hit_buffer, @buff_hit_buffer
-            = label_tag :buff_hit_buffer, '強化'
-            　
-            = check_box_tag :debuff_hit_buffer, @debuff_hit_buffer, @debuff_hit_buffer
-            = label_tag :debuff_hit_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_hit_buffer, @no_hit_buffer, @no_hit_buffer
-            = label_tag :no_hit_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "命中率", params_name: "hit_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_hit_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_hit_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_hit_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :dodge_buffer_lv_form, '回避率変化Lv'
-        %td.formNum= text_field_tag :dodge_buffer_lv_form, @dodge_buffer_lv_form
-        %td= f.label :dodge_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :dodge_buffer_value_form, @dodge_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "回避率変化Lv", params_name: "dodge_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "dodge_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :dodge_buffer_value_form, '回避率'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_dodge_buffer, @buff_dodge_buffer, @buff_dodge_buffer
-            = label_tag :buff_dodge_buffer, '強化'
-            　
-            = check_box_tag :debuff_dodge_buffer, @debuff_dodge_buffer, @debuff_dodge_buffer
-            = label_tag :debuff_dodge_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_dodge_buffer, @no_dodge_buffer, @no_dodge_buffer
-            = label_tag :no_dodge_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "回避率", params_name: "dodge_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_dodge_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_dodge_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_dodge_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :death_buffer_lv_form, '必殺率変化Lv'
-        %td.formNum= text_field_tag :death_buffer_lv_form, @death_buffer_lv_form
-        %td= f.label :death_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :death_buffer_value_form, @death_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "必殺率変化Lv", params_name: "death_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "death_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :control_buffer_value_form, '必殺率'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_death_buffer, @buff_death_buffer, @buff_death_buffer
-            = label_tag :buff_death_buffer, '強化'
-            　
-            = check_box_tag :debuff_death_buffer, @debuff_death_buffer, @debuff_death_buffer
-            = label_tag :debuff_death_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_death_buffer, @no_death_buffer, @no_death_buffer
-            = label_tag :no_death_buffer, 'なし'
+        - td_form(f, @form_params, @placeholder, label: "必殺率", params_name: "death_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_death_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_death_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_death_buffer",     class_name: "after_space"}])
       %tr
         %td.indent
-        %td= f.label :control_buffer_lv_form, '被必殺制御率変化Lv'
-        %td.formNum= text_field_tag :control_buffer_lv_form, @control_buffer_lv_form
-        %td= f.label :control_buffer_value_form, '保持力'
-        %td.formNum= text_field_tag :control_buffer_value_form, @control_buffer_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "被必殺制御率変化Lv", params_name: "control_buffer_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum", label: "保持力",       params_name: "control_buffer_value_form")
       %tr
       %tr
         %td.indent
-        %td= f.label :control_buffer_value_form, '被必殺制御率（制御）'
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :buff_control_buffer, @buff_control_buffer, @buff_control_buffer
-            = label_tag :buff_control_buffer, '強化'
-            　
-            = check_box_tag :debuff_control_buffer, @debuff_control_buffer, @debuff_control_buffer
-            = label_tag :debuff_control_buffer, '弱化'
-          %span.input
-            = check_box_tag :no_control_buffer, @no_control_buffer, @no_control_buffer
-            = label_tag :no_control_buffer, 'なし'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_reinforcement, @show_detail_reinforcement
-          - act_icon(false)
-          = label_tag :show_detail_reinforcement, '　強化フィールドを表示する', class: "act_desc"
-          = label_tag :show_detail_reinforcement, '　強化フィールドを表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label: "被必殺制御率（制御）", params_name: "control_buffer_form", colspan: 3,
+                    checkboxes: [{label: "強化", params_name: "buff_control_buffer",   class_name: "after_space"},
+                                 {label: "弱化", params_name: "debuff_control_buffer", class_name: "after_space"},
+                                 {label: "なし", params_name: "no_control_buffer",     class_name: "after_space"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_reinforcement", base_first: false,
+                    label: {open: "強化フィールド（〇〇領域の効果）を表示する", close: "強化フィールドを表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :reinforcement_lv_form, '強化フィールドLv'
-        %td.formNum= text_field_tag :reinforcement_lv_form, @reinforcement_lv_form
-        %td= f.label :reinforcement_name_form, '強化フィールド名'
-        %td.formText= text_field_tag :reinforcement_name_form, @reinforcement_name_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "強化フィールドLv", params_name: "reinforcement_lv_form")
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "強化フィールド名", params_name: "reinforcement_name_form")
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_reinforcement, @no_reinforcement, @no_reinforcement
-            = label_tag :no_reinforcement, '強化フィールドなし'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_conversion, @show_detail_conversion
-          - act_icon(false)
-          = label_tag :show_detail_conversion, '　変換フィールドを表示する', class: "act_desc"
-          = label_tag :show_detail_conversion, '　変換フィールドを表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "強化フィールドなし", params_name: "no_reinforcement", class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_conversion", base_first: false,
+                    label: {open: "変換フィールド（換〇〇の効果）を表示する", close: "変換フィールドを表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :conversion_name_form, '変換フィールド名'
-        %td.formText{colspan: "3"}= text_field_tag :conversion_name_form, @conversion_name_form
+        - td_form(f, @form_params, @placeholder, class_name: "formText",  label: "変換フィールド名", params_name: "conversion_name_form", colspan: 3)
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :is_conversion, @is_conversion, @is_conversion
-            = label_tag :is_conversion, '変換フィールドあり'
-          %span.input
-            = check_box_tag :no_conversion, @no_conversion, @no_conversion
-            = label_tag :no_conversion, '変換フィールドなし'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_chain_power, @show_detail_chain_power
-          - act_icon(false)
-          = label_tag :show_detail_chain_power, '　鎖力の効果を表示する', class: "act_desc"
-          = label_tag :show_detail_chain_power, '　鎖力の効果を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "変換フィールドあり", params_name: "is_conversion", class_name: "after_space mobile_br"},
+                                 {label: "変換フィールドなし", params_name: "no_conversion", class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_chain_power", base_first: false,
+                    label: {open: "鎖力の効果を表示する", close: "鎖力の効果を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td= f.label :chain_power_value_form, '鎖力強化率'
-        %td.formNum{colspan: "3"}= text_field_tag :chain_power_value_form, @chain_power_value_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "鎖力強化率", params_name: "chain_power_value_form", colspan: 3)
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :no_chain_power, @no_chain_power, @no_chain_power
-            = label_tag :no_chain_power, '鎖力なし'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_fp_type, @show_detail_fp_type
-          - act_icon(false)
-          = label_tag :show_detail_fp_type, '　FPダメージのLPダメージ変換の有無を表示する', class: "act_desc"
-          = label_tag :show_detail_fp_type, '　FPダメージのLPダメージ変換の有無を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "鎖力なし", params_name: "no_chain_power", class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_fp_type", base_first: false,
+                    label: {open: "FPダメージのLPダメージ変換の有無を表示する", close: "FPダメージのLPダメージ変換の有無の効果を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :all_fp_damage, @all_fp_damage, @all_fp_damage
-            = label_tag :all_fp_damage, '完全FPダメージ'
-          %span.input
-            = check_box_tag :all_lp_damage, @all_lp_damage, @all_lp_damage
-            = label_tag :all_lp_damage, '完全LPダメージ'
-          %span.input
-            = check_box_tag :lpfp_damage, @lpfp_damage, @lpfp_damage
-            = label_tag :lpfp_damage, 'FP+LPダメージ'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_target_type, @show_detail_target_type
-          - act_icon(false)
-          = label_tag :show_detail_target_type, '　味方対象・敵対象で絞り込む', class: "act_desc"
-          = label_tag :show_detail_target_type, '　味方対象・敵対象による絞り込みを表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "完全FPダメージ", params_name: "all_fp_damage", class_name: "after_space mobile_br"},
+                                 {label: "完全LPダメージ", params_name: "all_lp_damage", class_name: "after_space mobile_br"},
+                                 {label: "FP+LPダメージ",  params_name: "lpfp_damage",   class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_target_type", base_first: false,
+                    label: {open: "味方対象・敵対象で絞り込む", close: "味方対象・敵対象による絞り込みを表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :only_friend, @only_friend, @only_friend
-            = label_tag :only_friend, '味方対象のみ表示'
-          %span.input
-            = check_box_tag :only_enemy, @only_enemy, @only_enemy
-            = label_tag :only_enemy, '敵対象のみ表示'
-    %tbody.tbody_toggle.pointer
-      %tr
-        %td{colspan: "5"}
-          = hidden_field_tag :show_detail_dodge, @show_detail_dodge
-          - act_icon(false)
-          = label_tag :show_detail_dodge, '　回避された攻撃を表示する', class: "act_desc"
-          = label_tag :show_detail_dodge, '　回避された攻撃を表示しない', class: "act_desc closed"
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "味方対象のみ表示", params_name: "only_friend",  class_name: "after_space mobile_br"},
+                                 {label: "敵対象のみ表示",   params_name: "only_enemy", class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
+    - tbody_toggle(@form_params, params_name: "show_detail_dodge", base_first: false,
+                    label: {open: "回避された攻撃を表示する", close: "回避された攻撃を表示しない"})
     %tbody.closed
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :only_dodge, @only_dodge, @only_dodge
-            = label_tag :only_dodge, '回避のみ表示'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "回避のみ表示",   params_name: "only_dodge",  class_name: "after_space mobile_br"}])
+
+    - #==========================================================================================================================
     %tbody
       %tr
       %tr
         %td.indent
-        %td
-        %td{colspan: "3"}
-          %span.input
-            = check_box_tag :show_statistics, @show_statistics, @show_statistics
-            = label_tag :show_statistics, '統計を表示'
-          %span.input
-            = check_box_tag :show_graph, @show_graph, @show_graph
-            = label_tag :show_graph, 'グラフを表示'
+        - td_form(f, @form_params, @placeholder, label_td_class_name: "indent", colspan: 3,
+                    checkboxes: [{label: "統計を表示",   params_name: "show_statistics",  class_name: "after_space mobile_br"},
+                                 {label: "グラフを表示", params_name: "show_graph", class_name: "after_space mobile_br"}])
       %tr
       %tr
         %td.indent
@@ -726,7 +452,7 @@
 %br
 %br
 
-- if @show_statistics
+- if @form_params["show_statistics"]
   %table.table.table-striped.table-bordered.table-hover
     %thead
       %th 行動
@@ -752,8 +478,8 @@
           %td= statistic.dodge
           %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
           %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
-- if @show_graph
-  = column_chart Damage.notnil().where_dodge(@show_detail_dodge, @only_dodge).where_target_type(@only_friend, @only_enemy).search(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"効果量", ytitle: "件数"
+- if @form_params["show_graph"]
+  = column_chart Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).search(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"効果量", ytitle: "件数"
 %br
 
 = paginate(@damages)
@@ -764,32 +490,32 @@
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th.sep= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
       %th.sep= sort_link(@search, :battle_page, '模擬戦', default_order: :desc)
-      - if @show_detail_turn == "1"
+      - if @form_params["show_detail_turn"] == "1"
         %th.sep= sort_link(@search, :turn, 'Turn', default_order: :desc)
-      - if @show_detail_characteristic == "1"
+      - if @form_params["show_detail_characteristic"] == "1"
         %th.sep= sort_link(@search, :characteristic_str, '腕力', default_order: :desc)
         %th= sort_link(@search, :characteristic_vit, '体力', default_order: :desc)
         %th= sort_link(@search, :characteristic_int, '理力', default_order: :desc)
         %th= sort_link(@search, :characteristic_mnd, '精神', default_order: :desc)
         %th= sort_link(@search, :characteristic_tec, '器用', default_order: :desc)
         %th= sort_link(@search, :characteristic_eva, '敏捷', default_order: :desc)
-      - if @show_detail_party == "1"
+      - if @form_params["show_detail_party"] == "1"
         %th.sep= sort_link(@search, :party_num, '使用者PT人数', default_order: :desc)
         %th= sort_link(@search, :target_party_num, '対象PT人数', default_order: :desc)
-      - if @show_detail_line == "1"
+      - if @form_params["show_detail_line"] == "1"
         %th.sep= sort_link(@search, :line, '隊列', default_order: :desc)
         %th= sort_link(@search, :target_line, '対象隊列', default_order: :desc)
-      - if @show_detail_parameter_development == "1"
+      - if @form_params["show_detail_parameter_development"] == "1"
         %th.sep= sort_link(@search, :parameter_development_rank, 'Rank', default_order: :desc)
         %th.sep= sort_link(@search, :target_parameter_development_rank, '対象Rank', default_order: :desc)
       %th.sep= sort_link(@search, :card_data_name, 'カード効果', default_order: :desc)
       %th= sort_link(@search, :card_data_lv, 'Lv', default_order: :desc)
       %th= sort_link(@search, :chain, 'Chain', default_order: :desc)
-      - if @show_detail_element == "1"
+      - if @form_params["show_detail_element"] == "1"
         %th.sep= sort_link(@search, :element, '属性', default_order: :desc)
-      - if @show_detail_target == "1"
+      - if @form_params["show_detail_target"] == "1"
         %th.sep= sort_link(@search, :target_e_no, '対象キャラクター(Eno)', default_order: :desc)
-      - if @show_detail_target_characteristic == "1"
+      - if @form_params["show_detail_target_characteristic"] == "1"
         %th.sep= sort_link(@search, :target_characteristic_str, '対象腕力', default_order: :desc)
         %th= sort_link(@search, :target_characteristic_vit, '対象体力', default_order: :desc)
         %th= sort_link(@search, :target_characteristic_int, '対象理力', default_order: :desc)
@@ -798,23 +524,23 @@
         %th= sort_link(@search, :target_characteristic_eva, '対象敏捷', default_order: :desc)
       %th.sep= sort_link(@search, :act_type, '行動', default_order: :desc)
       %th= sort_link(@search, :damage, '効果量', default_order: :desc)
-      - if @show_detail_damage_option == "1"
+      - if @form_params["show_detail_damage_option"] == "1"
         %th.sep= sort_link(@search, :is_weak, 'Weak', default_order: :desc)
         %th= sort_link(@search, :is_critical, 'Critical', default_order: :desc)
         %th= sort_link(@search, :is_clean, 'Clean', default_order: :desc)
-      - if @show_detail_card_option == "1"
-        %th= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
+      - if @form_params["show_detail_card_option"] == "1"
+        %th.sep= sort_link(@search, :is_vanish, 'Vanish', default_order: :desc)
         %th= sort_link(@search, :is_absorb, 'Absorb', default_order: :desc)
         %th= sort_link(@search, :revenge_value, 'Revenge', default_order: :desc)
         %th= sort_link(@search, :time_penalty_value, 'Time', default_order: :desc)
         %th= sort_link(@search, :to_the_fallen_value, 'Fallen', default_order: :desc)
-      - if @show_detail_abnormal == "1"
+      - if @form_params["show_detail_abnormal"] == "1"
         %th.sep{colspan: "2"}= sort_link(@search, :poison_value, '毒', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :paralysis_value, '麻痺', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :seal_value, '封殺', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :confusion_value, '混乱', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :charm_value, '魅了', default_order: :desc)
-      - if @show_detail_buffer == "1"
+      - if @form_params["show_detail_buffer"] == "1"
         %th.sep{colspan: "2"}= sort_link(@search, :attack_buffer_value, '物攻', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :defence_buffer_value, '物防', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :magic_buffer_value, '理力', default_order: :desc)
@@ -823,13 +549,13 @@
         %th{colspan: "2"}= sort_link(@search, :dodge_buffer_value, '回避', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :death_buffer_value, '必殺', default_order: :desc)
         %th{colspan: "2"}= sort_link(@search, :control_buffer_value, '制御', default_order: :desc)
-      - if @show_detail_reinforcement == "1"
+      - if @form_params["show_detail_reinforcement"] == "1"
         %th.sep= sort_link(@search, :reinforcement_lv, '強化F', default_order: :desc)
-      - if @show_detail_conversion == "1"
+      - if @form_params["show_detail_conversion"] == "1"
         %th.sep= sort_link(@search, :conversion_value, '変換F', default_order: :desc)
-      - if @show_detail_chain_power == "1"
+      - if @form_params["show_detail_chain_power"] == "1"
         %th.sep= sort_link(@search, :chain_power_value, '鎖力', default_order: :desc)
-      - if @show_detail_fp_type == "1"
+      - if @form_params["show_detail_fp_type"] == "1"
         %th.sep= sort_link(@search, :all_fp_damage_value, '完全FP', default_order: :desc)
         %th= sort_link(@search, :all_lp_damage_value, '完全LP', default_order: :desc)
         %th= sort_link(@search, :lpfp_damage_value, 'FPLP', default_order: :desc)
@@ -841,32 +567,32 @@
         %td= damage.result_no
         %td.sep= p_name_text(damage.e_no, damage.p_name)
         %td.sep= damage.battle_page
-        - if @show_detail_turn == "1"
+        - if @form_params["show_detail_turn"] == "1"
           %td.sep= damage.turn
-        - if @show_detail_characteristic == "1"
+        - if @form_params["show_detail_characteristic"] == "1"
           %td.sep= damage.characteristic.str if damage.characteristic
           %td= damage.characteristic.vit if damage.characteristic
           %td= damage.characteristic.int if damage.characteristic
           %td= damage.characteristic.mnd if damage.characteristic
           %td= damage.characteristic.tec if damage.characteristic
           %td= damage.characteristic.eva if damage.characteristic
-        - if @show_detail_party == "1"
+        - if @form_params["show_detail_party"] == "1"
           %td.sep= damage.party_num
           %td= damage.target_party_num
-        - if @show_detail_line == "1"
+        - if @form_params["show_detail_line"] == "1"
           %td.sep= showLine(damage.line)
           %td= showLine(damage.target_line)
-        - if @show_detail_parameter_development == "1"
+        - if @form_params["show_detail_parameter_development"] == "1"
           %td.sep= damage.parameter_development.rank if damage.parameter_development
           %td.sep= damage.target_parameter_development.rank if damage.target_parameter_development
         %td.sep= damage.card_data.name if damage.card_data
         %td= damage.card_data.lv if damage.card_data
         %td= damage.chain
-        - if @show_detail_element == "1"
+        - if @form_params["show_detail_element"] == "1"
           %td.sep= damage.element_name.name if damage.element_name
-        - if @show_detail_target == "1"
+        - if @form_params["show_detail_target"] == "1"
           %td.sep= p_name_text(damage.target_e_no, damage.target_p_name)
-        - if @show_detail_target_characteristic == "1"
+        - if @form_params["show_detail_target_characteristic"] == "1"
           %td.sep= damage.target_characteristic.str if damage.target_characteristic
           %td= damage.target_characteristic.vit if damage.target_characteristic
           %td= damage.target_characteristic.int if damage.target_characteristic
@@ -877,17 +603,17 @@
         %td
           = damage.damage if damage.damage >= 0
           = "回避" if damage.damage < 0
-        - if @show_detail_damage_option == "1"
+        - if @form_params["show_detail_damage_option"] == "1"
           %td.sep= showExistBuffer(damage.weak)
           %td= showExistBuffer(damage.critical)
           %td= showExistBuffer(damage.clean)
-        - if @show_detail_card_option == "1"
-          %td= showExistBuffer(damage.vanish)
+        - if @form_params["show_detail_card_option"] == "1"
+          %td.sep= showExistBuffer(damage.vanish)
           %td= showExistBuffer(damage.absorb)
           %td= showExistBuffer(damage.revenge)
           %td= showExistBuffer(damage.time_penalty)
           %td= showExistBuffer(damage.to_the_fallen)
-        - if @show_detail_abnormal == "1"
+        - if @form_params["show_detail_abnormal"] == "1"
           %td.sep= showBufferLv(damage.poison)
           %td= damage.poison.value if damage.poison
           %td= showBufferLv(damage.paralysis)
@@ -898,7 +624,7 @@
           %td= damage.confusion.value if damage.confusion
           %td= showBufferLv(damage.charm)
           %td= damage.charm.value if damage.charm
-        - if @show_detail_buffer == "1"
+        - if @form_params["show_detail_buffer"] == "1"
           %td.sep= showReinforcing(damage.attack_buffer)
           %td= damage.attack_buffer.value if damage.attack_buffer
           %td= showReinforcing(damage.defence_buffer)
@@ -915,13 +641,13 @@
           %td= damage.death_buffer.value if damage.death_buffer
           %td= showReinforcing(damage.control_buffer)
           %td= damage.control_buffer.value if damage.control_buffer
-        - if @show_detail_reinforcement == "1"
+        - if @form_params["show_detail_reinforcement"] == "1"
           %td.sep= showReinforcing(damage.reinforcement)
-        - if @show_detail_conversion == "1"
+        - if @form_params["show_detail_conversion"] == "1"
           %td.sep= showConversion(damage.conversion)
-        - if @show_detail_chain_power == "1"
+        - if @form_params["show_detail_chain_power"] == "1"
           %td.sep= sprintf("%d％", damage.chain_power.value) if damage.chain_power
-        - if @show_detail_fp_type == "1"
+        - if @form_params["show_detail_fp_type"] == "1"
           %td.sep= showExistBuffer(damage.all_fp_damage)
           %td= showExistBuffer(damage.all_lp_damage)
           %td= showExistBuffer(damage.lpfp_damage)
