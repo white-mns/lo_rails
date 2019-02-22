@@ -12,6 +12,12 @@ class CharacteristicsController < ApplicationController
     @characteristics	= @search.result.per(50)
   end
 
+  # GET /characteristic/graph
+  def graph
+    index
+    @trainings	= @search.result
+  end
+
   def param_set
     @latest_result = Name.maximum('result_no')
 
