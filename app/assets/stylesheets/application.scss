@@ -118,6 +118,11 @@ h2 {
     margin-top: 0.5rem;
 }
 
+h3.graph_title {
+    border-left: $nav-well-border-color 6px solid;
+    border-bottom: $nav-well-border-color 2px solid;
+}
+
 label {
     font-weight: bold;
 }
