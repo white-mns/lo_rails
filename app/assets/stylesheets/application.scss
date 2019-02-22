@@ -118,6 +118,11 @@ h2 {
     margin-top: 0.5rem;
 }
 
+h3.graph_title {
+    border-left: $nav-well-border-color 6px solid;
+    border-bottom: $nav-well-border-color 2px solid;
+}
+
 label {
     font-weight: bold;
 }
@@ -286,6 +291,11 @@ span.input::after {
     content: "　" ;
 }
 
+span.after_space::after {
+    content: "　" ;
+}
+
+
 @media screen and (max-width:767px) {
     h1 {
         font-size: 1.5rem;
@@ -314,6 +324,11 @@ span.input::after {
     }
     
     span.input::after {
+        content: "\a" ;
+        white-space: pre ;
+    }
+
+    span.mobile_br::after {
         content: "\a" ;
         white-space: pre ;
     }

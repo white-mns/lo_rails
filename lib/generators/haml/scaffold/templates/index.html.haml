@@ -27,21 +27,17 @@
       %tr
       %tr
         %td.indent
-        %td= f.label :result_no_form, '更新回'
-        %td.formNum{colspan: "3"}= text_field_tag :result_no_form, @result_no_form
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "更新回", params_name: "result_no_form", placeholder: nil, colspan: 3)
       %tr
         %td.indent
-        %td= f.label :e_no_form, 'Eno'
-        %td.formNum= text_field_tag :e_no_form, @e_no_form, placeholder: @placeholder["Number"]
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Eno", params_name: "e_no_form", placeholder: "Number")
       %tr
         %td.indent
-        %td= f.label :p_name_form, 'キャラクター名'
-        %td.formText= text_field_tag :p_name_form, @p_name_form, placeholder: @placeholder["Name"]
+        - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "p_name_form", placeholder: "Name")
 <% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
         %td.indent
-        %td= f.label :<%= attribute.name %>_form, '<%= attribute.human_name %>'
-        %td.formNum= text_field_tag :<%= attribute.name %>_form, @<%= attribute.name %>_form, placeholder: @placeholder["Number"]
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "<%= attribute.human_name %>", params_name: "<%= attribute.name %>_form", placeholder: "Number")
 <% end -%>
       %tr
         %td.indent
@@ -74,5 +70,5 @@
         %td= <%= singular_table_name %>.<%= attribute.name %>
 <% end -%>
         %td= character_link(<%= singular_table_name %>.e_no)
-        %td= character_old_link(@latest_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
+        %td= character_old_link(@latest_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no, <%= singular_table_name %>.generate_no)
 = paginate(@<%= plural_table_name %>)

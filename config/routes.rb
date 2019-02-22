@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   resources :cards
   resources :card_data
   resources :items
+  get "characteristic/graph",   :to => "characteristics#graph",   :as => 'characteristic_graph' 
   resources :characteristics
   resources :parameter_progresses
   resources :parameter_controls

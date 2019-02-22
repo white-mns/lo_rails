@@ -1,6 +1,12 @@
 - @page_title = "鍛錬グラフ"
 %h1= @page_title
 
+.bs-component
+  %ul.breadcrumb{style: "margin-bottom: 5px;"}
+    %li.breadcrumb-item= link_to "鍛錬一覧", trainings_path
+    %li.breadcrumb-item.active 鍛錬グラフ
+    %li.breadcrumb-item= link_to "鍛錬推移グラフ", training_history_path
+
 .card.desc
   .card-header
     - act_icon(true)
@@ -45,13 +51,13 @@
 %br
 %br
 
-%h3 特性鍛錬
+%h3.graph_title 特性鍛錬
 = column_chart Training.training_type(0).search_result(params).to_training_graph(:training), ytitle:"鍛錬数"
 
-%h3 学科鍛錬
+%h3.graph_title 学科鍛錬
 = column_chart Training.training_type(1).search_result(params).to_training_graph(:training), ytitle:"鍛錬数" 
 
-%h3 学科鍛錬(割合)
+%h3.graph_title 学科鍛錬(割合)
 = column_chart Training.training_type(1).search_result(params).to_training_rate_graph(:training), ytitle:"％" 
       
       

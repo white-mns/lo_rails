@@ -1,10 +1,10 @@
-- @page_title = "特性一覧"
+- @page_title = "特性グラフ"
 %h1= @page_title
 
 .bs-component
   %ul.breadcrumb{style: "margin-bottom: 5px;"}
-    %li.breadcrumb-item.active 特性一覧
-    %li.breadcrumb-item= link_to "特性グラフ", characteristic_graph_path
+    %li.breadcrumb-item= link_to "特性一覧", characteristics_path
+    %li.breadcrumb-item.active 特性グラフ
 
 .card.desc
   .card-header
@@ -20,7 +20,7 @@
         - act_desc(false)
     #example.closed
       = render "layouts/input_desc"
-= search_form_for @search do |f|
+= search_form_for @search, url: characteristic_graph_path do |f|
   %table.search_toggle.table.table-striped.table-bordered.table-hover
     %tbody.pointer
       %tr
@@ -73,38 +73,23 @@
           - search_submit_button
 
 
-= paginate(@characteristics)
-%br
-ヒット数：#{ @count }件
 %br
 %br
 
-%table.table.table-striped.table-bordered.table-hover
-  %thead
-    %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
-      %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th= sort_link(@search, :str, '腕力', default_order: :desc)
-      %th= sort_link(@search, :vit, '体力', default_order: :desc)
-      %th= sort_link(@search, :int, '理力', default_order: :desc)
-      %th= sort_link(@search, :mnd, '精神', default_order: :desc)
-      %th= sort_link(@search, :tec, '器用', default_order: :desc)
-      %th= sort_link(@search, :eva, '敏捷', default_order: :desc)
-      %th{colspan:"2"}
-        結果リンク
-  %tbody
-    - @characteristics.each do |characteristic|
-      %tr
-        %td= characteristic.result_no
-        %td= p_name_text(characteristic.e_no, characteristic.p_name)
-        %td= characteristic.str
-        %td= characteristic.vit
-        %td= characteristic.int
-        %td= characteristic.mnd
-        %td= characteristic.tec
-        %td= characteristic.eva
-        %td
-          = character_link(characteristic.e_no)
-        %td
-          = character_old_link(@latest_result, characteristic.e_no, characteristic.result_no)
-= paginate(@characteristics)
+%h3.graph_title 腕力
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:str), xtitle:"腕力", ytitle:"人数"
+%br
+%h3.graph_title 体力
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:vit), xtitle:"体力", ytitle:"人数"
+%br
+%h3.graph_title 理力
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:int), xtitle:"理力", ytitle:"人数"
+%br
+%h3.graph_title 精神
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:mnd), xtitle:"精神", ytitle:"人数"
+%br
+%h3.graph_title 器用
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:tec), xtitle:"器用", ytitle:"人数"
+%br
+%h3.graph_title 敏捷
+= column_chart Characteristic.search(params[:q]).result.to_range_graph(:eva), xtitle:"敏捷", ytitle:"人数"

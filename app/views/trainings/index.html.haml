@@ -1,6 +1,12 @@
 - @page_title = "鍛錬一覧"
 %h1= @page_title
 
+.bs-component
+  %ul.breadcrumb{style: "margin-bottom: 5px;"}
+    %li.breadcrumb-item.active 鍛錬一覧
+    %li.breadcrumb-item= link_to "鍛錬グラフ", training_graph_path
+    %li.breadcrumb-item= link_to "鍛錬推移グラフ", training_history_path
+
 %div.well.desc
 .card.desc
   .card-header

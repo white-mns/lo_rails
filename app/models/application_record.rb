@@ -20,7 +20,13 @@ class ApplicationRecord < ActiveRecord::Base
       
       if range == 0 then range = 1 end
       
-      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; hash[floor.to_s.rjust(figure_length) + "～" + (floor+range-1).to_s.rjust(figure_length)] += 1 ; hash}.sort
+      pluck(column).inject(Hash.new(0)){|hash, a| floor= (a/range).to_i()*range; 
+                                        if range > 1 then
+                                        hash[floor.to_s.rjust(figure_length) + "～" + (floor+range-1).to_s.rjust(figure_length)] += 1 ; 
+                                        else
+                                            hash[floor.to_s.rjust(figure_length)] += 1;
+                                        end
+                                        hash}.sort
   }
 
   scope :to_range_variable_min_graph, -> (column) {
@@ -45,5 +51,6 @@ class ApplicationRecord < ActiveRecord::Base
                                         else
                                             hash[floor.to_s.rjust(figure_length)] += 1;
                                         end
-                                        hash}.sort  }
+                                        hash}.sort 
+  }
 end

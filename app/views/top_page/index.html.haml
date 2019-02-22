@@ -44,6 +44,7 @@
             %li= link_to "カード設定枚数ランキング", command_action_rankings_path
             %br
             %li= link_to "潜在・属性・専門グラフ", pgws_graph_path
+            %li= link_to "特性グラフ", characteristic_graph_path
             %li= link_to "鍛錬グラフ", training_graph_path
             %li= link_to "鍛錬遷移グラフ", training_history_path
           %br
@@ -80,6 +81,11 @@
     %h2 更新履歴
     %div
       %ul
+        %li 2019/2/22
+        %ul
+          %li
+            = link_to "特性グラフ", characteristic_graph_path
+            を公開
         %li 2019/2/13
         %ul
           %li
