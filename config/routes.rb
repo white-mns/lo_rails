@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :uploaded_checks
   resources :pre_total_party_nums
   resources :damage_buffers
   get "conditions",   :to => "parameter_developments#conditions",   :as => 'conditions' 

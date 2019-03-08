@@ -4,8 +4,7 @@
   %a{:href => "http://ykamiya.ciao.jp/index.html", :target => "_blank"} LastOrder#A 〜最終注文#A〜
   を解析して得られる情報を扱っています。
 %br
-%p 
-  Vol.#{@latest_result}#{ "再" if @last_generate > 0}#{ num = 2; text = ""; while num <= @last_generate do num += 1; text += "々" end; text}更新結果まで反映済です。
+%p= top_text(@latest_result, @latest_generate, @uploaded_result)
 
 .card.top
   .card-body
