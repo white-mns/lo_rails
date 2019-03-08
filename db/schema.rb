@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_22_030120) do
+ActiveRecord::Schema.define(version: 2019_03_08_214812) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -69,11 +69,10 @@ ActiveRecord::Schema.define(version: 2019_01_22_030120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "turn"
-    t.index ["battle_page", "party", "e_no", "result_no", "generate_no"], name: "resultno_and_battle_page"
     t.index ["card_id"], name: "index_card_users_on_card_id"
     t.index ["control"], name: "index_card_users_on_control"
-    t.index ["result_no", "e_no"], name: "resultno"
-    t.index ["success"], name: "index_card_users_on_success"
+    t.index ["result_no", "card_id"], name: "resultno_cardid"
+    t.index ["result_no", "success", "e_no", "battle_page", "party", "generate_no"], name: "resultno_and_battle_page"
     t.index ["turn"], name: "index_card_users_on_turn"
   end
 
@@ -815,6 +814,14 @@ ActiveRecord::Schema.define(version: 2019_01_22_030120) do
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
     t.index ["training"], name: "index_trainings_on_training"
     t.index ["training_type"], name: "index_trainings_on_training_type"
+  end
+
+  create_table "uploaded_checks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["result_no", "generate_no"], name: "resultno_generateno"
   end
 
 end
