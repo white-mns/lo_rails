@@ -59,16 +59,22 @@
 %table.table.table-striped.table-bordered.table-hover
   %thead
     %tr
-      %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
+      %th 更新回
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-      %th.sep= sort_link(@search, :frontier_sum, ex_sort_text(params, "depth_sum", "開拓数"), default_order: :desc)
+      %th.sep= sort_link(@search, :frontier_sum, ex_sort_text(params, "frontier_sum", "開拓数"), default_order: :desc)
       - if @form_params["show_area"] == "1"
         %th.sep 開拓エリア
       %th.sep{colspan: "2"} 結果リンク
   %tbody
     - @frontiers.each do |frontier|
       %tr
-        %td= frontier.result_no
+        %td
+          - if frontier.result_no_min == frontier.result_no_max
+            = frontier.result_no
+          - else
+            = frontier.result_no_min
+            = " ～ "
+            = frontier.result_no_max
         %td= p_name_text(frontier.e_no, frontier.p_name)
         %td.sep= frontier.frontier_sum
         - if @form_params["show_area"] == "1"

@@ -3,8 +3,10 @@ class Frontier < ApplicationRecord
 
     scope :for_group_select, ->(action_name, params) {
         select("*").
-        select("COUNT(result_no) AS frontier_sum,
-               GROUP_CONCAT(col,' - ',lv SEPARATOR '、') AS frontier_areas")
+        select("MIN(result_no) AS result_no_min,
+                MAX(result_no) AS result_no_max,
+                COUNT(result_no) AS frontier_sum,
+                GROUP_CONCAT(col,' - ',lv SEPARATOR '、') AS frontier_areas")
     }
 
     scope :groups, ->(action_name, params) {
