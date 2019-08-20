@@ -39,6 +39,8 @@
             %li= link_to "BUG一覧", bugs_path
             %li= link_to "Cond変化一覧", conditions_path
             %br
+            %li= link_to "マップ開拓回数ランキング", frontier_total_path + "?ex_sort=on"
+            %br
             %li= link_to "カード対戦設定一覧", command_actions_path
             %li= link_to "カード設定枚数ランキング", command_action_rankings_path
             %br
@@ -80,6 +82,11 @@
     %h2 更新履歴
     %div
       %ul
+        %li 2019/8/20
+        %ul
+          %li
+            = link_to "マップ開拓回数ランキング", frontier_total_path + "?ex_sort=on"
+            を公開
         %li 2019/5/27
         %ul
           %li

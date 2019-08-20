@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_08_214812) do
+ActiveRecord::Schema.define(version: 2019_08_19_123055) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -365,6 +365,19 @@ ActiveRecord::Schema.define(version: 2019_03_08_214812) do
     t.index ["recovery_lv"], name: "index_facility_uses_on_recovery_lv"
     t.index ["success"], name: "index_facility_uses_on_success"
     t.index ["usage"], name: "index_facility_uses_on_usage"
+  end
+
+  create_table "frontiers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "result_no"
+    t.integer "generate_no"
+    t.integer "e_no"
+    t.string "col"
+    t.integer "lv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["col"], name: "index_frontiers_on_col"
+    t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_e_no"
+    t.index ["lv"], name: "index_frontiers_on_lv"
   end
 
   create_table "get_cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

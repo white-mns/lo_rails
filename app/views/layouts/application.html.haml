@@ -45,6 +45,8 @@
                 = link_to "BUG一覧", bugs_path, class: "dropdown-item"
                 = link_to "Cond変化一覧", conditions_path, class: "dropdown-item"
                 .dropdown-divider
+                = link_to "マップ開拓回数ランキング", frontier_total_path + "?ex_sort=on", class: "dropdown-item one-item"
+                .dropdown-divider
                 = link_to "カード対戦設定一覧", command_actions_path, class: "dropdown-item"
                 = link_to "カード設定枚数ランキング", command_action_rankings_path, class: "dropdown-item"
                 .dropdown-divider
