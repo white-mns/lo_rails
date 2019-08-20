@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "frontier/total",   :to => "frontiers#total",   :as => 'frontier_total' 
+  resources :frontiers
   resources :uploaded_checks
   resources :pre_total_party_nums
   resources :damage_buffers

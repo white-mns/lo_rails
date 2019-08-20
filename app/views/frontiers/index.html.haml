@@ -1,4 +1,4 @@
-- @page_title = "一覧"
+- @page_title = "マップ開拓一覧"
 %h1= @page_title
 
 .card.desc
@@ -31,14 +31,11 @@
       %tr
         %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "Eno", params_name: "e_no_form", placeholder: "Number")
-      %tr
-        %td.indent
         - td_form(f, @form_params, @placeholder, class_name: "formText", label: "キャラクター名", params_name: "p_name_form", placeholder: "Name")
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
       %tr
         %td.indent
-        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "<%= attribute.human_name %>", params_name: "<%= attribute.name %>_form", placeholder: "Number")
-<% end -%>
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "開拓列", params_name: "col_form", placeholder: "Number")
+        - td_form(f, @form_params, @placeholder, class_name: "formNum",  label: "開拓Lv", params_name: "lv_form", placeholder: "Number")
       %tr
         %td.indent
         %td.indent= hidden_field_tag :is_form, 1
@@ -46,7 +43,7 @@
           - search_submit_button
 
 
-= paginate(@<%= plural_table_name %>)
+= paginate(@frontiers)
 %br
 ヒット数：#{ @count }件
 %br
@@ -57,18 +54,18 @@
     %tr
       %th= sort_link(@search, :result_no,'更新回', default_order: :desc)
       %th= sort_link(@search, :e_no,'キャラクター(Eno)', default_order: :desc)
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-      %th= sort_link(@search, :<%= attribute.name %>, <%= '\'' +  attribute.human_name + '\'' %>, default_order: :desc)
-<% end -%>
-      %th{colspan: "2"} 結果リンク
+      %th.sep= sort_link(@search, :col, '列', default_order: :desc)
+      %th= sort_link(@search, :lv, 'Lv', default_order: :desc)
+      %th.sep{colspan: "2"} 結果リンク
   %tbody
-    - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
+    - @frontiers.each do |frontier|
       %tr
-        %td= <%= singular_table_name %>.result_no
-        %td= p_name_text(<%= singular_table_name %>.e_no, <%= singular_table_name %>.p_name)
-<% attributes.reject(&:password_digest?).each do |attribute| -%>
-        %td= <%= singular_table_name %>.<%= attribute.name %>
-<% end -%>
-        %td= character_link(<%= singular_table_name %>.e_no)
-        %td= character_old_link(@latest_result, <%= singular_table_name %>.e_no, <%= singular_table_name %>.result_no)
-= paginate(@<%= plural_table_name %>)
+        %td= frontier.result_no
+        %td= p_name_text(frontier.e_no, frontier.p_name)
+        %td.sep{colspan:2}
+          = frontier.col
+          = "-"
+          = frontier.lv
+        %td.sep= character_link(frontier.e_no)
+        %td= character_old_link(@latest_result, frontier.e_no, frontier.result_no)
+= paginate(@frontiers)

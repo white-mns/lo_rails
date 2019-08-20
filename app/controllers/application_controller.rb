@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
         @placeholder["Card"]   = "例）斬払/\"傷突刺\" -列"
         @placeholder["Item"]   = "例）カード/\"6歩カード\""
         @placeholder["BattlePage"]   = "例）1 VS 101"
+        @placeholder["Col"]   = "例）A/B/F/a/b/f"
     end
 end
