@@ -44,7 +44,7 @@
       %tr
         %td.indent
         %td= f.label :invation_col_form, '侵攻列'
-        %td.formText= text_field_tag :invation_col_form, @invation_col_form, placeholder: "例）A/B/F"
+        %td.formText= text_field_tag :invation_col_form, @invation_col_form, placeholder: @placeholder["Col"]
         %td= f.label :invation_lv_form, '侵攻Lv'
         %td.formNum= text_field_tag :invation_lv_form, @invation_lv_form, placeholder: @placeholder["Number"]
       %tr

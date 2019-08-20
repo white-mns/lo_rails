@@ -69,6 +69,10 @@ class DevelopmentResultsController < ApplicationController
         params["result_no_form"] ||= sprintf('%d',@latest_result)
     end
     
+    if params["invation_col_form"] then
+        params["invation_col_form"].upcase!
+    end
+
     reference_text_assign(params, "p_name_name", "p_name_form")
     reference_number_assign(params, "result_no", "result_no_form")
     reference_number_assign(params, "generate_no", "generate_no_form")
