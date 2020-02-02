@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :missions
   resources :meddling_targets
   resources :meddling_success_rates
+  get "item_use/total_kakuho",   :to => "item_uses#total_kakuho",   :as => 'item_use_total_kakuho' 
   resources :new_item_uses
   resources :item_uses
   get "training/graph",   :to => "trainings#graph",   :as => 'training_graph' 

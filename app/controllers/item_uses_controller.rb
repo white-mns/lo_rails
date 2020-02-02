@@ -12,6 +12,16 @@ class ItemUsesController < ApplicationController
     @item_uses	= @search.result.per(50)
   end
 
+  # GET /item_use/total_kakuho
+  def total_kakuho
+    placeholder_set
+    params["name_form"] = "歩カード/大いなる意志"
+    param_set
+    @count	= ItemUse.notnil().includes(:p_name).search(params[:q]).result.count()
+    @search	= ItemUse.notnil().includes(:p_name).group_eno_and_count().page(params[:page]).search(params[:q])
+    @item_uses	= @search.result.per(50)
+  end
+
   def param_set
     @latest_result = Name.maximum('result_no')
     
