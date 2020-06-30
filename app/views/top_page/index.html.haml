@@ -1,8 +1,9 @@
 %h1 LastOrder#Aデータ小屋
 %p
   このサイトでは
-  %a{:href => "http://ykamiya.ciao.jp/index.html", :target => "_blank"} LastOrder#A 〜最終注文#A〜
-  を解析して得られる情報を扱っています。
+  『LastOrder#A 〜最終注文#A〜』
+  %span{:style => "font-size:small;"} (本家サイト消滅によりリンク削除)
+  を解析して得られる情報を扱っていました。
 %br
 %p= top_text(@latest_result, @latest_generate, @uploaded_result)
 
@@ -19,6 +20,8 @@
         %ul
           %li 個人データ
           %ul  
+            %li= link_to "キャラクター名・プレイヤー名一覧", names_path
+            %br
             %li= link_to "潜在・属性・専門一覧", profile_pgws_path
             %li= link_to "特性一覧", characteristics_path
             %li= link_to "学科一覧", subjects_path
@@ -82,6 +85,15 @@
     %h2 更新履歴
     %div
       %ul
+        %li 2020/7/1
+        %ul
+          %li
+            結果リンクを
+            = link_to "データ小屋アーカイブス", "https://archives.teiki.org/lo/a/"
+            のものに置き換え
+          %li
+            = link_to "キャラクター名・プレイヤー名一覧", names_path
+            を公開
         %li 2019/8/20
         %ul
           %li
