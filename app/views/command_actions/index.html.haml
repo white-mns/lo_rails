@@ -139,7 +139,7 @@
         - if @show_detail_card_data == "1"
           %td= command_action.card_data.lp if command_action.card_data
           %td= command_action.card_data.fp if command_action.card_data
-        %td= character_command_link(command_action.e_no)
+        %td= character_command_link(command_action.e_no,command_action.result_no)
         %td= character_link(command_action.e_no)
         %td= character_old_link(@latest_result, command_action.e_no, command_action.result_no)
 = paginate(@command_actions)
