@@ -26,6 +26,8 @@
                 個人データ
                 %span.caret
               .dropdown-menu{aria: {labelledby: "themes"}}
+                = link_to "キャラクター名・プレイヤー名一覧", names_path, class: "dropdown-item one-item"
+                .dropdown-divider
                 = link_to "潜在・属性・専門一覧", profile_pgws_path, class: "dropdown-item"
                 = link_to "特性一覧", characteristics_path, class: "dropdown-item"
                 = link_to "学科一覧", subjects_path, class: "dropdown-item one-item"

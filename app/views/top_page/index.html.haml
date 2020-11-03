@@ -17,6 +17,9 @@
     %ul
       %li
         %span{style: "font-size:x-large;"}
+          = link_to "キャラクター名・プレイヤー名一覧", names_path
+      %li
+        %span{style: "font-size:x-large;"}
           = link_to "学科から獲得カードを探す", drop_min_subject_select_path
     %br
     .row
@@ -24,8 +27,6 @@
         %ul
           %li 個人データ
           %ul  
-            %li= link_to "キャラクター名・プレイヤー名一覧", names_path
-            %br
             %li= link_to "潜在・属性・専門一覧", profile_pgws_path
             %li= link_to "特性一覧", characteristics_path
             %li= link_to "学科一覧", subjects_path
