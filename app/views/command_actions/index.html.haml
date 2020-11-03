@@ -119,7 +119,7 @@
       - if @show_detail_card_data == "1"
         %th= sort_link(@search, :card_data_lp, 'LP', default_order: :desc)
         %th= sort_link(@search, :card_data_fp, 'FP', default_order: :desc)
-      %th  戦闘設定
+      %th{colspan: "2"}  戦闘設定
       %th{colspan: "2"} 結果リンク
   %tbody
     - @command_actions.each do |command_action|
@@ -139,7 +139,8 @@
         - if @show_detail_card_data == "1"
           %td= command_action.card_data.lp if command_action.card_data
           %td= command_action.card_data.fp if command_action.card_data
-        %td= character_command_link(command_action.e_no,command_action.result_no)
+        %td= character_command_link(command_action.e_no)
+        %td= character_command_old_link(@latest_result, command_action.e_no, command_action.result_no)
         %td= character_link(command_action.e_no)
         %td= character_old_link(@latest_result, command_action.e_no, command_action.result_no)
 = paginate(@command_actions)
