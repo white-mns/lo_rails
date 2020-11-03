@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_044216) do
+ActiveRecord::Schema.define(version: 2020_11_03_081508) do
 
   create_table "bugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "result_no"
@@ -393,6 +393,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_044216) do
     t.datetime "updated_at", null: false
     t.index ["card_id"], name: "index_get_cards_on_card_id"
     t.index ["e_no", "result_no", "generate_no"], name: "resultno_and_eno"
+    t.index ["get_type", "result_no", "generate_no", "e_no", "card_id"], name: "gettype_and_resultno_and_eno_and_cardid"
     t.index ["get_type"], name: "index_get_cards_on_get_type"
     t.index ["name"], name: "index_get_cards_on_name", length: 191
   end
