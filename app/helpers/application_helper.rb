@@ -31,20 +31,21 @@ module ApplicationHelper
         link_to " 過去結果", "https://archives.teiki.org/lo/a/result"+result_no_text+"/result_chara/result_Eno"+file_name+".html", :target => "_blank"
     end
     
-    def character_command_link(e_no, result_no)
+    def character_command_link(e_no)
         if e_no      <= 0 then return end
-        if result_no <= 5 then return end
+        result_no = 40
         result_no_text = sprintf("%d",result_no);
         file_name = sprintf("%d",e_no)
-        link_to " 更新時設定", "https://archives.teiki.org/lo/a/result"+result_no_text+"/result_com/result_com"+file_name+".html", :target => "_blank"
+        link_to " 最終設定", "https://archives.teiki.org/lo/a/result"+result_no_text+"/result_com/result_com"+file_name+".html", :target => "_blank"
     end
     
     def character_command_old_link(latest_result_no, e_no, result_no)
         if e_no      <= 0 then return end
         if result_no <= 5 then return end
-        result_no_text = (result_no != latest_result_no) ? sprintf("%d",result_no) : "";
+        if result_no == latest_result_no then return end
+        result_no_text = sprintf("%d",result_no);
         file_name = sprintf("%d",e_no)
-        link_to " 更新時設定", "https://archives.teiki.org/lo/a/result"+result_no_text+"/result_com/result_com"+file_name+".html", :target => "_blank"
+        link_to " 過去設定", "https://archives.teiki.org/lo/a/result"+result_no_text+"/result_com/result_com"+file_name+".html", :target => "_blank"
     end
     
     def battle_link(latest_result_no, battle_page, result_no)
