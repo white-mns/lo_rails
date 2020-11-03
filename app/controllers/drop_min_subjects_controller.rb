@@ -9,7 +9,6 @@ class DropMinSubjectsController < ApplicationController
     @count	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result.count()
     @all	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result
     @search	= DropMinSubject.notnil().includes(card_data: :kind_name).page(params[:page]).search(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
     @drop_min_subjects	= @search.result.per(50)
     
     if params["min_0_hidden"] || params["min_0_gray"] then set_open_flg end
