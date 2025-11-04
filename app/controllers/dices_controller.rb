@@ -6,8 +6,8 @@ class DicesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Dice.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= Dice.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Dice.notnil().includes(:p_name).ransack(params[:q]).result.count()
+    @search	= Dice.notnil().includes(:p_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @dices	= @search.result.per(50)
   end

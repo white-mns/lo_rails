@@ -6,8 +6,8 @@ class FrontiersController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Frontier.notnil().includes(:p_name).search(params[:q]).result.hit_count()
-    @search	= Frontier.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Frontier.notnil().includes(:p_name).ransack(params[:q]).result.hit_count()
+    @search	= Frontier.notnil().includes(:p_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @frontiers	= @search.result.per(50)
   end
@@ -16,8 +16,8 @@ class FrontiersController < ApplicationController
   def total
     placeholder_set
     param_set
-    @count	= Frontier.notnil().includes(:p_name).groups(action_name, params).search(params[:q]).result.hit_count()
-    @search	= Frontier.notnil().includes(:p_name).groups(action_name, params).for_group_select(action_name, params).having_order(params).page(params[:page]).search(params[:q])
+    @count	= Frontier.notnil().includes(:p_name).groups(action_name, params).ransack(params[:q]).result.hit_count()
+    @search	= Frontier.notnil().includes(:p_name).groups(action_name, params).for_group_select(action_name, params).having_order(params).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty? && params["ex_sort"] != "on"
     @frontiers	= @search.result.per(50)
   end

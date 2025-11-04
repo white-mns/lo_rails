@@ -6,8 +6,8 @@ class CommandActionsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).search(params[:q]).result.count()
-    @search	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).page(params[:page]).search(params[:q])
+    @count	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).ransack(params[:q]).result.count()
+    @search	= CommandAction.notnil().includes(:p_name, [card_data: :kind_name], :timing_name, :gowait_name, :s_no_data).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @command_actions	= @search.result.per(50)
   end

@@ -6,8 +6,8 @@ class DamagesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).search(params[:q]).result.count()
-    @search	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).page(params[:page]).search(params[:q])
+    @count	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).ransack(params[:q]).result.count()
+    @search	= Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).all_includes(params).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @damages	= @search.result.per(50)
 
@@ -22,7 +22,7 @@ class DamagesController < ApplicationController
                 COUNT(damage >= 0 or null) AS hit,
                 COUNT(damage = -1 or null) AS dodge
                 ")
-        .search(params[:q])
+        .ransack(params[:q])
     @stat_search.sorts = 'act_type asc'
     @statistics = @stat_search.result
   end

@@ -6,9 +6,9 @@ class GetCardsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result.count()
-    @all	= GetCard.notnil().includes(:p_name, card_data: :kind_name).search(params[:q]).result
-    @search	= GetCard.notnil().includes(:p_name, card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= GetCard.notnil().includes(:p_name, card_data: :kind_name).ransack(params[:q]).result.count()
+    @all	= GetCard.notnil().includes(:p_name, card_data: :kind_name).ransack(params[:q]).result
+    @search	= GetCard.notnil().includes(:p_name, card_data: :kind_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
   end
@@ -16,9 +16,9 @@ class GetCardsController < ApplicationController
   def drop_subjects
     param_set
     params[:q]["get_type_eq_any"]=[2] 
-    @all	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name]).search(params[:q]).result
-    @count	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).search(params[:q]).result.count()
-    @search	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).page(params[:page]).search(params[:q])
+    @all	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name]).ransack(params[:q]).result
+    @count	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).ransack(params[:q]).result.count()
+    @search	= GetCard.notnil().includes(:p_name, :subject, [card_data: :kind_name], [speciality: :pgws_name], [training: :training_name]).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @get_cards	= @search.result.per(50)
     

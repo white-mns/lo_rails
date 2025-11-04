@@ -1,4 +1,13 @@
 class Damage < ApplicationRecord
+
+    def self.ransackable_attributes(auth_object = nil)
+      column_names
+    end
+
+    def self.ransackable_associations(auth_object = nil)
+      Array(reflect_on_all_associations).map(&:name).map(&:to_s)
+    end
+
     def self.regexpProperName(proper_name, regexp)
         proper_name.inject(Array.new(0)){ |array , a| if a[0] =~ /#{regexp}/ then array.push(a[1]) end; array }
     end

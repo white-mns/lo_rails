@@ -6,8 +6,8 @@ class ParameterDevelopmentsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).search(params[:q]).result.count()
-    @search	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).page(params[:page]).search(params[:q])
+    @count	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).ransack(params[:q]).result.count()
+    @search	= ParameterDevelopment.notnil().includes(:p_name, :cond_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @parameter_developments	= @search.result.per(50)
   end
@@ -15,8 +15,8 @@ class ParameterDevelopmentsController < ApplicationController
   # GET /conditions
   def conditions
     param_set
-    @count	= ParameterDevelopment.notnil().includes(:p_name, [last_parameter: :cond_name], [parameter_control: :cond_name],  :cond_name, :item_use, :facility_use_1, :facility_use_2, :dice_1, :dice_2, :development_result, :place).search(params[:q]).result.count()
-    @search	= ParameterDevelopment.notnil().includes(:p_name, [last_parameter: :cond_name], [parameter_control: :cond_name],  :cond_name, :item_use, :facility_use_1, :facility_use_2, :dice_1, :dice_2, :development_result, :place).page(params[:page]).search(params[:q])
+    @count	= ParameterDevelopment.notnil().includes(:p_name, [last_parameter: :cond_name], [parameter_control: :cond_name],  :cond_name, :item_use, :facility_use_1, :facility_use_2, :dice_1, :dice_2, :development_result, :place).ransack(params[:q]).result.count()
+    @search	= ParameterDevelopment.notnil().includes(:p_name, [last_parameter: :cond_name], [parameter_control: :cond_name],  :cond_name, :item_use, :facility_use_1, :facility_use_2, :dice_1, :dice_2, :development_result, :place).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @conditions	= @search.result.per(50)
   end

@@ -6,8 +6,8 @@ class SubjectsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Subject.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= Subject.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= Subject.notnil().includes(:p_name).ransack(params[:q]).result.count()
+    @search	= Subject.notnil().includes(:p_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @subjects	= @search.result.per(50)
   end

@@ -6,8 +6,8 @@ class FacilitiesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).search(params[:q]).result.count()
-    @search	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).page(params[:page]).search(params[:q])
+    @count	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).ransack(params[:q]).result.count()
+    @search	= Facility.notnil().includes(:p_name, :holiday_name, :division_name, :detail_division_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @facilities	= @search.result.per(50)
   end

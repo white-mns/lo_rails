@@ -6,8 +6,8 @@ class MeddlingTargetsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).search(params[:q]).result.count()
-    @search	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).page(params[:page]).search(params[:q])
+    @count	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).ransack(params[:q]).result.count()
+    @search	= MeddlingTarget.notnil().includes(:p_name, :card_data, :target_data).page(params[:page]).ransack(params[:q])
     @search.sorts = 'target_data_lpfp desc' if @search.sorts.empty?
     @meddling_targets	= @search.result.per(50)
   end

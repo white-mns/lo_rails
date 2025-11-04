@@ -6,9 +6,9 @@ class DropMinSubjectsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result.count()
-    @all	= DropMinSubject.notnil().includes(card_data: :kind_name).search(params[:q]).result
-    @search	= DropMinSubject.notnil().includes(card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= DropMinSubject.notnil().includes(card_data: :kind_name).ransack(params[:q]).result.count()
+    @all	= DropMinSubject.notnil().includes(card_data: :kind_name).ransack(params[:q]).result
+    @search	= DropMinSubject.notnil().includes(card_data: :kind_name).page(params[:page]).ransack(params[:q])
     @drop_min_subjects	= @search.result.per(50)
     
     if params["min_0_hidden"] || params["min_0_gray"] then set_open_flg end
@@ -17,7 +17,7 @@ class DropMinSubjectsController < ApplicationController
   def select
     @subjects = ["slash","thrust","stroke","shot","theft","dance","guard","cooking","technology","movement",
 		 "magic","theology","life","demonology","psychology","arithmetic","music","chemistry","geography","astronomy"]
-    @search	= DropMinSubject.notnil().page(params[:page]).search(params[:q])
+    @search	= DropMinSubject.notnil().page(params[:page]).ransack(params[:q])
   end
 
   def set_open_flg

@@ -6,8 +6,8 @@ class BugsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
-    @search	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).search(params[:q])
+    @count	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).ransack(params[:q]).result.count()
+    @search	= Bug.notnil().where_front(params).includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).page(params[:page]).ransack(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result.per(50)
   end
@@ -17,7 +17,7 @@ class BugsController < ApplicationController
     placeholder_set
     param_set
     group_set
-    @count	= Bug.notnil().where("bugs.result_no = lv").includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).search(params[:q]).result.count()
+    @count	= Bug.notnil().where("bugs.result_no = lv").includes(:p_name, :bug_name, :development_result, :pre_win, :bug_pre_win).ransack(params[:q]).result.count()
     @search	= Bug.notnil().where("bugs.result_no = bugs.lv").where("bugs.order = 0")
                  .joins(:development_result, :bug_pre_win).group(@group).group(:win)
                  .select("*").select("count(*) AS count").select("count(pre_wins.win = 0 or null) AS win_0,
@@ -25,7 +25,7 @@ class BugsController < ApplicationController
                            count(pre_wins.win = 2 or null) AS win_3,
                            count(pre_wins.win = 3 or null) AS win_2
                            ")
-                 .search(params[:q])
+                 .ransack(params[:q])
     @search.sorts = 'bug_e_no asc' if @search.sorts.empty?
     @bugs	= @search.result
   end

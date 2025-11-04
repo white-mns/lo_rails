@@ -6,8 +6,8 @@ class MissionNamesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= MissionName.search(params[:q]).result.count()
-    @search	= MissionName.page(params[:page]).search(params[:q])
+    @count	= MissionName.ransack(params[:q]).result.count()
+    @search	= MissionName.page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @mission_names	= @search.result.per(50)
   end

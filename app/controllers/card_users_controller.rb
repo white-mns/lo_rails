@@ -6,8 +6,8 @@ class CardUsersController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).search(params[:q]).result.count().keys().size()
-    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).page(params[:page]).search(params[:q])
+    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).ransack(params[:q]).result.count().keys().size()
+    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @card_users	= @search.result.per(50)
   end
@@ -16,8 +16,8 @@ class CardUsersController < ApplicationController
   def sum
     placeholder_set
     param_set
-    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).search(params[:q]).result.count().keys().size()
-    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).having_order(params).page(params[:page]).search(params[:q])
+    @count	= CardUser.notnil().includes(:p_name).pre_includes(params).all_group(action_name, params).ransack(params[:q]).result.count().keys().size()
+    @search	= CardUser.notnil().includes(:p_name).pre_includes(params).for_graph_select(action_name, params).all_group(action_name, params).having_order(params).page(params[:page]).ransack(params[:q])
     @card_users	= @search.result.per(50)
   end
 
@@ -26,7 +26,7 @@ class CardUsersController < ApplicationController
     placeholder_set
     param_set
     @select	= CardUser.notnil().pre_includes(params).joins(:card_data).where_old_top(@latest_result, @show_old_top, params).for_graph_select(action_name, params)
-    @search	= @select.search(params[:q])
+    @search	= @select.ransack(params[:q])
     @library_param = {
         interpolateNulls: true
     }

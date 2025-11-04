@@ -6,8 +6,8 @@ class DevelopmentResultsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
-    @search	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).page(params[:page]).search(params[:q])
+    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).ransack(params[:q]).result.count()
+    @search	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @development_results	= @search.result.per(50)
   end
@@ -20,14 +20,14 @@ class DevelopmentResultsController < ApplicationController
     param_set
     win_per_set_group
 
-    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).search(params[:q]).result.count()
+    @count	= DevelopmentResult.notnil().includes(:p_name, :place, :parameter_control).ransack(params[:q]).result.count()
     @search	= DevelopmentResult.notnil().includes(:p_name).joins(:place, :parameter_control).group(@group)
                                 .select("*").select("count(*) AS count").select("count(development_result = 1 or null) AS win,
                                     count(development_result = 0 or null) AS draw,
                                     count(development_result = -1 or null) AS lose,
                                     count(development_result = 1 or null) / count(*) AS win_per,
                                     min(places.result_no) AS min_result_no, max(places.result_no) AS max_result_no")
-                                .search(params[:q])
+                                .ransack(params[:q])
     @search.sorts = @sort if @search.sorts.empty?
     @development_results	= @search.result
     
@@ -37,7 +37,7 @@ class DevelopmentResultsController < ApplicationController
                                     count(development_result = -1 or null) AS lose,
                                     count(development_result = 1 or null) / count(*) AS win_per,
                                     min(places.result_no) AS min_result_no, max(places.result_no) AS max_result_no")
-                                .search(params[:q]).result
+                                .ransack(params[:q]).result
   end
 
   def win_per_set_group

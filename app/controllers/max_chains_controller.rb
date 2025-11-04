@@ -6,8 +6,8 @@ class MaxChainsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= MaxChain.notnil().search(params[:q]).result.count()
-    @search	= MaxChain.notnil().page(params[:page]).search(params[:q])
+    @count	= MaxChain.notnil().ransack(params[:q]).result.count()
+    @search	= MaxChain.notnil().page(params[:page]).ransack(params[:q])
     @search.sorts = 'max_chain desc' if @search.sorts.empty?
     @max_chains	= @search.result.per(50)
   end

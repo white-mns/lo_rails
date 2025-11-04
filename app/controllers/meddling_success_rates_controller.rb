@@ -6,8 +6,8 @@ class MeddlingSuccessRatesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).search(params[:q]).result.count()
-    @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).page(params[:page]).search(params[:q])
+    @count	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).ransack(params[:q]).result.count()
+    @search	= MeddlingSuccessRate.notnil().includes(:p_name, :card_data, :targets).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @meddling_success_rates	= @search.result.per(50)
   end

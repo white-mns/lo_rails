@@ -6,8 +6,8 @@ class NewItemUsesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= NewItemUse.notnil().search(params[:q]).result.count()
-    @search	= NewItemUse.notnil().page(params[:page]).search(params[:q])
+    @count	= NewItemUse.notnil().ransack(params[:q]).result.count()
+    @search	= NewItemUse.notnil().page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @new_item_uses	= @search.result.per(50)
   end

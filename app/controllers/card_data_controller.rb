@@ -6,8 +6,8 @@ class CardDataController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= CardDatum.includes(:kind_name).search(params[:q]).result.count()
-    @search	= CardDatum.includes(:kind_name).page(params[:page]).search(params[:q])
+    @count	= CardDatum.includes(:kind_name).ransack(params[:q]).result.count()
+    @search	= CardDatum.includes(:kind_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @card_data	= @search.result.per(50)
   end

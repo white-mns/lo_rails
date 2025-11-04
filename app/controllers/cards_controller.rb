@@ -6,8 +6,8 @@ class CardsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Card.notnil().includes(:p_name, :possession_name, card_data: :kind_name).search(params[:q]).result.count()
-    @search	= Card.notnil().includes(:p_name, :possession_name, card_data: :kind_name).page(params[:page]).search(params[:q])
+    @count	= Card.notnil().includes(:p_name, :possession_name, card_data: :kind_name).ransack(params[:q]).result.count()
+    @search	= Card.notnil().includes(:p_name, :possession_name, card_data: :kind_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @cards	= @search.result.per(50)
   end

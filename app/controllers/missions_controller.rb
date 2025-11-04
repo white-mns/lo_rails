@@ -6,8 +6,8 @@ class MissionsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
-    @search	= Mission.notnil().includes(:p_name, :mission).page(params[:page]).search(params[:q])
+    @count	= Mission.notnil().includes(:p_name, :mission).ransack(params[:q]).result.count()
+    @search	= Mission.notnil().includes(:p_name, :mission).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @missions	= @search.result.per(50)
   end
@@ -16,7 +16,7 @@ class MissionsController < ApplicationController
   def statistics
     placeholder_set
     param_set
-    @count	 = Mission.notnil().includes(:p_name, :mission).search(params[:q]).result.count()
+    @count	 = Mission.notnil().includes(:p_name, :mission).ransack(params[:q]).result.count()
     @search	 = Mission.notnil().includes(:p_name, :mission)
                                 .where(mission_type: 0)
                                 .group(:result_no, :mission_id)
@@ -25,7 +25,7 @@ class MissionsController < ApplicationController
                                     count(status = 1 or null) AS status_clear,
                                     count(status = 1 or null) / count(*) AS clear_per
                                     ")
-                                .page(params[:page]).search(params[:q])
+                                .page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @missions	= @search.result.per(50)
   end

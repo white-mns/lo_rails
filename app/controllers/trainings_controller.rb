@@ -6,8 +6,8 @@ class TrainingsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
-    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
+    @count	= Training.notnil().includes(:p_name, :training_name).ransack(params[:q]).result.count()
+    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end
@@ -28,8 +28,8 @@ class TrainingsController < ApplicationController
   def graph
     placeholder_set
     param_set
-    @count	= Training.notnil().includes(:p_name, :training_name).search(params[:q]).result.count()
-    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).search(params[:q])
+    @count	= Training.notnil().includes(:p_name, :training_name).ransack(params[:q]).result.count()
+    @search	= Training.notnil().includes(:p_name, :training_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @trainings	= @search.result.per(50)
   end

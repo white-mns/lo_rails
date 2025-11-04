@@ -6,8 +6,8 @@ class CommandActionRankingsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= CommandActionRanking.notnil().includes([card_data: :kind_name]).search(params[:q]).result.count()
-    @search	= CommandActionRanking.notnil().includes([card_data: :kind_name]).page(params[:page]).search(params[:q])
+    @count	= CommandActionRanking.notnil().includes([card_data: :kind_name]).ransack(params[:q]).result.count()
+    @search	= CommandActionRanking.notnil().includes([card_data: :kind_name]).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @command_action_rankings	= @search.result.per(50)
   end

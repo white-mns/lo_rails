@@ -6,15 +6,15 @@ class PgwsController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= Pgw.notnil().includes(:p_name, :pgws_name).search(params[:q]).result.count()
-    @search	= Pgw.notnil().includes(:p_name, :pgws_name).page(params[:page]).search(params[:q])
+    @count	= Pgw.notnil().includes(:p_name, :pgws_name).ransack(params[:q]).result.count()
+    @search	= Pgw.notnil().includes(:p_name, :pgws_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @pgws	= @search.result.per(50)
   end
   
   def graph
     param_set
-    @search	= Pgw.notnil().includes([:p_name, :pgws_name]).search(params[:q])
+    @search	= Pgw.notnil().includes([:p_name, :pgws_name]).ransack(params[:q])
   end
 
   def param_set

@@ -6,8 +6,8 @@ class ItemUsesController < ApplicationController
   def index
     placeholder_set
     param_set
-    @count	= ItemUse.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= ItemUse.notnil().includes(:p_name).page(params[:page]).search(params[:q])
+    @count	= ItemUse.notnil().includes(:p_name).ransack(params[:q]).result.count()
+    @search	= ItemUse.notnil().includes(:p_name).page(params[:page]).ransack(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
     @item_uses	= @search.result.per(50)
   end
@@ -17,8 +17,8 @@ class ItemUsesController < ApplicationController
     placeholder_set
     params["name_form"] = "歩カード/大いなる意志"
     param_set
-    @count	= ItemUse.notnil().includes(:p_name).search(params[:q]).result.count()
-    @search	= ItemUse.notnil().includes(:p_name).group_eno_and_count().page(params[:page]).search(params[:q])
+    @count	= ItemUse.notnil().includes(:p_name).ransack(params[:q]).result.count()
+    @search	= ItemUse.notnil().includes(:p_name).group_eno_and_count().page(params[:page]).ransack(params[:q])
     @item_uses	= @search.result.per(50)
   end
 
