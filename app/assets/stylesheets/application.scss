@@ -24,7 +24,9 @@ $nav-hover-bg-color:                #fc8;
 $nav-active-bg-color:               #fda;
 $nav-well-border-color:             #fc8;
 
+$table-bg:                          $weak-color;
 $table-accent-bg:                   $weak-color;
+$table-dark-bg:                     #fff;
 $table-hover-bg:                    $hover-bg-color;
 $link-color:                        #08f;
 $link-bg-color:                     $link-color;
@@ -194,6 +196,19 @@ th.sep,td.sep{
 
 tr.sep{
     border-top: 4px solid $table-border-color;
+}
+
+.table-striped td,
+.table-striped th{
+    background-color: var(--bs-table-bg) !important;
+}
+
+.table-striped>tbody>tr:nth-of-type(even)>* {
+    --bs-table-bg-type: #fff;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-bg-type: var(--bs-table-bg);
 }
 
 table tr:nth-child(1) span.act_desc{
