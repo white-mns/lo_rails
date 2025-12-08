@@ -81,10 +81,42 @@ class CardUser < ApplicationRecord
                         end
 
                         for result_no in old_rank_vols[0]..old_rank_vols[1] do
-                            card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: result_no).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).search(params_copy[:q]).result.pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                            # Ransack で where 検索だけ適用
+                            card_users_filtered = CardUser.notnil()
+                                                  .includes(:card_data)
+                                                  .where(result_no: result_no)
+                                                  .ransack(params_copy[:q])
+                                                  .result
+
+                            # 集計・ランキング（COUNT）は別で計算
+                            #    order には Arel.sql を使う
+                            top_skills = card_users_filtered
+                                          .notnil()
+                                          .includes(:card_data)
+                                          .group_card(params)
+                                          .order(Arel.sql("COUNT(*) DESC"))
+                                          .limit(params["old_rank_num"].to_i)
+
+                            card_names << Hash[*top_skills.pluck("card_data.name").flat_map { |id| [id, nil] }].keys
                         end
                     else
-                        card_names << Hash[*CardUser.notnil().includes(:card_data).where(result_no: split_param.to_i).group_card(params).order("count desc").limit(params["old_rank_num"].to_i).search(params_copy[:q]).result.pluck("card_data.name", "COUNT(*) as count").flatten].keys
+                        # Ransack で where 検索だけ適用
+                        card_users_filtered = CardUser.notnil()
+                                              .includes(:card_data)
+                                              .where(result_no: split_param.to_i)
+                                              .ransack(params_copy[:q])
+                                              .result
+
+                        # 集計・ランキング（COUNT）は別で計算
+                        #    order には Arel.sql を使う
+                        top_skills = card_users_filtered
+                                      .notnil()
+                                      .includes(:card_data)
+                                      .group_card(params)
+                                      .order(Arel.sql("COUNT(*) DESC"))
+                                      .limit(params["old_rank_num"].to_i)
+
+                        card_names << Hash[*top_skills.pluck("card_data.name").flat_map { |id| [id, nil] }].keys
                     end
                 end
 

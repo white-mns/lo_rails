@@ -77,19 +77,19 @@
 %br
 
 %h3.graph_title 腕力
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:str), xtitle:"腕力", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:str), xtitle:"腕力", ytitle:"人数"
 %br
 %h3.graph_title 体力
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:vit), xtitle:"体力", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:vit), xtitle:"体力", ytitle:"人数"
 %br
 %h3.graph_title 理力
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:int), xtitle:"理力", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:int), xtitle:"理力", ytitle:"人数"
 %br
 %h3.graph_title 精神
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:mnd), xtitle:"精神", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:mnd), xtitle:"精神", ytitle:"人数"
 %br
 %h3.graph_title 器用
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:tec), xtitle:"器用", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:tec), xtitle:"器用", ytitle:"人数"
 %br
 %h3.graph_title 敏捷
-= column_chart Characteristic.search(params[:q]).result.to_range_graph(:eva), xtitle:"敏捷", ytitle:"人数"
+= column_chart Characteristic.ransack(params[:q]).result.to_range_graph(:eva), xtitle:"敏捷", ytitle:"人数"

@@ -12,7 +12,7 @@ class Pgw < ApplicationRecord
 	belongs_to :pgws_name,  :foreign_key => :pgws_name_id,    :primary_key => :proper_id, :class_name => 'ProperName'
     
     scope :pgws_type, -> (type, params){
-        includes(:p_name, :pgws_name).where(pgws_type: type).search(params[:q]).result
+        includes(:p_name, :pgws_name).where(pgws_type: type).ransack(params[:q]).result
     }
 
     scope :to_pgws_graph, -> (column) {

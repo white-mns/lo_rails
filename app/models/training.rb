@@ -12,7 +12,7 @@ class Training < ApplicationRecord
 	belongs_to :training_name, :foreign_key => :training, :primary_key => :proper_id, :class_name => 'ProperName'
   
     scope :training_type, ->(type)   { includes(:p_name, :training_name).where(training_type: type) }
-    scope :search_result, ->(params) { search(params[:q]).result }
+    scope :search_result, ->(params) { ransack(params[:q]).result }
     
     scope :to_training_graph, ->(column) {
         training_name = Hash[*ProperName.pluck(:proper_id, :name).flatten]

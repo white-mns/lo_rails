@@ -110,10 +110,10 @@
           - search_submit_button
 
 %h3 発動回数
-= line_chart @select.search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"回数", height: "600px", library: @library_param
+= line_chart @select.ransack(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"回数", height: "600px", library: @library_param
 
 %h3 使用人数
-= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.e_no").group_card(params).search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"人数", height: "600px", library: @library_param
+= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.e_no").group_card(params).ransack(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"人数", height: "600px", library: @library_param
 
 %h3 使用PT数
-= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.party").group_card(params).search(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"PT数", height: "600px", library: @library_param
+= line_chart @select.includes(:card_data).group("card_users.result_no").group("card_users.party").group_card(params).ransack(params[:q]).result.to_card_user_history_graph(params, :card_id), xtitle:"更新回", ytitle:"PT数", height: "600px", library: @library_param

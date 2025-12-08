@@ -479,7 +479,7 @@
           %td= sprintf("%.0f％", statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f * 100)
           %td= sprintf("%.0f％", (1.to_f -  (statistic.hit.to_f / (statistic.hit + statistic.dodge).to_f)) * 100)
 - if @form_params["show_graph"]
-  = column_chart Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).search(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"効果量", ytitle: "件数"
+  = column_chart Damage.notnil().where_dodge(@form_params["show_detail_dodge"], @form_params["only_dodge"]).where_target_type(@form_params["only_friend"], @form_params["only_enemy"]).ransack(params[:q]).result.to_range_variable_min_graph(:damage), xtitle:"効果量", ytitle: "件数"
 %br
 
 = paginate(@damages)
